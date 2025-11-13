@@ -22,7 +22,7 @@ Fincra supports two types of accounts for our **Pay with Transfer** payment meth
 2. **Pool Accounts**: Pool account is a static or fixed account used to receive payments. Unlike the dynamic accounts which are generated upon initiating a charge and expire in a set time, pool account will remain the same for your business for all charges you initiate.
 
 > 🚧 NOTE
-> 
+>
 > 1. Dynamic accounts are not meant to be reused or paid into after expiry (20 minutes). Payments made into dynamic accounts after expiry or on second use will most likely not go through or eventually be refunded to the customers. Communicate this clearly to your customers.
 > 2. Although Pool account details are the same for all charges, it is still important you create a charge for each payment attempt as the charge ID will be used to identify and create a pending transaction that will be confirmed once the payment goes through. More details on the ID can be found below.
 
@@ -138,9 +138,9 @@ If you receive a response with the status `pending`, the bank account has been c
 
 Take note of the following 
 
-- `id` refers to the unique identifier of the transaction. For pool accounts, this field is to be passed to your customers for them to add as a narration for the payment they are making. 
-- `reference` refers to the unique identifier of the transaction on your platform.
-- `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
+* `id` refers to the unique identifier of the transaction. For pool accounts, this field is to be passed to your customers for them to add as a narration for the payment they are making. 
+* `reference` refers to the unique identifier of the transaction on your platform.
+* `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
 
 ## 2 - Complete the payment
 
