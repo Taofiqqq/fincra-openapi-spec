@@ -27,14 +27,11 @@ I f you fail to include your key when making an API request or provide an incorr
 "message": "No API key found in request"
 ```
 
-
-
 ## Getting your API keys
 
 Every account comes with three sets of API keys : The **Secret key** used for making API requests, The **Public key** that identifies your account with Fincra, and the **Webhook secret key** that is used for validating webhooks. All API keys are available for Live and Test modes.
 
-**To obtain your API keys, follow the instructions below:  
-**
+**To obtain your API keys, follow the instructions below:\&#xA;**
 
 ## Step 1
 
@@ -52,7 +49,7 @@ The Public Key is intended solely for identifying your account with Fincra. It c
 
 The Encryption Key can be utilized for the following purposes:
 
-- Validating webhooks (refer to the webhook validation  [guide](/docs/secret-key) for details).
-- Encryption (refer to the encryption  [guide](/docs/encryption) for details).
+* Validating webhooks (refer to the webhook validation  [guide](/docs/secret-key) for details).
+* Encryption (refer to the encryption  [guide](/docs/encryption) for details).
 
 ![](https://files.readme.io/19e5ad1-Screenshot_2023-06-20_at_5.41.54_PM.png)
