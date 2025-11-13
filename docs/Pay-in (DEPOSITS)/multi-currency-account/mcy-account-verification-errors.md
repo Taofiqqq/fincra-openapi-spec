@@ -167,7 +167,7 @@ Address verification errors occur when there are issues related to the address d
 <br />
 
 > 📘 Note
-> 
+>
 > Addressing these errors not only ensures regulatory compliance but also builds trust with customers by demonstrating a commitment to secure and reliable financial services. 
-> 
+>
 > Businesses can use this documentation as a reference to train their support teams, develop automated solutions for error handling, and implement preventive measures to minimize the occurrence of such errors. By doing so, they can streamline the account creation process, reduce delays, and provide a seamless experience for their customers.
