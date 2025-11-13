@@ -18,8 +18,8 @@ With Payment Links, you can quickly create a payment page and share the link wit
 
 Access the dashboard on your portal and navigate to the Payins → Payment links page and click the ‘Create a Payment Link’ button, then:
 
-- Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Payment Link will appear to a customer just before they make payment.
-- Click on Create.
+* Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Payment Link will appear to a customer just before they make payment.
+* Click on Create.
 
 ![](https://files.readme.io/cdf7ec7-Screenshot_2022-04-20_at_15.52.19_1.png "Screenshot 2022-04-20 at 15.52.19 (1).png")
 
@@ -39,17 +39,4 @@ Payments can be viewed on the details page of your payment link on the Dashboard
 
 You can modify the details of your payment link as needed, or deactivate or delete it once you’ve finished collecting payments. Simply navigate to the payment link's information page and choose your desired action.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/ea693e68a64ffabf1c0bb258bca22193de67eb7533c66f437ac144c8f988641c-a8fc779-Screenshot_2022-04-22_at_12.45.43.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
+<Image align="center" src="https://files.readme.io/ea693e68a64ffabf1c0bb258bca22193de67eb7533c66f437ac144c8f988641c-a8fc779-Screenshot_2022-04-22_at_12.45.43.png" />
