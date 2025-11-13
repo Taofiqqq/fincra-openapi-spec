@@ -60,6 +60,6 @@ Here’s what the response should look like for this endpoint
 
 **Please take note of the following**
 
-- The `Payer `object refers to the sender of the money
-- The `payee` refers to the receiver 
-- `destinationAmountSettled` is the amount that settles in the wallet / account of the merchant
+* The `Payer `object refers to the sender of the money
+* The `payee` refers to the receiver 
+* `destinationAmountSettled` is the amount that settles in the wallet / account of the merchant
