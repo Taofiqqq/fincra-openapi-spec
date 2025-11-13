@@ -20,10 +20,10 @@ Fincra helps NGOs and aid organizations **collect donations globally, disburse l
 
 NGOs and aid organizations often face:
 
-- Delays in moving donor funds into African markets.  
-- High FX costs reducing the value of aid delivered.  
-- Complex local disbursements across multiple countries.  
-- Regulatory and reporting challenges with donor compliance.  
+* Delays in moving donor funds into African markets.  
+* High FX costs reducing the value of aid delivered.  
+* Complex local disbursements across multiple countries.  
+* Regulatory and reporting challenges with donor compliance.  
 
 ***
 
@@ -31,10 +31,10 @@ NGOs and aid organizations often face:
 
 Fincra provides the rails to help NGOs maximize impact:
 
-- **Multi-currency accounts** to receive global donor funds.  
-- **FX APIs** for transparent, competitive conversions.  
-- **Automated local disbursements** to staff, vendors, and beneficiaries.  
-- **Built-in compliance tools** for reporting and oversight.  
+* **Multi-currency accounts** to receive global donor funds.  
+* **FX APIs** for transparent, competitive conversions.  
+* **Automated local disbursements** to staff, vendors, and beneficiaries.  
+* **Built-in compliance tools** for reporting and oversight.  
 
 ***
 
@@ -44,9 +44,9 @@ Fincra provides the rails to help NGOs maximize impact:
 
 Accept contributions in major international currencies.  
 
-- Multi-currency accounts in **USD, GBP, EUR, CAD**.  
-- Simple collection from donors worldwide.  
-- Consolidated reporting for transparency.  
+* Multi-currency accounts in **USD, GBP, EUR, CAD**.  
+* Simple collection from donors worldwide.  
+* Consolidated reporting for transparency.  
 
 💡 **How it works:** An NGO receives USD donations from the US and GBP from the UK. Fincra consolidates funds and prepares them for disbursement in African markets.
 
@@ -56,8 +56,8 @@ Accept contributions in major international currencies.
 
 Move funds quickly to the last mile.  
 
-- **Bulk and batch disbursements** with one API call.  
-- Real-time payouts to **bank accounts and mobile wallets**.  
-- Transparent tracking for accountability.  
+* **Bulk and batch disbursements** with one API call.  
+* Real-time payouts to **bank accounts and mobile wallets**.  
+* Transparent tracking for accountability.  
 
 💡 **How it works:** An NGO runs a relief program across Kenya and Nigeria. Fincra enables instant payouts to thousands of field workers
