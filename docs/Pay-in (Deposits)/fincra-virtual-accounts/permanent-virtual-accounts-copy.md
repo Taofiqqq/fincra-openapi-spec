@@ -12,14 +12,14 @@ next:
 ---
 In this section, we will go over the steps required to set up and maintain a temporary virtual account. We would like to start by explaining how temporary virtual accounts can be created on Fincra.
 
-- By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/request-virtual-accounts) 
+* By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/request-virtual-accounts) 
 
 > 📘 Important
-> 
-> - When requesting a virtual account using a currency other than NGN, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need.
-> - BVN is required when requesting a permanent virtual account.
-> - Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
-> - Funds received by a virtual account created settle in the balances of the merchant.
+>
+> * When requesting a virtual account using a currency other than NGN, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need.
+> * BVN is required when requesting a permanent virtual account.
+> * Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
+> * Funds received by a virtual account created settle in the balances of the merchant.
 
 ### 1 - Request A Virtual Account
 
@@ -93,8 +93,8 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 
 Important Notes:
 
-- business : This is your business ID.
-- entityType : This states that the virtual account belongs to you
+* business : This is your business ID.
+* entityType : This states that the virtual account belongs to you
 
 ### 2 - Retrieving The Details Of A Virtual Bank Account
 
@@ -157,9 +157,9 @@ If successful, you will receive a JSON snippet with the details of the virtual a
 }
 ```
 
- **Please take note of the following field  in the virtual account  response below: **
+ **Please take note of the following field  in the virtual account  response below:**
 
-- **\_id**: This is the unique Identifier of the virtual account
+* **\_id**: This is the unique Identifier of the virtual account
 
 ### 3 - Receive And Validate Webhook  Notification
 
