@@ -14,34 +14,98 @@ A payment scheme is a set of rules that Payment Service Providers(PSP) have agre
 
 Please see the below table for payment schemes supported on Fincra.
 
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        Payment Scheme
+      </th>
 
+      <th style={{ textAlign: "left" }}>
+        Currency
+      </th>
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Payment Scheme",
-    "h-1": "Currency",
-    "h-2": "API Value",
-    "0-0": "SWIFT",
-    "0-1": "GBP \nUSD \nEUR ",
-    "0-2": "swift",
-    "1-0": "FPS",
-    "1-1": "GBP",
-    "1-2": "fps",
-    "2-0": "CHAPS",
-    "2-1": "GBP",
-    "2-2": "chaps",
-    "3-0": "SEPA",
-    "3-1": "EUR",
-    "3-2": "sepa",
-    "4-0": "SEPA INSTANT",
-    "4-1": "EUR",
-    "4-2": "sepa_inst"
-  },
-  "cols": 3,
-  "rows": 5
-}
-[/block]
+      <th style={{ textAlign: "left" }}>
+        API Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SWIFT
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP\
+        USD\
+        EUR 
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        swift
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        FPS
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        fps
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        CHAPS
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        chaps
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SEPA
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        EUR
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        sepa
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SEPA INSTANT
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        EUR
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        sepa\_inst
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
 Currency: This refers to the destination currency.
 
 Payment Scheme: This is the valid payment scheme used in the beneficiary region.
