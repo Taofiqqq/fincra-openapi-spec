@@ -15,5 +15,5 @@ metadata:
 next:
   description: ''
 ---
-**Note:**
+**Note:**\
 Only 100 records per page can be fetched with this endpoint
