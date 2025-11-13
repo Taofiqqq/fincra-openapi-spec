@@ -18,13 +18,13 @@ This product is best for **B2B platforms, PSPs, and businesses handling large vo
 
 With a pool account, you can:
 
-- Receive payments across supported currencies.  
-- Convert collected funds using Fincra’s FX services.  
-- Payout to beneficiaries locally or internationally.  
+* Receive payments across supported currencies.  
+* Convert collected funds using Fincra’s FX services.  
+* Payout to beneficiaries locally or internationally.  
 
 > 📘 NOTE
-> 
-> Pool accounts are provisioned manually. There is currently **no API to create a pool account**.  
+>
+> Pool accounts are provisioned manually. There is currently **no API to create a pool account**.\
 > To request one, reach out to your Relationship Manager, email [support@fincra.com](mailto:support@fincra.com), or submit a [pool account requisition form](https://forms.gle/Lt97N3tf1e6oVPYF6) for a faster response.
 
 # How It Works
@@ -34,42 +34,28 @@ With a pool account, you can:
 3. Your customers (payers) transfer money into the Pool Account.
 4. Each payment must include your **merchant reference code** in the narration or reference field.
 
-   - This reference returns \~60% of the time on bank statements.
-   - When present, it allows you to map the payment back to your end customer.
+   * This reference returns \~60% of the time on bank statements.
+   * When present, it allows you to map the payment back to your end customer.
 5. Fincra reconciles incoming transactions:
 
-   - Payments with a valid merchant reference are automatically credited to your balance.
-   - Payments without a reference can still be credited if you design your own reconciliation process.
+   * Payments with a valid merchant reference are automatically credited to your balance.
+   * Payments without a reference can still be credited if you design your own reconciliation process.
 6. Fincra sends a **webhook** notification with the transaction details, including any reference code parsed from the statement.
 
 ## Flow steps
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/8ccb6c9dcb148911b5a45a7a67921319b75a89497cf5ac4db2b2f3f9277f341e-image.png",
-        null,
-        null
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
+<Image align="center" src="https://files.readme.io/8ccb6c9dcb148911b5a45a7a67921319b75a89497cf5ac4db2b2f3f9277f341e-image.png" />
 
-
-- Merchant submits Pool Account request → Fincra Ops receives.
-- Fincra processes account creation within SLA for the currency.
-- Merchant receives Pool Account details (Bank name, Account number, Currency).
-- Payer initiates bank transfer to Pool Account.
-- Payer includes Merchant Reference Code in narration/reference field.
-- Bank posts transaction into Pool Account.
-- Fincra fetches bank statement, parses reference field.
-- If reference matches merchant mapping → credit merchant balance.
-- If reference is missing → optional credit based on agreed workflow.
-- Webhook fired to merchant with transaction details.
+* Merchant submits Pool Account request → Fincra Ops receives.
+* Fincra processes account creation within SLA for the currency.
+* Merchant receives Pool Account details (Bank name, Account number, Currency).
+* Payer initiates bank transfer to Pool Account.
+* Payer includes Merchant Reference Code in narration/reference field.
+* Bank posts transaction into Pool Account.
+* Fincra fetches bank statement, parses reference field.
+* If reference matches merchant mapping → credit merchant balance.
+* If reference is missing → optional credit based on agreed workflow.
+* Webhook fired to merchant with transaction details.
 
 # Properties
 
@@ -90,7 +76,7 @@ Currently there is **no API endpoint to create Pool Accounts**. You must log a r
 
 API references you should use:
 
-- [Pool Account Solution API](https://docs.fincra.com/reference/pool-account-solution)
+* [Pool Account Solution API](https://docs.fincra.com/reference/pool-account-solution)
 
 **Webhook sample (transaction credited):**
 
@@ -136,49 +122,49 @@ async function getPoolTransactions() {
 ```
 
 > 🚧 NOTE
-> 
+>
 > Always include your merchant reference in payer instructions to ensure accurate reconciliation. Payments without references require manual mapping on your end.
 
 ## Managing Pool Account Payments
 
-- See [Handling Collections](../handling-collections) for guidance on:
+* See [Handling Collections](../handling-collections) for guidance on:
 
-  - Overpayments & underpayments
-  - Webhooks setup and retries
-  - Errors and reconciliation
-  - Disputes and RFIs
+  * Overpayments & underpayments
+  * Webhooks setup and retries
+  * Errors and reconciliation
+  * Disputes and RFIs
 
 ***
 
 ## Common Use Cases
 
-- **Remittance companies**: Collect local transfers from senders, settle to receivers in foreign currency.
-- **E-commerce platforms**: Accept local payments into a shared account and reconcile by reference code.
-- **Exporters & traders**: Collect large transfers in NGN/GHS/ZAR and settle in USD/GBP/EUR.
-- **Fintechs & PSPs**: Enable SMEs to receive local bank transfers without setting up multiple virtual accounts.
-- **Subscription platforms**: Reconcile recurring bank transfers tagged with customer references.
+* **Remittance companies**: Collect local transfers from senders, settle to receivers in foreign currency.
+* **E-commerce platforms**: Accept local payments into a shared account and reconcile by reference code.
+* **Exporters & traders**: Collect large transfers in NGN/GHS/ZAR and settle in USD/GBP/EUR.
+* **Fintechs & PSPs**: Enable SMEs to receive local bank transfers without setting up multiple virtual accounts.
+* **Subscription platforms**: Reconcile recurring bank transfers tagged with customer references.
 
 ***
 
 ## FAQs
 
-**1. What if the payer forgets to include the merchant reference?**  
+**1. What if the payer forgets to include the merchant reference?**\
 Fincra can still credit your account if you design an internal process for mapping such payments. By default, reconciliation relies on the merchant reference.
 
-**2. How long does it take to open a Pool Account?**  
+**2. How long does it take to open a Pool Account?**\
 SLAs vary by currency (see Properties table). Typically between 2–10 business days.
 
-**3. Are Pool Accounts available via API?**  
+**3. Are Pool Accounts available via API?**\
 Not yet. You must request manually. An API for logging requests is planned.
 
-**4. Can Pool Accounts be used for card or mobile money?**  
+**4. Can Pool Accounts be used for card or mobile money?**\
 No. They are strictly for bank transfers (with some corridors supporting mobile money-to-bank rails, e.g., GHS, UGX).
 
 ***
 
 ## Internal Links Map
 
-- [Handling Collections](../handling-collections) → Managing Pool Account Payments section.
-- [Pool Account Solution API](https://docs.fincra.com/reference/pool-account-solution).
+* [Handling Collections](../handling-collections) → Managing Pool Account Payments section.
+* [Pool Account Solution API](https://docs.fincra.com/reference/pool-account-solution).
 
 ***
