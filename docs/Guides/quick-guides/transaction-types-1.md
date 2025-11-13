@@ -24,8 +24,8 @@ There are different types of transactions that can be carried out on the platfor
 
 This refers to the type of account you intend to make your payments to. Find the payment destinations currently supported at Fincra below
 
-| Payment Destination | API Value           |
-| :------------------ | :------------------ |
-| Mobile money wallet | mobile_money_wallet |
-| Bank account        | bank_account        |
-| Cash PickUp         | cash_pick_up        |
+| Payment Destination | API Value             |
+| :------------------ | :-------------------- |
+| Mobile money wallet | mobile\_money\_wallet |
+| Bank account        | bank\_account         |
+| Cash PickUp         | cash\_pick\_up        |
