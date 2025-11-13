@@ -60,60 +60,178 @@ The Fincra Mobile Money API enables businesses to send and receive payments via 
 | Decimal amount support     | ✅                         | ✅                          | ✅             |
 | AIRTEL decimal restriction | ❌                         | ✅                          | ✅             |
 
-**Common Details**  
+**Common Details**\
 So first, let's go through the basic information needed for any account. You'll need to provide these details.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "**Field**",
-    "h-1": "**Mandatory**",
-    "h-2": "**Type**",
-    "h-3": "**Description**",
-    "0-0": "business",
-    "0-1": "Yes",
-    "0-2": "String",
-    "0-3": "The ID of the business making the payout.",
-    "1-0": "sourceCurrency",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The currency which is used to fund the payout",
-    "2-0": "destinationCurrency",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "The currency in which the recipient will be receiving funds",
-    "3-0": "amount",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "The value that is to be transferred from the source currency wallet.  \n**Note**: Decimals are not allowed as '**amount**', for mobile money payouts with mobileMoneyCode:\"AIRTEL\".",
-    "4-0": "description",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "This is the type of account you want to send your payments to; see [payment destinations](https://docs.fincra.com/docs/transaction-types-1#payment-destination) for more details",
-    "5-0": "paymentDestination",
-    "5-1": "Yes",
-    "5-2": "String",
-    "5-3": "The value should be sent as `mobile_money_wallet`",
-    "6-0": "customerReference",
-    "6-1": "Yes",
-    "6-2": "String",
-    "6-3": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advice that you add it to your payload",
-    "7-0": "quoteReference",
-    "7-1": "No",
-    "7-2": "String",
-    "7-3": "This is the reference generated when the source currency is compared against the destination currency.This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote endpoint.](https://docs.fincra.com/reference/get-a-quote)"
-  },
-  "cols": 4,
-  "rows": 8,
-  "align": [
-    null,
-    null,
-    null,
-    null
-  ]
-}
-[/block]
+<Table>
+  <thead>
+    <tr>
+      <th>
+        **Field**
+      </th>
 
+      <th>
+        **Mandatory**
+      </th>
+
+      <th>
+        **Type**
+      </th>
+
+      <th>
+        **Description**
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        business
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The ID of the business making the payout.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        sourceCurrency
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The currency which is used to fund the payout
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        destinationCurrency
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The currency in which the recipient will be receiving funds
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        amount
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The value that is to be transferred from the source currency wallet.  
+
+        * \*Not&#x65;**: Decimals are not allowed as '**amount\*\*', for mobile money payouts with mobileMoneyCode:"AIRTEL".
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        description
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the type of account you want to send your payments to; see [payment destinations](https://docs.fincra.com/docs/transaction-types-1#payment-destination) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentDestination
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The value should be sent as `mobile_money_wallet`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customerReference
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advice that you add it to your payload
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        quoteReference
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the reference generated when the source currency is compared against the destination currency.This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote endpoint.](https://docs.fincra.com/reference/get-a-quote)
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 In addition to the [common details](https://docs.fincra.com/docs/bank-account-transfers#common-details) needed to process successful payments, the following fields are also required when sending money to a mobile money wallet.
 
