@@ -14,15 +14,15 @@ A payment scheme is a set of rules that Payment Service Providers(PSP) have agre
 
 Please see the below table for payment schemes supported on Fincra.
 
-| Payment Scheme | Currency       | API Value    | Settlement Time   |
-| :------------- | :------------- | :----------- | :---------------- |
-| SWIFT          | GBP, EUR & USD | swift        | 1-2 business days |
-| FPS            | GBP            | fps          | Within an hour    |
-| CHAPS          | GBP            | chaps        | Within an hour    |
-| SEPA           | EUR            | sepa         | Within 1 day      |
-| SEPA INSTANT   | EUR            | sepa_instant | 20 seconds        |
+| Payment Scheme | Currency       | API Value     | Settlement Time   |
+| :------------- | :------------- | :------------ | :---------------- |
+| SWIFT          | GBP, EUR & USD | swift         | 1-2 business days |
+| FPS            | GBP            | fps           | Within an hour    |
+| CHAPS          | GBP            | chaps         | Within an hour    |
+| SEPA           | EUR            | sepa          | Within 1 day      |
+| SEPA INSTANT   | EUR            | sepa\_instant | 20 seconds        |
 
-**Please Note**  
+**Please Note**\
 CHAPS payments can be sent between 08:00 – 17:00 Monday to Friday (excluding UK public holidays).
 
 Currency: This refers to the destination currency.
