@@ -26,60 +26,143 @@ Kindly find the currencies and providers supported for mobile money payments bel
 
 ## List Of Available Operators (Providers)
 
-| KES               | GHS                       | UGX    | ZMW    | TZS      | XOF    | XAF    |
-| :---------------- | :------------------------ | :----- | :----- | :------- | :----- | :----- |
-| SAFARICOM (MPESA) | MTN                       | MTN    | MTN    | AIRTEL   | MOOV   | MOOV   |
-| AIRTEL            | AIRTEL_TIGO, AIRTEL, TIGO | AIRTEL | AIRTEL | TIGOPESA | ORANGE | ORANGE |
-| EQUITEL           | VODAFONE                  |        | ZAMTEL |          | MTN    | MTN    |
-|                   |                           |        |        |          | AIRTEL | AIRTEL |
-|                   |                           |        |        |          | FREE   | FREE   |
+| KES               | GHS                        | UGX    | ZMW    | TZS      | XOF    | XAF    |
+| :---------------- | :------------------------- | :----- | :----- | :------- | :----- | :----- |
+| SAFARICOM (MPESA) | MTN                        | MTN    | MTN    | AIRTEL   | MOOV   | MOOV   |
+| AIRTEL            | AIRTEL\_TIGO, AIRTEL, TIGO | AIRTEL | AIRTEL | TIGOPESA | ORANGE | ORANGE |
+| EQUITEL           | VODAFONE                   |        | ZAMTEL |          | MTN    | MTN    |
+|                   |                            |        |        |          | AIRTEL | AIRTEL |
+|                   |                            |        |        |          | FREE   | FREE   |
 
 ## List Of Mobile Money Codes By Currency
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "**KES (Kenyan Shilling)**",
-    "h-1": "**GHS (Ghanian Cedis)**",
-    "h-2": "**UGX (Ugandan Shilling)**",
-    "h-3": "XOF (West African CFA Franc)  \nBEN, BF, CIV, SN ",
-    "h-4": "XAF (Central African CFA Franc)  \nCM, COG, GAB",
-    "0-0": "**\\*334#** for MPESA",
-    "0-1": "**\\*170#** for MTN Mobile Money",
-    "0-2": "**\\*185#** for Airtel",
-    "0-3": "**\\*855#** for Moov (BEN)",
-    "0-4": "**\\*126#** for MTN (CM)",
-    "1-0": "**\\*334#** for Airtel Money",
-    "1-1": "**\\*110#** for Vodafone Cash",
-    "1-2": "**\\*165#** for MTN",
-    "1-3": "**\\*144# or \\*145#** for Orange (BF, CIV, SN)",
-    "1-4": "**\\#150#** for Orange (CM)",
-    "2-0": "",
-    "2-1": "**\\*110#** for AirtelTigo Money",
-    "2-2": "**\\*144#** for Africell",
-    "2-3": "**\\*126#** for MTN (BEN)",
-    "2-4": "**\\*105#** for MTN (COG)",
-    "3-0": "",
-    "3-1": "",
-    "3-2": "",
-    "3-3": "**\\*145#** for Free (SN)",
-    "3-4": "**\\*303#** for Airtel (GAB)"
-  },
-  "cols": 5,
-  "rows": 4,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        **KES (Kenyan Shilling)**
+      </th>
+
+      <th>
+        **GHS (Ghanian Cedis)**
+      </th>
+
+      <th>
+        **UGX (Ugandan Shilling)**
+      </th>
+
+      <th>
+        XOF (West African CFA Franc)
 
 
-**Take note  
-**The  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
+
+
+        BEN, BF, CIV, SN 
+      </th>
+
+      <th>
+        XAF (Central African CFA Franc)
+
+
+
+
+        CM, COG, GAB
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        * \*\*334#\*\* for MPESA
+      </td>
+
+      <td>
+        * \*\*170#\*\* for MTN Mobile Money
+      </td>
+
+      <td>
+        * \*\*185#\*\* for Airtel
+      </td>
+
+      <td>
+        * \*\*855#\*\* for Moov (BEN)
+      </td>
+
+      <td>
+        * \*\*126#\*\* for MTN (CM)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        * \*\*334#\*\* for Airtel Money
+      </td>
+
+      <td>
+        * \*\*110#\*\* for Vodafone Cash
+      </td>
+
+      <td>
+        * \*\*165#\*\* for MTN
+      </td>
+
+      <td>
+        * \*\*144# or \*145#\*\* for Orange (BF, CIV, SN)
+      </td>
+
+      <td>
+        * \*\#150#\*\* for Orange (CM)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+
+      <td>
+        * \*\*110#\*\* for AirtelTigo Money
+      </td>
+
+      <td>
+        * \*\*144#\*\* for Africell
+      </td>
+
+      <td>
+        * \*\*126#\*\* for MTN (BEN)
+      </td>
+
+      <td>
+        * \*\*105#\*\* for MTN (COG)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+        * \*\*145#\*\* for Free (SN)
+      </td>
+
+      <td>
+        * \*\*303#\*\* for Airtel (GAB)
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+**Take note\&#xA;**&#x54;he  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
 
 \*\* BEN - Benin, BF - Burkina Faso, CIV - Cote d'Ivoire, GNB - GGuinea-Bissau, SN - Senegal, CM - Cameroun, COG - Republic of Congo, GAB - Gabon
 
@@ -126,10 +209,10 @@ Then, prepare your data object to look like the sample below :
 
 Send a POST request with the payment data above to the [initiate a mobile money charge endpoint](/reference/initiate-a-charge). If the request is successful, you will receive a response containing the transaction status `pending` as well as other important parameters such as: 
 
-- `data.id`  refers to the unique identifier of the transaction
-- `data.reference` refers to the unique identifier of the transaction on your platform.
-- `data.message` This is the message which contains the payment procedures. You are expected to display the `data.message` to your customer to make payments, and then listen to webhook for transaction notification or query the verify payment endpoint at intervals.
-- `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). Take note of the message field for the operator specific instructions. 
+* `data.id`  refers to the unique identifier of the transaction
+* `data.reference` refers to the unique identifier of the transaction on your platform.
+* `data.message` This is the message which contains the payment procedures. You are expected to display the `data.message` to your customer to make payments, and then listen to webhook for transaction notification or query the verify payment endpoint at intervals.
+* `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). Take note of the message field for the operator specific instructions. 
 
 Here is a sample response that you will receive after initiating a payment and requires the customer to complete the process:
 
