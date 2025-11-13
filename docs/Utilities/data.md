@@ -20,7 +20,7 @@ Using this service, you will access various telcos to activate data bundles acro
 
 Make an API request to the [Fetch Telcos endpoint](/reference/fetch-telcos) to get the list of telcos available. If successful, you will receive a JSON snippet with details of every telco Fincra can access.
 
-API request  
+API request\
 ​​`https://billing-staging.bytestacks.io/api/v1/telcos`
 
 API response 
@@ -104,20 +104,20 @@ If successful, a JSON response containing details of your utility bill payment w
 
 Important notes
 
-- name: This indicates the data plan name
-- allowance: This indicates the amount of data available for that plan
-- price : This is the price of the data plan
-- validity : How long the plan is valid
-- data_code : The unique identifier of the data plan
+* name: This indicates the data plan name
+* allowance: This indicates the amount of data available for that plan
+* price : This is the price of the data plan
+* validity : How long the plan is valid
+* data\_code : The unique identifier of the data plan
 
 ## 4 - Making your data bill payment
 
 After identifying the telco, the next step is to make your bill payment. This can be done by making a request to the [purchase data endpoint](/reference/vend-data) using the following parameters:
 
-- amount : This indicates the amount to be paid.
-- phone_no : The phone number to be recharged
-- telco : The telecommunication service provider
-- data_code : The unique identifier of the data plan that you want to subscribe to
+* amount : This indicates the amount to be paid.
+* phone\_no : The phone number to be recharged
+* telco : The telecommunication service provider
+* data\_code : The unique identifier of the data plan that you want to subscribe to
 
 ```curl
 curl --request POST \
@@ -155,5 +155,5 @@ If successful, a JSON response containing details of your utility bill payment w
 }
 ```
 
-Important notes:  
+Important notes:\
 The `customer_reference` here refers to the unique reference of the transaction on your system, while the `reference` refers to the reference generated for this transaction on the Fincra system.
