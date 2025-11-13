@@ -14,16 +14,16 @@ A Pool Account is a central account used to collect funds from multiple payers i
 
 The funds can be:
 
-- Converted to another currency using FX services.
-- Payout to beneficiaries locally or internationally.
+* Converted to another currency using FX services.
+* Payout to beneficiaries locally or internationally.
 
 ## How It Works 📌
 
-- Fincra provides a single set of account details for each supported currency to Merchant.
-- Merchant’s Customer sends funds to the account with a unique customer id.
-- Payment is tagged to the merchant using the reference or unique payment ID provided.
-- Funds are settled to Merchant account on Fincra
-- Funds can be converted to other currencies or paid out to beneficiaries.
+* Fincra provides a single set of account details for each supported currency to Merchant.
+* Merchant’s Customer sends funds to the account with a unique customer id.
+* Payment is tagged to the merchant using the reference or unique payment ID provided.
+* Funds are settled to Merchant account on Fincra
+* Funds can be converted to other currencies or paid out to beneficiaries.
 
 ## Supported Currencies 🪙
 
@@ -60,18 +60,18 @@ The funds can be:
 <br />
 
 > 🚧 **NOTE**
-> 
-> - Settlements from the pool account to your Fincra merchant account are not instant. Fincra currently maintains 4 settlement cycles between the hours of 9am to 6pm WAT on business days.
-> - A dedicated email address will be created for Merchant to share payment receipts
-> - A unique customer ID must be created for each of your customers, following this pattern  
+>
+> * Settlements from the pool account to your Fincra merchant account are not instant. Fincra currently maintains 4 settlement cycles between the hours of 9am to 6pm WAT on business days.
+> * A dedicated email address will be created for Merchant to share payment receipts
+> * A unique customer ID must be created for each of your customers, following this pattern\
 >   `AAFC{8-digit padded ID}{Currency}`
 
 Where;
 
-- AA – Business initials (prefix)
-- FC – Fixed code
-- 8-digit padded ID – The customer’s unique numeric ID in your system
-- Currency – Currency code of the transaction e.g GHS
+* AA – Business initials (prefix)
+* FC – Fixed code
+* 8-digit padded ID – The customer’s unique numeric ID in your system
+* Currency – Currency code of the transaction e.g GHS
 
 `This reference must be provided in the narration when making the payment. It will appear in the metadata.customerId field in the webhook notification for each successful transaction.`
 
@@ -122,61 +122,214 @@ Where;
 
 # API Endpoints
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "# ",
-    "h-1": "**Step**",
-    "h-2": "**Detail**",
-    "h-3": "**API reference**",
-    "0-0": "1",
-    "0-1": "Get account by currency",
-    "0-2": "This endpoint will allow you get the account details that will be shared with customer to recieve inflows",
-    "0-3": "<https://docs.fincra.com/reference/get-account-by-currency>",
-    "1-0": "2",
-    "1-1": "Simulate payment",
-    "1-2": "Simulate inflow into any pool account using this endpoint and confirm the webhook received.",
-    "1-3": "<https://docs.fincra.com/reference/simulate-collection>",
-    "2-0": "3",
-    "2-1": "Confirm collection/payment",
-    "2-2": "Confirm the simulated inflow and get the status using this endpoint.  \n  \nLearn more about setting up and validating webhooks [here](https://docs.fincra.com/docs/webhooks) .",
-    "2-3": "**Webhook**: <https://docs.fincra.com/docs/payin-webhook>  \n  \n**API**: <https://docs.fincra.com/reference/get-collection-record-by-reference>",
-    "3-0": "4",
-    "3-1": "Get statement of account",
-    "3-2": "Get all transactions done on your account with Fincra",
-    "3-3": "<https://docs.fincra.com/reference/get-account-statement>",
-    "4-0": "5",
-    "4-1": "Get Wallet Balances",
-    "4-2": "Fetch the balances of your different wallets (currencies)",
-    "4-3": "<https://docs.fincra.com/reference/get-all-wallet-balances>",
-    "5-0": "6",
-    "5-1": "Generate quote ",
-    "5-2": "Generate a quote for currency trade to your wallet (conversion) or to a customer (cross-currency payout).",
-    "5-3": "<https://docs.fincra.com/reference/generate-quote>",
-    "6-0": "7",
-    "6-1": "Conversion",
-    "6-2": "Initiate a trade and convert funds using the generated quote to lock on a price.",
-    "6-3": "<https://docs.fincra.com/reference/initiate-currency-conversion>",
-    "7-0": "8",
-    "7-1": "Confirm a conversion",
-    "7-2": "Confirm the status of your conversion or listen for the successful webhook event",
-    "7-3": "**Webhook**: <https://docs.fincra.com/docs/conversions-webhook>  \n  \n**API**: <https://docs.fincra.com/reference/verify-conversion-status>",
-    "8-0": "9",
-    "8-1": "Make a same currency payout",
-    "8-2": "Initiate a payout where source currency and destination currency are the same.",
-    "8-3": "<https://docs.fincra.com/reference/initiate-bank-transfer>",
-    "9-0": "10",
-    "9-1": "Confirm payout",
-    "9-2": "Confirm the status of the payout transaction using this endpoint.  \n  \nYou can also listen for the successful payout webhook.",
-    "9-3": "**Webhook**: <https://docs.fincra.com/docs/payout-webhook>  \n  \n**API**: <https://docs.fincra.com/reference/verify-payout-status-by-reference>  \n  \n**API**: <https://docs.fincra.com/reference/fetch-payout-by-customer-reference>"
-  },
-  "cols": 4,
-  "rows": 10,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        \# 
+      </th>
+
+      <th>
+        **Step**
+      </th>
+
+      <th>
+        **Detail**
+      </th>
+
+      <th>
+        **API reference**
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+
+      <td>
+        Get account by currency
+      </td>
+
+      <td>
+        This endpoint will allow you get the account details that will be shared with customer to recieve inflows
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/get-account-by-currency](https://docs.fincra.com/reference/get-account-by-currency)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        2
+      </td>
+
+      <td>
+        Simulate payment
+      </td>
+
+      <td>
+        Simulate inflow into any pool account using this endpoint and confirm the webhook received.
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/simulate-collection](https://docs.fincra.com/reference/simulate-collection)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        3
+      </td>
+
+      <td>
+        Confirm collection/payment
+      </td>
+
+      <td>
+        Confirm the simulated inflow and get the status using this endpoint.  
+
+        Learn more about setting up and validating webhooks [here](https://docs.fincra.com/docs/webhooks) .
+      </td>
+
+      <td>
+        * \*Webhook\*\*: [https://docs.fincra.com/docs/payin-webhook](https://docs.fincra.com/docs/payin-webhook)  
+        * \*API\*\*: [https://docs.fincra.com/reference/get-collection-record-by-reference](https://docs.fincra.com/reference/get-collection-record-by-reference)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        4
+      </td>
+
+      <td>
+        Get statement of account
+      </td>
+
+      <td>
+        Get all transactions done on your account with Fincra
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/get-account-statement](https://docs.fincra.com/reference/get-account-statement)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        5
+      </td>
+
+      <td>
+        Get Wallet Balances
+      </td>
+
+      <td>
+        Fetch the balances of your different wallets (currencies)
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/get-all-wallet-balances](https://docs.fincra.com/reference/get-all-wallet-balances)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        6
+      </td>
+
+      <td>
+        Generate quote 
+      </td>
+
+      <td>
+        Generate a quote for currency trade to your wallet (conversion) or to a customer (cross-currency payout).
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/generate-quote](https://docs.fincra.com/reference/generate-quote)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        7
+      </td>
+
+      <td>
+        Conversion
+      </td>
+
+      <td>
+        Initiate a trade and convert funds using the generated quote to lock on a price.
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/initiate-currency-conversion](https://docs.fincra.com/reference/initiate-currency-conversion)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        8
+      </td>
+
+      <td>
+        Confirm a conversion
+      </td>
+
+      <td>
+        Confirm the status of your conversion or listen for the successful webhook event
+      </td>
+
+      <td>
+        * \*Webhook\*\*: [https://docs.fincra.com/docs/conversions-webhook](https://docs.fincra.com/docs/conversions-webhook)  
+        * \*API\*\*: [https://docs.fincra.com/reference/verify-conversion-status](https://docs.fincra.com/reference/verify-conversion-status)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        9
+      </td>
+
+      <td>
+        Make a same currency payout
+      </td>
+
+      <td>
+        Initiate a payout where source currency and destination currency are the same.
+      </td>
+
+      <td>
+        [https://docs.fincra.com/reference/initiate-bank-transfer](https://docs.fincra.com/reference/initiate-bank-transfer)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        10
+      </td>
+
+      <td>
+        Confirm payout
+      </td>
+
+      <td>
+        Confirm the status of the payout transaction using this endpoint.  
+
+        You can also listen for the successful payout webhook.
+      </td>
+
+      <td>
+        * \*Webhook\*\*: [https://docs.fincra.com/docs/payout-webhook](https://docs.fincra.com/docs/payout-webhook)  
+        * \*API\*\*: [https://docs.fincra.com/reference/verify-payout-status-by-reference](https://docs.fincra.com/reference/verify-payout-status-by-reference)  
+        * \*API\*\*: [https://docs.fincra.com/reference/fetch-payout-by-customer-reference](https://docs.fincra.com/reference/fetch-payout-by-customer-reference)
+      </td>
+    </tr>
+  </tbody>
+</Table>
