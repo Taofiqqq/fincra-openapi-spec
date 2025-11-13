@@ -14,7 +14,7 @@ Merchants can easily validate webhooks received from the Fincra platform using t
 
 **Signature Inclusion**: Every webhook sent includes a signature in the headers. This signature is the encrypted webhook data using the merchant's webhook secret key.
 
-**Validation on Merchant's End: **Merchants can perform the same encryption process on their end using their webhook secret key. They can then compare the resulting signature with the one received. If the signatures match, the merchant can proceed with processing the webhook. However, if the signatures do not match, the merchant must discard the webhook and refrain from processing it.
+**Validation on Merchant's End:** Merchants can perform the same encryption process on their end using their webhook secret key. They can then compare the resulting signature with the one received. If the signatures match, the merchant can proceed with processing the webhook. However, if the signatures do not match, the merchant must discard the webhook and refrain from processing it.
 
 ```javascript Node Js
 import crypto from "crypto";
@@ -186,8 +186,8 @@ public class WebhookEncrypter {
 
 **NOTE**
 
-- In the context of our webhooks, a payload refers to an object that comprises the event and data fields of the webhook notification. To better understand the structure of our webhooks, please refer to [sample payout webhook notification data](/docs/payout-webhook#payoutsuccessful) . It is important to note that the webhook payload structure should remain encrypted and unmodified as received.
-- Fincra events, including ([Payouts](https://docs.fincra.com/docs/payout-webhook), [Conversions](https://docs.fincra.com/docs/conversions-webhook), [Virtual Account](https://docs.fincra.com/docs/virtual-account-webhook),and [Collections](https://docs.fincra.com/docs/payin-webhook)) are accompanied by a signature header. This header contains an HMAC SHA512 signature that is signed with your webhook secret key. Prior to processing the event, it is crucial to verify the signature provided in the header to ensure its authenticity.
+* In the context of our webhooks, a payload refers to an object that comprises the event and data fields of the webhook notification. To better understand the structure of our webhooks, please refer to [sample payout webhook notification data](/docs/payout-webhook#payoutsuccessful) . It is important to note that the webhook payload structure should remain encrypted and unmodified as received.
+* Fincra events, including ([Payouts](https://docs.fincra.com/docs/payout-webhook), [Conversions](https://docs.fincra.com/docs/conversions-webhook), [Virtual Account](https://docs.fincra.com/docs/virtual-account-webhook),and [Collections](https://docs.fincra.com/docs/payin-webhook)) are accompanied by a signature header. This header contains an HMAC SHA512 signature that is signed with your webhook secret key. Prior to processing the event, it is crucial to verify the signature provided in the header to ensure its authenticity.
 
 ## Obtaining the Webhook Secret Key
 
@@ -195,39 +195,11 @@ To access and obtain your webhook secret key from the Fincra platform, please fo
 
 Log in to your Fincra dashboard and navigate to the Profile section in the side menu.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png" />
 
 On the Settings page, locate the API keys and webhook Configuration tab.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/dcad136ae0995785a38f3b6d70deafd26f732c991cc142a2bf897d1f97609f90-Screenshot_2024-09-27_at_12.48.30.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/dcad136ae0995785a38f3b6d70deafd26f732c991cc142a2bf897d1f97609f90-Screenshot_2024-09-27_at_12.48.30.png" />
 
 1. Navigate to the API keys and webhooks section
 2. You can copy the webkook secret key here
