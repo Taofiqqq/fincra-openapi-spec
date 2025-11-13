@@ -14,5 +14,6 @@ next:
   description: ''
 ---
 **Please take note of the following:**
-  * The `id` in the data object obtained from the API response is the wallet ID i.e the unique identifier of the wallet
-  * The `walletNumber` refers to the wallet number of the wallet .
+
+* The `id` in the data object obtained from the API response is the wallet ID i.e the unique identifier of the wallet
+* The `walletNumber` refers to the wallet number of the wallet .
