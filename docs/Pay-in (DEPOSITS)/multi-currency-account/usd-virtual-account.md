@@ -24,15 +24,15 @@ The section below, describes the requirements for creating a virtual account in 
 API Reference: [create virtual account endpoint](/reference/request-usd-virtual-account) 
 
 > 📘 Important
-> 
-> - Funds received by a virtual account created, settles in the respective currency balance of the merchant.
-> - Monthly limit per virtual account is 10,000 USD
-> - The generated accounts are personal accounts, USD virtual account is issued in the individual’s name, and not suitable for business use.
-> - The account supports ACH transactions only, ensuring swift and efficient payments.
-> - To ensure compliance, it's important to note the [prohibited activities and countries ](mcy-prohibited-activities-and-countries)restricted from having access to this product.
-> - Check possible verification errors that may occur during account request [here](mcy-account-verification-errors).
-> - Consult the guide [here](mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
-> - You can check out our FAQ section for more [information](mcy-accounts-faqs).
+>
+> * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
+> * Monthly limit per virtual account is 10,000 USD
+> * The generated accounts are personal accounts, USD virtual account is issued in the individual’s name, and not suitable for business use.
+> * The account supports ACH transactions only, ensuring swift and efficient payments.
+> * To ensure compliance, it's important to note the [prohibited activities and countries ](mcy-prohibited-activities-and-countries)restricted from having access to this product.
+> * Check possible verification errors that may occur during account request [here](mcy-account-verification-errors).
+> * Consult the guide [here](mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
+> * You can check out our FAQ section for more [information](mcy-accounts-faqs).
 
 ## API Guide
 
@@ -42,169 +42,687 @@ To create a virtual account, you'll need to pass information such as currency, a
 
 Please find below the request parameters for the endpoint.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "type",
-    "h-3": "Description",
-    "0-0": "currency",
-    "0-1": "Yes",
-    "0-2": "string",
-    "0-3": "The virtual account currency.e.g USD",
-    "1-0": "accountType",
-    "1-1": "Yes",
-    "1-2": "string",
-    "1-3": "The virtual account type. For USD, we currently only offer `individual` accounts.",
-    "2-0": "meansOfId",
-    "2-1": "Yes",
-    "2-2": "string/array",
-    "2-3": "The customer's means of identification which should be a valid government ID e.g passport, driver license. Please see the [Accepted Documents](https://docs.fincra.com/docs/eur-virtual-account#accepted-identity-documents-for-eur-virtual-account)",
-    "3-0": "utilityBill",
-    "3-1": "Yes",
-    "3-2": "string",
-    "3-3": "Electricity bills, water bills or any detailed invoice showing the usage of a service. Bank Statement is also accepted. This can be a File Upload or a URL link to the document.  \n  \nNote, utility bill must be a valid document within the last 3 months. Name and address on utility has to match details sent in payload.",
-    "4-0": "bankStatement",
-    "4-1": "Yes",
-    "4-2": "string",
-    "4-3": "Account statement from the user's bank. This can be a File Upload or URL link to the document.  \n  \nNote, bankStatement must be a valid document within the last 3 months.  \nName and address on statement has to match details sent in payload.",
-    "5-0": "**KYCInformation**",
-    "5-1": "Yes",
-    "5-2": "Object",
-    "5-3": "KYC Information  object",
-    "6-0": "KYCInformation.firstName",
-    "6-1": "Yes",
-    "6-2": "string",
-    "6-3": "The customer's first name. This is required to create an individual  account",
-    "7-0": "KYCInformation.lastName",
-    "7-1": "Yes",
-    "7-2": "string",
-    "7-3": "The customer's last name. This is required to create an individual  account",
-    "8-0": "KYCInformation.birthDate",
-    "8-1": "Yes",
-    "8-2": "string",
-    "8-3": "The birthdate of the customer(YYYY-MM-DD). Please ensure that the DOB presented here matches with the date of birth visible on the means of ID.",
-    "9-0": "KYCInformation.birthPlace",
-    "9-1": "No",
-    "9-2": "string",
-    "9-3": "The place of birth",
-    "10-0": "KYCInformation.birthCountry",
-    "10-1": "No",
-    "10-2": "string",
-    "10-3": "Please provide the country codes in the ISO 3166-1 alpha-2 format (e.g., US for the United States, EU for the European Union, NG for Nigeria)",
-    "11-0": "KYCInformation.taxCountry",
-    "11-1": "Yes",
-    "11-2": "string",
-    "11-3": "Please provide the country codes in the ISO 3166-1 alpha-2 format (e.g., US for the United States, EU for the European Union, NG for Nigeria)",
-    "12-0": "KYCInformation.taxNumber",
-    "12-1": "No",
-    "12-2": "string",
-    "12-3": "Only required when tax country is `US`",
-    "13-0": "KYCInformation.nationality",
-    "13-1": "Yes",
-    "13-2": "string",
-    "13-3": "The birthplace of the customer",
-    "14-0": "KYCInformation.email",
-    "14-1": "Yes",
-    "14-2": "string",
-    "14-3": "The customer's email.",
-    "15-0": "**KYCInformation.address**",
-    "15-1": "Yes",
-    "15-2": "Object",
-    "15-3": "The address of the customer",
-    "16-0": "KYCInformation.address.countryOfResidence",
-    "16-1": "Yes",
-    "16-2": "string",
-    "16-3": "The address of the country",
-    "17-0": "KYCInformation.address.state",
-    "17-1": "Yes",
-    "17-2": "string",
-    "17-3": "The address of the state",
-    "18-0": "KYCInformation.address.zip",
-    "18-1": "Yes",
-    "18-2": "string",
-    "18-3": "The zip code must be valid. Refer to the [ZIP Code Format Guide](https://74353748992479739.s3.amazonaws.com/files/zip_code_format.html) .",
-    "19-0": "KYCInformation.address.street",
-    "19-1": "Yes",
-    "19-2": "string",
-    "19-3": "The street name",
-    "20-0": "KYCInformation.address.city",
-    "20-1": "Yes",
-    "20-2": "string",
-    "20-3": "The city name",
-    "21-0": "KYCInformation.address.number",
-    "21-1": "Yes",
-    "21-2": "string",
-    "21-3": "The house number",
-    "22-0": "KYCInformation.sourceOfIncome",
-    "22-1": "Yes",
-    "22-2": "string",
-    "22-3": "Customer's source of income",
-    "23-0": "KYCInformation.accountDesignation",
-    "23-1": "Yes",
-    "23-2": "string",
-    "23-3": "Specific use of the account e.g for personal use, corporate use, school fee payments etc.",
-    "24-0": "KYCInformation.incomeBand",
-    "24-1": "Yes",
-    "24-2": "string",
-    "24-3": "Customer's income band. IncomeBand can be described as earning range or salary range of the customer.",
-    "25-0": "KYCInformation.phone",
-    "25-1": "Yes",
-    "25-2": "string",
-    "25-3": "The customer's phone number",
-    "26-0": "KYCInformation.employmentStatus",
-    "26-1": "Yes",
-    "26-2": "string",
-    "26-3": "Customer's employment status",
-    "27-0": "**KYCInformation.document**",
-    "27-1": "Yes",
-    "27-2": "object",
-    "27-3": "The document ",
-    "28-0": "KYCInformation.document.type",
-    "28-1": "Yes",
-    "28-2": "string",
-    "28-3": "The type of ID document e.g `passport`, `driverLicense`, `nationalId`.",
-    "29-0": "KYCInformation.  \ndocument.number",
-    "29-1": "Yes",
-    "29-2": "string",
-    "29-3": "The number on the document",
-    "30-0": "KYCInformation.  \ndocument.issuedCountryCode",
-    "30-1": "Yes",
-    "30-2": "string",
-    "30-3": "The country that issued the document.Should be in ISO 3166-1 alpha-2 – two-letter country codes format(NG)",
-    "31-0": "KYCInformation.  \ndocument.issuedBy",
-    "31-1": "Yes",
-    "31-2": "string",
-    "31-3": "The government agency in charge of issuing the document.",
-    "32-0": "KYCInformation.  \ndocument.issuedDate",
-    "32-1": "Yes",
-    "32-2": "string",
-    "32-3": "The date the document was issued(\"YYYY-mm-dd\")",
-    "33-0": "KYCInformation.  \ndocument.expirationDate",
-    "33-1": "Yes",
-    "33-2": "string",
-    "33-3": "The expiration date on the document (\"YYYY-mm-dd\"). Optional only when document type is `nationalId`.",
-    "34-0": "KYCInformation.occupation",
-    "34-1": "Yes",
-    "34-2": "string",
-    "34-3": "The occupation of the customer.",
-    "35-0": "merchantReference",
-    "35-1": "No",
-    "35-2": "string",
-    "35-3": "A unique ID/reference of the virtual account on your system."
-  },
-  "cols": 4,
-  "rows": 36,
-  "align": [
-    null,
-    null,
-    null,
-    null
-  ]
-}
-[/block]
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
 
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        currency
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The virtual account currency.e.g USD
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        accountType
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The virtual account type. For USD, we currently only offer `individual` accounts.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        meansOfId
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string/array
+      </td>
+
+      <td>
+        The customer's means of identification which should be a valid government ID e.g passport, driver license. Please see the [Accepted Documents](https://docs.fincra.com/docs/eur-virtual-account#accepted-identity-documents-for-eur-virtual-account)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        utilityBill
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Electricity bills, water bills or any detailed invoice showing the usage of a service. Bank Statement is also accepted. This can be a File Upload or a URL link to the document.  
+
+        Note, utility bill must be a valid document within the last 3 months. Name and address on utility has to match details sent in payload.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bankStatement
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Account statement from the user's bank. This can be a File Upload or URL link to the document.  
+
+        Note, bankStatement must be a valid document within the last 3 months.\
+        Name and address on statement has to match details sent in payload.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **KYCInformation**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        KYC Information  object
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.firstName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's first name. This is required to create an individual  account
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.lastName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's last name. This is required to create an individual  account
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.birthDate
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The birthdate of the customer(YYYY-MM-DD). Please ensure that the DOB presented here matches with the date of birth visible on the means of ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.birthPlace
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The place of birth
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.birthCountry
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Please provide the country codes in the ISO 3166-1 alpha-2 format (e.g., US for the United States, EU for the European Union, NG for Nigeria)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.taxCountry
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Please provide the country codes in the ISO 3166-1 alpha-2 format (e.g., US for the United States, EU for the European Union, NG for Nigeria)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.taxNumber
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Only required when tax country is `US`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.nationality
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The birthplace of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.email
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's email.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **KYCInformation.address**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The address of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.countryOfResidence
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The address of the country
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.state
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The address of the state
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.zip
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The zip code must be valid. Refer to the [ZIP Code Format Guide](https://74353748992479739.s3.amazonaws.com/files/zip_code_format.html) .
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.street
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The street name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.city
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The city name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.address.number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The house number
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.sourceOfIncome
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Customer's source of income
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.accountDesignation
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Specific use of the account e.g for personal use, corporate use, school fee payments etc.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.incomeBand
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Customer's income band. IncomeBand can be described as earning range or salary range of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.phone
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's phone number
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.employmentStatus
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Customer's employment status
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **KYCInformation.document**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        object
+      </td>
+
+      <td>
+        The document 
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.document.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The type of ID document e.g `passport`, `driverLicense`, `nationalId`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.\
+        document.number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The number on the document
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.\
+        document.issuedCountryCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The country that issued the document.Should be in ISO 3166-1 alpha-2 – two-letter country codes format(NG)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.\
+        document.issuedBy
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The government agency in charge of issuing the document.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.\
+        document.issuedDate
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The date the document was issued("YYYY-mm-dd")
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.\
+        document.expirationDate
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The expiration date on the document ("YYYY-mm-dd"). Optional only when document type is `nationalId`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        KYCInformation.occupation
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The occupation of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        merchantReference
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        A unique ID/reference of the virtual account on your system.
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 #### Accepted identity documents for USD virtual account.
 
@@ -306,8 +824,8 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 Important Notes:
 
-- `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
-- It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
+* `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
+* It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
 
 ### 3 - Receive and validate webhook notification
 
@@ -336,7 +854,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Doc Type]
+```json Error [Doc Type]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -355,7 +873,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Address]
+```json Error [Address]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -374,7 +892,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Doc Number]
+```json Error [Doc Number]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -393,7 +911,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Missing Param]
+```json Error [Missing Param]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -411,7 +929,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Document]
+```json Error [Document]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -432,10 +950,10 @@ Webhook Response:
 ```
 
 > 🚧 Important Notes
-> 
-> - `id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
-> - For detailed information on verification errors that might be encountered here, please refer to our Multicurrency [Account Verification Errors Documentation](mcy-account-verification-errors).
-> - Expect to recieve a second webhook after the `virtualaccount.approved` event. The new webhook event "`virtualaccount.issued`", is dispatched once the bank account is ready. Contained within this new webhook, is the `accountInformation` field, which contains the details of the newly generated account.
+>
+> * `id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
+> * For detailed information on verification errors that might be encountered here, please refer to our Multicurrency [Account Verification Errors Documentation](mcy-account-verification-errors).
+> * Expect to recieve a second webhook after the `virtualaccount.approved` event. The new webhook event "`virtualaccount.issued`", is dispatched once the bank account is ready. Contained within this new webhook, is the `accountInformation` field, which contains the details of the newly generated account.
 
 ```json
 {
@@ -489,7 +1007,7 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/{{virtual_accou
 
 If successful, you will receive a JSON snippet with the details of the virtual account.
 
-```json Response \[Approved]
+```json Response [Approved]
 {
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Virtual account fetched successfully",
@@ -603,7 +1121,7 @@ If successful, you will receive a JSON snippet with the details of all virtual a
 
 When a virtual account is closed; webhook notifications is sent.
 
-> 🚧 - Expect to recieve a webhook that states `virtualaccount.closed` event. Contained within this new webhook, is the `accountInformation` and  `reason` field, which contains the details of the account closure.
+> 🚧 * Expect to recieve a webhook that states `virtualaccount.closed` event. Contained within this new webhook, is the `accountInformation` and  `reason` field, which contains the details of the account closure.
 
 ```json
 {
