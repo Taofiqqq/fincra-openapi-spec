@@ -13,15 +13,14 @@ next:
 This section covers the parameters needed to process payments to bank accounts in the UK.
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
-> - [Payment Schemes](/docs/payment-scheme)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+> * [Payment Schemes](/docs/payment-scheme)
 
 <br />
 
-FPS Transfers
--------------
+## FPS Transfers
 
 The processing parameters for the Faster Payment Service (FPS) scheme are described in this section. These parameters can be used to process payments to UK bank accounts. Please be aware that the FPS payment is available around-the-clock, and that it can take anywhere from an hour to a day to reach the beneficiary.
 
@@ -74,6 +73,7 @@ The payload should look like this :
     "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
 }
 ```
+
 ### Corporate Parameters
 
 | Field                         | Mandatory | Type   | Description                                                                                                                                                                                                                                                                          |
