@@ -15,9 +15,9 @@ next:
 You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your account using our virtual account creation endpoints.
 
 > 📘 For more details on  virtual account creation and funding please read the following sections:
-> 
-> - [How to create a virtual account](/docs/how-to-create-virtual-accounts)
-> - [How to fund your account](/docs/mobile-money-transfers)
+>
+> * [How to create a virtual account](/docs/how-to-create-virtual-accounts)
+> * [How to fund your account](/docs/mobile-money-transfers)
 
 We will send a **notification** to your webhook URL whenever your account is funded.
 
