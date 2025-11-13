@@ -14,8 +14,8 @@ next:
 
 When transferring money with our [Payout API](/reference/payout-1), you may choose to encrypt the payload before making the request. You'll need your encryption key (found in the Settings > API section of your [dashboard](https://sandbox.fincra.com/settings/api)) to manually encrypt the payload.
 
-> 📘 
-> 
+> 📘
+>
 > Encryption is optional and can only be used with the [payout API](/reference/payout-1)
 
 Here is a [Node JS](https://nodejs.org/en/)  and a PHP example of how to encrypt a payload.
@@ -92,10 +92,8 @@ if ($encryptedData === $signatureFromWebhook) {
 }
 ```
 
-
-
 **Please take note of the folllowing** : 
 
-- `Payload`  contains the paramters needed to process the request
-- `encryptionKey` here refers to the encryption key
-- `signature` holds the value of the encrypted payload that should be added to your headers
+* `Payload`  contains the paramters needed to process the request
+* `encryptionKey` here refers to the encryption key
+* `signature` holds the value of the encrypted payload that should be added to your headers
