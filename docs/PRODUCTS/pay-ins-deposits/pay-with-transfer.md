@@ -18,22 +18,16 @@ You can access the Pay with Transfer option through the Fincra [Checkout](checko
 
 <br />
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/dbb900e-pay-with-transfer-2.png",
-        "pay-with-transfer-2.png",
-        "Fincra Checkout\n\n"
-      ],
-      "align": "center",
-      "caption": "Fincra Checkout"
-    }
-  ]
-}
-[/block]
+<Image
+  title="pay-with-transfer-2.png"
+  alt="Fincra Checkout
 
+"
+  align="center"
+  src="https://files.readme.io/dbb900e-pay-with-transfer-2.png"
+>
+  Fincra Checkout
+</Image>
 
 # How Pay With Transfer Works
 
