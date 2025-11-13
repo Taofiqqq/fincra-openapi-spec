@@ -13,14 +13,13 @@ next:
 Payments to bank accounts in African countries are covered in this section.
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-Payout Endpoint
----------------
+## Payout Endpoint
 
 This endpoint is used to process transfers in all currencies we support and regions we cover. To test a payout please see the [API Reference](/reference/payout-1)
 
@@ -29,10 +28,7 @@ This endpoint is used to process transfers in all currencies we support and regi
 
 ```
 
-
-
-NGN Payouts
------------
+## NGN Payouts
 
 The parameters that can be used to process payment to a Nigerian Bank Account (NUBAN) are explained below 
 
@@ -51,9 +47,9 @@ The parameters that can be used to process payment to a Nigerian Bank Account (N
 | beneficiary.lastName          | No        | string | This field is optional and only applies to payments that can be made to individual beneficiaries.                                                                                                                                                                                    |
 | beneficiary.accountHolderName | Yes       | string | This field is required by both individual and corporate beneficiaries.                                                                                                                                                                                                               |
 | beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.                                                                                                                                                                          |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.country           | No        | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                        |
+| beneficiary.country           | No        | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
 | beneficiary.bankCode          | Yes       | string | The beneficiary bank code. To get the bank code please see the [bank codes](/reference/get-branch-code) for more details. This is required for NGN payouts                                                                                                                           |
 
@@ -84,8 +80,7 @@ The payload should look like this :
 
 <br />
 
-GHS, KES Payouts
-----------------
+## GHS, KES Payouts
 
 The parameters that can be used to process payments to Ghana and Kenya bank accounts are explained below 
 
@@ -104,9 +99,9 @@ The parameters that can be used to process payments to Ghana and Kenya bank acco
 | beneficiary.lastName          | No        | string | This field is optional and only applies to payments that can be made to individual beneficiaries.                                                                                                                                                                                    |
 | beneficiary.accountHolderName | Yes       | string | This field is required by both individual and corporate beneficiaries.                                                                                                                                                                                                               |
 | beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.                                                                                                                                                                          |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.country           | No        | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                         |
+| beneficiary.country           | No        | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
 | beneficiary.bankCode          | Yes       | string | The beneficiary bank code. To get the bank code please see the [bank codes](/reference/get-branch-code) for more details. This is required for NGN payouts                                                                                                                           |
 
