@@ -18,163 +18,548 @@ We are committed to providing a secure and compliant financial environment. This
 
 The following activities are not allowed using our MCY accounts:
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "",
-    "h-1": "",
-    "0-0": "Anonymous accounts",
-    "0-1": "Casinos/Gambling industry entities that do not have proper licence or are licensed outside of  \nEEA",
-    "1-0": "Private Banking",
-    "1-1": "Sanctioned persons and businesses, as well as where the sanction is very high",
-    "2-0": "Downstream correspondent banking",
-    "2-1": "Merchants included in Visa and MasterCard blacklists.",
-    "3-0": "Companies engaged in pharmacy/food supplements",
-    "3-1": "Companies which business line consists of payment services, crypto exchange and other activities that may be subject to \"\"nesting\"\"  ",
-    "4-0": "Cash",
-    "4-1": "Companies with incorporation form LP/LLP",
-    "5-0": "Companies registered in Offshore Business Centres/tax havens",
-    "5-1": "Arms, defence, military, atomic power",
-    "6-0": "Charities",
-    "6-1": "Other entities whose activity and fund flow have lack of economic meaning (eg: suspected shell companies)",
-    "7-0": "CFD",
-    "7-1": "Entities that business line consists of trading with Cannabis/ CBDs",
-    "8-0": "Bestiality, Rape, Pornography",
-    "8-1": "Forex",
-    "9-0": "Non-Government Organizations",
-    "9-1": "Synthetic stimulants",
-    "10-0": "Trusts and similar arrangments",
-    "10-1": "Illegal Drugs; Illegal Sale of Prescription Drugs",
-    "11-0": "Multi-level Marketing",
-    "11-1": "Unlicensed service providers",
-    "12-0": "Arms trade",
-    "12-1": "Crowdfunding, ICO’s (Initial Coin Offering), IEO’s (Initial Exchange Offering), STO’s (Security Token Offering)",
-    "13-0": "",
-    "13-1": ""
-  },
-  "cols": 2,
-  "rows": 14,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
 
+      </th>
+
+      <th>
+
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Anonymous accounts
+      </td>
+
+      <td>
+        Casinos/Gambling industry entities that do not have proper licence or are licensed outside of\
+        EEA
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Private Banking
+      </td>
+
+      <td>
+        Sanctioned persons and businesses, as well as where the sanction is very high
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Downstream correspondent banking
+      </td>
+
+      <td>
+        Merchants included in Visa and MasterCard blacklists.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Companies engaged in pharmacy/food supplements
+      </td>
+
+      <td>
+        Companies which business line consists of payment services, crypto exchange and other activities that may be subject to ""nesting""  
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Cash
+      </td>
+
+      <td>
+        Companies with incorporation form LP/LLP
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Companies registered in Offshore Business Centres/tax havens
+      </td>
+
+      <td>
+        Arms, defence, military, atomic power
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Charities
+      </td>
+
+      <td>
+        Other entities whose activity and fund flow have lack of economic meaning (eg: suspected shell companies)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        CFD
+      </td>
+
+      <td>
+        Entities that business line consists of trading with Cannabis/ CBDs
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Bestiality, Rape, Pornography
+      </td>
+
+      <td>
+        Forex
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Non-Government Organizations
+      </td>
+
+      <td>
+        Synthetic stimulants
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Trusts and similar arrangments
+      </td>
+
+      <td>
+        Illegal Drugs; Illegal Sale of Prescription Drugs
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Multi-level Marketing
+      </td>
+
+      <td>
+        Unlicensed service providers
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Arms trade
+      </td>
+
+      <td>
+        Crowdfunding, ICO’s (Initial Coin Offering), IEO’s (Initial Exchange Offering), STO’s (Security Token Offering)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ### High-risks Activities
 
 In addition to prohibited activities, certain high risk activities are subject to enhanced scrutiny and may not be eligible for MCY accounts:
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "",
-    "h-1": "",
-    "0-0": "Privacy coins",
-    "0-1": "Lottery",
-    "1-0": "Gambling",
-    "1-1": "Multi-level marketing",
-    "2-0": "\"Providing services to Customers that are banks, payment service providers or other types of  \nfinancial institutions.\"",
-    "2-1": ""
-  },
-  "cols": 2,
-  "rows": 3,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
 
+      </th>
+
+      <th>
+
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Privacy coins
+      </td>
+
+      <td>
+        Lottery
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Gambling
+      </td>
+
+      <td>
+        Multi-level marketing
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        "Providing services to Customers that are banks, payment service providers or other types of\
+        financial institutions."
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ## Restricted Countries
 
 Due to regulatory and compliance requirements, the Fincra MCY Account Product is not available for users in the following countries:
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "",
-    "h-1": "",
-    "h-2": "",
-    "0-0": "Afghanistan",
-    "0-1": "Albania",
-    "0-2": "American",
-    "1-0": "Samoa",
-    "1-1": "Anguilla",
-    "1-2": "Antigua and Barbuda",
-    "2-0": "Bahamas",
-    "2-1": "Aruba",
-    "2-2": "Belarus",
-    "3-0": "Bermuda",
-    "3-1": "Burkina Faso",
-    "3-2": "Barbados",
-    "4-0": "Burundi",
-    "4-1": "Cambodia",
-    "4-2": "Cayman Islands",
-    "5-0": "Central African Republic",
-    "5-1": "Congo",
-    "5-2": "Democratic  \nRepublic of the  \nCook Islands",
-    "6-0": "Cuba",
-    "6-1": "Curaçao",
-    "6-2": "Dominica",
-    "7-0": "Fiji",
-    "7-1": "Guam",
-    "7-2": "Guinea",
-    "8-0": "Guinea-Bissau",
-    "8-1": "Haiti",
-    "8-2": "Iran",
-    "9-0": "Iraq",
-    "9-1": "Jamaica",
-    "9-2": "Jordan",
-    "10-0": "Korea (Democratic People's Republic of Korea)",
-    "10-1": "Libya",
-    "10-2": "Mali",
-    "11-0": "Marshall Islands",
-    "11-1": "Morocco",
-    "11-2": "Myanmar (Burma)",
-    "12-0": "Nicaragua",
-    "12-1": "Pakistan",
-    "12-2": "Palau",
-    "13-0": "Palestine",
-    "13-1": "Panama",
-    "13-2": "Philippines",
-    "14-0": "Russian Federation",
-    "14-1": "Saint Kitts and Nevis",
-    "14-2": "Saint Lucia",
-    "15-0": "Saint Vincent and the  \n Grenadines",
-    "15-1": "Samoa",
-    "15-2": "Senegal",
-    "16-0": "Seychelles",
-    "16-1": "Somalia",
-    "16-2": "South Sudan",
-    "17-0": "Sudan",
-    "17-1": "Syrian Arab Republic",
-    "17-2": "Trinidad and Tobago",
-    "18-0": "Turks and Caicos Islands",
-    "18-1": "Uganda",
-    "18-2": "Vanuatu",
-    "19-0": "Venezuela (Bolivarian Republic of Venezuela)",
-    "19-1": "Virgin Islands (British)",
-    "19-2": "Virgin Islands (U.S.)",
-    "20-0": "Yemen",
-    "20-1": "",
-    "20-2": "",
-    "21-0": " ",
-    "21-1": "",
-    "21-2": ""
-  },
-  "cols": 3,
-  "rows": 22,
-  "align": [
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
 
+      </th>
+
+      <th>
+
+      </th>
+
+      <th>
+
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Afghanistan
+      </td>
+
+      <td>
+        Albania
+      </td>
+
+      <td>
+        American
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Samoa
+      </td>
+
+      <td>
+        Anguilla
+      </td>
+
+      <td>
+        Antigua and Barbuda
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Bahamas
+      </td>
+
+      <td>
+        Aruba
+      </td>
+
+      <td>
+        Belarus
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Bermuda
+      </td>
+
+      <td>
+        Burkina Faso
+      </td>
+
+      <td>
+        Barbados
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Burundi
+      </td>
+
+      <td>
+        Cambodia
+      </td>
+
+      <td>
+        Cayman Islands
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Central African Republic
+      </td>
+
+      <td>
+        Congo
+      </td>
+
+      <td>
+        Democratic\
+        Republic of the\
+        Cook Islands
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Cuba
+      </td>
+
+      <td>
+        Curaçao
+      </td>
+
+      <td>
+        Dominica
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Fiji
+      </td>
+
+      <td>
+        Guam
+      </td>
+
+      <td>
+        Guinea
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Guinea-Bissau
+      </td>
+
+      <td>
+        Haiti
+      </td>
+
+      <td>
+        Iran
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Iraq
+      </td>
+
+      <td>
+        Jamaica
+      </td>
+
+      <td>
+        Jordan
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Korea (Democratic People's Republic of Korea)
+      </td>
+
+      <td>
+        Libya
+      </td>
+
+      <td>
+        Mali
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Marshall Islands
+      </td>
+
+      <td>
+        Morocco
+      </td>
+
+      <td>
+        Myanmar (Burma)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Nicaragua
+      </td>
+
+      <td>
+        Pakistan
+      </td>
+
+      <td>
+        Palau
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Palestine
+      </td>
+
+      <td>
+        Panama
+      </td>
+
+      <td>
+        Philippines
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Russian Federation
+      </td>
+
+      <td>
+        Saint Kitts and Nevis
+      </td>
+
+      <td>
+        Saint Lucia
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Saint Vincent and the\
+         Grenadines
+      </td>
+
+      <td>
+        Samoa
+      </td>
+
+      <td>
+        Senegal
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Seychelles
+      </td>
+
+      <td>
+        Somalia
+      </td>
+
+      <td>
+        South Sudan
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Sudan
+      </td>
+
+      <td>
+        Syrian Arab Republic
+      </td>
+
+      <td>
+        Trinidad and Tobago
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Turks and Caicos Islands
+      </td>
+
+      <td>
+        Uganda
+      </td>
+
+      <td>
+        Vanuatu
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Venezuela (Bolivarian Republic of Venezuela)
+      </td>
+
+      <td>
+        Virgin Islands (British)
+      </td>
+
+      <td>
+        Virgin Islands (U.S.)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Yemen
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 By restricting access to our services in these countries and prohibiting certain activities, we ensure that our platform remains safe, secure, and compliant with global financial standards.
 
