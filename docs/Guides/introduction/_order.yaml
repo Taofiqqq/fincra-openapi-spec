@@ -2,3 +2,4 @@
 - secret-key
 - payout-webhook
 - payin-webhook
+- conversions-webhook
