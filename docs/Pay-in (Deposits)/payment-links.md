@@ -20,8 +20,8 @@ Let's get started 👊🏼
 
 You must first create a [Fincra account](https://app.fincra.com/auth/signup). In order to do this,  you access the dashboard on your portal and navigate to the Payins → Payment links page and click the ‘Create a Payment Link’ button, then :
 
-- Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Checkout will appear to a customer just before they make payment.
-- Click on Create.
+* Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Checkout will appear to a customer just before they make payment.
+* Click on Create.
 
 ![](https://files.readme.io/cdf7ec7-Screenshot_2022-04-20_at_15.52.19_1.png "Screenshot 2022-04-20 at 15.52.19 (1).png")
 
