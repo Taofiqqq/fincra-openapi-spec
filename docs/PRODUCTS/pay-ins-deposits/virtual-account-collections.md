@@ -15,7 +15,7 @@ next:
 Virtual accounts are accounts that allow Fincra merchants to receive payments from customers via bank transfer. With our virtual accounts, you can accept payments from Africa, Europe, the US, the UK, and anywhere in the world.
 
 > 🚧 Note
-> 
+>
 > It is important to note that Virtual Bank Accounts do not store monetary value like regular bank accounts; they only provide a means for your customers to pay you and the funds get settled in your account balance, to check your account balance please see the balance API
 
 To get started check our virtual accounts [API](virtual-account-api).
