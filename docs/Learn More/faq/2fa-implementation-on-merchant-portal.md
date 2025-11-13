@@ -22,11 +22,11 @@ A: Two-Factor Authentication adds an extra layer of security to your account. It
 
 A: To set up Two-Factor Authentication, please follow these steps:
 
-- Log in to your merchant account on the Merchant Portal.
-- Navigate to the Security or Account Settings section.
-- Look for the Two-Factor Authentication (2FA) settings option.  
+* Log in to your merchant account on the Merchant Portal.
+* Navigate to the Security or Account Settings section.
+* Look for the Two-Factor Authentication (2FA) settings option.\
   Choose your preferred 2FA method: SMS-based codes, email-based codes, or Authenticator app.
-- Follow the on-screen instructions to complete the setup process.
+* Follow the on-screen instructions to complete the setup process.
 
 ### Q: What are the available Two-Factor Authentication (2FA) methods?
 
