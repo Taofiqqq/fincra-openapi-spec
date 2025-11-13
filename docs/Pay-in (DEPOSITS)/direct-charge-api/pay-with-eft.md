@@ -16,23 +16,37 @@ When customers initiate an EFT payment, they will be redirected to their bank's 
 
 ## Supported Currencies and List Of Available Banks by Currency
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Currencies",
-    "h-1": "Available Banks",
-    "0-0": "ZAR (South African Rand)",
-    "0-1": "ABSA  \nFNB  \nInvestec  \nNedbank  \nStandard Bank  \nBidvest Bank  \nTymeBank"
-  },
-  "cols": 2,
-  "rows": 1,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Currencies
+      </th>
 
+      <th>
+        Available Banks
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        ZAR (South African Rand)
+      </td>
+
+      <td>
+        ABSA\
+        FNB\
+        Investec\
+        Nedbank\
+        Standard Bank\
+        Bidvest Bank\
+        TymeBank
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 <br />
 
@@ -42,19 +56,19 @@ The following steps are required to accept EFT payments:
 
 To charge a customer via EFT, you will need to send customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge):
 
-| Field                   | Required | Type   | Description                                                                                                                      |
-| :---------------------- | :------- | :----- | :------------------------------------------------------------------------------------------------------------------------------- |
-| type                    | Yes      | String | This is the payment method. In this case, it will be `eft`.                                                                      |
-| reference               | Yes      | String | Your unique reference generated for the transaction.                                                                             |
-| amount                  | Yes      | Number | The amount to be charged                                                                                                         |
-| currency                | Yes      | String | The transaction currency			                                                                                                      |
-| customer                | Yes      | Object | The customer's details                                                                                                           |
-| customer.name           | Yes      | String | The customer's name                                                                                                              |
-| customer.email          | Yes      | String | The customer's email                                                                                                             |
-| customer.phoneNumber    | No       | String | The customer's phone number                                                                                                      |
-| settlementDestination		 | No       | String | Preferred settlement destination where you want your payments to be settled. Settlements are only to wallets (balances) for now. |
-| callbackUrl             | No       | String | The URL to redirect your customer when the transaction is complete.                                                              |
-| webhookUrl              | No       | String | The webhook URL to receive transaction notifications.                                                                            |
+| Field                 | Required | Type   | Description                                                                                                                      |
+| :-------------------- | :------- | :----- | :------------------------------------------------------------------------------------------------------------------------------- |
+| type                  | Yes      | String | This is the payment method. In this case, it will be `eft`.                                                                      |
+| reference             | Yes      | String | Your unique reference generated for the transaction.                                                                             |
+| amount                | Yes      | Number | The amount to be charged                                                                                                         |
+| currency              | Yes      | String | The transaction currency                                                                                                         |
+| customer              | Yes      | Object | The customer's details                                                                                                           |
+| customer.name         | Yes      | String | The customer's name                                                                                                              |
+| customer.email        | Yes      | String | The customer's email                                                                                                             |
+| customer.phoneNumber  | No       | String | The customer's phone number                                                                                                      |
+| settlementDestination | No       | String | Preferred settlement destination where you want your payments to be settled. Settlements are only to wallets (balances) for now. |
+| callbackUrl           | No       | String | The URL to redirect your customer when the transaction is complete.                                                              |
+| webhookUrl            | No       | String | The webhook URL to receive transaction notifications.                                                                            |
 
 Then, prepare your data object to look like the sample below :
 
@@ -74,11 +88,11 @@ Then, prepare your data object to look like the sample below :
 
 Send a POST request with the payment data above to the initiate an EFT charge endpoint. If the request is successful, you will receive a response containing the transaction status `pending` as well as other important parameters such as:
 
-- `data.id` refers to the unique identifier of the transaction
-- `data.reference` refers to the unique identifier of the transaction on your platform
-- `data.message` This contains instructions for the customer to complete the payment authorization
-- `data.auth_model` Important! This indicates the authorization method required (REDIRECT)
-- `data.authorization.redirect` If auth_model is REDIRECT, this contains the URL where the customer should be directed to complete authorization
+* `data.id` refers to the unique identifier of the transaction
+* `data.reference` refers to the unique identifier of the transaction on your platform
+* `data.message` This contains instructions for the customer to complete the payment authorization
+* `data.auth_model` Important! This indicates the authorization method required (REDIRECT)
+* `data.authorization.redirect` If auth\_model is REDIRECT, this contains the URL where the customer should be directed to complete authorization
 
 Here is a sample response that you will receive after initiating an EFT payment:
 
