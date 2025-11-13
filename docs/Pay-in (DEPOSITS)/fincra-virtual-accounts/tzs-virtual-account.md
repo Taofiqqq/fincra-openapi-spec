@@ -29,9 +29,9 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/requests' \
 These Virtual Accounts can receive TZS payments from customers, which are automatically reflected in the merchant’s TZS wallet.
 
 > 📘 Important
-> 
-> - Requests for both Individual and corporate TZS virtual accounts are issued in real time.
-> - Funds received by a virtual account are settled into the merchant’s TZS wallet.
+>
+> * Requests for both Individual and corporate TZS virtual accounts are issued in real time.
+> * Funds received by a virtual account are settled into the merchant’s TZS wallet.
 
 ## 🔐 Authentication
 
@@ -196,8 +196,8 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 
 ```
 
-Important Notes:  
-\_id : This is the unique Identifier for the virtual account that was just created (accountId)  
+Important Notes:\
+\_id : This is the unique Identifier for the virtual account that was just created (accountId)\
 business : This is your business ID.
 
 ### Receive and validate webhook notification
