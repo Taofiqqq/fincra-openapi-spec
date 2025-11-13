@@ -14,21 +14,7 @@ Direct Charge is ideal when you require greater control or a customized solution
 
 With a single integration, Fincra's Checkout enables you to accept payments through various methods, including card, bank transfer, mobile money, and Pay with PayAttitude. The Checkout features Fincra's user-friendly interface and seamless payment flow. Here's an example of Fincra's Checkout in action:
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/fa27b5c-Screenshot_2024-06-27_at_09.10.46.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/fa27b5c-Screenshot_2024-06-27_at_09.10.46.png" />
 
 # Payment methods
 
@@ -39,12 +25,12 @@ Our checkout solution offers a gateway to various payment methods. Some of the s
 3. Mobile money
 4. USSD via PayAttitude
 
-| Method        | API variable  |
-| :------------ | :------------ |
-| Card          | card          |
-| Bank Transfer | bank_transfer |
-| Mobile money  | mobile_money  |
-| PayAttitude   | PayAttitude   |
+| Method        | API variable   |
+| :------------ | :------------- |
+| Card          | card           |
+| Bank Transfer | bank\_transfer |
+| Mobile money  | mobile\_money  |
+| PayAttitude   | PayAttitude    |
 
 # Supported currencies for direct charge
 
@@ -64,14 +50,14 @@ Some of the currencies supported for direct charge are listed below. You can see
 
 The process of charging a customer consists of three key steps:
 
-- **Initiate charge**:  This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
-- **Authorise charge**:  The customer authorises the Charge with their payment provider. The payment provider could be a bank, card issuer or mobile money operator.
-- **Verify  charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge)  to ensure that the payment was successful before you give any value to the customer
+* **Initiate charge**:  This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
+* **Authorise charge**:  The customer authorises the Charge with their payment provider. The payment provider could be a bank, card issuer or mobile money operator.
+* **Verify  charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge)  to ensure that the payment was successful before you give any value to the customer
 
 > 📘 Direct Charge Options
-> 
+>
 > Via the Direct Charge API, we currently offer support for the below payment methods:
-> 
-> - [Bank Transfer](https://docs.fincra.com/docs/bank-transfer-direct-charge) 
-> - [Card Payments](card-payments-direct-charge)
-> - [Mobile Money Payments](mobile-money-direct-charge)
+>
+> * [Bank Transfer](https://docs.fincra.com/docs/bank-transfer-direct-charge) 
+> * [Card Payments](card-payments-direct-charge)
+> * [Mobile Money Payments](mobile-money-direct-charge)
