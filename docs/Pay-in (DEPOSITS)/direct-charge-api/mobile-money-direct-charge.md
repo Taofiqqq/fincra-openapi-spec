@@ -42,8 +42,7 @@ Kindly find the currencies and providers supported for mobile money payments bel
 |                             | **\*110#** for AirtelTigo Money | **\*144#** for Africell    |
 |                             |                                 |                            |
 
-**Take note  
-**The  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
+**Take note\&#xA;**&#x54;he  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
 
 The following steps are required to accept mobile money payments :
 
@@ -87,10 +86,10 @@ Then, prepare your data object to look like the sample below :
 
 Send a POST request with the payment data above to the [initiate a mobile money charge endpoint](/reference/initiate-a-charge). If the request is successful, you will receive a response containing the transaction status `pending` as well as other important parameters such as: 
 
-- `data.id`  refers to the unique identifier of the transaction
-- `data.reference` refers to the unique identifier of the transaction on your platform.
-- `data.message` This is the message which contains the payment procedures. You are expected to display the `data.message` to your customer to make payments, and then listen to webhook for transaction notification or query the verify payment endpoint at intervals.
-- `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). 
+* `data.id`  refers to the unique identifier of the transaction
+* `data.reference` refers to the unique identifier of the transaction on your platform.
+* `data.message` This is the message which contains the payment procedures. You are expected to display the `data.message` to your customer to make payments, and then listen to webhook for transaction notification or query the verify payment endpoint at intervals.
+* `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). 
 
 Here is a sample response that you will receive after initiating a payment and requires the customer to complete the process:
 
