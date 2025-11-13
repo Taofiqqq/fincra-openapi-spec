@@ -20,7 +20,7 @@ Gain access to Airtel, Glo, MTN, 9Mobile, and various telcos for airtime vending
 
 Make an API request to the [fetch telcos endpoint](/reference/fetch-telcos) to get the list of telcos available. If successful, you will receive a JSON snippet with details of every telco Fincra can access. 
 
-API request  
+API request\
 `​​https://billing-staging.bytestacks.io/api/v1/telcos`
 
 API response 
@@ -77,10 +77,10 @@ From the response, our preferred telco biller is Smile. The key details for this
 
 After identifying the telco, the next step is to make your bill payment. This can be done by making a request to the [purchase airtime endpoint](/reference/vend-airtime) using the following parameters:
 
-- Amount: This indicates the amount to be paid.
-- Phone No: The phone number to be recharged
-- Telco: The airtime service provider
-- Reference: The unique reference of the transaction on your system
+* Amount: This indicates the amount to be paid.
+* Phone No: The phone number to be recharged
+* Telco: The airtime service provider
+* Reference: The unique reference of the transaction on your system
 
 ```curl
 curl --request POST \
@@ -118,5 +118,5 @@ If successful, a JSON response containing details of your utility bill payment w
 }
 ```
 
-Important notes:  
+Important notes:\
 The `customer_reference` refers to the unique reference of the transaction on your system. The `reference` refers to the reference generated for this transaction on the Fincra system.
