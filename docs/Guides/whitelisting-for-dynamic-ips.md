@@ -18,66 +18,24 @@ This process would take you less than 5 minutes to complete.
 
 ## You might have come across this trying to get your api keys
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/c06966f-Screenshot_2023-10-17_at_13.02.16.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/c06966f-Screenshot_2023-10-17_at_13.02.16.png" />
 
 ## Or maybe this, when you were trying to update your ip
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/624d50e-Step_10.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/624d50e-Step_10.png" />
 
 ## No need to worry, just follow the steps below
 
 ## Step 1
 
-Follow the steps in this tutorial  [Getting your IP address whitelisted](https://docs.fincra.com/docs/geting-your-ip-address-whitelisted). Use the wildcard ip "0.0.0.0" as your ip address. Skip this step if you have already done this.  
+Follow the steps in this tutorial  [Getting your IP address whitelisted](https://docs.fincra.com/docs/geting-your-ip-address-whitelisted). Use the wildcard ip "0.0.0.0" as your ip address. Skip this step if you have already done this.\
 Note, we only accept actual IP addresses and not CIDR Blocks (e.g 0.0.0.0/0)
 
 ## Step 2
 
 Navigate to the **API Keys and Webhooks** tab and save the secret key, public key and webhook key in a secure location where you can easily access it. Also provide a webhook url, if available. It's recommended to have this while on prod.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/cf271e9-image.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/cf271e9-image.png" />
 
 ## Step 3
 
@@ -99,17 +57,4 @@ If your request was to remove the ip whitelisting restriction on your account du
 
 It is a temporary measure and we are already working on optimising this process.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/fa17700-Step_3.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
+<Image align="center" src="https://files.readme.io/fa17700-Step_3.png" />
