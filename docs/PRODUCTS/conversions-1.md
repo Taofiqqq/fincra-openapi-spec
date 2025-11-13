@@ -16,7 +16,7 @@ Currency conversion is the process of exchanging one currency for another at a s
 
 # How Fincra's conversion solution works
 
-1. **Generate a Quote**: Request a quote by specifying the transaction type as "conversion", source and destination currencies, amount, and setting the payment destination to "fliqpay_wallet"
+1. **Generate a Quote**: Request a quote by specifying the transaction type as "conversion", source and destination currencies, amount, and setting the payment destination to "fliqpay\_wallet"
 2. **Review Quote Details**: Review the quote information including exchange rate, fees, and expiration time
 3. **Request Conversion**: Submit a conversion request using the quote reference received in the previous step. This is how you lock a trade.
 4. **Receive Webhook Notification**: Listen for webhook events (e.g., "conversion.successful") that indicate the status of your conversion
