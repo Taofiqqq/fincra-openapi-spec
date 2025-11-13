@@ -13,15 +13,14 @@ next:
 This section covers the parameters needed to process payments to bank accounts in the UK.
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
-> - [Payment Schemes](/docs/payment-scheme)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+> * [Payment Schemes](/docs/payment-scheme)
 
 <br />
 
-CHAPS Transfers
----------------
+## CHAPS Transfers
 
 The processing parameters for the Clearing House Automated Payment System (CHAPS) scheme are described in this section. These parameters can be used to process payments to UK bank accounts. Please be aware that the CHAPS payment is available Monday to Friday excluding bank holidays, and usually has a cut-off time of 5.30 pm. Please see the bank of England [documentation](https://www.bankofengland.co.uk/payment-and-settlement/chaps#:~:text=Operating%20hours%3A%20The%20CHAPS%20system,be%20submitted%20by%205.40pm.) on chaps for more details.
 
@@ -43,10 +42,10 @@ To make payments you will need to send the required parameters to the [payout en
 | beneficiary.firstName         | Yes       | string | The first name of the beneficiary .                                                                                                                                                                                                                                                  |
 | beneficiary.lastName          | Yes       | string | The last name of the beneficiary .                                                                                                                                                                                                                                                   |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
-| beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary                                                                                       |
+| beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary                                                                                                                                                                                                                                   |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
-| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                       |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
+| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
 | beneficiary.sortCode          | Yes       | string | The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000                                                                              |
 | beneficiary.bankSwiftCode     | Yes       | string | The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A                                                                                                                                                                   |
@@ -77,6 +76,7 @@ The payload should look like this :
     "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
 }
 ```
+
 ### Corporate Beneficiary
 
 | Field                         | Mandatory | Type   | Description                                                                                                                                                                                                                                                                          |
@@ -91,10 +91,10 @@ The payload should look like this :
 | quoteReference                | No        | string | This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint. |
 | beneficiary                   | Yes       | object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                                                                                       |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
-| beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary                                                                                                                              |
+| beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary                                                                                                                                                                                                                                   |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
-| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                        |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
+| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
 | beneficiary.sortCode          | Yes       | string | The beneficiary's bank sort code                                                                                                                                                                                                                                                     |
 | beneficiary.bankSwiftCode     | Yes       | string | The beneficiary's bank swift code                                                                                                                                                                                                                                                    |
