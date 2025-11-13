@@ -1,0 +1,95 @@
+---
+title: Payment Links
+excerpt: ''
+deprecated: false
+hidden: false
+metadata:
+  title: ''
+  description: ''
+  robots: noindex
+next:
+  description: ''
+---
+A payment link is a simple way to collect payments from your customers by sending them links to pay you or accept donations.
+
+Using Payment Links, you can create a payment page and share a link to it with your users. Not a developer? Payment Links are perfect as they don’t require any coding, so you start collecting payments within minutes, and you may share the link on social media, via emails, or through any other medium as many times as you want.
+
+The Payment Links API can also be used to create payment links autonomously.
+
+
+Let's get started 👊🏼
+
+##1 - Create a Payment Link
+You'll need a Fincra account first. Now is the time to create an [account](https://sandbox.fincra.com/auth/signup).  In the Dashboard, navigate to the Collections → Payment links page and click the ‘Create a Payment Link’ button. Then :
+  * Fill in the details of your new Payment Link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Checkout will appear to a customer just before they make payment.
+  * Click on Create.
+
+
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/cdf7ec7-Screenshot_2022-04-20_at_15.52.19_1.png",
+        "Screenshot 2022-04-20 at 15.52.19 (1).png",
+        2612,
+        1766,
+        "#f7f6fb"
+      ]
+    }
+  ]
+}
+[/block]
+
+##2 - Share your payment link
+Every Payment Link comes with a customizable URL that can be shared with customers or included as links and buttons in your applications. The link can be used more than once. The details page will be displayed when you create a link. Simply copy the payment link and share it with your customers.
+
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/b1cffeb-Screenshot_2022-04-22_at_13.12.32.png",
+        "Screenshot 2022-04-22 at 13.12.32.png",
+        3308,
+        1716,
+        "#f4f4fb"
+      ]
+    }
+  ]
+}
+[/block]
+##3 - Track your payments
+Payments can be viewed on the details page of your payment link on the Dashboard. 
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/b6cfd1b-Screenshot_2022-04-22_at_13.06.44.png",
+        "Screenshot 2022-04-22 at 13.06.44.png",
+        3020,
+        1680,
+        "#f5f5fc"
+      ]
+    }
+  ]
+}
+[/block]
+##4 - Link Modification
+You can either modify the details and use your payment link, or deactivate or delete the link once you've finished collecting payments. simply browse to the payment link's information page and select your specific action
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/a8fc779-Screenshot_2022-04-22_at_12.45.43.png",
+        "Screenshot 2022-04-22 at 12.45.43.png",
+        3354,
+        1657,
+        "#f4f3fb"
+      ]
+    }
+  ]
+}
+[/block]
