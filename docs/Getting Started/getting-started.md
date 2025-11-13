@@ -1,0 +1,32 @@
+---
+title: Homepage
+excerpt: ''
+deprecated: false
+hidden: false
+metadata:
+  title: ''
+  description: ''
+  robots: index
+next:
+  description: ''
+---
+# Welcome to our API documentation
+
+Fincra offers a contemporary financial infrastructure designed for businesses and developers, enabling them to facilitate local and international payouts, gather payments from customers, and create virtual accounts.
+
+# Get Started
+
+Regardless of whether you are a startup or a global enterprise, discover the seamless integration process with Fincra! Most teams are up and running in just 30 minutes, experiencing the full benefits of our platform.
+
+<br />
+
+[block:html]
+{
+  "html": "<div class=\"test\">\n        <div class=\"container\">\n            <div class=\"row\">\n               <div class=\"card\">\n                    <img src=\"https://files.readme.io/e0e7f38-.png\" alt=\"Avatar\" class=\"icon\">\n                    <h4>Payins</h4>\n                    <p>Learn how to receive fast and secure payments with Fincra.</p>\n                    <a id=\"cool\" href=\"/docs/introduction-9\" class=\"btn\">Read More</a>\n                </div>\n              \n                <div class=\"card\">\n                    <img src=\"https://files.readme.io/e0e7f38-.png\" alt=\"Avatar\" class=\"icon\">\n                    <h4>Payouts</h4>\n                    <p>Learn how to make local and international payouts in different currencies</p>\n                  <a id=\"cool\" href=\"/docs/introduction-10\" class=\"btn\">Read More</a>\n                </div>\n\n         \n\n                <div class=\"card\">\n                    <img src=\"https://files.readme.io/e0e7f38-.png\" alt=\"Avatar\" class=\"icon\">\n                    <h4>Virtual Accounts</h4>\n                    <p>Create local and international bank accounts in different currencies</p>\n                    <a id=\"cool\" href=\"/docs/fincra-virtual-accounts\" class=\"btn\">Read More</a>\n                </div>\n            </div>\n        </div>\n  \n        <div class=\"container\">\n            <div class=\"card\">\n              <img src=\"https://files.readme.io/e0e7f38-.png\" alt=\"Avatar\" class=\"icon\">\n              <h4>Identity Management</h4>\n              <p>Learn how to use Fincra to verify your customer's identity.</p>\n              <a id=\"cool\" href=\"/docs/verify-iban-and-account-numbers\" class=\"btn\">Read More</a>\n          </div>\n        </div>\n\n    </div>\n\n\n\n    <style>\n        #cool {\n            text-decoration: none;\n        }\n      \n\n        .container {\n            margin: 0 auto;\n            padding: 0;\n            box-sizing: border-box;\n\n        }\n\n        .row {\n            display: flex;\n            flex-wrap: wrap;\n            align-items: center;\n            justify-content: space-between;\n        }\n\n\n        .card {\n            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n            transition: 0.3s;\n            flex-direction: column;\n            display: flex;\n            flex-wrap: wrap;\n            width: 30%;\n            align-items: center;\n            margin-right: 20px;\n            margin-bottom: 20px;\n            padding: 25px 20px 35px 20px;\n            align-self: normal;\n            border-radius: 7px;\n            text-align: center;\n        }\n\n        .card img {\n            max-width: 200px;\n        }\n\n        .icon {\n            height: 40px;\n            width: 40px;\n            display: block;\n            text-align: center;\n            /* Other styles here */\n        }\n\n\n        .card h4 {\n            font-size: 1rem;\n            text-transform: uppercase;\n            margin: 10px 0;\n        }\n\n        .card p {\n            margin-bottom: 10px;\n        }\n\n        .card .btn {\n            display: inline-block;\n            margin-top: auto;\n            background: #844ef1;\n            color: #fff;\n            text-align: center;\n            color: #fff;\n            padding: 10px 20px;\n            border-radius: 5px;\n            -webkit-border-radius: 5px;\n            -moz-border-radius: 5px;\n            -ms-border-radius: 5px;\n            -o-border-raius: 5px;\n        }\n      \n      @media only screen and (max-width: 768px) {\n  /* For mobile phones: */\n  .card {\n    width: 100%;\n  }\n}\n    </style>"
+}
+[/block]
+
+
+# Have Questions?
+
+We are dedicated to assisting you with any inquiries regarding code or other aspects. Explore our documentation, reach out to us on [Twitter](https://twitter.com/FincraHQ) with a friendly 👋 ,contact our [support team](https://fincrasupport.freshdesk.com/support/home), or engage in a conversation with our sales representatives. If you encounter any technical obstacles, feel free to post your questions on our [community forum](https://join.slack.com/t/fincrahub/shared_invite/zt-1dvud5gcz-Jwr_3uA2HUA_S~iv7Z7eng) .
