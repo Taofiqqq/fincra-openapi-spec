@@ -167,10 +167,10 @@ Response: You would receive a JSON snippet with the details of the virtual accou
 }
 ```
 
-> 📘 ### Important Notes:
-> 
-> - **\_id**: This is the unique identifier for the newly created virtual account. Be sure to save it, as it will be required for retrieving account details or transaction records.
-> - Other fields will be included in the response, but only the key ones are highlighted here. The full request payload will also be returned in the response.
+> 📘 Important Notes:
+>
+> * **\_id**: This is the unique identifier for the newly created virtual account. Be sure to save it, as it will be required for retrieving account details or transaction records.
+> * Other fields will be included in the response, but only the key ones are highlighted here. The full request payload will also be returned in the response.
 
 ### Receive and Validate Webhook Notifications
 
@@ -199,7 +199,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Doc Type]
+```Text Error [Doc Type]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -218,7 +218,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Address]
+```Text Error [Address]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -237,7 +237,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Doc Number]
+```Text Error [Doc Number]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -256,7 +256,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Missing Param]
+```Text Error [Missing Param]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -274,7 +274,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Document]
+```Text Error [Document]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -294,10 +294,10 @@ Webhook Response
 }
 ```
 
-> 📘 ### Important Notes
-> 
-> For more information on possible verification errors, please consult our **Multicurrency Account [Verification Errors Documentation](https://docs.fincra.com/docs/mcy-account-verification-errors)**. 
-> 
+> 📘 Important Notes
+>
+> For more information on possible verification errors, please consult our **Multicurrency Account[Verification Errors Documentation](https://docs.fincra.com/docs/mcy-account-verification-errors)**. 
+>
 > After the **virtualaccount.approved** event, expect a second webhook: **virtualaccount.issued**, which is triggered once the bank account is fully ready. This webhook will include the **accountInformation** field, containing the details of the newly created account.
 
 ```Text JSON
@@ -353,7 +353,7 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/{{virtual_accou
 
 If successful, you will receive a JSON snippet with the details of the virtual account.
 
-```Text Response \[Approved]
+```Text Response [Approved]
 {
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Virtual account fetched successfully",
@@ -468,15 +468,15 @@ This account is intended for personal use, supporting only ACH transactions with
 Below, we outline the requirements for creating a USD virtual account. Currently, Fincra only offers individual USD accounts, and here’s how permanent accounts can be created.
 
 > 📘 Important
-> 
-> - Funds received by a virtual account created, settles in the respective currency balance of the merchant.
-> - Monthly limit per virtual account is 10,000 USD
-> - The generated accounts are personal accounts, USD virtual account is issued in the individual’s name, and not suitable for business use.
-> - The account supports ACH transactions only, ensuring swift and efficient payments.
-> - To ensure compliance, it's important to note the [prohibited activities and countries restricted](https://docs.fincra.com/docs/mcy-prohibited-activities-and-countries) from having access to this product.
-> - Check possible verification errors that may occur during account request [here](https://docs.fincra.com/docs/mcy-account-verification-errors).
-> - Consult the guide here, for more information on how to treat requests for information on an expected deposit/inflow.
-> - You can check out our [FAQ](https://docs.fincra.com/docs/mcy-accounts-faqs) section for more information.
+>
+> * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
+> * Monthly limit per virtual account is 10,000 USD
+> * The generated accounts are personal accounts, USD virtual account is issued in the individual’s name, and not suitable for business use.
+> * The account supports ACH transactions only, ensuring swift and efficient payments.
+> * To ensure compliance, it's important to note the [prohibited activities and countries restricted](https://docs.fincra.com/docs/mcy-prohibited-activities-and-countries) from having access to this product.
+> * Check possible verification errors that may occur during account request [here](https://docs.fincra.com/docs/mcy-account-verification-errors).
+> * Consult the guide here, for more information on how to treat requests for information on an expected deposit/inflow.
+> * You can check out our [FAQ](https://docs.fincra.com/docs/mcy-accounts-faqs) section for more information.
 
 # API Guide
 
@@ -623,10 +623,10 @@ You would receive a JSON snippet with the details of the virtual account, along 
 }
 ```
 
-> 📘 ### Important Notes:
-> 
-> - **\_id**: This is the unique identifier for the newly created virtual account. Be sure to save it, as it will be required for retrieving account details or transaction records.
-> - Other fields will be included in the response, but only the key ones are highlighted here. The full request payload will also be returned in the response.
+> 📘 Important Notes:
+>
+> * **\_id**: This is the unique identifier for the newly created virtual account. Be sure to save it, as it will be required for retrieving account details or transaction records.
+> * Other fields will be included in the response, but only the key ones are highlighted here. The full request payload will also be returned in the response.
 
 ### Receive and Validate Webhook Notifications
 
@@ -655,7 +655,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Doc Type]
+```Text Error [Doc Type]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -674,7 +674,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Address]
+```Text Error [Address]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -693,7 +693,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Doc Number]
+```Text Error [Doc Number]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -712,7 +712,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Missing Param]
+```Text Error [Missing Param]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -730,7 +730,7 @@ Webhook Response
   }
 }
 ```
-```Text Error \[Document]
+```Text Error [Document]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -750,10 +750,10 @@ Webhook Response
 }
 ```
 
-> 📘 ### Important Notes
-> 
-> For more information on possible verification errors, please consult our **Multicurrency Account [Verification Errors Documentation](https://docs.fincra.com/docs/mcy-account-verification-errors)**. 
-> 
+> 📘 Important Notes
+>
+> For more information on possible verification errors, please consult our **Multicurrency Account[Verification Errors Documentation](https://docs.fincra.com/docs/mcy-account-verification-errors)**. 
+>
 > After the **virtualaccount.approved** event, expect a second webhook: **virtualaccount.issued**, which is triggered once the bank account is fully ready. This webhook will include the **accountInformation** field, containing the details of the newly created account.
 
 ```Text JSON
@@ -808,7 +808,7 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/{{virtual_accou
 
 If successful, you will receive a JSON snippet with the details of the virtual account.
 
-```Text Response \[Approved]
+```Text Response [Approved]
 {
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Virtual account fetched successfully",
@@ -921,7 +921,7 @@ If successful, you will receive a JSON snippet with the details of all virtual a
 You can fund your multi-currency account [USD / EUR] via bank transfer, with the funds immediately reflected in your balance. Additionally, a web notification will be sent each time your account is credited through a bank transfer.
 
 > 🚧 Important!!
-> 
+>
 > Consult the guide [here](https://docs.fincra.com/docs/mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
 
 ### Get the account details
@@ -1029,7 +1029,7 @@ Note, the data needed for credit is contained within the `data.accountInformatio
 ```
 
 > ❗️ Note
-> 
+>
 > When displaying the virtual account information to the customer for crediting, please ensure that the customer inputs the recipient's first and last name exactly as it appears on the EUR or USD account created on our platform via API. If the names do not match the account holder's name, the transaction will be returned.
 
 ### Receiving webhook notification
