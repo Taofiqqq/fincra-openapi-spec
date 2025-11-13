@@ -3,3 +3,4 @@
 - upload-transaction-document
 - get-payout-by-reference
 - get-payout-by-customer-reference
+- get-all-payouts
