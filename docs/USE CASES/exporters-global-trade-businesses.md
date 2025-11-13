@@ -20,10 +20,10 @@ Fincra enables exporters and global trade businesses to **collect international 
 
 Exporters and global businesses often face:
 
-- Difficulty receiving payments in foreign currencies.  
-- Slow and expensive FX conversions.  
-- Complex supplier and worker payouts across multiple markets.  
-- Compliance burdens in cross-border trade.  
+* Difficulty receiving payments in foreign currencies.  
+* Slow and expensive FX conversions.  
+* Complex supplier and worker payouts across multiple markets.  
+* Compliance burdens in cross-border trade.  
 
 ***
 
@@ -31,10 +31,10 @@ Exporters and global businesses often face:
 
 Fincra provides the infrastructure exporters need to compete globally:
 
-- **Multi-currency virtual accounts** for collecting export revenues.  
-- **FX APIs** to convert foreign currency into local African currencies.  
-- **Automated payouts** to suppliers, contractors, and staff.  
-- **Compliance-first operations** with reporting and oversight tools.  
+* **Multi-currency virtual accounts** for collecting export revenues.  
+* **FX APIs** to convert foreign currency into local African currencies.  
+* **Automated payouts** to suppliers, contractors, and staff.  
+* **Compliance-first operations** with reporting and oversight tools.  
 
 ***
 
@@ -44,9 +44,9 @@ Fincra provides the infrastructure exporters need to compete globally:
 
 Accept and manage global revenues in major currencies.  
 
-- Virtual accounts in **USD, GBP, EUR, CAD**.  
-- Accept payments directly from international buyers.  
-- Consolidate collections for easier reconciliation.  
+* Virtual accounts in **USD, GBP, EUR, CAD**.  
+* Accept payments directly from international buyers.  
+* Consolidate collections for easier reconciliation.  
 
 💡 **How it works:** A cocoa exporter in Ghana sells to a European buyer. The payment is collected in EUR and settled into GHS via Fincra’s rails.
 
@@ -56,9 +56,9 @@ Accept and manage global revenues in major currencies.
 
 Disburse funds efficiently across multiple African countries.  
 
-- **Bulk and batch payouts** with one API call.  
-- Real-time disbursements to **bank accounts and wallets**.  
-- Transparent reconciliation and reporting.  
+* **Bulk and batch payouts** with one API call.  
+* Real-time disbursements to **bank accounts and wallets**.  
+* Transparent reconciliation and reporting.  
 
 💡 **How it works:** An exporter pays hundreds of suppliers across Nigeria and Côte d’Ivoire. Fincra automates payouts instantly and compliantly.
 
@@ -68,4 +68,4 @@ Disburse funds efficiently across multiple African countries.
 
 Convert revenues to local currencies with competitive rates.  
 
-- **Real-time conversions** to NGN, KES
+* **Real-time conversions** to NGN, KES
