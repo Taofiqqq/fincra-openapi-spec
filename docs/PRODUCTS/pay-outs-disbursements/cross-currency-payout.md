@@ -13,13 +13,13 @@ next:
 Cross-currency transactions allow you to transfer money between different currencies. For example, you can send US dollars to a bank account in Europe or AUD to a bank account in the UK. These transfers can be made via both the portal and API and are available for bank account and mobile money transfers.
 
 > 📘 Before making local transfers with the Fincra API, be sure to review and fully understand the following sections.
-> 
-> [Payment Schemes](payment-schemes)  
+>
+> [Payment Schemes](payment-schemes)\
 > [Payout Overview](pay-outs-disbursements)
 
 **Note**
 
-- All transfers have a timeframe by which they settle in the receiver's account; please review the payment scheme section to ascertain the settlement time.
+* All transfers have a timeframe by which they settle in the receiver's account; please review the payment scheme section to ascertain the settlement time.
 
 ## How to make a Cross border payout using Fincra API
 
@@ -32,9 +32,9 @@ You can fund your account by making deposits into your account or by requesting 
 **Note**: To test transactions, you can fund your sandbox account. For more information, please see the [test](funding-test-balance) section
 
 > 📘 For more details on virtual account creation and funding please read the following sections :
-> 
-> [How to create a virtual account](virtual-account-api)  
-> How to fund your account in the live environment  
+>
+> [How to create a virtual account](virtual-account-api)\
+> How to fund your account in the live environment\
 > [How to fund your account in the test environment](https://docs.fincra.com/docs/testing-your-integration#test-payouts-for--transfers)
 
 <br />
@@ -49,18 +49,18 @@ This is compulsory for cross-currency payouts. You will need to use our quote AP
 
 **Please take note of the following**
 
-- A quote expires after a certain period of time
-- The Payment Scheme Page lists the currencies that require a payment scheme.
-- For more details on how to generate a quote, please see the [quote API](generate-quote)
+* A quote expires after a certain period of time
+* The Payment Scheme Page lists the currencies that require a payment scheme.
+* For more details on how to generate a quote, please see the [quote API](generate-quote)
 
 ### Request payout
 
 Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response.
 
-- Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the payment scheme page.
-- Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.here
-- We advise that you add a `customerReference` to your payload to avoid sending duplicate transactions.
-- Only payouts with the explicit status failed should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed . Kindly re-query using this [here](fetch-payout-by-customer-reference) before you retry.
+* Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the payment scheme page.
+* Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.here
+* We advise that you add a `customerReference` to your payload to avoid sending duplicate transactions.
+* Only payouts with the explicit status failed should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed . Kindly re-query using this [here](fetch-payout-by-customer-reference) before you retry.
 
 ```Text Payout request
 {
