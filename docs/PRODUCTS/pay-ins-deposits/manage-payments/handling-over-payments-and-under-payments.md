@@ -18,11 +18,11 @@ To better understand this functionality, watch the [demo video](https://www.loom
 
 When a transaction is fulfilled, a webhook response is sent containing the expected amount (**expectedAmount**), the received amount (**amountReceived**), and the variance type (**varianceType**). The variance type indicates whether the transaction is an `overpayment` or an `underpayment`.
 
-For transactions completed via bank transfer—identified by the field **"type":"bank_transfer"**—it's crucial to verify if the transaction is marked as an **`underpayment`** or **`overpayment`**.
+For transactions completed via bank transfer—identified by the field **"type":"bank\_transfer"**—it's crucial to verify if the transaction is marked as an **`underpayment`** or **`overpayment`**.
 
 If the **varianceType** is marked as underpayment or overpayment, you can refund the paying customer based on your business logic. Use either the [refunds API](https://docs.fincra.com/reference/refunds) or process refunds through your dashboard.
 
-**Note:** For such transactions, you'll also receive "**INCORRECT_AMOUNT**" in the `message` field.
+**Note:** For such transactions, you'll also receive "**INCORRECT\_AMOUNT**" in the `message` field.
 
 Fields to look out for:
 
