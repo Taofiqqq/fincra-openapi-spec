@@ -4,3 +4,4 @@
 - initiate-bank-transfer
 - verify-bank-transfer-by-reference
 - verify-transfer-status-by-customer-reference
+- upload-payout-transaction-document
