@@ -17,26 +17,27 @@ The temporary virtual account [endpoint](/reference/create-temporary-virtual-acc
 In this section we would be focusing on creating permanent  virtual accounts.
 
 > 🚧 Note
-> 
-> - With our virtual account API, you can request virtual accounts from any of our supported banks. Please the [API reference](/docs/create-virtual-accounts#multiple-bank-options) for banks we support and  parameters needed to create NGN virtual accounts
-> - It is important to note that Virtual Bank Accounts do not store monetary value like regular bank accounts; they only provide a means for your customers to pay you amd the funds get settled in your wallet, to check your wallet balance please see the [wallet API](/reference/get-a-wallet)
+>
+> * With our virtual account API, you can request virtual accounts from any of our supported banks. Please the [API reference](/docs/create-virtual-accounts#multiple-bank-options) for banks we support and  parameters needed to create NGN virtual accounts
+> * It is important to note that Virtual Bank Accounts do not store monetary value like regular bank accounts; they only provide a means for your customers to pay you amd the funds get settled in your wallet, to check your wallet balance please see the [wallet API](/reference/get-a-wallet)
 
 Every virtual account is automatically linked to a wallet of the same currency. If you have a number of virtual accounts and customers transfer money to the account, the funds will settle in the wallet linked to the virtual account. We support only one wallet per currency at Fincra, but that wallet can be linked to an unlimited number of virtual accounts.. Please study the [wallet API](/reference/introduction-7) for more details .
 
 Our Virtual Accounts can be classified into two based on how they can be funded: 
 
-- Main virtual accounts are corporate virtual accounts that belong to a registered merchant on Fincra and are the first corporate virtual accounts created by the merchant. Funds that come into the main virtual account can be fetched by the [wallet top-up API](/reference/get-wallet-top-ups).
-- Additional virtual accounts are individual and other corporate virtual accounts created by a merchant, and collections linked to these accounts can be fetched by the [collection API](/reference/get-all-collections).
+* Main virtual accounts are corporate virtual accounts that belong to a registered merchant on Fincra and are the first corporate virtual accounts created by the merchant. Funds that come into the main virtual account can be fetched by the [wallet top-up API](/reference/get-wallet-top-ups).
+* Additional virtual accounts are individual and other corporate virtual accounts created by a merchant, and collections linked to these accounts can be fetched by the [collection API](/reference/get-all-collections).
 
-How to create a virtual account
--------------------------------
+## How to create a virtual account
 
 Please follow the steps below to create  a virtual account.
 
 ### 1 - Request a Virtual account
+
 There are two ways to request a virtual account: 
-  * By using a sub-account :  First, a [sub-account](/reference/create-subaccount) is created,  then the [sub-account ID](/reference/introduction-2#subaccount-id) is used to request the virtual account. For more information, see the [Create a Virtual Account for Subaccounts endpoint](/reference/request-individual-virtual-account-for-a-sub-account-1)
-  * By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint] (/reference/request-virtual-accounts)
+
+* By using a sub-account :  First, a [sub-account](/reference/create-subaccount) is created,  then the [sub-account ID](/reference/introduction-2#subaccount-id) is used to request the virtual account. For more information, see the [Create a Virtual Account for Subaccounts endpoint](/reference/request-individual-virtual-account-for-a-sub-account-1)
+* By using the merchant account: All that is needed is for the request to be made by calling the \[create virtual account endpoint] (/reference/request-virtual-accounts)
 
 The difference between the two approaches is that when a sub-account's virtual account is funded, only the sub-account receives the funds; the merchant account is not impacted. However, it is possible to withdraw money from the sub-account to the merchant's account by using the [Fincra Transfer API](/reference/wallet-to-wallet-transfer-api).
 
@@ -155,10 +156,10 @@ Here's what a request would look like:
 }
 ```
 
-**When applying for a virtual account using a currency other than NGN, please keep the following in mind and pay attention to it.  : **
+**When applying for a virtual account using a currency other than NGN, please keep the following in mind and pay attention to it.  :**
 
-- When you send a virtual account creation request, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need
-- The virtual account status can be `pending,` `approved,` or `declined.` For more information, see the virtual account [overview](/docs/create-virtual-accounts#virtual-account-status)
+* When you send a virtual account creation request, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need
+* The virtual account status can be `pending,` `approved,` or `declined.` For more information, see the virtual account [overview](/docs/create-virtual-accounts#virtual-account-status)
 
 Here's what a response would look like:
 
@@ -212,9 +213,9 @@ The details of a Virtual Bank Account can be retrieved at any time after creatin
 Endpoint - {{host}}/profile/virtual-accounts/:virtualAccountId
 ```
 
- **Please take note of the following field  in the virtual account  response below : **
+ **Please take note of the following field  in the virtual account  response below :**
 
-- **\_id** : This is the unique Identifier of the virtual account
+* **\_id** : This is the unique Identifier of the virtual account
 
 ```json Response
 {
@@ -297,29 +298,18 @@ Listen for webhook events. We will send a notification to your webhook URL that 
  }
 ```
 
-###Fetching Virtual Account Transactions
--------------------------------------
+### Fetching Virtual Account Transactions
+
+***
 
 We have three types of transactions that can be performed on an account, which are payouts, collections, and conversions.
 
-- For payouts, please see the [Payout API](/reference/introduction-11) that includes all the endpoints needed to track payouts from the virtual account
-- For collections, please see the [Collection API](/reference/introduction-4) that includes all endpoints needed to track payments to the virtual account.
-- For conversions, please see the [Conversion API](/reference/introduction-6) that includes all the endpoints you need to track your conversions
+* For payouts, please see the [Payout API](/reference/introduction-11) that includes all the endpoints needed to track payouts from the virtual account
+* For collections, please see the [Collection API](/reference/introduction-4) that includes all endpoints needed to track payments to the virtual account.
+* For conversions, please see the [Conversion API](/reference/introduction-6) that includes all the endpoints you need to track your conversions
 
-###Get Virtual Accounts Balance
+### Get Virtual Accounts Balance
+
 It is important to note that Virtual Bank Accounts do not store monetary value like regular bank accounts; they only provide a means for your customers to pay you and the funds get settled in your account balance, to check your account balance please see the [balance API.](/docs/wallets) 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/da1c600-e4d2ed3-Balance_API.png",
-        "e4d2ed3-Balance_API.png",
-        3314,
-        998,
-        "#000000"
-      ]
-    }
-  ]
-}
-[/block]
+
+![3314](https://files.readme.io/da1c600-e4d2ed3-Balance_API.png "e4d2ed3-Balance_API.png")
