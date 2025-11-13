@@ -12,29 +12,26 @@ next:
 ---
 Our direct charge API allows you to charge both local and international cards. This is useful if the majority of your customers pay with credit or debit cards and you'd prefer they do so via your app.
 
-Start collecting card payments via APIs.
-----------------------------------------
+## Start collecting card payments via APIs.
 
 The process of charging a credit or debit card consists of three key steps:
 
-- **Initiate charge**:  This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
-- **Authorize  charge**: In order to authorize a charge, we provide a list of the necessary information for you to obtain from the customer, which you then send to the  [authorize charge endpoint](/reference/authorize-a-charge) . Think of this as an additional level of security. You send us the OTP that the consumer provided to authorize the charge. This completes the payment.
-- **Verify  charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge)  to ensure that the payment was successful before you give any value to the customer 
+* **Initiate charge**:  This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
+* **Authorize  charge**: In order to authorize a charge, we provide a list of the necessary information for you to obtain from the customer, which you then send to the  [authorize charge endpoint](/reference/authorize-a-charge) . Think of this as an additional level of security. You send us the OTP that the consumer provided to authorize the charge. This completes the payment.
+* **Verify  charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge)  to ensure that the payment was successful before you give any value to the customer 
 
 <br />
 
 > 📘 Important Note
-> 
-> - Using our direct card charge APIs involves handling some very sensitive customer data, so you are required to be PCI DSS certified
-> - Currently, we only accept Nigerian Naira payments. Mastercard, VISA, and Verve are among the several cards we accept. Here are some [test cards](/docs/testing-your-integration#test-cards-for-collections) we made to help you simulate different card payment scenarios as you integrate.
+>
+> * Using our direct card charge APIs involves handling some very sensitive customer data, so you are required to be PCI DSS certified
+> * Currently, we only accept Nigerian Naira payments. Mastercard, VISA, and Verve are among the several cards we accept. Here are some [test cards](/docs/testing-your-integration#test-cards-for-collections) we made to help you simulate different card payment scenarios as you integrate.
 
-How to charge a Card
---------------------
+## How to charge a Card
 
 This is a guide on how to charge a  card. Please pay close attention
 
-1 - Initiate the Charge
------------------------
+## 1 - Initiate the Charge
 
 To charge a card you will need  to collect the necessary card and payment information from the customer. Then, prepare your data object to look like the sample below :
 
@@ -140,16 +137,15 @@ If you receive a response with the status `processing` and auth model , this ind
 }
 ```
 
-2 - Authorize the Charge
-------------------------
+## 2 - Authorize the Charge
 
 The authorization process is different depending on the type of card you are charging. After initiating the charge, the customer may be required to authorize the charge on their card. Typical card authorization methods include one or more of the following:
 
-- **PIN**: This is the process by which the customer enters the card's pin.
-- **One-time password (OTP)**: This involves sending OTPs to the customer's phone number or email address that is linked to the customer's bank account.   
+* **PIN**: This is the process by which the customer enters the card's pin.
+* **One-time password (OTP)**: This involves sending OTPs to the customer's phone number or email address that is linked to the customer's bank account. \
   Phone.
-- **3DS Authorization**: Ths involves redirecting the customer to a specified URL
-- **AVS (Address Verification System)**: The customer enters the card's billing address. It's commonly used on international cards.
+* **3DS Authorization**: Ths involves redirecting the customer to a specified URL
+* **AVS (Address Verification System)**: The customer enters the card's billing address. It's commonly used on international cards.
 
 ***
 
@@ -352,8 +348,7 @@ Then you should receive a response like:
 
 When you get a response like this,It is critical to confirm the transaction's status, which you can do by calling the verified payment endpoint. Please note that the status can be either success,failed or processing .
 
-3 - Verify Charge
------------------
+## 3 - Verify Charge
 
 The final step after charging a card is to ensure that the payment was successful before providing value to your consumer. To do so, send a verification request to our [verify charge endpoint](/reference/verify-charge) from your server to confirm the payment's final status. The reference you enter here should be the same as the one you used for your payment.
 
@@ -389,8 +384,7 @@ Here's an example of a card payment verification  and response:
 
 ```
 
-4 - Set Up Webhook
-------------------
+## 4 - Set Up Webhook
 
 As an optional step, you can configure your application to receive confirmation via webhooks. See [Webhooks](/docs/introduction) for more information. After you have configured your webhook, we'll send you a notification with the transaction status to the URL you specified when [initiating a charge](/reference/initiate-a-charge).
 
