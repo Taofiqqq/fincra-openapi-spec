@@ -16,6 +16,6 @@ One of the easiest ways for people to pay online is with a card. As a Fincra mer
 
 There are three ways of accepting card payments with Fincra :
 
-- Card payments with [Checkouts](/docs/introduction-9#1---payment-checkout)
-- Card payments with [Payment Links](https://docs.fincra.com/edit/payment-links)
-- Card payments using our Direct Card Charge APIs. This involves handling some sensitive customer data, so you are required to be PCI DSS certified. If your business is PCI-DSS compliant and you would like to send cardholder information to our APIs from your end, kindly reach out to us at [support@fincra.com](support@fincra.com)
+* Card payments with [Checkouts](/docs/introduction-9#1---payment-checkout)
+* Card payments with [Payment Links](https://docs.fincra.com/edit/payment-links)
+* Card payments using our Direct Card Charge APIs. This involves handling some sensitive customer data, so you are required to be PCI DSS certified. If your business is PCI-DSS compliant and you would like to send cardholder information to our APIs from your end, kindly reach out to us at [support@fincra.com](support@fincra.com)
