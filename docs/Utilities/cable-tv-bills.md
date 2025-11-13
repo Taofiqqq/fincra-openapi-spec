@@ -105,20 +105,20 @@ If successful, a JSON response containing details of your utility bill payment w
 
 Important notes
 
-- code: The unique identifier of the plan
-- monthsPaidFor: This indicates the number of months you want the subscription to last
-- name: The name of the plan
+* code: The unique identifier of the plan
+* monthsPaidFor: This indicates the number of months you want the subscription to last
+* name: The name of the plan
 
 ## 4 - Make your bill payment
 
 After identifying the cable TV provider, the next step is to make your bill payment. This can be done by making a request to the [subscribe endpoint](reference/cable-tv-subscription) using the following parameters:
 
-- smartcard_number : This indicates the amount to be paid.
-- amount: The phone number to be recharged
-- product_code: The telecommunication service provider
-- month_paid_for: The validity period
-- provider:  The cable network provider obtained earlier
-- reference: The unique identifier of the transaction on your system
+* smartcard\_number : This indicates the amount to be paid.
+* amount: The phone number to be recharged
+* product\_code: The telecommunication service provider
+* month\_paid\_for: The validity period
+* provider:  The cable network provider obtained earlier
+* reference: The unique identifier of the transaction on your system
 
 ```curl
 curl --request POST \
@@ -158,5 +158,5 @@ If successful, a JSON response containing details of your utility bill payment w
 }
 ```
 
-Important notes:  
+Important notes:\
 The `customer_reference` here refers to the unique reference of the transaction on your system, while the `reference` refers to the reference generated for this transaction on Fincra system.
