@@ -20,6 +20,6 @@ Nigerian customers with accounts at any of Access Bank, Fidelity Bank, First Ban
 
 You can add Pay with Payattitude to your application, website, or e-commerce store in the following ways:
 
-- Payment Links
-- Checkouts
-- API
+* Payment Links
+* Checkouts
+* API
