@@ -20,9 +20,9 @@ Banks, neobanks, and licensed financial institutions use Fincra to **expand offe
 
 Financial institutions today face:
 
-- **Legacy infrastructure** that limits speed and reach.
-- **Regulatory pressure** that slows innovation.
-- **Rising customer demand** for faster, borderless services.
+* **Legacy infrastructure** that limits speed and reach.
+* **Regulatory pressure** that slows innovation.
+* **Rising customer demand** for faster, borderless services.
 
 ***
 
@@ -30,9 +30,9 @@ Financial institutions today face:
 
 Fincra enables institutions to deliver **modern customer experiences** without building new rails from scratch:
 
-- API-first infrastructure to integrate collections, payouts, and FX.  
-- Pre-built compliance and verification services.  
-- Scalable infrastructure designed for banks and neobanks.  
+* API-first infrastructure to integrate collections, payouts, and FX.  
+* Pre-built compliance and verification services.  
+* Scalable infrastructure designed for banks and neobanks.  
 
 ***
 
@@ -42,9 +42,9 @@ Fincra enables institutions to deliver **modern customer experiences** without b
 
 Enhance customer trust with seamless transactions and secure onboarding.
 
-- Accept payments across multiple channels.  
-- Payout instantly to bank accounts and wallets.  
-- Add **ID verification** for safe customer onboarding.  
+* Accept payments across multiple channels.  
+* Payout instantly to bank accounts and wallets.  
+* Add **ID verification** for safe customer onboarding.  
 
 💡 **How it works:** A neobank wants to let customers withdraw funds instantly to their mobile wallets. With Fincra, payouts are seamless and compliant.
 
@@ -54,9 +54,9 @@ Enhance customer trust with seamless transactions and secure onboarding.
 
 Offer global and local payment flows through one integration.
 
-- Multi-currency virtual accounts in **USD, GBP, EUR, CAD**.  
-- Local payouts in **NGN, KES, GHS, and more**.  
-- Faster international settlements for institutional clients.  
+* Multi-currency virtual accounts in **USD, GBP, EUR, CAD**.  
+* Local payouts in **NGN, KES, GHS, and more**.  
+* Faster international settlements for institutional clients.  
 
 💡 **How it works:** A bank enables its SME customers to accept USD from global buyers and settle locally in NGN.
 
@@ -66,9 +66,9 @@ Offer global and local payment flows through one integration.
 
 Execute conversions and manage liquidity at scale.  
 
-- Access **deep liquidity pools** for OTC trades.  
-- Offer **real-time conversions** to customers.  
-- Transparent pricing designed for institutions.  
+* Access **deep liquidity pools** for OTC trades.  
+* Offer **real-time conversions** to customers.  
+* Transparent pricing designed for institutions.  
 
 💡 **How it works:** A financial institution executes a large NGN-to-USD trade. Fincra ensures settlement is quick, secure, and compliant.
 
@@ -76,14 +76,14 @@ Execute conversions and manage liquidity at scale.
 
 ## Compliance-First Operations
 
-- Partner with a **regulated PSP** to reduce risk.  
-- Built-in **AML/KYC rails** to simplify compliance.  
-- Expand globally while staying aligned with regulatory frameworks.  
+* Partner with a **regulated PSP** to reduce risk.  
+* Built-in **AML/KYC rails** to simplify compliance.  
+* Expand globally while staying aligned with regulatory frameworks.  
 
 ***
 
 ## Why Institutions Build with Fincra
 
-- **Scalable, API-first infrastructure** designed for banks and neobanks.  
-- **Trusted compliance partner** across multiple markets.  
-- **Solutions tailored** to the needs of financial institutions.
+* **Scalable, API-first infrastructure** designed for banks and neobanks.  
+* **Trusted compliance partner** across multiple markets.  
+* **Solutions tailored** to the needs of financial institutions.
