@@ -35,61 +35,32 @@ To ensure you're using the correct environment-specific API keys, please use the
 
 Your API keys are generated based on the selected environment:
 
-- When in Sandbox mode, you'll see Sandbox API keys meant for testing.
-- When in Live mode, you'll see Live API keys for real transactions.
+* When in Sandbox mode, you'll see Sandbox API keys meant for testing.
+* When in Live mode, you'll see Live API keys for real transactions.
 
 > 🚧 Note:
-> 
+>
 > Switching environments using the toggle does not affect your integrations or transactions in any way. It only changes the information displayed on the dashboard (e.g., API keys, transaction logs, and balances), allowing you to manage either environment separately.
 
-**To obtain your API keys, follow the instructions below:  
-**
+**To obtain your API keys, follow the instructions below:\&#xA;**
 
 ## Step 1
 
 Log in to your Fincra dashboard and navigate to the Profile section in the side menu.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png" />
 
 ## Step 2
 
 On the Settings page, locate the API keys and webhook Configuration tab. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png" />
 
 You would find two set of API keys:
 
-1. The "`Secret Key`":  
+1. The "`Secret Key`":\
    It is crucial to keep your Secret Key confidential as it grants unrestricted access to perform API requests to Fincra. This is to be sent along in a header field: `api-key`, when making api requests.
-2. The "`Public Key`":  
+2. The "`Public Key`":\
    The Public Key is intended solely for identifying your account with Fincra. It can be safely published in places like your frontend or mobile app. This is to be sent along in a header field: `x-pub-key`, when making api requests.
-3. The "`Webhook Encryption Key`":  
+3. The "`Webhook Encryption Key`":\
    The Encryption Key can be utilized to validate webhooks (refer to the webhook validation  [guide](/docs/secret-key) for details).
