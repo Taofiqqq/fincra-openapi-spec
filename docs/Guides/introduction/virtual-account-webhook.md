@@ -50,8 +50,6 @@ This event is dispatched when an individual virtual account is approved
 }
 ```
 
-
-
 ## account.approved (Corporate)
 
 This event is dispatched when a corporate virtual account is approved
@@ -84,8 +82,6 @@ This event is dispatched when a corporate virtual account is approved
 }
 ```
 
-
-
 ## account.declined
 
 This event is dispatched when any virtual account is declined
@@ -109,8 +105,6 @@ This event is dispatched when any virtual account is declined
  }
 }
 ```
-
-
 
 ### Webhook Parameters And Description
 
