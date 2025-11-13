@@ -14,5 +14,5 @@ next:
   description: ''
 ---
 > 📘 Business ID
-> 
-> - [Get Parent business ID](/reference/business-1#get-parent-business-id)
+>
+> * [Get Parent business ID](/reference/business-1#get-parent-business-id)
