@@ -15,9 +15,9 @@ Fincra’s Direct debit is a pull payment method that allows a third party, with
 Fincra’s direct debit solution, powered by NIBSS, is fully automated, eliminating traditional delays such as bank visits and 36+ hour activation times. With Fincra, mandates are activated within minutes after the customer makes a token payment (₦50) to NIBSS, with no need for a bank visit.
 
 > 📘 Note
-> 
+>
 > To activate a mandate, the account owner must authorise the request by sending ₦50 to the account specified in the response description when the mandate is created. 
-> 
+>
 > Direct debit powered by NIBSS is currently available only with the 26 commercial banks in **Nigeria**. You can view the list of these banks [here](https://docs.fincra.com/v3.0/docs/supported-currencies-1#supported-banks-for-direct-debit).
 
 # Create a mandate
@@ -243,7 +243,7 @@ curl --location 'https://api.fincra.com/mandate-mgt/mandates/payment' \
 ```
 
 > 🚧 Important
-> 
+>
 > The mandate reference is the unique identifier provided when the mandate was initially created. Additionally, a debit cannot be initiated if the mandate's tenure has expired or if the mandate amount has been fully utilized.
 
 ## 2 - Receive and validate webhook notification
