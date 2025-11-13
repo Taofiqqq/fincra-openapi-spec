@@ -16,9 +16,9 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
 
 ## 📌 Key Points
 
-- **Real-time issuing:** Both individual and corporate GHS virtual accounts are issued instantly.
-- **Settlement:** Funds are settled into the merchant’s GHS wallet.
-- **Authentication:** Uses API keys in the header (not standard Bearer token).
+* **Real-time issuing:** Both individual and corporate GHS virtual accounts are issued instantly.
+* **Settlement:** Funds are settled into the merchant’s GHS wallet.
+* **Authentication:** Uses API keys in the header (not standard Bearer token).
 
 ***
 
@@ -140,8 +140,8 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
 
 **Notes:**
 
-- `_id`: Unique virtual account ID.
-- `business`: Your Business ID.
+* `_id`: Unique virtual account ID.
+* `business`: Your Business ID.
 
 ***
 
@@ -220,4 +220,6 @@ Refer to: **[Funding a Virtual Account →](https://docs.fincra.com/docs/funding
 
 <br />
 
-> 📌 For updates on changes to the Virtual Account endpoint, watch your email.
+<Callout icon="📌" theme="default">
+  ### For updates on changes to the Virtual Account endpoint, watch your email.
+</Callout>
