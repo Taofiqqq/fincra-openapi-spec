@@ -14,10 +14,10 @@ In addition to SDKs, we offer plugins that allow for easy integration with popul
 
 #### Available Plugins:
 
-1. **WooCommerce Plugin (V1 & V2)**  
+1. **WooCommerce Plugin (V1 & V2)**\
    Our WooCommerce plugin provides merchants with a simple and secure way to accept payments on their WooCommerce store. It integrates seamlessly with the checkout process, allowing customers to pay via various methods such as card payments, mobile money, and bank transfers.  
-   - **WooCommerce V1 Plugin**
-   - **WooCommerce V2 Plugin**
+   * **WooCommerce V1 Plugin**
+   * **WooCommerce V2 Plugin**
 
-2. **ForGive Plugin**  
+2. **ForGive Plugin**\
    Designed for donation platforms, the ForGive plugin enables seamless donations through various payment channels. It integrates easily with charity websites, allowing users to contribute to causes without leaving the site. The plugin supports recurring donations, custom amounts, and donation tiers, making it ideal for non-profit organizations.
