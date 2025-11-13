@@ -16,97 +16,359 @@ This section covers the parameters needed to process payments to bank accounts. 
 
 So first, let's go through the basic information needed for any kind of account. You'll need to provide these details. 
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "business",
-    "0-1": "Yes",
-    "0-2": "String",
-    "0-3": "The ID of the business making the payout.",
-    "1-0": "sourceCurrency",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The currency which is used to fund the payout",
-    "2-0": "destinationCurrency",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "The currency in which the recipient will be receiving funds",
-    "3-0": "amount",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "The value that is to be transferred from the source currency wallet.",
-    "4-0": "description",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "A simple description of payment e.g \"From Daniella”",
-    "5-0": "paymentDestination",
-    "5-1": "Yes",
-    "5-2": "String",
-    "5-3": "This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details.",
-    "6-0": "customerReference",
-    "6-1": "Yes",
-    "6-2": "String",
-    "6-3": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advise that you add it to your payload",
-    "7-0": "quoteReference",
-    "7-1": "No",
-    "7-2": "String",
-    "7-3": "This is the reference generated when the source currency is compared against the destination currency.  \n  \nThis is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote)",
-    "8-0": "**sender**",
-    "8-1": "No",
-    "8-2": "Object",
-    "8-3": "The details of the customer initiating the payout. This is only required for FCY payouts and cross-border merchants/transactions.",
-    "9-0": "sender.type",
-    "9-1": "No",
-    "9-2": "String",
-    "9-3": "One of: `individual`, `corporate`",
-    "10-0": "sender.name",
-    "10-1": "No",
-    "10-2": "String",
-    "10-3": "The customer's full name. This name would show up in the transfer narration.",
-    "11-0": "sender.email",
-    "11-1": "No",
-    "11-2": "String",
-    "11-3": "The customer's email.",
-    "12-0": "sender.idType",
-    "12-1": "No",
-    "12-2": "String",
-    "12-3": "One of: `business_registration_number`, `passport`, `national_identification_number`, `drivers_license`",
-    "13-0": "sender.idNumber",
-    "13-1": "No",
-    "13-2": "String",
-    "13-3": "Identity number of selected identification type",
-    "14-0": "sender.countryOfOrigin",
-    "14-1": "No",
-    "14-2": "String",
-    "14-3": "Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  \n  \nOnly required if sender.type is individual",
-    "15-0": "sender.countryOfIncorporation",
-    "15-1": "No",
-    "15-2": "String",
-    "15-3": "Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  \n  \nOnly required if sender.type is corporate",
-    "16-0": "sender.address",
-    "16-1": "No",
-    "16-2": "String",
-    "16-3": "Full address of business or individual",
-    "17-0": "sender.birthDate",
-    "17-1": "No",
-    "17-2": "String",
-    "17-3": "Person's date of birth (for individual senders)"
-  },
-  "cols": 4,
-  "rows": 18,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        Field
+      </th>
 
+      <th style={{ textAlign: "left" }}>
+        Mandatory
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Type
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        business
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The ID of the business making the payout.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sourceCurrency
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The currency which is used to fund the payout
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        destinationCurrency
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The currency in which the recipient will be receiving funds
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        amount
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The value that is to be transferred from the source currency wallet.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        description
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        A simple description of payment e.g "From Daniella”
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        paymentDestination
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        customerReference
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advise that you add it to your payload
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        quoteReference
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        This is the reference generated when the source currency is compared against the destination currency.  
+
+        This is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote)
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        **sender**
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Object
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The details of the customer initiating the payout. This is only required for FCY payouts and cross-border merchants/transactions.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.type
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        One of: `individual`, `corporate`
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.name
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The customer's full name. This name would show up in the transfer narration.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.email
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The customer's email.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.idType
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        One of: `business_registration_number`, `passport`, `national_identification_number`, `drivers_license`
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.idNumber
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Identity number of selected identification type
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.countryOfOrigin
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+
+        Only required if sender.type is individual
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.countryOfIncorporation
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+
+        Only required if sender.type is corporate
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.address
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Full address of business or individual
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sender.birthDate
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Person's date of birth (for individual senders)
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ## NGN Pay-Outs
 
@@ -587,136 +849,506 @@ The payload should look like this :
 
 In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the United States.
 
-Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.  
+Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.\
 Kindly find attached supported bank list [here](/docs/supported-currencies#list-of-nigerian-banks-supported-for-usd-domiciliary-account-payment--for-payoutbank-transfer)
 
 > ❗️ Note:
-> 
+>
 > USD Payouts can only be made to USD domiciled banks
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "files",
-    "0-1": "Yes",
-    "0-2": "String/file/array",
-    "0-3": "A document explaining the reason for the payment. This can be a file upload or an accessible file URL.",
-    "1-0": "paymentScheme",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The [payment scheme](/docs/payment-scheme)  relevant to the destination currency and region.",
-    "2-0": "**beneficiary**",
-    "2-1": "Yes",
-    "2-2": "Object",
-    "2-3": "The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.",
-    "3-0": "beneficiary.firstName",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "The first name of the beneficiary",
-    "4-0": "beneficiary.lastName",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "The last name of the beneficiary .",
-    "5-0": "beneficiary.phoneNumber",
-    "5-1": "No",
-    "5-2": "String",
-    "5-3": "The mobile number of the beneficiary",
-    "6-0": "beneficiary.email",
-    "6-1": "No",
-    "6-2": "String",
-    "6-3": "The beneficiary's email",
-    "7-0": "beneficiary.accountHolderName",
-    "7-1": "Yes",
-    "7-2": "String",
-    "7-3": "This is the bank account number of the beneficiary",
-    "8-0": "beneficiary.accountNumber",
-    "8-1": "Yes",
-    "8-2": "String",
-    "8-3": "This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.",
-    "9-0": "beneficiary.type",
-    "9-1": "Yes",
-    "9-2": "String",
-    "9-3": "The type of beneficiary, see beneficiary types for more details",
-    "10-0": "beneficiary.country",
-    "10-1": "Yes",
-    "10-2": "String",
-    "10-3": "The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB",
-    "11-0": "**beneficiary.address**",
-    "11-1": "Yes",
-    "11-2": "Object",
-    "11-3": "This is only required for swift payments",
-    "12-0": "beneficiary.address.street",
-    "12-1": "Yes",
-    "12-2": "String",
-    "12-3": "",
-    "13-0": "beneficiary.address.state",
-    "13-1": "Yes",
-    "13-2": "String",
-    "13-3": "",
-    "14-0": "beneficiary.address.city",
-    "14-1": "Yes",
-    "14-2": "String",
-    "14-3": "",
-    "15-0": "beneficiary.address.zip",
-    "15-1": "Yes",
-    "15-2": "String",
-    "15-3": "",
-    "16-0": "beneficiary.address.country",
-    "16-1": "Yes",
-    "16-2": "String",
-    "16-3": "The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm) codes standards e.g NG, GB",
-    "17-0": "**beneficiary.bankName**",
-    "17-1": "Yes",
-    "17-2": "String",
-    "17-3": "The name of the beneficiary bank.",
-    "18-0": "beneficiary.bankCode",
-    "18-1": "Yes",
-    "18-2": "String",
-    "18-3": "This",
-    "19-0": "beneficiary.bankSwiftCode",
-    "19-1": "No",
-    "19-2": "String",
-    "19-3": "The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A.  \n  \nOnly required for swift transfer.",
-    "20-0": "**beneficiary.bankAddress**",
-    "20-1": "Yes",
-    "20-2": "Object",
-    "20-3": "Only required for Swift and Fedwire transfers.",
-    "21-0": "beneficiary.bankAddress.street",
-    "21-1": "Yes",
-    "21-2": "String",
-    "21-3": "",
-    "22-0": "beneficiary.bankAddress.state",
-    "22-1": "Yes",
-    "22-2": "String",
-    "22-3": "",
-    "23-0": "beneficiary.bankAddress.city",
-    "23-1": "Yes",
-    "23-2": "String",
-    "23-3": "",
-    "24-0": "beneficiary.bankAddress.zip",
-    "24-1": "Yes",
-    "24-2": "String",
-    "24-3": "",
-    "25-0": "beneficiary.bankAddress.country",
-    "25-1": "Yes",
-    "25-2": "String",
-    "25-3": "The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm)  codes standards e.g NG, GB"
-  },
-  "cols": 4,
-  "rows": 26,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
 
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        files
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String/file/array
+      </td>
+
+      <td>
+        A document explaining the reason for the payment. This can be a file upload or an accessible file URL.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentScheme
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The [payment scheme](/docs/payment-scheme)  relevant to the destination currency and region.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **beneficiary**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.firstName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The first name of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.lastName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The last name of the beneficiary .
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.phoneNumber
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The mobile number of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.email
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary's email
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountHolderName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the bank account number of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountNumber
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see beneficiary types for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **beneficiary.address**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        This is only required for swift payments
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.address.street
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.address.state
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.address.city
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.address.zip
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.address.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm) codes standards e.g NG, GB
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **beneficiary.bankName**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The name of the beneficiary bank.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankSwiftCode
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A.  
+
+        Only required for swift transfer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **beneficiary.bankAddress**
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Only required for Swift and Fedwire transfers.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankAddress.street
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankAddress.state
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankAddress.city
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankAddress.zip
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankAddress.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm)  codes standards e.g NG, GB
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 The payload should look like this :
 
