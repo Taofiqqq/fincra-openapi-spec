@@ -31,54 +31,25 @@ If you fail to include your key when making an API request or provide an incorre
 
 Every account comes with three sets of API keys : The **Secret key** used for making API requests, The **Public key** that identifies your account with Fincra, and the **Webhook secret key** that is used for validating webhooks. All API keys are available for Live and Test modes.
 
-**To obtain your API keys, follow the instructions below:  
-**
+**To obtain your API keys, follow the instructions below:\&#xA;**
 
 ## Step 1
 
 Log in to your Fincra dashboard and navigate to the Profile section in the side menu.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png" />
 
 ## Step 2
 
 On the Settings page, locate the API keys and webhook Configuration tab. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png" />
 
 You would find two set of API keys:
 
-1. The "`Secret Key`":  
+1. The "`Secret Key`":\
    It is crucial to keep your Secret Key confidential as it grants unrestricted access to perform API requests to Fincra. This is to be sent along in a header field: `api-key`, when making api requests.
-2. The "`Public Key`":  
+2. The "`Public Key`":\
    The Public Key is intended solely for identifying your account with Fincra. It can be safely published in places like your frontend or mobile app. This is to be sent along in a header field: `x-pub-key`, when making api requests.
-3. The "`Webhook Encryption Key`":  
+3. The "`Webhook Encryption Key`":\
    The Encryption Key can be utilized to validate webhooks (refer to the webhook validation  [guide](/docs/secret-key) for details).
