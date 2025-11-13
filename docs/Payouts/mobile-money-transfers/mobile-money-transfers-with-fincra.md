@@ -13,14 +13,13 @@ next:
 This section covers the parameters needed to process payment to mobile money wallets
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-Payout Endpoint
----------------
+## Payout Endpoint
 
 This endpoint is used to process transfers in all currencies we support and regions we cover.
 
@@ -31,8 +30,7 @@ This endpoint is used to process transfers in all currencies we support and regi
 
 <br />
 
-Endpoint Parameters
--------------------
+## Endpoint Parameters
 
 The parameters that can be used to process payments to Mobile money wallets are explained below 
 
@@ -49,7 +47,7 @@ The parameters that can be used to process payments to Mobile money wallets are 
 | beneficiary                   | Yes       | object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                                                                                       |
 | beneficiary.firstName         | No        | string | The first name of the beneficiary . This field is required for payments to individual beneficiaries.                                                                                                                                                                                 |
 | beneficiary.lastName          | No        | string | The last name of the beneficiary . This field applies only to individual beneficiaries and it is optional                                                                                                                                                                            |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
 | beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.                                                                                                                                                                          |
 | beneficiary.mobileMoneyCode   | Yes       | string | This value is the mobile money wallet provider's code. You must use the [List bank endpoint](/reference/get-banks) to obtain this value.                                                                                                                                             |
