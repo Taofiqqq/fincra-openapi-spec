@@ -2,3 +2,4 @@
 - get-all-collections
 - get-wallet-top-ups
 - fetch-payins-by-virtual-account
+- get-a-collection-by-reference
