@@ -70,9 +70,9 @@ If the API call is successful, Fincra returns the following response:
 ```
 
 > ❗️ Important
-> 
+>
 > The quote (FX rate) expires after 30 seconds by default. If you need a different configuration, please request a custom expiry from  our team.
-> 
+>
 > The quote is used to determine the exact amount the customer will pay in their local currency. Kindly note and save the returned `reference`, as this would be used in the request to generate the payment link.
 
 ### 2. Generate Payment Link
@@ -131,31 +131,17 @@ After you get the above response, you should then redirect your customer to the 
 
 This is a sample of the interface customer would be presented with.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/95a6f661e8569136f68c10a1bf6b8f2b9bfce983b70362809c95aa339b815516-Screenshot_2024-08-27_at_17.00.51.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/95a6f661e8569136f68c10a1bf6b8f2b9bfce983b70362809c95aa339b815516-Screenshot_2024-08-27_at_17.00.51.png" />
 
 <br />
 
 > ❗️ Important
-> 
+>
 > When the customer is making the payment via the `bank transfer` method, they are required to pass the transaction reference that is displayed on the checkout screen, as the transaction description/note on their transfer app. This is necessary to confirm and track the payment!!
 
 Once the payment is complete or in the event of a failure, Fincra will redirect your customer to your specified redirectUrl. The transaction reference will be appended as a query parameter to your redirectUrl as well.
 
-e.g https\://website_redirectUrl/?reference=YOUR_REFERENCE
+e.g https\://website\_redirectUrl/?reference=YOUR\_REFERENCE
 
 In a situation where no redirectUrl is passed, the customer receives visual confirmation on the completion of the payment and is NOT redirected out of the current webpage.
 
@@ -163,9 +149,9 @@ In a situation where no redirectUrl is passed, the customer receives visual conf
 
 Once the payment has been completed and confirmed by Fincra, the business is settled in the currency in which the payment was initiated. 
 
-- Business receives a notification with the payment status and details.
-- Business is settled in the initiated payment currency.
-- Settlement is processed according to the agreed timeline and terms.
+* Business receives a notification with the payment status and details.
+* Business is settled in the initiated payment currency.
+* Settlement is processed according to the agreed timeline and terms.
 
 ### 5. Payment Confirmation
 
@@ -231,7 +217,7 @@ Webhook response:
 It is critical that you confirm the transaction using its reference, just because the `redirectUrl` was visited doesn't prove that transaction was successful. You can confirm payment by using the [verify payment endpoint](verify-checkout-status).
 
 > 🚧 To Note
-> 
+>
 > It is advised that you consult the Overpayments and Underpayments [doc](https://docs.fincra.com/docs/handling-underpayments-and-overpayments) to see how to treat such transactions. A sample response for an underpayment has been added. You would note the `varianceType` which marks it as an `underpayment`, and also the `amountReceived` field which tells you the true amount paid by customers in the case where `bank_transfer` is the payment method uses.
 
 Endpoint:
