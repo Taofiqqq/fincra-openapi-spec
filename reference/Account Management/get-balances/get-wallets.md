@@ -14,5 +14,6 @@ next:
   description: ''
 ---
 **Please take note of the following:**
-  * The `id` in the data object obtained from the API response is the account ID i.e the unique identifier of the account balance
-  * The `walletNumber` refers to the balance number of the account.
+
+* The `id` in the data object obtained from the API response is the account ID i.e the unique identifier of the account balance
+* The `walletNumber` refers to the balance number of the account.
