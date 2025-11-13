@@ -44,5 +44,5 @@ Response Body
     }
 ```
 
-**Please take note of the following:**  
+**Please take note of the following:**\
 The `_id`  in data object obtained from the API response   is your business ID.
