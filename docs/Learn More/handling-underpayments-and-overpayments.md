@@ -18,13 +18,13 @@ For `overpayment`, the expected amount would be processed, while the excess woul
 
 ### 🔒 Automated Protection
 
-- No underpayment will be credited to your wallet.
-- Only the expected amount in an overpayment would be processed and credited to your wallet.
+* No underpayment will be credited to your wallet.
+* Only the expected amount in an overpayment would be processed and credited to your wallet.
 
 > ❗️ Want to handle them yourself?
-> 
+>
 > If your business needs to **accept and manage mispayments**, please email **[support@fincra.com](mailto:support@fincra.com)**.
-> 
+>
 > Once approved, you can use the **Refund Feature** described below to handle discrepancies.
 
 ***
@@ -33,9 +33,9 @@ For `overpayment`, the expected amount would be processed, while the excess woul
 
 This guide explains how to:
 
-- Detect payment discrepancies via **webhooks** and **transaction lookups**.
-- Identify whether a payment is an **underpayment** or **overpayment**.
-- If you have been enabled to accept**mispayments**, process refunds manually through your **Merchant Dashboard** or the **Refunds API**.
+* Detect payment discrepancies via **webhooks** and **transaction lookups**.
+* Identify whether a payment is an **underpayment** or **overpayment**.
+* If you have been enabled to accept**mispayments**, process refunds manually through your **Merchant Dashboard** or the **Refunds API**.
 
 To understand the functionality, you can watch the [demo video](https://www.loom.com/share/af6c36a594ac459986e682bd2f36581d?sid=88c9e758-f10d-4ea9-b62e-67748cc312b9).
 
@@ -43,11 +43,11 @@ To understand the functionality, you can watch the [demo video](https://www.loom
 
 Upon fulfilment of a transaction, a webhook response will be sent containing the expected amount (**expectedAmount**), the amount received (**amountReceived**) and the variance type (**varianceType**) which describes if the transaction is an `overpayment` or an `underpayment`.
 
-For transactions fulfilled via bank transfer, identified by the field **"type":"bank_transfer"**, it is very essential to **verify if the transaction was marked as an `underpayment` or `overpayment`**.
+For transactions fulfilled via bank transfer, identified by the field **"type":"bank\_transfer"**, it is very essential to **verify if the transaction was marked as an`underpayment` or`overpayment`** .
 
 If the **varianceType** is marked as underpayment or overpayment, you can go ahead to refund the paying customer depending on your business logic, via the [refunds API](https://docs.fincra.com/reference/refunds). You can also process refunds via your dashboard.
 
-**Note:** You would also receive "**INCORRECT_AMOUNT**" within the `message` field for such transactions.
+**Note:** You would also receive "**INCORRECT\_AMOUNT**" within the `message` field for such transactions.
 
 Fields to look out for:
 
@@ -59,7 +59,7 @@ Fields to look out for:
 | Action Required | actionRequired | Clearly specifies the recommended action for the merchant, either through the dashboard or the Refund API.                                                                                                                                      |
 | Message         | message        | Provides a descriptive message to inform the merchant about the nature of the discrepancy, such as "Incorrect amount received."                                                                                                                 |
 
-**Example**  
+**Example**\
 In the event of an underpayment, the status will still be marked as "`success`." However, there will be a noticeable difference between the "`expectedAmount`" and the "`amountReceived`."
 
 ```json Checkout
@@ -93,7 +93,7 @@ In the event of an underpayment, the status will still be marked as "`success`."
   }
 }
 ```
-```json Direct Charge \[overpayment]
+```json Direct Charge [overpayment]
 {
   "event": "charge.successful",
   "data": {
@@ -144,7 +144,7 @@ In the event of an underpayment, the status will still be marked as "`success`."
   }
 }
 ```
-```json Direct Charge \[underpayment]
+```json Direct Charge [underpayment]
 {
   "event": "charge.successful",
   "data": {
