@@ -26,10 +26,10 @@ Merchants can use our account [verification API](/reference/verify-account-numbe
 We are able to verify IBAN as well as Nigerian bank accounts (NUBAN). The API values (types) for these accounts are `iban` and `nuban`, as shown in the code implementations below.
 
 > ⚠️ Note
-> 
-> - Please note that when validating an IBAN(iban) or NUBAN(nuban) there should be no spaces between the values, as this would return an error response.
+>
+> * Please note that when validating an IBAN(iban) or NUBAN(nuban) there should be no spaces between the values, as this would return an error response.
 
-**NGN bank account numbers(Nuban)**  
+**NGN bank account numbers(Nuban)**\
 To verify an account number send the  `account number`, `type` and `bank code` to the [verify account endpoint](/reference/verify-account-number), and the endpoint will return the customer's account information.
 
 ```json Request
@@ -49,7 +49,7 @@ To verify an account number send the  `account number`, `type` and `bank code` t
 }
 ```
 
-**International bank account numbers(Iban)**  
+**International bank account numbers(Iban)**\
 To verify an IBAN send the  `iban` and `type` to the [verify account endpoint](/reference/verify-account-number), and the endpoint will return the customer's account information.
 
 ```json Request
