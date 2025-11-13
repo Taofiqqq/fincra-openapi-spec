@@ -17,8 +17,7 @@ next:
 
 **Also note that  it's important to add an amount field when creating Mastercard Virtual card**
 
-**Creating A Card (after creating a customer)  
-**After creating a customer, a card can then be created using the `cid` that was returned in the response data when creating a customer. The `cid `in the response data above is `60febd3c-157a-4ae4-aeed-863c5530ec42`.  You can either create a `USD visa  or MasterCard` virtual card for a customer.
+**Creating A Card (after creating a customer)\&#xA;**&#x41;fter creating a customer, a card can then be created using the `cid` that was returned in the response data when creating a customer. The `cid `in the response data above is `60febd3c-157a-4ae4-aeed-863c5530ec42`.  You can either create a `USD visa  or MasterCard` virtual card for a customer.
 
 Below is a Sample Payload
 
@@ -32,8 +31,6 @@ Below is a Sample Payload
     "amount": 100 // required when brand is mastercard
 }
 ```
-
-
 
 On a successful call, you should get a response like this
 
@@ -70,8 +67,6 @@ On a successful call, you should get a response like this
     }
 }
 ```
-
-
 
 ## Creating a Card with Customer data
 
@@ -124,8 +119,6 @@ Below is a sample Payload
 }
 ```
 
-
-
 On Passing all fields correctly, you should get a response like this
 
 ```json
@@ -162,6 +155,4 @@ On Passing all fields correctly, you should get a response like this
 }
 ```
 
-
-
-**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card **
+**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card**
