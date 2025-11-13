@@ -16,61 +16,19 @@ Before you can perform any transfers, it is necessary to have sufficient funds i
 
 Access your portal and navigate to the homepage. Locate the `Fund Balance` button and click on it.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/fc5281a-Screenshot_2023-11-02_at_12.06.34-min.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/fc5281a-Screenshot_2023-11-02_at_12.06.34-min.png" />
 
 ### Step 2
 
 Enter the desired amount and the currency that you wish to fund your wallet with.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/663ab95-Screenshot_2023-11-02_at_12.06.54-min.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/663ab95-Screenshot_2023-11-02_at_12.06.54-min.png" />
 
 ### Step 3
 
 Afterwards, click the `Continue` button.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/d426e97-Screenshot_2023-11-02_at_12.07.10-min.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/d426e97-Screenshot_2023-11-02_at_12.07.10-min.png" />
 
 ### Step 4
 
