@@ -18,8 +18,8 @@ Accounts created in the test environment are not compatible with the live enviro
 
 Below, you will find the corresponding URLs for the environments we support:
 
- Test Environment URL: [https://sandboxapi.fincra.com]  
-  Live Environment URL: [https://api.fincra.com]
+ Test Environment URL: \[https\://sandboxapi.fincra.com]\
+  Live Environment URL: \[https\://api.fincra.com]
 
 ```coffeescript Test Environment
 <https://sandboxapi.fincra.com>
@@ -28,8 +28,8 @@ Below, you will find the corresponding URLs for the environments we support:
 <https://api.fincra.com>
 ```
 
-<br>
+<br />
 
 > 👍 Perfect time to create an account!
-> 
+>
 > To ensure a seamless integration experience, you will need your API keys. These keys can be obtained by either  [creating an account](https://app.fincra.com/auth/signup?_token=98huni2wewuinj) or reaching out to [us](https://fincra.com/contact-us) directly.
