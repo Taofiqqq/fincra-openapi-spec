@@ -2,3 +2,4 @@
 - generate-bank-transfer-quote-api
 - verify-account-number-1
 - initiate-bank-transfer
+- verify-bank-transfer-by-reference
