@@ -29,12 +29,12 @@ Here are the steps:
 
 ### Use Cases:
 
-- Directly debiting a customers bank account.
-- Recurring payments.
-- Loan repayments.
-- Subscription services.
+* Directly debiting a customers bank account.
+* Recurring payments.
+* Loan repayments.
+* Subscription services.
 
 > 🚧 Note
-> 
-> - For a mandate to be in effect, the account owner would have to authorize the mandate request by sending ₦50 to the account returned in the `responseDescription` when mandate is created.
-> - Direct debit powered by NIBSS is currently only available for the 25 commercial banks in Nigeria. See the list of commercial banks [here](https://www.cbn.gov.ng/supervision/inst-dm.asp). Please note that Heritage bank is to be disregarded from this list.
+>
+> * For a mandate to be in effect, the account owner would have to authorize the mandate request by sending ₦50 to the account returned in the `responseDescription` when mandate is created.
+> * Direct debit powered by NIBSS is currently only available for the 25 commercial banks in Nigeria. See the list of commercial banks [here](https://www.cbn.gov.ng/supervision/inst-dm.asp). Please note that Heritage bank is to be disregarded from this list.
