@@ -14,16 +14,14 @@ Fincra Checkouts are secure payment pages that you can quickly integrate into yo
 
 When your application accesses the checkout API, it will display a modal or a new page where your customers can complete their transactions by entering their payment information.
 
-Checkout Integration Options
-============================
+# Checkout Integration Options
 
 There are two options for integrating the Checkout and, as their names imply, their use cases are pretty straightforward.
 
-[Checkout Standard](/docs/checkout-standard)  
+[Checkout Standard](/docs/checkout-standard)\
 [Checkout Redirect](/docs/checkout-redirect)
 
-Checkout Payment Options
-========================
+# Checkout Payment Options
 
 Through our check-out API you can receive payments by 
 
