@@ -12,313 +12,1102 @@ next:
 ---
 This section covers the parameters needed to process payments to bank accounts. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/payout-1). Depending on the type of beneficiary and the account's currency, however, you might need to give some extra information. 
 
-###Common Details
-So first, let's go through the basic information needed for any kind of account. You'll need to provide these details. 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "business",
-    "0-1": "Yes",
-    "0-2": "String",
-    "0-3": "The ID of the business making the payout.",
-    "1-0": "sourceCurrency",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The currency which is used to fund the payout",
-    "2-0": "destinationCurrency",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "The currency in which the recipient will be receiving funds",
-    "3-0": "amount",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "The value that is to be transferred from the source currency wallet.",
-    "4-0": "description",
-    "4-1": "Yes",
-    "4-3": "This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details",
-    "4-2": "String",
-    "5-0": "paymentDestination",
-    "5-1": "Yes",
-    "5-2": "String",
-    "5-3": "This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details",
-    "6-0": "customerReference",
-    "6-1": "No",
-    "6-2": "String",
-    "6-3": "This is the unique reference generated for the transaction on your platform."
-  },
-  "cols": 4,
-  "rows": 7
-}
-[/block]
-##NGN payouts
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also needed when sending money to a bank account in Nigeria. 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "beneficiary",
-    "0-1": "Yes",
-    "0-2": "Object",
-    "0-3": "The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.",
-    "1-0": "beneficiary.firstName",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The first name of the beneficiary .",
-    "2-0": "beneficiary.lastName",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "The last name of the beneficiary",
-    "3-0": "beneficiary.accountHolderName",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "This field is required by all type of beneficiaries.",
-    "4-0": "beneficiary.type",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details",
-    "5-0": "beneficiary.country",
-    "5-1": "No",
-    "5-2": "String",
-    "5-3": "The country in which the beneficiary resides.",
-    "6-0": "beneficiary.email",
-    "7-0": "beneficiary.bankCode",
-    "6-1": "No",
-    "7-1": "Yes",
-    "6-2": "String",
-    "7-2": "String",
-    "6-3": "The beneficiary's email",
-    "7-3": "The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details."
-  },
-  "cols": 4,
-  "rows": 8
-}
-[/block]
-The payload should look like this :
-[block:code]
-{
-  "codes": [
-    {
-      "code": "{\n    \"business\": \"{{Your business ID}}\",\n    \"sourceCurrency\": \"NGN\",\n    \"destinationCurrency\": \"NGN\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"quoteReference\": \"1330bd3c-1e09-4c1c-887f-7f1d72ff905e\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"individual\",\n        \"email\": \"aa@aa.com\",\n        \"bankCode\": \"058\"\n    }\n}",
-      "language": "json",
-      "name": "Individual Beneficiary"
-    },
-    {
-      "code": "{\n    \"business\": \"{{Your business ID}}\",\n    \"sourceCurrency\": \"NGN\",\n    \"destinationCurrency\": \"NGN\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"quoteReference\": \"1330bd3c-1e09-4c1c-887f-7f1d72ff905e\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"corporate\",\n        \"email\": \"aa@aa.com\",\n        \"bankCode\": \"058\"\n    }\n}",
-      "language": "json",
-      "name": "Corporate Beneficiary"
-    }
-  ]
-}
-[/block]
+### Common Details
 
-##GBP payouts
+So first, let's go through the basic information needed for any kind of account. You'll need to provide these details. 
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        Field
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Mandatory
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Type
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        business
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The ID of the business making the payout.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        sourceCurrency
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The currency which is used to fund the payout
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        destinationCurrency
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The currency in which the recipient will be receiving funds
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        amount
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The value that is to be transferred from the source currency wallet.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        description
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        paymentDestination
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Yes
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        customerReference
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        String
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        This is the unique reference generated for the transaction on your platform.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+## NGN payouts
+
+In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also needed when sending money to a bank account in Nigeria. 
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        beneficiary
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.firstName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The first name of the beneficiary .
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.lastName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The last name of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountHolderName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This field is required by all type of beneficiaries.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.country
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the beneficiary resides.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.email
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary's email
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+The payload should look like this :
+
+```json Individual Beneficiary
+{
+    "business": "{{Your business ID}}",
+    "sourceCurrency": "NGN",
+    "destinationCurrency": "NGN",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "quoteReference": "1330bd3c-1e09-4c1c-887f-7f1d72ff905e",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "individual",
+        "email": "aa@aa.com",
+        "bankCode": "058"
+    }
+}
+```
+```json Corporate Beneficiary
+{
+    "business": "{{Your business ID}}",
+    "sourceCurrency": "NGN",
+    "destinationCurrency": "NGN",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "quoteReference": "1330bd3c-1e09-4c1c-887f-7f1d72ff905e",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "corporate",
+        "email": "aa@aa.com",
+        "bankCode": "058"
+    }
+}
+```
+
+## GBP payouts
+
 In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also needed when sending money to a bank account in the United Kingdom.
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "quoteReference",
-    "0-1": "No",
-    "0-2": "String",
-    "0-3": "This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint.",
-    "1-0": "beneficiary",
-    "1-1": "Yes",
-    "1-2": "Object",
-    "1-3": "The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.",
-    "2-0": "beneficiary.accountHolderName",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "This field is required by all types of beneficiaries.",
-    "4-0": "beneficiary.type",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details",
-    "5-0": "beneficiary.country",
-    "5-1": "Yes",
-    "5-3": "The country in which the beneficiary resides.",
-    "5-2": "String",
-    "6-0": "beneficiary.email",
-    "6-1": "Yes",
-    "6-2": "String",
-    "6-3": "The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details",
-    "7-0": "beneficiary.bankSwiftCode",
-    "7-1": "No",
-    "7-2": "String",
-    "7-3": "The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A",
-    "8-0": "beneficiary.sortCode",
-    "8-1": "Yes",
-    "8-2": "String",
-    "8-3": "The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000",
-    "9-0": "paymentScheme",
-    "9-1": "Yes",
-    "9-2": "String",
-    "9-3": "The [payment scheme](/docs/payment-scheme) is relevant to the destination currency and region.",
-    "3-0": "beneficiary.accountNumber",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "This is the bank account number of the beneficiary."
-  },
-  "cols": 4,
-  "rows": 10
-}
-[/block]
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        quoteReference
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountHolderName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This field is required by all types of beneficiaries.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountNumber
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the bank account number of the beneficiary.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the beneficiary resides.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.email
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankSwiftCode
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.sortCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentScheme
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The [payment scheme](/docs/payment-scheme) is relevant to the destination currency and region.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
 The payload should look like this :
-[block:code]
+
+```json FPS
 {
-  "codes": [
-    {
-      "code": "{\n    \"business\": \"{{The business ID}}\",\n    \"sourceCurrency\": \"GBP\",\n    \"destinationCurrency\": \"GBP\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"individual\",\n        \"email\": \"aa@aa.com\",,\n        \"sortCode\" : \"000000\"\n    },\n    \"paymentScheme\": \"fps\",\n    \"quoteReference\": \"d187b2fa-27cd-43e6-b622-66361e409c6d\"\n}",
-      "language": "json",
-      "name": "FPS"
+    "business": "{{The business ID}}",
+    "sourceCurrency": "GBP",
+    "destinationCurrency": "GBP",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "individual",
+        "email": "aa@aa.com",,
+        "sortCode" : "000000"
     },
-    {
-      "code": "{\n    \"business\": \"{{The business ID}}\",\n    \"sourceCurrency\": \"GBP\",\n    \"destinationCurrency\": \"GBP\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"individual\",\n        \"email\": \"aa@aa.com\",,\n        \"sortCode\" : \"000000\",\n        \"bankSwiftCode\" : \"UBSWCHZH80A\"\n    },\n    \"paymentScheme\": \"chaps\",\n    \"quoteReference\": \"d187b2fa-27cd-43e6-b622-66361e409c6d\"\n}\n",
-      "language": "json",
-      "name": "CHAPS"
-    }
-  ]
+    "paymentScheme": "fps",
+    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
 }
-[/block]
-##EUR Payouts
+```
+```json CHAPS
+{
+    "business": "{{The business ID}}",
+    "sourceCurrency": "GBP",
+    "destinationCurrency": "GBP",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "individual",
+        "email": "aa@aa.com",,
+        "sortCode" : "000000",
+        "bankSwiftCode" : "UBSWCHZH80A"
+    },
+    "paymentScheme": "chaps",
+    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
+}
+```
+
+## EUR Payouts
+
 In addition to the [common details ](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also needed when sending money to a bank account in the European Union.
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "beneficiary",
-    "0-1": "Yes",
-    "0-2": "Object",
-    "0-3": "The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.",
-    "1-0": "beneficiary.accountHolderName",
-    "2-0": "beneficiary.accountNumber",
-    "3-0": "beneficiary.type",
-    "4-0": "beneficiary.country",
-    "5-0": "beneficiary.email",
-    "6-0": "paymentScheme",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "This field is required by all types of beneficiaries.",
-    "2-1": "Yes",
-    "2-2": "String",
-    "2-3": "This is the [IBAN](https://docs.fincra.com/docs/verify-iban-and-account-numbers#account-number-verification) of the beneficiary.",
-    "3-1": "Yes",
-    "3-2": "String",
-    "3-3": "The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "The country in which the beneficiary resides.",
-    "5-1": "Yes",
-    "5-2": "String",
-    "5-3": "The type of beneficiary, see beneficiary types for more details",
-    "6-1": "Yes",
-    "6-2": "String",
-    "6-3": "The [payment scheme](/docs/payment-scheme) relevant to the destination currency and region."
-  },
-  "cols": 4,
-  "rows": 7
-}
-[/block]
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        beneficiary
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountHolderName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This field is required by all types of beneficiaries.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountNumber
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the [IBAN](https://docs.fincra.com/docs/verify-iban-and-account-numbers#account-number-verification) of the beneficiary.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the beneficiary resides.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.email
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see beneficiary types for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentScheme
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The [payment scheme](/docs/payment-scheme) relevant to the destination currency and region.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
 The payload should look like this : 
-[block:code]
+
+```json SEPA
 {
-  "codes": [
-    {
-      "code": "{\n    \"business\": \"{{The business ID}}\",\n    \"sourceCurrency\": \"EUR\",\n    \"destinationCurrency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"individual\",\n        \"email\": \"aa@aa.com\",\n    },\n    \"paymentScheme\": \"sepa\",\n    \"quoteReference\": \"d187b2fa-27cd-43e6-b622-66361e409c6d\"\n}",
-      "language": "json",
-      "name": "SEPA"
+    "business": "{{The business ID}}",
+    "sourceCurrency": "EUR",
+    "destinationCurrency": "EUR",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "individual",
+        "email": "aa@aa.com",
     },
-    {
-      "code": "{\n    \"business\": \"{{The business ID}}\",\n    \"sourceCurrency\": \"EUR\",\n    \"destinationCurrency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"beneficiary\": {\n        \"firstName\": \"Hassan\",\n        \"lastName\": \"Sarz\",\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0803443433\",\n        \"accountNumber\": \"0124775489\",\n        \"type\": \"individual\",\n        \"email\": \"aa@aa.com\",\n    },\n    \"paymentScheme\": \"sepa\",\n    \"quoteReference\": \"d187b2fa-27cd-43e6-b622-66361e409c6d\"\n}",
-      "language": "json",
-      "name": "SEPA_INSTANT"
-    }
-  ]
+    "paymentScheme": "sepa",
+    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
 }
-[/block]
-##USD Payouts
+```
+```json SEPA_INSTANT
+{
+    "business": "{{The business ID}}",
+    "sourceCurrency": "EUR",
+    "destinationCurrency": "EUR",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "beneficiary": {
+        "firstName": "Hassan",
+        "lastName": "Sarz",
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0803443433",
+        "accountNumber": "0124775489",
+        "type": "individual",
+        "email": "aa@aa.com",
+    },
+    "paymentScheme": "sepa",
+    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d"
+}
+```
+
+## USD Payouts
+
 In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also needed when sending money to a bank account in the United States.
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "files",
-    "0-1": "No",
-    "0-2": "String/file/array",
-    "0-3": "A document explaining the reason for the payment. This can be a file upload or",
-    "2-0": "beneficiary",
-    "2-1": "Yes",
-    "2-2": "Object",
-    "2-3": "The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.",
-    "3-0": "beneficiary.firstName",
-    "4-0": "beneficiary.lastName",
-    "5-0": "beneficiary.phoneNumber",
-    "6-0": "beneficiary.accountHolderName",
-    "7-0": "beneficiary.accountNumber",
-    "8-0": "beneficiary.type",
-    "9-0": "beneficiary.country",
-    "10-0": "beneficiary.email",
-    "11-0": "beneficiary.bankSwiftCode",
-    "3-3": "The first name of the beneficiary",
-    "3-1": "Yes",
-    "3-2": "String",
-    "4-1": "Yes",
-    "4-2": "String",
-    "4-3": "The last name of the beneficiary .",
-    "5-1": "No",
-    "5-2": "String",
-    "5-3": "The mobile number of the beneficiary",
-    "6-1": "Yes",
-    "6-2": "String",
-    "6-3": "This is the bank account number of the beneficiary",
-    "7-1": "Yes",
-    "7-2": "String",
-    "7-3": "This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.",
-    "8-1": "Yes",
-    "8-2": "String",
-    "8-3": "The type of beneficiary, see beneficiary types for more details",
-    "9-1": "No",
-    "9-2": "String",
-    "9-3": "The country in which the beneficiary resides.",
-    "10-1": "No",
-    "10-2": "String",
-    "10-3": "The beneficiary's email",
-    "11-1": "Yes",
-    "11-2": "String",
-    "11-3": "The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A",
-    "1-0": "paymentScheme",
-    "1-1": "Yes",
-    "1-2": "String",
-    "1-3": "The [payment scheme](/docs/payment-scheme)  relevant to the destination currency and region."
-  },
-  "cols": 4,
-  "rows": 12
-}
-[/block]
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        files
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String/file/array
+      </td>
+
+      <td>
+        A document explaining the reason for the payment. This can be a file upload or
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentScheme
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The [payment scheme](/docs/payment-scheme)  relevant to the destination currency and region.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.firstName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The first name of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.lastName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The last name of the beneficiary .
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.phoneNumber
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The mobile number of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountHolderName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the bank account number of the beneficiary
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.accountNumber
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The type of beneficiary, see beneficiary types for more details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.country
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The country in which the beneficiary resides.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.email
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The beneficiary's email
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        beneficiary.bankSwiftCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
 The payload should look like this :
-[block:code]
+
+```json USD Payouts
 {
-  "codes": [
-    {
-      "code": "{\n    \"business\": \"{{The business ID}}\",\n    \"sourceCurrency\": \"USD\",\n    \"destinationCurrency\": \"USD\",\n    \"amount\": \"1000\",\n    \"description\": \"i want to pay my vendor\",\n    \"paymentDestination\": \"bank_account\",\n    \"beneficiary\": {\n        \"accountHolderName\": \"Hassan Sarz\",\n        \"country\": \"NG\",\n        \"phone\": \"0123456789\",\n        \"accountNumber\": \"0123456789\",\n        \"type\": \"corporate\",\n        \"email\": \"aa@aa.com\",\n    },\n    \"paymentScheme\": \"swift\",\n    \"files\": \"https://reviewtestbucket.s3.amazonaws.com/invoiceAttachments/WhatsApp%20Image%202021-12-23%20At%2011_6803ef48-977d-4db9-9a38-b2e5a1365270.jpeg\",\n    \"customerName\": \"Hassan Sars\",\n}",
-      "language": "json",
-      "name": "USD Payouts"
-    }
-  ]
+    "business": "{{The business ID}}",
+    "sourceCurrency": "USD",
+    "destinationCurrency": "USD",
+    "amount": "1000",
+    "description": "i want to pay my vendor",
+    "paymentDestination": "bank_account",
+    "beneficiary": {
+        "accountHolderName": "Hassan Sarz",
+        "country": "NG",
+        "phone": "0123456789",
+        "accountNumber": "0123456789",
+        "type": "corporate",
+        "email": "aa@aa.com",
+    },
+    "paymentScheme": "swift",
+    "files": "https://reviewtestbucket.s3.amazonaws.com/invoiceAttachments/WhatsApp%20Image%202021-12-23%20At%2011_6803ef48-977d-4db9-9a38-b2e5a1365270.jpeg",
+    "customerName": "Hassan Sars",
 }
-[/block]
+```
