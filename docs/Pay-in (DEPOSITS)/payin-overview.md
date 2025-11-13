@@ -16,7 +16,7 @@ Accept payment globally with the Fincra Payin API that allows you to collect pay
 
 Payins are inbound payments received into your merchant account. Fincra has a vast suite of products that make up its collection service, allowing you to build a superb set of products and services while providing an excellent customer experience.
 
-Fincra makes it easy for you to accept payments without technical experience. With just a payment link generated from your portal, you can share it with your customers to receive your payments.  
+Fincra makes it easy for you to accept payments without technical experience. With just a payment link generated from your portal, you can share it with your customers to receive your payments.\
 If you are building a custom flow to suit specific business needs, we will advise integrating the APIs into your application system. To integrate the APIs, it would be preferable if you have technical knowledge of Rest APIs and programming languages.
 
 ### Supported Pay-in Currencies
@@ -51,8 +51,8 @@ When your application accesses the checkout API, a modal or a new page would be 
 
 There are two options for integrating the Checkout and as their names imply, their use cases are pretty straightforward.
 
-- [Checkout Standard](/docs/checkout-standard)
-- [Checkout Redirect](/docs/checkout-redirect)
+* [Checkout Standard](/docs/checkout-standard)
+* [Checkout Redirect](/docs/checkout-redirect)
 
 ![](https://files.readme.io/68e4c5e-Checkout-demo.png "Checkout-demo.png")
 
