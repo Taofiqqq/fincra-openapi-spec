@@ -12,14 +12,14 @@ next:
 ---
 In this section, we will go over the steps required to set up and maintain a permanent virtual account. We would like to start by explaining how permanent virtual accounts can be created on Fincra.
 
-- By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/request-virtual-accounts) 
+* By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/request-virtual-accounts) 
 
 > 📘 Important
-> 
-> - When requesting a virtual account using a currency other than NGN, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need.
-> - BVN is required when requesting a permanent virtual account.
-> - Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
-> - Funds received by a virtual account created settle in the balances of the merchant.
+>
+> * When requesting a virtual account using a currency other than NGN, you need to include certain documents in the request body. Please follow this [link](/docs/documents-required-for-virtual-accounts-creation) to see the documents you would need.
+> * BVN is required when requesting a permanent virtual account.
+> * Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
+> * Funds received by a virtual account created settle in the balances of the merchant.
 
 ### 1 - Request a virtual account
 
@@ -53,7 +53,6 @@ Payload:
 }
 ```
 ```Text Corporate
-
 ```
 
 If successful, you will receive a JSON snippet with the details of the newly created virtual account:
@@ -115,9 +114,9 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 
 Important Notes:
 
-- \_id : This is the unique Identifier for the virtual account that was just created.
-- business : This is your business ID.
-- entityType : This states that the virtual account belongs to you
+* \_id : This is the unique Identifier for the virtual account that was just created.
+* business : This is your business ID.
+* entityType : This states that the virtual account belongs to you
 
 ### 2 - Receive and validate webhook notification
 
@@ -154,7 +153,7 @@ Webhook Response:
 
 Important Notes:
 
-- id : This is the unique Identifier for the virtual account that was just created.
+* id : This is the unique Identifier for the virtual account that was just created.
 
 ### 3 - Retrieving the details of a virtual bank account
 
