@@ -22,14 +22,14 @@ When your application accesses the checkout API, it will display a modal or a ne
 
 There are two options for integrating the Checkout and, as their names imply, their use cases are pretty straightforward.
 
-- [Checkout Standard](/docs/checkout-standard): You can collect payments from your customers by implementing the checkout standard, which loads a Fincra modal and allows the user to pay directly on your website.
-- [Checkout Redirect](/docs/checkout-redirect) : You can securely accept payments with Checkout Redirect instead of embedding the Fincra payment gateway modal into your website. It is quick, reduces development time,  and has an added benefit - the redirect functionality.
+* [Checkout Standard](/docs/checkout-standard): You can collect payments from your customers by implementing the checkout standard, which loads a Fincra modal and allows the user to pay directly on your website.
+* [Checkout Redirect](/docs/checkout-redirect) : You can securely accept payments with Checkout Redirect instead of embedding the Fincra payment gateway modal into your website. It is quick, reduces development time,  and has an added benefit - the redirect functionality.
 
 # Checkout Payment Options
 
 Through our check-out API, you can receive payments by
 
-- Card
-- Bank transfers
-- PayAttitude
-- Mobile Money
+* Card
+* Bank transfers
+* PayAttitude
+* Mobile Money
