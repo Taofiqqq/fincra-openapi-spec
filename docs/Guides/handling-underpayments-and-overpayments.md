@@ -18,7 +18,7 @@ To understand the functionality, you can watch the [demo video](https://8h6y7.r.
 
 Upon fulfilment of a transaction, a webhook response will be sent containing the expected amount (**amount**) and the amount received (**amountReceived**).
 
-For transactions fulfilled via bank transfer, identified by the field **"type":"bank_transfer"** in the web-hook response, it is essential to **verify that the actual deposited amount matches the expected amount**.
+For transactions fulfilled via bank transfer, identified by the field **"type":"bank\_transfer"** in the web-hook response, it is essential to **verify that the actual deposited amount matches the expected amount**.
 
 If the transaction status is marked as **"success"**, indicating a successful deposit, the next step is to compare the **"amount"** field with the **"amountReceived"** field. This helps determine if the payment matches the expected amount or is under/over the specified amount.
 
@@ -26,7 +26,7 @@ The **"amountReceived"** field is also present in transaction status re-queries.
 
 **Note:** Web-hooks and re-queries will still show **status:"success"** even in the case of overpayments or underpayments. It is crucial to cross-check the **"amount"** against the **"amountReceived"** field to confirm a true success.
 
-**Example**  
+**Example**\
 In the event of an underpayment, the status remains "success," but the difference in "amount" vs **"amountReceived"** is evident.
 
 ```json Webhook Response
