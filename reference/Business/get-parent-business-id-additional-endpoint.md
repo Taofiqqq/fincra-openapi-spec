@@ -39,7 +39,5 @@ Response Body
 }
 ```
 
-
-
-**Please take note of the following:**  
+**Please take note of the following:**\
 The `id`  in data object obtained from the `business` object   is your business ID.
