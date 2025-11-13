@@ -14,6 +14,6 @@ next:
   description: ''
 ---
 > 📘 Note
-> 
-> - The `card` parameter should be passed if type is `card`
-> - The `phone` parameter should be passed if type is `payattitude`or `mobile_money`.
+>
+> * The `card` parameter should be passed if type is `card`
+> * The `phone` parameter should be passed if type is `payattitude`or `mobile_money`.
