@@ -14,37 +14,122 @@ A payment scheme is a set of rules that Payment Service Providers(PSP) have agre
 
 Please see the below table for payment schemes supported on Fincra.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Payment Scheme",
-    "h-1": "Currency",
-    "h-2": "API Value",
-    "0-0": "SWIFT",
-    "0-1": "GBP \nUSD \nEUR ",
-    "0-2": "swift",
-    "1-0": "FPS",
-    "1-1": "GBP",
-    "1-2": "fps",
-    "2-0": "CHAPS",
-    "2-1": "GBP",
-    "2-2": "chaps",
-    "3-0": "SEPA",
-    "3-1": "EUR",
-    "3-2": "sepa",
-    "4-0": "SEPA INSTANT",
-    "4-1": "EUR",
-    "4-2": "sepa_inst",
-    "h-3": "Settlement Time",
-    "1-3": "Within an hour",
-    "2-3": "Within 1 day",
-    "3-3": "Within 1 day",
-    "4-3": "20 seconds"
-  },
-  "cols": 4,
-  "rows": 5
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        Payment Scheme
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Currency
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        API Value
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Settlement Time
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SWIFT
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP\
+        USD\
+        EUR 
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        swift
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        FPS
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        fps
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Within an hour
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        CHAPS
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        GBP
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        chaps
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Within 1 day
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SEPA
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        EUR
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        sepa
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Within 1 day
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        SEPA INSTANT
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        EUR
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        sepa\_inst
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        20 seconds
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
 Currency: This refers to the destination currency.
 
 Payment Scheme: This is the valid payment scheme used in the beneficiary region.
