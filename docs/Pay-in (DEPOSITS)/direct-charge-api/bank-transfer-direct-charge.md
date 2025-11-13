@@ -34,8 +34,6 @@ To charge a customer, you will need to collect the necessary payment information
 }
 ```
 
-
-
 Send a POST request with the payment data above to the [initiate a charge endpoint](/reference/initiate-a-charge). With the payload below. 
 
 If you receive a response with the status `pending`, the bank account has been created and needs to be funded.
@@ -76,13 +74,11 @@ If you receive a response with the status `pending`, the bank account has been c
 }
 ```
 
-
-
 Take note of the following 
 
-- `id` refers to the unique identifier of the transaction
-- `reference` refers to the unique identifier of the transaction on your platform.
-- `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
+* `id` refers to the unique identifier of the transaction
+* `reference` refers to the unique identifier of the transaction on your platform.
+* `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
 
 ## 2 - Complete the payment
 
@@ -101,8 +97,6 @@ The `virtualAccount` object contains the account details for the transfer: the b
     }
 }
 ```
-
-
 
 ## 3 - Verify Charge
 
@@ -138,8 +132,6 @@ Here's an example of a payment verification  and response:
 }
 
 ```
-
-
 
 ## 4 - Set Up Webhook
 
