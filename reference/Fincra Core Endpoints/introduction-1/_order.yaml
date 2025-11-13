@@ -3,3 +3,4 @@
 - get-merchant-virtual-account-requests
 - get-virtual-account-requests
 - get-merchant-virtual-account-by-currency
+- get-subaccount-virtual-accounts
