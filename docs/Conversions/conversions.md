@@ -12,20 +12,18 @@ next:
 ---
 Converting one currency to another is quick, easy, and seamless using Fincra. All you have to do now is ensure that your wallet contains sufficient funds to perform the transaction. Following a successful conversion, the equivalent of the currency you converted to will be settled in your wallet.
 
-How to convert currencies
--------------------------
+## How to convert currencies
 
 To convert one currency to another, the following steps must be taken.
 
-1 - Wallet Topup
-----------------
+## 1 - Wallet Topup
 
 You can fund your wallet by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints.
 
 > 📘 For more details on  virtual account creation and funding please read the following sections :
-> 
-> - [How to create a virtual account](/docs/create-virtual-accounts#account-requests)
-> - [How to fund your account](/docs/receive-money-in-your-wallet)
+>
+> * [How to create a virtual account](/docs/create-virtual-accounts#account-requests)
+> * [How to fund your account](/docs/receive-money-in-your-wallet)
 
 We will send a notification to your webhook url whenever your wallet is funded .
 
@@ -52,8 +50,7 @@ We will send a notification to your webhook url whenever your wallet is funded .
 }
 ```
 
-2 - Generate quote
-------------------
+## 2 - Generate quote
 
 For details on how to generate a quote please see the [generate quote endpoint ](/reference/get-a-quote) 
 
@@ -92,8 +89,7 @@ For details on how to generate a quote please see the [generate quote endpoint ]
 }
 ```
 
-3 - Request conversion
-----------------------
+## 3 - Request conversion
 
 Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. Please see the [conversion API ](reference/make-a-currency-conversion) for the required payload that should be sent. 
 
@@ -104,8 +100,7 @@ Kindly ensure you fill out all of the necessary fields in order for your payment
 }
 ```
 
-4 - Receive and validate webhook notification
----------------------------------------------
+## 4 - Receive and validate webhook notification
 
 Listen for webhook events. We will send a notification to your webhook URL that indicates the status of the conversion. Read our [guide](/docs/secret-key) on securing and validating the webhook notification on your end.
 
