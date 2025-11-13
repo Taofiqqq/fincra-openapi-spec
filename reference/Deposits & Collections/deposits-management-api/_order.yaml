@@ -2,3 +2,4 @@
 - verify-deposit-by-merchant-reference
 - get-all-collections
 - fetch-deposits-by-virtual-account-id
+- get-wallet-top-ups
