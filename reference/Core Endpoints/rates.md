@@ -165,7 +165,7 @@ curl --location 'https://api.fincra.com/quotes/treasury-orders/rates' \
 <br />
 
 > 📘 Note
-> 
+>
 > > Endpoint only accepts **query parameters** — path parameters are not supported
 > >
 > > Format: `/quotes/treasury-orders/rates?currencyPair={BASE}-{QUOTE}`
@@ -186,7 +186,7 @@ curl --location 'https://api.fincra.com/quotes/treasury-orders/rates' \
 | page          | 1           | number | Page number for paginated results (default: 1) |
 | perPage       | 10          | number | Number of items per page (default: 10)         |
 
-📌 All parameters are optional and can be used to filter responses.  
+📌 All parameters are optional and can be used to filter responses.\
 If no parameters are provided, the endpoint returns all available rates by default.
 
 <br />
@@ -369,5 +369,5 @@ If no parameters are provided, the endpoint returns all available rates by defau
 
 After retrieving rates, you can:
 
-- Initiate a Conversion to exchange funds between currencies. Refer to[ conversion](https://docs.fincra.com/docs/conversions)
-- Initiate a cross currency disbursement.
+* Initiate a Conversion to exchange funds between currencies. Refer to[ conversion](https://docs.fincra.com/docs/conversions)
+* Initiate a cross currency disbursement.
