@@ -14,12 +14,12 @@ next:
   description: ''
 ---
 > 📘 Hey 👋 we recommend checking out the following sections before making use of this endpoint
-> 
-> - [Payment destinations](/docs/introduction-10#payment-destination)  
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types) 
-> - [Payment Schemes](/docs/introduction-10#payment-schemes)
-> - [Supported Currencies](/docs/supported-currencies)
-> - [Transaction Types](/docs/transaction-types-1#transaction-types)
+>
+> * [Payment destinations](/docs/introduction-10#payment-destination)  
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types) 
+> * [Payment Schemes](/docs/introduction-10#payment-schemes)
+> * [Supported Currencies](/docs/supported-currencies)
+> * [Transaction Types](/docs/transaction-types-1#transaction-types)
 
 ### Response Body
 
@@ -30,7 +30,7 @@ next:
 | sourceAmount        | String    | The amount sent                                                                                    |
 | destinationAmount   | String    | The amount that will be received                                                                   |
 | action              | String    | The type of action that was performed e.g send                                                     |
-| transactionType     | String    | The type of transaction e.g _disbursement_ or _conversion_                                         |
+| transactionType     | String    | The type of transaction e.g *disbursement* or *conversion*                                         |
 | fee                 | String    | The transaction fee of the destination currency                                                    |
 | initialAmount       | String    | The amount sent                                                                                    |
 | quotedAmount        | String    | The amount that will be received                                                                   |
@@ -40,4 +40,4 @@ next:
 | reference           | String    | The reference of the transaction                                                                   |
 | expireAt            | String    | The time the quote expires                                                                         |
 
-<br>
+<br />
