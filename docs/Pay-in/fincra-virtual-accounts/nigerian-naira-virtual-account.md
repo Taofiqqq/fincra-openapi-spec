@@ -15,10 +15,10 @@ This section describes the requirements for creating a virtual account in Naira(
 You can use the Virtual account API to create permanent and temporary NGN Virtual Accounts. 
 
 > 📘 Hey 👋 , we recommend reading the sections below because they are critical to understanding each virtual account request.
-> 
-> - [How to create a virtual account](/docs/fincra-virtual-accounts)
-> - [Currencies we support for virtual account creations](/docs/fincra-virtual-accounts#requesting-virtual-accounts)
-> - [Virtual Account Webhook Structure](/docs/virtual-account-webhook)
+>
+> * [How to create a virtual account](/docs/fincra-virtual-accounts)
+> * [Currencies we support for virtual account creations](/docs/fincra-virtual-accounts#requesting-virtual-accounts)
+> * [Virtual Account Webhook Structure](/docs/virtual-account-webhook)
 
 ## Multiple Bank Options
 
@@ -36,7 +36,7 @@ Here is a list of banks that we support for the creation of NGN Virtual Accounts
 
 These parameters can be tested on an API explorer by calling the various endpoints supported for creating virtual accounts :
 
-- [Create a virtual account](/reference/request-virtual-accounts) : This endpoint can be used to request a Virtual Account in any currency
+* [Create a virtual account](/reference/request-virtual-accounts) : This endpoint can be used to request a Virtual Account in any currency
 
 ```json
 {{host}}/profile/virtual-accounts/requests
@@ -44,11 +44,11 @@ These parameters can be tested on an API explorer by calling the various endpoin
 
 **Note** 
 
-- After a virtual account creation request is made, a response with a data object containing a unique identifier `_id` of the virtual account will be returned, which will also be included in the webhook sent as `id` if the virtual account is declined or approved.
-- `bvn` is required when creating permanent virtual accounts
-- Funds transfers made to NGN accounts are instant
-- The name on the BVN must correspond with both the `KYCInfomation.firstName`, `KYCInfomation.lastName` or `KYCInfomation.bvnName` sent in the payload, otherwise, the following error will be received:  `BVN doesn't match the provided name`
-- The order of arrangement of the `bvnName`  matters when verifying against the name on the BVN. Kindly pass the exact value as it is on the `BVN` e.g Fincra developers == Fincra developers
+* After a virtual account creation request is made, a response with a data object containing a unique identifier `_id` of the virtual account will be returned, which will also be included in the webhook sent as `id` if the virtual account is declined or approved.
+* `bvn` is required when creating permanent virtual accounts
+* Funds transfers made to NGN accounts are instant
+* The name on the BVN must correspond with both the `KYCInfomation.firstName`, `KYCInfomation.lastName` or `KYCInfomation.bvnName` sent in the payload, otherwise, the following error will be received:  `BVN doesn't match the provided name`
+* The order of arrangement of the `bvnName`  matters when verifying against the name on the BVN. Kindly pass the exact value as it is on the `BVN` e.g Fincra developers == Fincra developers
 
 ***
 
@@ -80,8 +80,6 @@ The payload should look like this :
     "channel": "globus"
 }
 ```
-
-</br>
 
 ### Corporate Request
 
