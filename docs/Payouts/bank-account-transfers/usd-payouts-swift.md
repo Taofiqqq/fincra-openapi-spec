@@ -13,20 +13,19 @@ next:
 This section covers the parameters needed to process payments to bank accounts in the United States
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-SWIFT Transfers
--------------------------------
+## SWIFT Transfers
 
 The processing parameters that are required to process payments to US dollar accounts using the SWIFT payment scheme are explained in this section. 
 
 > 📘 Notes
-> 
-> - Please be advised that payments made using SWIFT take 1-5 days to reach their intended recipient.
+>
+> * Please be advised that payments made using SWIFT take 1-5 days to reach their intended recipient.
 
 To make payments you will need to send the required parameters to the [payout endpoint](/reference/payout-1)
 
@@ -39,22 +38,21 @@ To make payments you will need to send the required parameters to the [payout en
 | destinationCurrency           | Yes       | string | The currency in which the recipient will be receiving funds                                                                                                                                                                                                                          |
 | amount                        | Yes       | string | The value that is to be transferred from the source currency wallet.                                                                                                                                                                                                                 |
 | description                   | Yes       | string | The description of the payout                                                                                                                                                                                                                                                        |
-| files                   | No       | string | A document explaining the reason for the payment .This is only required for payments to bank accounts in USD.                                                                                                                                                                                                                                                       |
-| customerName                   | No       | string | The name of the beneficiary of the funds.This is only required for payments to bank accounts in USD.                                                                                                                                                                                                                                                                                                                                               |
+| files                         | No        | string | A document explaining the reason for the payment .This is only required for payments to bank accounts in USD.                                                                                                                                                                        |
+| customerName                  | No        | string | The name of the beneficiary of the funds.This is only required for payments to bank accounts in USD.                                                                                                                                                                                 |
 | paymentDestination            | Yes       | string | This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details                                                                                                                            |
 | customerReference             | No        | string | This is the unique reference generated for the transaction on your platform.                                                                                                                                                                                                         |
 | quoteReference                | No        | string | This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint. |
 | beneficiary                   | Yes       | object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                                                                                       |
 | beneficiary.firstName         | Yes       | string | The first name of the beneficiary .                                                                                                                                                                                                                                                  |
 | beneficiary.lastName          | Yes       | string | The last name of the beneficiary .                                                                                                                                                                                                                                                   |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
 | beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.                                                                                                                                                                          |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
 | beneficiary.country           | Yes       | string | The country in which the beneficiary resides.                                                                                                                                                                                                                                        |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
-| beneficiary.bankSwiftCode     | Yes        | string | The bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A                                                                                                                |
-
+| beneficiary.bankSwiftCode     | Yes       | string | The bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A                                                                                                                |
 
 The payload should look like this :
 
@@ -95,8 +93,8 @@ The payload should look like this :
 | destinationCurrency           | Yes       | string | The currency in which the recipient will be receiving funds                                                                                                                                                                                                                          |
 | amount                        | Yes       | string | The amount to be sent.This should be in larger units                                                                                                                                                                                                                                 |
 | description                   | Yes       | string | The description of the payout                                                                                                                                                                                                                                                        |
-| files                   | No       | string | A document explaining the reason for the payment .This is only required for payments to bank accounts in USD.                                                                                                                                                                                                                                                       |
-| customerName                   | No       | string | The name of the beneficiary of the funds                                                                                                                                                                                                                                                        |
+| files                         | No        | string | A document explaining the reason for the payment .This is only required for payments to bank accounts in USD.                                                                                                                                                                        |
+| customerName                  | No        | string | The name of the beneficiary of the funds                                                                                                                                                                                                                                             |
 | paymentDestination            | Yes       | string | This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details                                                                                                                            |
 | customerReference             | No        | string | This is the unique reference generated for the transaction on your platform.                                                                                                                                                                                                         |
 | quoteReference                | No        | string | This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint. |
@@ -104,10 +102,10 @@ The payload should look like this :
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
 | beneficiary.accountNumber     | Yes       | string | This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.                                                                                                                                                                          |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.country           | Yes       | string | The country in which the beneficiary resides.                                                                                                                                                                                                                                        |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
-| beneficiary.bankSwiftCode     | Yes        | string | The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A                                                                                                                                                                   |
+| beneficiary.bankSwiftCode     | Yes       | string | The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A                                                                                                                                                                   |
 | beneficiary.sortCode          | No        | string | The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000                                                                              |
 
 The payload should look like this :
