@@ -13,14 +13,13 @@ next:
 Payments to bank accounts in African countries are covered in this section.
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-Payout Endpoint
----------------
+## Payout Endpoint
 
 This endpoint is used to process transfers in all currencies we support and regions we cover. To test a payout please see the [API Reference](/reference/payout-1)
 
@@ -29,10 +28,7 @@ This endpoint is used to process transfers in all currencies we support and regi
 
 ```
 
-
-
-NGN Payouts
------------
+## NGN Payouts
 
 The parameters that can be used to process payment to a Nigerian Bank Account (NUBAN) are explained below 
 
@@ -83,8 +79,7 @@ The payload should look like this :
 
 <br />
 
-GHS, KES Payouts
-----------------
+## GHS, KES Payouts
 
 The parameters that can be used to process payments to Ghana and Kenya bank accounts are explained below 
 
