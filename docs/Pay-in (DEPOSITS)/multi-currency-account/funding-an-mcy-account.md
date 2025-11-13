@@ -13,7 +13,7 @@ next:
 You can fund your Multicurrency USD or EUR account via bank transfers, and the funds will be promptly reflected in your balance. Additionally, you will receive a web notification whenever your virtual account is credited through a bank transfer.
 
 > 🚧 Important!!
-> 
+>
 > Consult the guide [here](mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
 
 ### 1 - Get the virtual account details
@@ -120,7 +120,7 @@ Note, the data needed for credit is contained within the `data.accountInformatio
 ```
 
 > ❗️ Note
-> 
+>
 > When displaying the virtual account information to the customer for crediting, please ensure that the customer inputs the recipient's first and last name exactly as it appears on the EUR or USD account created on our platform via API. If the names do not match the account holder's name, the transaction will be returned.
 
 ### 2 - Receiving webhook notification
