@@ -22,9 +22,9 @@ Common virtual account approval errors include:
 
 This error may occur due to the following reasons:
 
-- The user uploaded a driver's license from Nigeria but specified Ghana as the issuing country.
-- The user selected driver's license but uploaded a national ID card.
-- The user is under 18 years of age.
+* The user uploaded a driver's license from Nigeria but specified Ghana as the issuing country.
+* The user selected driver's license but uploaded a national ID card.
+* The user is under 18 years of age.
 
 `Document originality could not be verified`
 
@@ -177,8 +177,8 @@ To improve the chances of virtual account approval, follow these guidelines:
 
 This error occurs when:
 
-- The virtual account number already exists
-- BVN virtual account details don't match the payload, required to create NGN virtual accounts
+* The virtual account number already exists
+* BVN virtual account details don't match the payload, required to create NGN virtual accounts
 
 `Account could not be resolved. Please check your selection and try again`
 
@@ -188,8 +188,8 @@ This error occurs when the virtual account number is invalid, expired, or deacti
 
 For NGN virtual accounts, this error occurs when:
 
-- The `KYCInformation.firstName` and `KYCInformation.lastName` do not correspond with the name on the customer's BVN.
-- The `KYCInformation.businessName` does not correspond with the name on the customer's BVN.
+* The `KYCInformation.firstName` and `KYCInformation.lastName` do not correspond with the name on the customer's BVN.
+* The `KYCInformation.businessName` does not correspond with the name on the customer's BVN.
 
 ## **Validation Errors**
 
@@ -197,8 +197,8 @@ Standard validation errors are returned when some of the supplied data differs f
 
 `An error occurred during payload validation`
 
-- The length of address.country must be less than or equal to 2 characters. The address.country field must be in [alpha2code](https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes) format
-- The length of document.issuedCountryCode must be less than or equal to 2 characters. The document.issuedCountryCode field must be in [alpha2code](https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes) format.
+* The length of address.country must be less than or equal to 2 characters. The address.country field must be in [alpha2code](https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes) format
+* The length of document.issuedCountryCode must be less than or equal to 2 characters. The document.issuedCountryCode field must be in [alpha2code](https://en.wikipedia.org/wiki/ISO_3166-2#Current_codes) format.
 
 ## **Miscellaneous Errors**
 
@@ -207,5 +207,5 @@ For MCY virtual account requests, an error is returned if the requesting user ha
 Please ensure to handle these errors appropriately in your application and refer to the specific error messages for more details.
 
 > 🚧 Please Note
-> 
+>
 > MCY Virtual account requests for users who already have existing virtual accounts will return a standard 200 response with details of the existing virtual account.
