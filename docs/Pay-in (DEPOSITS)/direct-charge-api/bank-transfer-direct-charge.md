@@ -93,9 +93,9 @@ If you receive a response with the status `pending`, the bank account has been c
 
 Take note of the following 
 
-- `id` refers to the unique identifier of the transaction. For pool accounts, this field is to be passed to your customers for them to add as a narration for the payment they are making. 
-- `reference` refers to the unique identifier of the transaction on your platform.
-- `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
+* `id` refers to the unique identifier of the transaction. For pool accounts, this field is to be passed to your customers for them to add as a narration for the payment they are making. 
+* `reference` refers to the unique identifier of the transaction on your platform.
+* `settlementDestination` is where you want your payments are to be settled. It could be a wallet or a bank account. The settlement destination is your Fincra Wallet by default.
 
 ## 2 - Complete the payment
 
