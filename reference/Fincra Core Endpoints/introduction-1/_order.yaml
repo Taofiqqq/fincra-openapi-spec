@@ -7,3 +7,4 @@
 - get-merchant-virtual-account-by-currency
 - fetch-a-virtual-account-by-bvn
 - get-subaccount-virtual-accounts
+- get-one-virtual-account
