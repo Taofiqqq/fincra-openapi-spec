@@ -13,20 +13,19 @@ next:
 This section covers the parameters needed to process payments to bank accounts in Europe
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-SEPA AND SEPA Instant Transfers
--------------------------------
+## SEPA AND SEPA Instant Transfers
 
 The processing parameters that are required to process payments to European accounts using the SEPA or SEPA Instant payment schemes are explained in this section. 
 
 > 📘 Notes
-> 
-> - Please be advised that payments made using SEPA can take up to a day to reach their intended recipient, but payments made using SEPA Instant are usually received within 10 seconds.
+>
+> * Please be advised that payments made using SEPA can take up to a day to reach their intended recipient, but payments made using SEPA Instant are usually received within 10 seconds.
 
 To make payments you will need to send the required parameters to the [payout endpoint](/reference/payout-1)
 
@@ -46,10 +45,10 @@ To make payments you will need to send the required parameters to the [payout en
 | beneficiary.firstName         | Yes       | string | The first name of the beneficiary .                                                                                                                                                                                                                                                  |
 | beneficiary.lastName          | Yes       | string | The last name of the beneficiary .                                                                                                                                                                                                                                                   |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
-| beneficiary.accountNumber     | Yes       | string | This is the [IBAN](/docs/verify-iban-and-account-numbers#account-number-verification)  of the beneficiary                                                                           |
+| beneficiary.accountNumber     | Yes       | string | This is the [IBAN](/docs/verify-iban-and-account-numbers#account-number-verification)  of the beneficiary                                                                                                                                                                            |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
-| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                        |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
+| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
 | beneficiary.bankSwiftCode     | No        | string | The bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A                                                                                                                |
 | beneficiary.sortCode          | No        | string | Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000                                                                                                                |
@@ -117,11 +116,11 @@ The payload should look like this :
 | quoteReference                | No        | string | This is the reference generated when the source currency is compared against the destination currency. This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote](/reference/get-a-quote)  endpoint. |
 | beneficiary                   | Yes       | object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                                                                                       |
 | beneficiary.accountHolderName | Yes       | string | This field is required by all type of beneficiaries.                                                                                                                                                                                                                                 |
-| beneficiary.accountNumber     | Yes       | string | This is the [IBAN](/docs/verify-iban-and-account-numbers#account-number-verification)  of the beneficiary           |
+| beneficiary.accountNumber     | Yes       | string | This is the [IBAN](/docs/verify-iban-and-account-numbers#account-number-verification)  of the beneficiary                                                                                                                                                                            |
 | beneficiary.type              | Yes       | string | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                                                           |
-| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                                                                                                     |
+| beneficiary.country           | Yes       | string | The country's [alpha2Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) in which the beneficiary resides.                                                                                                                                                           |
 | beneficiary.email             | No        | string | The beneficiary's email                                                                                                                                                                                                                                                              |
-| beneficiary.phoneNumber     | No       | string | The mobile number of the beneficiary                                                                                                                                                                    |
+| beneficiary.phoneNumber       | No        | string | The mobile number of the beneficiary                                                                                                                                                                                                                                                 |
 | beneficiary.bankSwiftCode     | No        | string | The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A                                                                                                                                                                   |
 | beneficiary.sortCode          | No        | string | The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000                                                                              |
 
