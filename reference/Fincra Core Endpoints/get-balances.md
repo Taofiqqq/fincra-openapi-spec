@@ -13,7 +13,7 @@ next:
 The Balance API consists of endpoints that provide information such as account balances, and the balance number, for a business. With the balance APIs, You can manage the account balance for your business. 
 
 > 📘 Note
-> 
+>
 > Please keep in mind that all payments made to a [business](/reference/business-1) via virtual bank accounts, checkout pages, or any Fincra API product will be stored in the business account balance.
 
 ## Available, Locked, and Ledger Balances
@@ -30,8 +30,6 @@ A Fincra account has three balances: locked balance, ledger balance, and availab
 
 ![](https://files.readme.io/7082d41-balance_number.png "balance_number.png")
 
-
-
-Here's an overview of how your **ledger balance **works. Assume your **available and ledger balances** are NGN20,000, and you pay your customer NGN4,000. Your **available balance** drops to NGN16,000, while your **ledger balance** remains NGN20,000 until the payout transaction is completed, at which point it drops to NGN16,000.
+Here's an overview of how your **ledger balance** works. Assume your **available and ledger balances** are NGN20,000, and you pay your customer NGN4,000. Your **available balance** drops to NGN16,000, while your **ledger balance** remains NGN20,000 until the payout transaction is completed, at which point it drops to NGN16,000.
 
 Your **locked balance** works a little differently. Assume you have NGN5,000 in **available balance** and NGN 0 in **locked funds**. If your customer pays you NGN2,500 successfully, your **available balance** remains NGN5,000, while your **locked balance**  becomes NGN2,500. When the funds settle in your Fincra account, Then your available balance will be NGN7,500.
