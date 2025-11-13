@@ -1,0 +1,201 @@
+---
+title: Checkout Redirect
+excerpt: ''
+deprecated: false
+hidden: false
+metadata:
+  title: ''
+  description: ''
+  robots: noindex
+next:
+  description: ''
+---
+The Checkout API allows you to safely and securely receive payments from your customers. Your server calls the Create Payment API to generate a checkout link, which you then redirect your users to so they can make a payment. After making a payment your users are redirected to your website.
+[block:callout]
+{
+  "type": "info",
+  "title": "Test Cards",
+  "body": "To carry out successful and failed test transactions, kindly check [this section](https://docs.fincra.com/docs/testing-your-integration)."
+}
+[/block]
+Let's get started.
+
+1 - Collect Payment Details
+---------------------------
+
+To initialize the transaction, you'll need to pass information such as email, first name, last name amount, transaction reference, etc. Email, name, and amount are required.
+
+Please find below the request parameters for the endpoint.
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Field",
+    "h-1": "Data type",
+    "h-2": "Required",
+    "h-3": "Description",
+    "0-0": "amount",
+    "0-1": "string",
+    "0-2": "Required",
+    "0-3": "The amount to charge the customer.",
+    "1-0": "redirectUrl",
+    "1-1": "string",
+    "1-2": "Optional",
+    "1-3": "The URL to redirect your customer when the transaction is complete.",
+    "2-0": "currency",
+    "2-1": "string",
+    "2-2": "Required",
+    "2-3": "The currency in which the customer should be charged. Only NGN is available for now.",
+    "3-0": "reference",
+    "3-1": "string",
+    "3-2": "Optional",
+    "3-3": "Your transaction reference. Must be unique for every transaction.  \nIf you do not provide one, a unique transaction reference would be generated for the transaction.",
+    "4-0": "feeBearer",
+    "4-1": "string",
+    "4-2": "Required",
+    "4-3": "This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`.",
+    "5-0": "metadata",
+    "5-1": "object",
+    "5-2": "Optional",
+    "5-3": "Include any information you'd want to send to Fincra in this object.  \ne.g metadata: {userId: \"my_user_id\" }",
+    "6-0": "customer",
+    "6-1": "string",
+    "6-2": "Required",
+    "6-3": "JSON object containing customer details",
+    "7-0": "customer.name",
+    "7-1": "string",
+    "7-2": "Required",
+    "7-3": "The name of the customer",
+    "8-0": "customer.email",
+    "8-1": "string",
+    "8-2": "Optional",
+    "8-3": "The email of the customer",
+    "9-0": "customer.phoneNumber",
+    "9-1": "string",
+    "9-2": "Optional",
+    "9-3": "The mobile number of the customer",
+    "10-0": "successMessage",
+    "10-1": "string",
+    "10-2": "Optional",
+    "10-3": "The message you want customers to see after successful payment.",
+    "11-0": "settlementDestination",
+    "11-1": "string",
+    "11-2": "Optional",
+    "11-3": "Settlement destination is where you want the payments to be settled. It can either be a wallet or bank account. By default the settlement destination is your Fincra wallet.  \nValues for settlementDestination can be **wallet** and **bank_account**",
+    "12-0": "paymentMethods",
+    "12-1": "array",
+    "12-2": "Optional",
+    "12-3": "The payment method you want to make available to your customers E.g, Bank (bank_transfer), card (card).",
+    "13-0": "defaultPaymentMethod",
+    "13-1": "string",
+    "13-2": "Optional",
+    "13-3": "The Payment method that should be active by default on the checkout page E.g bank_transfer or card"
+  },
+  "cols": 4,
+  "rows": 14,
+  "align": [
+    "left",
+    "left",
+    "left",
+    "left"
+  ]
+}
+[/block]
+
+2 - Initiate Payment
+--------------------
+
+After collecting the necessary payment details for the transaction. Make a POST request to our initialize checkout endpoint.
+
+**Note **: Before making a post request, the public key should be specified in the header.
+
+```json Public key
+-H "x-pub-key: your_public_key".
+```
+
+```json Request
+{{host}}/checkout-core/payments
+```
+
+If the API call is successful, Fincra returns the following response:
+
+```json Response
+{
+   “status” : true,
+   “message” : “Payment transaction initiated” ,
+   “data”: {
+           “reference”: “eyza908ne”,
+           “link”: "https://checkout.fincra.com/pay/eyza908ne"
+     }
+}
+```
+
+**Note**: The above reference is not the same as the  reference specified in the [payment details](/docs/checkout-redirect#1---collect-payment-details)
+
+You should then redirect your customer to the Checkout URL provided in the response to enable them complete their payment. Once the payment is complete or in the event of a failure, Fincra will redirect your customer to your specified redirectUrl. The transaction reference will be appended as a query parameter to your redirectUrl as well.
+
+e.g <https://website_redirectUrl/?reference=YOUR_REFERENCE>
+
+In a situation where no redirectUrl is passed, the customer receives visual confirmation on the completion of the payment and is NOT redirected out of the current webpage.
+
+3 - Verify payment
+------------------
+
+It is critical that you confirm the transaction using its reference,Just because the redirectUrl was visited doesn't prove that transaction was successful.You can confirm a payment by using the [Verify payment endpoint](/reference/verify-payment)
+
+4 - Receive and validate webhook notification
+---------------------------------------------
+
+Listen for webhook events. We will send a notification to your webhook URL that indicates the status of the collection. Read our guide on securing and validating the webhook notification on your end.
+
+**Note:** We will only send you a webhook when the transaction is successful
+
+```json checkout webhook response
+{ 
+event: "charge.successful", 
+type: "charge", 
+  data: {
+    businessId: "56f591092ceb1ad21ef",
+    method: "card",
+    paymentReference: "6df5910e1bdde31abf",
+    transactionReference: "5f5910e1bdde31abfe",
+    amount: 500.42,
+    amountToSettle: 500,
+    fee: 0.42,
+    feeBearer: "customer",
+    status: "success",
+    settlementDestination: "wallet",
+    currency: "NGN",
+    customer: { name: "John Thomas", email: "johnt@gmail.com", phoneNumber: null },
+    metadata: { reference: "my_reference", userId: "my_user_id" },
+    createdAt: "@timestamp",
+    updatedAt: "@timestamp",
+  }
+}
+```
+
+Webhook Response
+----------------
+
+The webhook response is explained in detail here.
+
+| Data                       | description                                                                                                                                      |
+| :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| event                      | The Webhook event                                                                                                                                |
+| type                       | The type of transaction                                                                                                                          |
+| data                       | The data object                                                                                                                                  |
+| data.method                | The payment method e.g card, bank transfer                                                                                                       |
+| data.paymentReference      |                                                                                                                                                  |
+| data.transactionReference  | The unique reference generated for the transaction                                                                                               |
+| data.merchantReference     | The **reference** the merchant included while initiating the transaction. This is the reference of the transaction on the merchant's application |
+| data.amount                | The amount the customer paid                                                                                                                     |
+| data.amountToSettle        | The amount the merchant receives                                                                                                                 |
+| datafee                    | The fee charged for the transaction                                                                                                              |
+| data.feeBearer             | The bearer of the fees                                                                                                                           |
+| data.status                | The status of the transaction                                                                                                                    |
+| data.settlementDestination | The settlement destination. This is either wallet or bankAccount                                                                                 |
+| data.currency              | The currency in which the payment was made                                                                                                       |
+| data.customer              | The customer. This is an object that contains the name , email and phoneNumber of the customer                                                   |
+| data.metadata              | The extra information included in the transaction                                                                                                |
+| data.createdAt             | This is the timestamp the transaction was created                                                                                                |
+| data.updatedAt             | This is the timestamp the transaction was updated                                                                                                |
