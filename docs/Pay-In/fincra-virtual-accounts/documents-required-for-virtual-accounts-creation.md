@@ -23,9 +23,9 @@ If the virtual account currency is EUR or GBP, any of the following documents ar
 | ID card                | idCard        | National ID card, Voters card,NIN          |
 
 > 📘 Take note of the following
-> 
-> - The Document provided must be a valid Government-Issued Identification Card (ID)
-> - All documents, with the exception of international passports, must be presented with both the front and back views else the request for a virtual account will be rejected. 
+>
+> * The Document provided must be a valid Government-Issued Identification Card (ID)
+> * All documents, with the exception of international passports, must be presented with both the front and back views else the request for a virtual account will be rejected.
 
 An individual virtual account request with the required documents will look like this
 
@@ -59,16 +59,11 @@ An individual virtual account request with the required documents will look like
   }
 ```
 
-
-
 **Please take note of the following in the above request :** 
 
-> 📘 
-> 
-> - The **meansOfId** field  references the **document.type object** which is the passport.
-> - The **meansOfId** field can contain a URL link, an array of URL links, or a file upload of the user's passport or whatever type of document was selected. As we can see from this example, the document object has a property called **type**, which can be any of the documents we accept, such as an international passport or an ID card.
-> - The **document.type** field can only accept `driverLicense` , `passport` and `idCard` any other value will prevent your virtual account from getting approved.
-> - The **meansOfId** field must represent the **document.type** field i.e If you upload an international passport the API value of the document.type field should be passport else the virtual account will not be created. Please see the table below for guidance. 
+> 📘
+>
+> * The **meansOfId** field  references the **document.type object** which is the passport.* The **meansOfId** field can contain a URL link, an array of URL links, or a file upload of the user's passport or whatever type of document was selected. As we can see from this example, the document object has a property called **type**, which can be any of the documents we accept, such as an international passport or an ID card.* The **document.type** field can only accept `driverLicense` , `passport` and `idCard` any other value will prevent your virtual account from getting approved.* The **meansOfId** field must represent the **document.type** field i.e If you upload an international passport the API value of the document.type field should be passport else the virtual account will not be created. Please see the table below for guidance.
 
 ## Corporate Virtual Account
 
@@ -105,13 +100,9 @@ A corporate virtual account request will look like this
 "attachments": "https://reviewtestbucket.s3.amazonaws.com/invoiceAttachments/WhatsApp%20Image%202021-12-23%20At%2011_6803ef48-977d-4db9-9a38-b2e5a1365270.jpeg"
 ```
 
-
-
 **Please take note of the following:** 
 
-- The **attachments** field can be a single document or array of documents that contain the relevant files needed by our compliance team before a corporate account is issued.
-
-
+* The **attachments** field can be a single document or array of documents that contain the relevant files needed by our compliance team before a corporate account is issued.
 
 ## Virtual Card
 
@@ -123,8 +114,6 @@ For Virtual card account creation, these are documents type required
 | Driver License         | driverLicense | The driver's license of the customer       |
 | ID card                | idCard        | National ID card, Voters card,NIN          |
 
-
-
 **Please take note**
 
-- The **document** field can be a single document or array of documents that contain the relevant files needed by our compliance team before a virtual card account is issued.
+* The **document** field can be a single document or array of documents that contain the relevant files needed by our compliance team before a virtual card account is issued.
