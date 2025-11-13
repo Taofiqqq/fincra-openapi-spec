@@ -10,8 +10,7 @@ metadata:
 next:
   description: ''
 ---
-collection.successful
----------------------
+## collection.successful
 
 This event is dispatched when funds are received in the user's virtual account. 
 
@@ -38,8 +37,7 @@ This event is dispatched when funds are received in the user's virtual account.
 }
 ```
 
-collection.failed
------------------
+## collection.failed
 
 This event is dispatched when a payin to a user's virtual account fails or gets declined.
 
