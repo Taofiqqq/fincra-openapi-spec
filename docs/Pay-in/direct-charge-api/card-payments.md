@@ -16,16 +16,16 @@ Our Direct Charge API allows you to charge both local and international cards. T
 
 The process of charging a credit or debit card consists of three key steps:
 
-- **Initiate charge**: This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
-- **Authorise charge**: To authorise a charge, we provide a list of the necessary information for you to obtain from the customer, which you then send to the [authorise charge endpoint](/reference/authorize-a-charge). Think of this as an additional level of security. You send us the OTP that the consumer provided to authorise the charge. This authorisation completes the payment.
-- **Verify charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge) to ensure that the payment was successful before you give any value to the customer.
+* **Initiate charge**: This involves sending the transaction details and the customer's payment data to the [initiate charge endpoint](/reference/initiate-a-charge).
+* **Authorise charge**: To authorise a charge, we provide a list of the necessary information for you to obtain from the customer, which you then send to the [authorise charge endpoint](/reference/authorize-a-charge). Think of this as an additional level of security. You send us the OTP that the consumer provided to authorise the charge. This authorisation completes the payment.
+* **Verify charge**: We strongly advise that you make a call to the [verify charge endpoint](/reference/verify-charge) to ensure that the payment was successful before you give any value to the customer.
 
 <br />
 
 > 📘 Important Note
-> 
-> - Using our Direct Card Charge APIs involves handling some sensitive customer data, so you are required to be PCI DSS certified
-> - Currently, we only accept Nigerian Naira payments. Mastercard, VISA, and Verve are among the several cards we accept. Here are some [test cards](/docs/testing-your-integration#test-cards-for-collections) we made to help you simulate different card payment scenarios as you integrate.
+>
+> * Using our Direct Card Charge APIs involves handling some sensitive customer data, so you are required to be PCI DSS certified
+> * Currently, we only accept Nigerian Naira payments. Mastercard, VISA, and Verve are among the several cards we accept. Here are some [test cards](/docs/testing-your-integration#test-cards-for-collections) we made to help you simulate different card payment scenarios as you integrate.
 
 ## How to charge a card
 
@@ -60,8 +60,6 @@ To charge a card, you will need to collect the necessary card and payment inform
 
 ```
 
-
-
 Send a POST request with the payment data above to the [initiate a charge endpoint](/reference/initiate-a-charge). With the payload below. 
 
 ```json JSON
@@ -85,8 +83,6 @@ Send a POST request with the payment data above to the [initiate a charge endpoi
     "callbackUrl": "https://fincra.com"
 }
 ```
-
-
 
 If you receive a response with the status `processing` and `auth_model` other than `NONE`, this indicates that an authorization step is required. The auth model would then determine the type of authentication needed for the card transaction returned in the data object.
 
@@ -143,21 +139,17 @@ If you receive a response with the status `processing` and `auth_model` other th
 }
 ```
 
-
-
 ## 2 - Authorize the Charge
 
 The authorization process is different depending on the type of card you are charging. After initiating the charge, the customer may be required to authorise the charge on their card. Typical card authorization methods include one or more of the following:
 
-- **PIN**: This is the process by which the customer enters the card's pin.
-- **One-time password (OTP)**: This involves sending OTPs to the customer's phone number or email address linked to the customer's bank account.   
+* **PIN**: This is the process by which the customer enters the card's pin.
+* **One-time password (OTP)**: This involves sending OTPs to the customer's phone number or email address linked to the customer's bank account. \
   Phone.
-- **3DS Authorisation**: Ths involves redirecting the customer to a specified URL
-- **AVS (Address Verification System)**: The customer enters the card's billing address. It's commonly used on international cards.
+* **3DS Authorisation**: Ths involves redirecting the customer to a specified URL
+* **AVS (Address Verification System)**: The customer enters the card's billing address. It's commonly used on international cards.
 
 ***
-
-
 
 ### Handling PIN authorization
 
@@ -190,8 +182,6 @@ PIN authorization requires that you collect the required fields (such as the car
 }
 ```
 
-
-
 To authorize this charge, you must then call the authorize endpoint and provide the PIN (For PIN authorization):
 
 ```json PIN authorization
@@ -199,8 +189,6 @@ To authorize this charge, you must then call the authorize endpoint and provide 
     "pin": "123456"
 }
 ```
-
-
 
 Then you should receive a response like this:
 
@@ -223,13 +211,9 @@ Then you should receive a response like this:
 }
 ```
 
-
-
 When you get a response like this, It is critical to confirm the transaction's status, which you can do by calling the verified payment endpoint. Please note that the status can be either success, failed, or processing.
 
 ***
-
-
 
 ### Handling OTP authorisation
 
@@ -254,8 +238,6 @@ When the status in the data object is `processing` and the `auth_model` is OTP, 
 }
 ```
 
-
-
 To authorise the charge, enter the OTP as shown below : 
 
 ```json
@@ -264,11 +246,7 @@ To authorise the charge, enter the OTP as shown below :
 }
 ```
 
-
-
 ***
-
-
 
 ### Handling 3DS authorisation
 
@@ -302,11 +280,7 @@ All you have to do with 3DS authorisation is redirect your user to the specified
 }
 ```
 
-
-
 ***
-
-
 
 ### Handling AVS authorization
 
@@ -339,8 +313,6 @@ AVS authorisation requires that you collect the required fields (such as the cus
 }
 ```
 
-
-
 To authorise this charge, you must then call the [authorise endpoint](/reference/authorize-a-charge) Customer's address(For AVS): 
 
 ```json AVS authorization
@@ -354,8 +326,6 @@ To authorise this charge, you must then call the [authorise endpoint](/reference
         }
 }
 ```
-
-
 
 Then you should receive a response like this:
 
@@ -377,8 +347,6 @@ Then you should receive a response like this:
     }
 }
 ```
-
-
 
 When you get a response like this, it is critical to confirm the transaction's status, which you can do by calling the verified payment endpoint. Please note that the status can be either success, failed, or processing.
 
@@ -417,8 +385,6 @@ Here's an example of a card payment verification and response:
 }
 
 ```
-
-
 
 ## 4 - Set Up Webhook
 
