@@ -20,9 +20,9 @@ Fincra helps enterprises and corporate treasuries streamline **global collection
 
 Treasury teams managing operations in Africa often face:
 
-- Multiple banking relationships across fragmented markets.
-- Exposure to FX volatility and delayed settlements.
-- Complex reconciliation processes and regulatory compliance overhead.
+* Multiple banking relationships across fragmented markets.
+* Exposure to FX volatility and delayed settlements.
+* Complex reconciliation processes and regulatory compliance overhead.
 
 ***
 
@@ -30,9 +30,9 @@ Treasury teams managing operations in Africa often face:
 
 Fincra provides a **single integrated platform** for treasury efficiency:
 
-- Consolidate multiple accounts into one view with **multi-currency virtual accounts**.
-- Improve cash flow with **instant settlement rails**.
-- Reduce risk with **compliant FX execution**.
+* Consolidate multiple accounts into one view with **multi-currency virtual accounts**.
+* Improve cash flow with **instant settlement rails**.
+* Reduce risk with **compliant FX execution**.
 
 ***
 
@@ -42,9 +42,9 @@ Fincra provides a **single integrated platform** for treasury efficiency:
 
 Accept payments from international customers and settle locally.
 
-- Virtual accounts in **USD, GBP, EUR, CAD**.
-- Local settlement in **NGN, KES, GHS, and more**.
-- Detailed reconciliation tools for full transparency.
+* Virtual accounts in **USD, GBP, EUR, CAD**.
+* Local settlement in **NGN, KES, GHS, and more**.
+* Detailed reconciliation tools for full transparency.
 
 💡 **How it works:** A Nigerian enterprise sells services to a European client. Payment is collected in EUR and reconciled instantly into NGN through Fincra’s rails.
 
@@ -54,9 +54,9 @@ Accept payments from international customers and settle locally.
 
 Move money reliably to vendors, contractors, and staff across Africa.
 
-- **Bulk payouts** with simple API integration.
-- **Real-time disbursements** to bank accounts and wallets.
-- End-to-end transparency with reconciliation and reporting.
+* **Bulk payouts** with simple API integration.
+* **Real-time disbursements** to bank accounts and wallets.
+* End-to-end transparency with reconciliation and reporting.
 
 💡 **How it works:** A Pan-African enterprise pays 1,000+ suppliers monthly across Ghana, Kenya, and Nigeria. With Fincra, payouts are automated, fast, and fully compliant.
 
@@ -66,9 +66,9 @@ Move money reliably to vendors, contractors, and staff across Africa.
 
 Manage FX risk and execute large conversions with ease.
 
-- Competitive rates for **large-volume conversions**.
-- Hedge exposures with **reliable liquidity access**.
-- Avoid hidden fees and conversion delays.
+* Competitive rates for **large-volume conversions**.
+* Hedge exposures with **reliable liquidity access**.
+* Avoid hidden fees and conversion delays.
 
 💡 **How it works:** Your treasury needs to convert a bulk USD settlement into NGN for payroll. Fincra executes instantly at competitive rates.
 
@@ -76,16 +76,16 @@ Manage FX risk and execute large conversions with ease.
 
 ## Compliance at the Core
 
-- Operate confidently with **regulated rails**.
-- Built-in **KYC/AML checks** for every transaction.
-- **Reporting tools** to simplify treasury oversight and audits.
+* Operate confidently with **regulated rails**.
+* Built-in **KYC/AML checks** for every transaction.
+* **Reporting tools** to simplify treasury oversight and audits.
 
 ***
 
 ## Why Treasuries & Enterprises Choose Fincra
 
-- **Consolidated multi-currency treasury management** in one platform.
-- **Reliable FX desk** for liquidity and conversions.
-- **Infrastructure built for scale and compliance** across multiple markets.
+* **Consolidated multi-currency treasury management** in one platform.
+* **Reliable FX desk** for liquidity and conversions.
+* **Infrastructure built for scale and compliance** across multiple markets.
 
 Bring efficiency and control to your treasury with Fincra.
