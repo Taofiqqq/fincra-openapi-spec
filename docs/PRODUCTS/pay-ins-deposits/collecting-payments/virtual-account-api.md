@@ -13,7 +13,7 @@ next:
 Virtual accounts are accounts that allow Fincra merchants to receive payments from customers via bank transfer. Fincra offers two types of virtual accounts; temporary Virtual accounts and permanent virtual accounts.
 
 > 🚧 Note
-> 
+>
 > It is important to note that Virtual Bank Accounts do not store monetary value like regular bank accounts; they only provide a means for your customers to pay you and the funds get settled in your account balance, to check your account balance please see the balance API.
 
 ## Types of Virtual Accounts
@@ -37,10 +37,10 @@ They are useful when creating an application where each user has a bank account 
 To learn how to create permanent virtual accounts, please read this [page](https://docs.fincra.com/reference/request-virtual-accounts)
 
 > 📘 **Virtual Account Flow**
-> 
-> - You create a virtual account for the customer with our API and provide your customer with the details of the account.
-> - The customer transfers funds to the virtual account created.
-> - A [webhook](https://docs.fincra.com/docs/collection-webhook) is sent notifying you that payment has been received.
+>
+> * You create a virtual account for the customer with our API and provide your customer with the details of the account.
+> * The customer transfers funds to the virtual account created.
+> * A [webhook](https://docs.fincra.com/docs/collection-webhook) is sent notifying you that payment has been received.
 
 ## Technical Classification Of Virtual Accounts
 
@@ -48,8 +48,8 @@ To learn how to create permanent virtual accounts, please read this [page](http
 
 Our Virtual Accounts can be classified into two based on how they can be funded:
 
-- Main virtual accounts are corporate virtual accounts belonging to registered Fincra merchants. These are the first corporate virtual accounts created by a merchant. Funds received in the main virtual account can be retrieved using the [wallet top-up API](https://docs.fincra.com/reference/get-wallet-top-ups).
-- After creating a main virtual account, merchants can create additional virtual accounts. Payments made to these additional accounts can be retrieved using the [payin API](https://docs.fincra.com/reference/get-all-collections).
+* Main virtual accounts are corporate virtual accounts belonging to registered Fincra merchants. These are the first corporate virtual accounts created by a merchant. Funds received in the main virtual account can be retrieved using the [wallet top-up API](https://docs.fincra.com/reference/get-wallet-top-ups).
+* After creating a main virtual account, merchants can create additional virtual accounts. Payments made to these additional accounts can be retrieved using the [payin API](https://docs.fincra.com/reference/get-all-collections).
 
 **Note:** All main accounts are corporate. However, additional accounts can be either corporate or individual.
 
@@ -69,11 +69,10 @@ In this section, we will outline the steps needed to set up and manage an NGN pe
 All that is needed is for the request to be made by calling the [create virtual account endpoint](https://docs.fincra.com/reference/request-ngn-virtual-account)
 
 > 🚧 Note
-> 
-> - BVN is required when requesting a permanent virtual account.
-> - Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
-> - Funds received by a virtual account created settles in the balances of the merchant.  
->   <br />
+>
+> * BVN is required when requesting a permanent virtual account.
+> * Only requests for Individual and corporate NGN virtual accounts will be instantly approved.
+> * Funds received by a virtual account created settles in the balances of the merchant.\ <br />
 
 ## Supported Banks
 
@@ -208,10 +207,10 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 ```
 
 > 📘 Important Notes:
-> 
-> **\_id:** This is the unique Identifier for the virtual account that was just created.  
-> **business :** This is your business ID.  
-> **entityType : **This states that the virtual account belongs to you
+>
+> **\_id:** This is the unique Identifier for the virtual account that was just created.\
+> **business :** This is your business ID.\
+> **entityType :** This states that the virtual account belongs to you
 
 ## Receive and validate webhook notification
 
@@ -456,8 +455,8 @@ If you haven't already saved the account details, you can retrieve them by calli
 ```
 
 > 🚧 Note:
-> 
-> The data needed for credit is contained within the `data.accountInformation` field.  
+>
+> The data needed for credit is contained within the `data.accountInformation` field.\
 > See sample below:
 
 ```json NGN
@@ -520,7 +519,7 @@ curl --request GET \
 
 <br />
 
-```json Response \[Approved]
+```json Response [Approved]
 {
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Virtual account fetched successfully",
