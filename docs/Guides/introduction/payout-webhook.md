@@ -10,8 +10,7 @@ metadata:
 next:
   description: ''
 ---
-payout.successful
------------------
+## payout.successful
 
 This event is dispatched whenever an authenticated user initiates transfer/payout and it is successful.
 
@@ -45,8 +44,7 @@ This event is dispatched whenever an authenticated user initiates transfer/payou
 }
 ```
 
-payout.failed
--------------
+## payout.failed
 
 This event is dispatched whenever an authenticated user initiates transfer/payout and it fails.
 
@@ -80,8 +78,7 @@ This event is dispatched whenever an authenticated user initiates transfer/payou
 }
 ```
 
-Webhook Parameters And Description
-----------------------------------
+## Webhook Parameters And Description
 
 | Data                         | Description                                                                          |
 | :--------------------------- | :----------------------------------------------------------------------------------- |
