@@ -20,21 +20,21 @@ Our Multicurrency account solution, simplifies international payments and provid
 With this product Businesses can issue named foreign currency accounts to their users by leveraging our MCY Account API. Note that 
 
 > 📘 Note:
-> 
+>
 > Only configured merchants can go live with the Multicurrency Account product, and is only accessible via API. 
-> 
+>
 > Monthly Inflow limit on issued Accounts are `10,000 USD`, `10,000 EUR` and `10,000 GBP` for USD, EUR and GBP accounts respectively.
-> 
+>
 > Maximum amount per transaction is `10,000 USD` for USD accounts, `10,000 EUR` for EURO accounts and `10,000 GBP` for POUND STERLING accounts.
-> 
+>
 > Transactions under €10 / $10 / £10 will settle to the merchant’s wallet, and any applicable fees will be deducted directly from merchant wallet.
-> 
+>
 > Kindly ensure that when sending money to the MCY account,  the first and last name of the account holder is exactly as the name registered to the account. E.g if registered account holder name is Abubakar Chukwuemeka and sender inputs Abu Emeka, such transactions would be failed and reversed automatically.
-> 
+>
 > More information would be required for transaction that exceeds set limits before they can be settled.
-> 
+>
 > ### Business Onboarding Requirements
-> 
+>
 > To get started with Fincra, to use this product: please sign up [here](https://app.fincra.com/auth/signup)
 
 ### Purpose
@@ -45,7 +45,7 @@ For a detailed list of prohibited activities and restricted countries, please ch
 
 ### How it works
 
-The product is accessible via API. Merchants such as Fintech companies, Payroll companies, eCommerce companies, contractors and more can integrate with Fincra to access this product and then provide the product to their individual users.  
+The product is accessible via API. Merchants such as Fintech companies, Payroll companies, eCommerce companies, contractors and more can integrate with Fincra to access this product and then provide the product to their individual users.\
 The accounts are issued to individuals and named after individuals which implies that the account are designed for individual use only.
 
 ### Supported Currencies
@@ -77,12 +77,12 @@ All inflows above set threshold (both first-party and third-party) would be subj
 
 Some of the required information may include;
 
-- Source of the funds
-- Relationship with the sender
-- Evidence of such relationship (contractual agreement, etc)
-- Purpose of funds
-- Identity of the sender
-- Confirm transaction frequency (One off or Recurring)
+* Source of the funds
+* Relationship with the sender
+* Evidence of such relationship (contractual agreement, etc)
+* Purpose of funds
+* Identity of the sender
+* Confirm transaction frequency (One off or Recurring)
 
 Please refer to the [Required Information/Documents (RFI)](mcy-required-information-and-documents) section for detailed information on the documents and information needed to complete third-party transactions and inflows above the set threshold.
 
@@ -100,8 +100,8 @@ Chargebacks may be the whole or part value of the original transaction.
 
 Where a Chargeback occurs or where the merchant fails to address a Chargeback claim within 24 hours, FINCRA shall immediately be entitled to debit the merchants position or make a deduction from any remittance, reserve and/or invoice to the merchant to recover:
 
-- The full amount of the relevant Chargeback
-- The sum of 15 EUROs for EURO denominated transactions and 35USD for DOLLAR denominated transactions as chargeback fees.
+* The full amount of the relevant Chargeback
+* The sum of 15 EUROs for EURO denominated transactions and 35USD for DOLLAR denominated transactions as chargeback fees.
 
 #### CHARGEBACK RATIO:
 
@@ -126,9 +126,9 @@ For all complaints received, whether accepted or declined, we will calculate the
 
 For business to issue named MCY account to individuals verification is required and the following information  must be provided;
 
-- **Personal Information**: First Name, Last Name, Address, Zip Code, Email, Date of Birth and country of residence.
-- **ID Information**: International Passport, Residence Permit, National ID (both front and back)
-- **Proof of Address:** Bank statement with address, utility bill with address.
+* **Personal Information**: First Name, Last Name, Address, Zip Code, Email, Date of Birth and country of residence.
+* **ID Information**: International Passport, Residence Permit, National ID (both front and back)
+* **Proof of Address:** Bank statement with address, utility bill with address.
 
 ### Closing a Virtual Account
 
@@ -136,22 +136,22 @@ In certain circumstances, such as compliance reviews, regulatory requirements, o
 
 ### Impact of Closing an IBAN
 
-**Funds Restriction: **Users will no longer be able to receive funds into the closed IBAN.  
+**Funds Restriction:** Users will no longer be able to receive funds into the closed IBAN.\
 Any incoming transactions directed to this IBAN will be automatically rejected.
 
-**Notifications**An email will be sent to the associated merchant to inform them of the closure of the IBAN  
+**Notifications**An email will be sent to the associated merchant to inform them of the closure of the IBAN\
 Webhook Notification: A webhook event will be triggered in real-time to inform the merchant about the IBAN closure.
 
 ### Use Cases
 
-- **Payroll Companies**  
-    Global payroll company manages the salaries of remote employees located in different countries.  
+* **Payroll Companies**\
+    Global payroll company manages the salaries of remote employees located in different countries.\
     By integrating with the our Multicurrency Account API, the payroll companies can issue named foreign currency accounts to their remote employees. This allows for seamless and efficient salary payments in USD, EUR or GBP, enhancing employee satisfaction and reducing administrative overhead.
-- **Fintech Companies**  
+* **Fintech Companies**\
     Fintech company offers financial services to freelancers that operate internationally. By leveraging the Multicurrency Account API, fintech companies can offer its users named foreign currency accounts which allows users to manage their international payments more efficiently, reducing transfer times and costs while ensuring compliance with regulatory standards.
-- **Individuals with Friends and Family Abroad**  
+* **Individuals with Friends and Family Abroad**\
     Individuals that receive financial support from friends and family abroad. Can now receive USD, EUR or GBP directly into their named accounts.
-- **Digital Nomads**  
+* **Digital Nomads**\
     A Digital nomad travels and works from various countries, and a reliable way to receive payments from clients worldwide. Digital nomad can now receive payments in USD or EUR directly into their named account, regardless of their current location.
-- **Freelancers and Remote Workers**  
+* **Freelancers and Remote Workers**\
     With a our Multicurrency Account, freelancers and remote workers can now receive payments directly into their named USD, EUR or GBP account.
