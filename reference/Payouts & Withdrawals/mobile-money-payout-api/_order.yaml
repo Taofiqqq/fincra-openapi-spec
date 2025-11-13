@@ -2,3 +2,4 @@
 - list-mobile-money-operators-by-currency
 - generate-momo-quote
 - initiate-mobile-money-payout
+- verify-mobile-money-payout-status-by-reference
