@@ -12,20 +12,18 @@ next:
 ---
 You can fund your virtual account wallets with bank transfers, and the inflows will reflect in your wallet. A web notification is sent when your virtual account is funded through bank transfers.
 
-How to receive payments with Fincra virtual accounts
-----------------------------------------------------
+## How to receive payments with Fincra virtual accounts
 
 The following steps need to be taken in order to receive payments in your account:
 
-1 - Virtual Account Creation
-----------------------------
+## 1 - Virtual Account Creation
 
 You can create a virtual account by using our create virtual account endpoints.
 
 > 👍 Endpoints:
-> 
-> - /profile/virtual-accounts/requests/: This endpoint lets you create a virtual account without the need for creating a sub-account on our platform.
-> - /profile/virtual-accounts/business/{businessId}/sub-accounts/{subAccountId}/requests: This endpoint lets you create a virtual account for your sub-account.
+>
+> * /profile/virtual-accounts/requests/: This endpoint lets you create a virtual account without the need for creating a sub-account on our platform.
+> * /profile/virtual-accounts/business/\{businessId}/sub-accounts/\{subAccountId}/requests: This endpoint lets you create a virtual account for your sub-account.
 
 ```json Virtual account request
 {
@@ -79,8 +77,7 @@ You can create a virtual account by using our create virtual account endpoints.
 }
 ```
 
-2 - Wallet Topup
-----------------
+## 2 - Wallet Topup
 
 You provide your customer with the account details of the virtual account that you created. Then your customer will initiate a deposit to your account.
 
@@ -93,8 +90,7 @@ You provide your customer with the account details of the virtual account that y
   },
 ```
 
-3 - Webhook notification
-------------------------
+## 3 - Webhook notification
 
 Listen for webhook events. We will send a notification to your webhook URL that indicates the status of the collection or payment received. Read our [guide](/docs/secret-key) on securing and validating the webhook notification on your end. 
 
