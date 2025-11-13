@@ -15,40 +15,39 @@ This section describes the requirements for creating a virtual account in Naira(
 With an NGN virtual account, payments can be received in Naira and made in different currencies.
 
 > 📘 Hey 👋 , we recommend reading the sections below because they are critical to understanding each virtual account request.
-> 
-> - [How to create a virtual account](/docs/fincra-virtual-account-creation)
-> - [Currencies we support for virtual account creations](/docs/create-virtual-accounts)
-> - [Virtual Account Webhook Structure](/docs/virtual-account-webhook)
-> - [Sub accounts](/docs/sub-accounts)
-> - [Use cases](/docs/create-virtual-accounts#use-cases)
-> - [Differences between corporate and individual virtual account requests](docs/create-virtual-accounts#virtual-account-types)
+>
+> * [How to create a virtual account](/docs/fincra-virtual-account-creation)
+> * [Currencies we support for virtual account creations](/docs/create-virtual-accounts)
+> * [Virtual Account Webhook Structure](/docs/virtual-account-webhook)
+> * [Sub accounts](/docs/sub-accounts)
+> * [Use cases](/docs/create-virtual-accounts#use-cases)
+> * [Differences between corporate and individual virtual account requests](docs/create-virtual-accounts#virtual-account-types)
 
 <br />
 
 This parameters can be tested on an API explorer by calling the various endpoints we support for our virtual account requests :
 
-- [Create a virtual account](/reference/request-virtual-accounts) : This endpoint can be used to request a virtual account in any currency
+* [Create a virtual account](/reference/request-virtual-accounts) : This endpoint can be used to request a virtual account in any currency
 
 ```json
 {{host}}/profile/virtual-accounts/requests/
 ```
 
-- [Create a virtual account for your sub-account](/reference/request-individual-virtual-account-for-a-sub-account-1): This endpoint be used to request a virtual account in any currency,  but you must first create a [sub account.](/reference/create-subaccount).
+* [Create a virtual account for your sub-account](/reference/request-individual-virtual-account-for-a-sub-account-1): This endpoint be used to request a virtual account in any currency,  but you must first create a [sub account.](/reference/create-subaccount).
 
 ```json
 {{host}}/profile/virtual-accounts/business/{businessId}/sub-accounts/{subAccountId}/requests/
 ```
-[block:callout]
-{
-  "type": "info",
-  "title": "NOTE",
-  "body": "* After a virtual account creation request is made, we will return a response with a data object containing a unique identifier `_id` of the virtual account, which we would also include in the webhook we send to you as `id` if the virtual account is declined or approved.\n * `bvn` is required when creating permanent virtual accounts \n * Please ensure that the `dateOfBirth` on your request matches the date of birth of the 'BVN' provided when creating accounts in `VFD` or the request will fail with the error response `\"error\": \"Error occured while generating virtual account. Please try again.\"`,"
-}
-[/block]
+
+> 📘 NOTE
+>
+> * After a virtual account creation request is made, we will return a response with a data object containing a unique identifier `_id` of the virtual account, which we would also include in the webhook we send to you as `id` if the virtual account is declined or approved.
+> * `bvn` is required when creating permanent virtual accounts 
+> * Please ensure that the `dateOfBirth` on your request matches the date of birth of the 'BVN' provided when creating accounts in `VFD` or the request will fail with the error response `"error": "Error occured while generating virtual account. Please try again."`,
+
 <br />
 
-Endpoint Parameters
--------------------
+## Endpoint Parameters
 
 ***
 
@@ -80,7 +79,7 @@ The payload should look like this :
 }
 ```
 
-</br>
+<br />
 
 ### Corporate Request
 
