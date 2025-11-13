@@ -21,12 +21,12 @@ Our checkout solution offers a gateway to various payment methods. Some of the s
 3. Mobile money
 4. USSD via PayAttitude
 
-| Method        | API variable  |
-| :------------ | :------------ |
-| Card          | card          |
-| Bank Transfer | bank_transfer |
-| Mobile money  | mobile_money  |
-| PayAttitude   | PayAttitude   |
+| Method        | API variable   |
+| :------------ | :------------- |
+| Card          | card           |
+| Bank Transfer | bank\_transfer |
+| Mobile money  | mobile\_money  |
+| PayAttitude   | PayAttitude    |
 
 # Supported account types for pay with transfer
 
@@ -36,77 +36,235 @@ Fincra supports two types of accounts for our **Pay with Transfer** (bank transf
 2. **Pool Accounts**: Pool account is a static or fixed account used to receive payments. Unlike the dynamic accounts which are generated upon initiating a charge and expire in a set time, pool account will remain the same for your business for all charges you initiate.
 
 > 🚧 NOTE:
-> 
+>
 > 1. Dynamic accounts are not meant to be reused or paid into after expiry (20 minutes). Payments made into dynamic accounts after expiry or on second use will most likely not go through or eventually be refunded to the customers. Communicate this clearly to your customers.
 > 2. Although Pool account details are the same for all charges, it is still important you create a charge for each payment attempt as the charge ID will be used to identify and create a pending transaction that will be confirmed once the payment goes through. More details on the ID can be found below.
 
 # Supported currencies for checkout
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Currencies",
-    "h-1": "Bank Transfer  \n(Pool Accounts)",
-    "h-2": "Bank Transfer  \n(Dynamic Accounts)",
-    "h-3": "Cards",
-    "h-4": "Mobile money",
-    "h-5": "USSD",
-    "0-0": "KES",
-    "0-1": "YES",
-    "0-2": "YES",
-    "0-3": "N/A",
-    "0-4": "YES",
-    "0-5": "N/A",
-    "1-0": "ZMW",
-    "1-1": "YES",
-    "1-2": "N/A",
-    "1-3": "N/A",
-    "1-4": "N/A",
-    "1-5": "N/A",
-    "2-0": "UGX",
-    "2-1": "YES",
-    "2-2": "N/A",
-    "2-3": "N/A",
-    "2-4": "YES",
-    "2-5": "N/A",
-    "3-0": "ZAR",
-    "3-1": "YES",
-    "3-2": "N/A",
-    "3-3": "N/A",
-    "3-4": "N/A",
-    "3-5": "N/A",
-    "4-0": "GHS",
-    "4-1": "YES",
-    "4-2": "N/A",
-    "4-3": "N/A",
-    "4-4": "YES",
-    "4-5": "N/A",
-    "5-0": "NGN",
-    "5-1": "N/A",
-    "5-2": "YES",
-    "5-3": "YES",
-    "5-4": "N/A",
-    "5-5": "YES",
-    "6-0": "USD",
-    "6-1": "N/A",
-    "6-2": "N/A",
-    "6-3": "YES",
-    "6-4": "N/A",
-    "6-5": "N/A"
-  },
-  "cols": 6,
-  "rows": 7,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Currencies
+      </th>
 
+      <th>
+        Bank Transfer
+
+
+
+
+        (Pool Accounts)
+      </th>
+
+      <th>
+        Bank Transfer
+
+
+
+
+        (Dynamic Accounts)
+      </th>
+
+      <th>
+        Cards
+      </th>
+
+      <th>
+        Mobile money
+      </th>
+
+      <th>
+        USSD
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        KES
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        ZMW
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        UGX
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        ZAR
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        GHS
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        NGN
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        USD
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        YES
+      </td>
+
+      <td>
+        N/A
+      </td>
+
+      <td>
+        N/A
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 # How to use the checkout redirect API
 
@@ -116,81 +274,285 @@ To initialise the transaction, you'll need to pass information such as email, fi
 
 Please find below the request parameters for the endpoint.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Data type",
-    "h-2": "Required",
-    "h-3": "Description",
-    "0-0": "amount",
-    "0-1": "integer",
-    "0-2": "Required",
-    "0-3": "The amount to charge the customer.",
-    "1-0": "redirectUrl",
-    "1-1": "string",
-    "1-2": "Optional",
-    "1-3": "The URL to redirect your customer when the transaction is complete.",
-    "2-0": "currency",
-    "2-1": "string",
-    "2-2": "Required",
-    "2-3": "The currency in which the customer should be charged. Options are [NGN, GHS, KES, UGX, ZAR, ZMW] ",
-    "3-0": "reference",
-    "3-1": "string",
-    "3-2": "Optional",
-    "3-3": "Your transaction reference. Must be unique for every transaction.  \nIf you do not provide one, a unique transaction reference would be generated for the transaction.",
-    "4-0": "feeBearer",
-    "4-1": "string",
-    "4-2": "Required",
-    "4-3": "This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`",
-    "5-0": "metadata",
-    "5-1": "object",
-    "5-2": "Optional",
-    "5-3": "Include any information you'd want to send to Fincra in this object.  \ne.g metadata: {userId: \"my_user_id\" }",
-    "6-0": "customer",
-    "6-1": "string",
-    "6-2": "Required",
-    "6-3": "JSON object containing customer details",
-    "7-0": "customer.name",
-    "7-1": "string",
-    "7-2": "Required",
-    "7-3": "The name of the customer",
-    "8-0": "customer.email",
-    "8-1": "string",
-    "8-2": "Required",
-    "8-3": "The email of the customer",
-    "9-0": "customer.phoneNumber",
-    "9-1": "string",
-    "9-2": "Optional",
-    "9-3": "The mobile number of the customer",
-    "10-0": "successMessage",
-    "10-1": "string",
-    "10-2": "Optional",
-    "10-3": "The message you want customers to see after successful payment.",
-    "11-0": "settlementDestination",
-    "11-1": "string",
-    "11-2": "Optional",
-    "11-3": "Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now  \nValue for settlementDestination would be **wallet** ",
-    "12-0": "paymentMethods",
-    "12-1": "array",
-    "12-2": "Optional",
-    "12-3": "The payment method you want to make available to your customers  \nE.g, Bank (bank_transfer), Card (card), Mobile Money (mobile_money), Pay Attitude (payAttitude).",
-    "13-0": "defaultPaymentMethod",
-    "13-1": "string",
-    "13-2": "Optional",
-    "13-3": "The Payment method that should be active by default on the checkout page E.g bank_transfer or card"
-  },
-  "cols": 4,
-  "rows": 14,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
 
+      <th>
+        Data type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        amount
+      </td>
+
+      <td>
+        integer
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The amount to charge the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        redirectUrl
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The URL to redirect your customer when the transaction is complete.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        currency
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The currency in which the customer should be charged. Options are [NGN, GHS, KES, UGX, ZAR, ZMW] 
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        reference
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Your transaction reference. Must be unique for every transaction.\
+        If you do not provide one, a unique transaction reference would be generated for the transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        feeBearer
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        metadata
+      </td>
+
+      <td>
+        object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Include any information you'd want to send to Fincra in this object.\
+        e.g metadata: \{userId: "my\_user\_id" }
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        JSON object containing customer details
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.name
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The name of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.email
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The email of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.phoneNumber
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The mobile number of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        successMessage
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The message you want customers to see after successful payment.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        settlementDestination
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now\
+        Value for settlementDestination would be **wallet** 
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentMethods
+      </td>
+
+      <td>
+        array
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The payment method you want to make available to your customers\
+        E.g, Bank (bank\_transfer), Card (card), Mobile Money (mobile\_money), Pay Attitude (payAttitude).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        defaultPaymentMethod
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The Payment method that should be active by default on the checkout page E.g bank\_transfer or card
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ## 2 - Initiate Payment
 
@@ -310,7 +672,7 @@ If the API call is successful, Fincra returns the following response:
 
 After you get the above response, you should then redirect your customer to the checkout URL provided in the response ("link"), to enable them complete their payment. Once the payment is complete or in the event of a failure, Fincra will redirect your customer to your specified redirectUrl. The transaction reference will be appended as a query parameter to your redirectUrl as well.
 
-e.g <https://website_redirectUrl/?reference=YOUR_REFERENCE>
+e.g [https://website\_redirectUrl/?reference=YOUR\_REFERENCE](https://website_redirectUrl/?reference=YOUR_REFERENCE)
 
 In a situation where no redirectUrl is passed, the customer receives visual confirmation on the completion of the payment and is NOT redirected out of the current webpage.
 
@@ -431,7 +793,7 @@ Listen for webhook events. We will send a notification to your webhook URL that 
 
 Webhook response:
 
-```json Response \[Bank Transfer]
+```json Response [Bank Transfer]
 {
   "event": "charge.successful",
   "data": {
