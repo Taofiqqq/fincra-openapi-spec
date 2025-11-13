@@ -15,14 +15,14 @@ You can transfer money directly from your available balance to other Fincra merc
 Fincra transfers can only be made from one account to another if their base currencies are the same i.e You can only make a payout from your NGN balance to another NGN balance and not from your NGN balance to a EUR balance.
 
 > 📘 Note
-> 
+>
 > Transfers from one Fincra account to another are free of charge
 
 Webhooks are not sent for these transfers, you are admonished to make use of the response object you get when you make a transfer from your balance to another balance.
 
 > 📘 Hey 👋 we recommend checking out the following section
-> 
-> - [Business ](/docs/get-business-id)
+>
+> * [Business ](/docs/get-business-id)
 
 ## How to make a transfer to another Fincra account:
 
@@ -33,9 +33,9 @@ The following steps need to be taken in order to process payments to another use
 You can fund your balance by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints.
 
 > 📘 For more details on virtual account creation and funding please read the following sections :
-> 
-> - [How to create a virtual account](/docs/create-virtual-accounts#virtual-account-request-parameters)
-> - [How to fund your account ](/docs/introduction-9)
+>
+> * [How to create a virtual account](/docs/create-virtual-accounts#virtual-account-request-parameters)
+> * [How to fund your account ](/docs/introduction-9)
 
 We will send a notification to your webhook URL whenever your balance is funded
 
