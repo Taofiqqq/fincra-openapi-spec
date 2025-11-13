@@ -13,11 +13,11 @@ next:
 Local payouts, also referred to as same-currency transfers, involve moving funds between two accounts that share the same currency. For instance, transferring money from one EURO account to another EURO account. These transfers can be made through either the portal or via API and are available for both bank accounts and mobile money wallets.
 
 > 📘 Before making local transfers with the Fincra API, be sure to review and fully understand the following sections.
-> 
-> [Payment Schemes](payment-schemes)  
+>
+> [Payment Schemes](payment-schemes)\
 > [Payout Overview](pay-outs-disbursements)
 
-**Note**  
+**Note**\
 All transfers have a timeframe by which they settle in the receiver's account; please review the payment scheme section to ascertain the settlement time.
 
 ## How to make a local transfer using Fincra API
@@ -29,8 +29,8 @@ The following steps need to be taken in order to process payments to a local acc
 You can fund your account by making deposits or requesting a manual top-up. Additionally, you can create a virtual account to fund your wallet or account using our virtual account creation endpoints.
 
 > 📘 For more details on virtual account creation and funding please read the following sections :
-> 
-> [How to create a virtual account](virtual-account-api)  
+>
+> [How to create a virtual account](virtual-account-api)\
 > [How to fund your account in the test environment](https://docs.fincra.com/docs/testing-your-integration#test-payouts-for--transfers)
 
 <br />
@@ -47,7 +47,7 @@ Some currencies require a specific payment scheme for processing. You can find a
 
 Only payouts with a status of "failed" should be retried. Receiving a timeout message does not indicate a failed transaction. Please re-query the transaction status here before attempting a retry.
 
-For bank code lists, visit this link.  
+For bank code lists, visit this link.\
 Additionally, we recommend adding a `customerReference `to your payload to avoid sending duplicate transactions.
 
 ```Text Payout request
