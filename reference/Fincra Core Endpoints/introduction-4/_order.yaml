@@ -3,3 +3,4 @@
 - get-wallet-top-ups
 - fetch-payins-by-virtual-account
 - get-a-collection-by-reference
+- fetch-temporary-account-payin-with-merchant-reference
