@@ -5,3 +5,4 @@
 - get-merchant-virtual-account-by-currency
 - get-subaccount-virtual-accounts
 - get-one-virtual-account
+- deactivate-virtual-account
