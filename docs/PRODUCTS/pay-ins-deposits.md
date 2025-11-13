@@ -26,9 +26,9 @@ For businesses with specific needs, Fincra’s Payin methods allows for deeper i
 
 Our collection service comprises products and features that enable you to receive payments quickly. You can accept payments in a variety of ways, including:
 
-- Checkout via [Checkout Redirect](checkout-redirect-1) and [Checkout Pop up](checkout-pop-up)
-- [Direct Charge](direct-charge-api-1)
-- [Direct Debit](direct-debit-api-1)
-- [Virtual Account](virtual-account-api)
-- [Payment Links](payment-links-no-code)
-- [Multicurrency Account](multicurrency-virtual-account-1)
+* Checkout via [Checkout Redirect](checkout-redirect-1) and [Checkout Pop up](checkout-pop-up)
+* [Direct Charge](direct-charge-api-1)
+* [Direct Debit](direct-debit-api-1)
+* [Virtual Account](virtual-account-api)
+* [Payment Links](payment-links-no-code)
+* [Multicurrency Account](multicurrency-virtual-account-1)
