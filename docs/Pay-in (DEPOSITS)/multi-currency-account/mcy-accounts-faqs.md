@@ -34,8 +34,8 @@ Businesses such as fintech companies, payroll companies, and eCommerce companies
 
 ### What are first-party and third-party inflows?
 
-- **First-party inflow:** Transactions from an account with the same name as the receiver account.
-- **Third-party inflow:** Transactions from an account with a different name from the receiver account.
+* **First-party inflow:** Transactions from an account with the same name as the receiver account.
+* **Third-party inflow:** Transactions from an account with a different name from the receiver account.
 
 ### Are there any special considerations for third-party transactions?
 
@@ -43,9 +43,9 @@ Businesses such as fintech companies, payroll companies, and eCommerce companies
 
 ### What information is required for verification to get a named MCY Account?
 
-- **Personal Information:** First Name, Last Name, Address, Zip Code, Email, Date of Birth, and country of residence.
-- **ID Information:** International Passport, Residence Permit, National ID (both front and back).
-- **Proof of Address:** Bank statement with address, utility bill with address.
+* **Personal Information:** First Name, Last Name, Address, Zip Code, Email, Date of Birth, and country of residence.
+* **ID Information:** International Passport, Residence Permit, National ID (both front and back).
+* **Proof of Address:** Bank statement with address, utility bill with address.
 
 ### Can I use an expired ID?
 
@@ -57,8 +57,8 @@ The country passed in payload will be checked against all provided document. Hen
 
 ### How do I ensure my documents are accepted?
 
-- Provide clear, scanned copies of your ID and address documents.
-- Ensure all details in the documents match the information provided in the payload.
+* Provide clear, scanned copies of your ID and address documents.
+* Ensure all details in the documents match the information provided in the payload.
 
 ### Where can I find the zip code format guide?
 
@@ -66,12 +66,12 @@ The country passed in payload will be checked against all provided document. Hen
 
 ### Why will an inflow be reversed to sender?
 
-An inflow will be returned to the sender if the receiver account name inputed for the transaction is incorrect.  
+An inflow will be returned to the sender if the receiver account name inputed for the transaction is incorrect.\
 Always ensure that first and last name of the receiver account is correct for all transactions to prevent fund reversal to sender.
 
 ### How can I get started with the Fincra Multicurrency Account?
 
- Visit us [here](https://fincra.com/multicurrency-account/?utm_source=News+letter&utm_medium=email&utm_campaign=Multicurrency+Campaign&utm_id=MCY) to get started.
+ Visit us [here](https://fincra.com/multicurrency-account/?utm_source=News+letter\&utm_medium=email\&utm_campaign=Multicurrency+Campaign\&utm_id=MCY) to get started.
 
 ### Who can I contact for questions and support?
 
