@@ -20,10 +20,10 @@ Fincra enables e-commerce platforms and online marketplaces to **accept payments
 
 E-commerce and marketplace operators often face:
 
-- Difficulty accepting payments from international customers.  
-- Complex vendor settlement processes across multiple regions.  
-- FX costs that eat into margins when converting global revenues.  
-- Refund and reconciliation challenges at scale.  
+* Difficulty accepting payments from international customers.  
+* Complex vendor settlement processes across multiple regions.  
+* FX costs that eat into margins when converting global revenues.  
+* Refund and reconciliation challenges at scale.  
 
 ***
 
@@ -31,10 +31,10 @@ E-commerce and marketplace operators often face:
 
 Fincra provides the rails to power global e-commerce and marketplace growth:
 
-- **Multi-currency collections** for cross-border customers.  
-- **Automated vendor payouts** across African markets.  
-- **FX APIs** to manage conversions transparently.  
-- **Built-in refunds and reconciliation tools**.  
+* **Multi-currency collections** for cross-border customers.  
+* **Automated vendor payouts** across African markets.  
+* **FX APIs** to manage conversions transparently.  
+* **Built-in refunds and reconciliation tools**.  
 
 ***
 
@@ -44,9 +44,9 @@ Fincra provides the rails to power global e-commerce and marketplace growth:
 
 Offer customers a frictionless checkout experience.  
 
-- Accept payments in **USD, GBP, EUR, CAD, and more**.  
-- Local settlement in **NGN, KES, GHS, and other African currencies**.  
-- Fast reconciliation for smoother cash flow.  
+* Accept payments in **USD, GBP, EUR, CAD, and more**.  
+* Local settlement in **NGN, KES, GHS, and other African currencies**.  
+* Fast reconciliation for smoother cash flow.  
 
 💡 **How it works:** An African marketplace accepts USD from a global buyer. Fincra collects in USD and settles directly to vendors in NGN.
 
@@ -56,9 +56,9 @@ Offer customers a frictionless checkout experience.
 
 Simplify how sellers and service providers get paid.  
 
-- **Bulk and batch payouts** with one API call.  
-- Real-time disbursements to bank accounts and wallets.  
-- End-to-end transparency with reconciliation logs.  
+* **Bulk and batch payouts** with one API call.  
+* Real-time disbursements to bank accounts and wallets.  
+* End-to-end transparency with reconciliation logs.  
 
 💡 **How it works:** A marketplace pays thousands of vendors weekly across Nigeria and Ghana. Fincra automates disbursements, ensuring accuracy and compliance.
 
@@ -68,9 +68,9 @@ Simplify how sellers and service providers get paid.
 
 Manage post-payment operations with ease.  
 
-- Refund customers directly through APIs.  
-- Match payments and payouts with detailed reports.  
-- Reduce manual reconciliation overhead.  
+* Refund customers directly through APIs.  
+* Match payments and payouts with detailed reports.  
+* Reduce manual reconciliation overhead.  
 
 💡 **How it works:** An e-commerce platform issues instant refunds to dissatisfied customers while reconciling vendor settlements automatically via Fincra.  
 
@@ -80,9 +80,9 @@ Manage post-payment operations with ease.
 
 Convert currencies at competitive rates.  
 
-- **Real-time conversions** for international sales.  
-- Avoid hidden fees or double conversions.  
-- Scalable FX coverage as sales grow.  
+* **Real-time conversions** for international sales.  
+* Avoid hidden fees or double conversions.  
+* Scalable FX coverage as sales grow.  
 
 💡 **How it works:** A marketplace receives EUR sales proceeds and needs to pay vendors in KES. Fincra’s FX APIs handle conversion instantly at competitive rates.  
 
@@ -90,7 +90,7 @@ Convert currencies at competitive rates.
 
 ## Why E-Commerce & Marketplaces Choose Fincra
 
-- **One API, multiple rails** for collections, payouts, and refunds.  
-- **Vendor-friendly settlements** that keep marketplaces attractive.  
-- **Trusted FX and compliance rails** built for scale.  
-- **Enterprise-grade reliability** with SME-friendly integration.
+* **One API, multiple rails** for collections, payouts, and refunds.  
+* **Vendor-friendly settlements** that keep marketplaces attractive.  
+* **Trusted FX and compliance rails** built for scale.  
+* **Enterprise-grade reliability** with SME-friendly integration.
