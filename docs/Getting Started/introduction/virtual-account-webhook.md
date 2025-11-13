@@ -10,8 +10,7 @@ metadata:
 next:
   description: ''
 ---
-virtualaccount.approved
------------------------
+## virtualaccount.approved
 
 This event is dispatched when an individual virtual account is approved
 
@@ -48,8 +47,7 @@ This event is dispatched when an individual virtual account is approved
 }
 ```
 
-virtualaccount.approved (Corporate)
------------------------------------
+## virtualaccount.approved (Corporate)
 
 This event is dispatched when a corporate virtual account is approved
 
@@ -80,8 +78,7 @@ This event is dispatched when a corporate virtual account is approved
 }
 ```
 
-virtualaccount.declined
------------------------
+## virtualaccount.declined
 
 This event is dispatched when any virtual account is declined
 
