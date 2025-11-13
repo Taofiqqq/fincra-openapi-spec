@@ -21,7 +21,7 @@ Additionally, for specific endpoints, you must include your `Business ID` as par
 ```
 
 > 🚧 Note
-> 
+>
 > Your secret key should be treated as confidential information, as it grants unrestricted access to perform API requests to Fincra. Similarly, ensure the proper use of your `Business ID` to avoid unauthorized or incorrect requests.
 
 If you fail to include your key when making an API request or provide an incorrect key, Fincra will respond with an `error message`, as shown below:
@@ -67,67 +67,25 @@ Every account comes with three sets of API keys : The **Secret key** used for ma
 
 Log in to your Fincra dashboard and navigate to the Profile section in the side menu.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/eea83ef-Screenshot_2024-01-29_at_16.44.39.png" />
 
 ### Step 2
 
 In the `My Profile` tab,  you would see your `Business ID`. For specific endpoints, the `Business ID` is to be sent alongside the `API Key` in a header field: `x-business-id`, when making api requests. While in other endpoints, you might be required to pass the `Business ID` as part of the payload, in a field `business`.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/77147360dd8e9181259c54fb82c17e44050da0133112cca34048b99828bdd384-Screenshot_2024-09-27_at_12.52.02.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/77147360dd8e9181259c54fb82c17e44050da0133112cca34048b99828bdd384-Screenshot_2024-09-27_at_12.52.02.png" />
 
 ### Step 3
 
 On the Settings page, locate the API keys and webhook Configuration tab. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/199fb9d-Screenshot_2024-01-29_at_16.51.45.png" />
 
 You would find two set of API keys:
 
-1. The "`Secret Key`":  
+1. The "`Secret Key`":\
    It is crucial to keep your Secret Key confidential as it grants unrestricted access to perform API requests to Fincra. This is to be sent along in a header field: `api-key`, when making api requests.
-2. The "`Public Key`":  
+2. The "`Public Key`":\
    The Public Key is intended solely for identifying your account with Fincra. It can be safely published in places like your frontend or mobile app. This is to be sent along in a header field: `x-pub-key`, when making api requests.
-3. The "`Webhook Encryption Key`":  
+3. The "`Webhook Encryption Key`":\
    The Encryption Key can be utilized to validate webhooks (refer to the webhook validation  [guide](/docs/secret-key) for details).
