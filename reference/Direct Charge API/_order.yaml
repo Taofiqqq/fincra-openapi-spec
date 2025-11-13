@@ -4,3 +4,4 @@
 - verify-charge
 - verify-charge-by-id
 - list-mobile-money-operators
+- list-mobile-money-operators-by-currency
