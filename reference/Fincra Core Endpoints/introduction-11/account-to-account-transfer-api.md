@@ -16,5 +16,5 @@ next:
   description: ''
 ---
 > 📘 Get Wallet Number
-> 
+>
 > To make transfers to another account on Fincra, you will need the balance number of the account.
