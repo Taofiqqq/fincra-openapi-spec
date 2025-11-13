@@ -19,17 +19,17 @@ This document walks you through the process of collecting the required informati
 API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-account) 
 
 > 📘 Important
-> 
-> - Funds received by a virtual account created, settles in the respective currency balance of the merchant.
-> - Monthly limit per virtual account is 10,000 USD/GBP
-> - The USD account supports ACH, SWIFT and Fedwire transactions, ensuring swift and efficient payments.
-> - The EUR account supports SEPA and SEPA Instant ensuring swift and efficient payments across Europe.
-> - The GBP account supports FPS and CHAPS ensuring swift and efficient payments.
-> - The CAD account supports Interac Etransfer ensuring swift and efficient payments across Canada.
-> - To ensure compliance, it's important to note the [prohibited activities and countries ](mcy-prohibited-activities-and-countries)restricted from having access to this product.
-> - Check possible verification errors that may occur during account request [here](mcy-account-verification-errors).
-> - Consult the guide [here](mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
-> - You can check out our FAQ section for more [information](mcy-accounts-faqs).
+>
+> * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
+> * Monthly limit per virtual account is 10,000 USD/GBP
+> * The USD account supports ACH, SWIFT and Fedwire transactions, ensuring swift and efficient payments.
+> * The EUR account supports SEPA and SEPA Instant ensuring swift and efficient payments across Europe.
+> * The GBP account supports FPS and CHAPS ensuring swift and efficient payments.
+> * The CAD account supports Interac Etransfer ensuring swift and efficient payments across Canada.
+> * To ensure compliance, it's important to note the [prohibited activities and countries ](mcy-prohibited-activities-and-countries)restricted from having access to this product.
+> * Check possible verification errors that may occur during account request [here](mcy-account-verification-errors).
+> * Consult the guide [here](mcy-required-information-and-documents), for more information on how to treat requests for information on an expected deposit/inflow.
+> * You can check out our FAQ section for more [information](mcy-accounts-faqs).
 
 ## Available Currencies
 
@@ -114,14 +114,14 @@ Please find below the request parameters for the endpoint.
 | KYCInformation.ultimateBeneficialOwners.firstName                  | Yes       | string              | First name of the ultimate beneficial owner.                                                                                                                                                                                                                 |
 | KYCInformation.ultimateBeneficialOwners.middleName                 | No        | string              | Middle name of the ultimate beneficial owner, if applicable.                                                                                                                                                                                                 |
 | **KYCInformation.ultimateBeneficialOwners.document**               | Yes       | array               | The identity document details for the beneficial owner                                                                                                                                                                                                       |
-| KYCInformation.ultimateBeneficialOwners.document.type              | Yes       | string (enum)       | Type of identification document (e.g., passport, national_id, driver's_license).                                                                                                                                                                             |
+| KYCInformation.ultimateBeneficialOwners.document.type              | Yes       | string (enum)       | Type of identification document (e.g., passport, national\_id, driver's\_license).                                                                                                                                                                           |
 | KYCInformation.ultimateBeneficialOwners.document.number            | Yes       | string              | Identification document number.                                                                                                                                                                                                                              |
 | KYCInformation.ultimateBeneficialOwners.document.issuedCountryCode | Yes       | string (ISO 3166-1) | Country code where the document was issued (e.g., NG for Nigeria).                                                                                                                                                                                           |
 | KYCInformation.ultimateBeneficialOwners.document.issuedBy          | Yes       | string              | Name of the authority that issued the document.                                                                                                                                                                                                              |
 | KYCInformation.ultimateBeneficialOwners.document.issuedDate        | Yes       | string (YYYY-MM-DD) | Date when the document was issued.                                                                                                                                                                                                                           |
 | KYCInformation.ultimateBeneficialOwners.document.expirationDate    | Yes       | string (YYYY-MM-DD) | Expiry date of the identification document.                                                                                                                                                                                                                  |
 | KYCInformation.ultimateBeneficialOwners.politicallyExposedPerson   | Yes       | boolean             | Indicates whether the individual is a politically exposed person (PEP).                                                                                                                                                                                      |
-| KYCInformation.ultimateBeneficialOwners.beneficialOwnerType        | Yes       | string (enum)       | Role of the individual, e.g., beneficial_owner, shareholder, or director.                                                                                                                                                                                    |
+| KYCInformation.ultimateBeneficialOwners.beneficialOwnerType        | Yes       | string (enum)       | Role of the individual, e.g., beneficial\_owner, shareholder, or director.                                                                                                                                                                                   |
 | KYCInformation.ultimateBeneficialOwners.emailAddress               | Yes       | string (email)      | Email address of the beneficial owner.                                                                                                                                                                                                                       |
 | **KYCInformation.ultimateBeneficialOwners.address**                | Yes       | array               | Address information of the beneficial owner                                                                                                                                                                                                                  |
 | KYCInformation.ultimateBeneficialOwners.address.state              | Yes       | string              | State or province of residence.                                                                                                                                                                                                                              |
@@ -138,7 +138,7 @@ Please find below the request parameters for the endpoint.
 | KYCInformation.ultimateBeneficialOwners.dateOfBirth                | Yes       | string (YYYY-MM-DD) | Date of birth of the beneficial owner.                                                                                                                                                                                                                       |
 | KYCInformation.ultimateBeneficialOwners.percentageOwnership        | Yes       | string (numeric)    | Percentage of ownership held by the individual in the business.                                                                                                                                                                                              |
 | KYCInformation.ultimateBeneficialOwners.title                      | No        | string              | Professional or organizational title (e.g., CEO, Director).                                                                                                                                                                                                  |
-| KYCInformation.ultimateBeneficialOwners.usResidencyStatus          | Yes       | string (enum)       | U.S. residency status. Common values: resident, non_resident.                                                                                                                                                                                                |
+| KYCInformation.ultimateBeneficialOwners.usResidencyStatus          | Yes       | string (enum)       | U.S. residency status. Common values: resident, non\_resident.                                                                                                                                                                                               |
 | KYCInformation.ultimateBeneficialOwners.meansOfId                  | Yes       | string/file         | Identification document. This can be a File Upload or a URL link to the document.                                                                                                                                                                            |
 | KYCInformation.ultimateBeneficialOwners.utilityBill                | Yes       | string/file         | Recent utility bill for address verification. This can be a File Upload or a URL link to the document.                                                                                                                                                       |
 | KYCInformation.ultimateBeneficialOwners.bankStatement              | Yes       | string/file         | Recent bank statement. This can be a File Upload or a URL link to the document.                                                                                                                                                                              |
@@ -320,8 +320,8 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 Important Notes:
 
-- `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
-- It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
+* `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
+* It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
 
 ### 3 - Receive and validate webhook notification
 
@@ -350,7 +350,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Doc Type]
+```json Error [Doc Type]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -369,7 +369,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Address]
+```json Error [Address]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -388,7 +388,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Doc Number]
+```json Error [Doc Number]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -407,7 +407,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Missing Param]
+```json Error [Missing Param]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -426,7 +426,7 @@ Webhook Response:
   }
 }
 ```
-```json Error \[Document]
+```json Error [Document]
 {
   "event": "virtualaccount.declined",
   "data": {
@@ -447,10 +447,10 @@ Webhook Response:
 ```
 
 > 🚧 Important Notes
-> 
-> - `id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
-> - For detailed information on verification errors that might be encountered here, please refer to our Multicurrency [Account Verification Errors Documentation](mcy-account-verification-errors).
-> - Expect to recieve a second webhook after the `virtualaccount.approved` event. The new webhook event "`virtualaccount.issued`", is dispatched once the bank account is ready. Contained within this new webhook, is the `accountInformation` field, which contains the details of the newly generated account.
+>
+> * `id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
+> * For detailed information on verification errors that might be encountered here, please refer to our Multicurrency [Account Verification Errors Documentation](mcy-account-verification-errors).
+> * Expect to recieve a second webhook after the `virtualaccount.approved` event. The new webhook event "`virtualaccount.issued`", is dispatched once the bank account is ready. Contained within this new webhook, is the `accountInformation` field, which contains the details of the newly generated account.
 
 ```json USD
 {
@@ -526,7 +526,7 @@ Webhook Response:
 ```
 
 > ❗️ Changes to account details
-> 
+>
 > In the event of any changes to the virtual account details, a `virtualaccount.changed` event will be triggered. Please use the `_id` field to uniquely identify and track virtual account records.
 
 ```json USD
@@ -621,7 +621,7 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/{{virtual_accou
 
 If successful, you will receive a JSON snippet with the details of the virtual account.
 
-```json Response \[Approved]
+```json Response [Approved]
 {
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Virtual account fetched successfully",
@@ -735,7 +735,7 @@ If successful, you will receive a JSON snippet with the details of all virtual a
 
 When a virtual account is closed; webhook notifications is sent.
 
-> 🚧 - Expect to recieve a webhook that states `virtualaccount.closed` event. Contained within this new webhook, is the `accountInformation` and  `reason` field, which contains the details of the account closure.
+> 🚧 * Expect to recieve a webhook that states `virtualaccount.closed` event. Contained within this new webhook, is the `accountInformation` and  `reason` field, which contains the details of the account closure.
 
 ```json
 {
