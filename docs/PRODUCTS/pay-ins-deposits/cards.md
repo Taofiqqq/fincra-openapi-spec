@@ -14,21 +14,7 @@ next:
 
 Card payments are a secure and widely adopted digital payment method that allow customers to make purchases using credit or debit cards issued by financial institutions. Fincra's Card Payment API enables businesses to accept card payments globally, supporting major card networks and providing a seamless checkout experience across web and mobile platforms.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/8f1187a563cccb2b400cec2930efae70fbf3db7bfdfee81e8d2da2c0d7b05722-image.png",
-        "",
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/8f1187a563cccb2b400cec2930efae70fbf3db7bfdfee81e8d2da2c0d7b05722-image.png" />
 
 # How Card Payments Work
 
@@ -66,6 +52,6 @@ The Fincra Card Payment API facilitates the transaction flow between your busine
 
 Fincra offers three methods for accepting card payments:
 
-- Card payments via [Checkouts](checkout-redirect-1)
-- Card payments through [Payment Links](payment-links-no-code)
-- Card payments using our Direct Card Charge APIs. This method involves handling sensitive customer data, so PCI DSS certification is required. If your business is PCI-DSS compliant and you wish to send cardholder information directly to our APIs, please contact us at [support@fincra.com](https://docs.fincra.com/docs/support@fincra.com)
+* Card payments via [Checkouts](checkout-redirect-1)
+* Card payments through [Payment Links](payment-links-no-code)
+* Card payments using our Direct Card Charge APIs. This method involves handling sensitive customer data, so PCI DSS certification is required. If your business is PCI-DSS compliant and you wish to send cardholder information directly to our APIs, please contact us at [support@fincra.com](https://docs.fincra.com/docs/support@fincra.com)
