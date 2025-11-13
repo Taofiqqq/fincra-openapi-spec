@@ -3,3 +3,4 @@
 - fetch-ngn-virtual-account-by-id
 - fetch-ngn-virtual-account-by-bvn
 - get-virtual-account-payments
+- list-permanent-ngn-virtual-accounts
