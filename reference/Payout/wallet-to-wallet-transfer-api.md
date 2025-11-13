@@ -14,5 +14,5 @@ next:
   description: ''
 ---
 > 📘 Get Wallet Number
-> 
+>
 > To make transfers to another account on Fincra , you will need the wallet number of the account and this can be obtained by making an API request to the [fetch a wallet endpoint. ](/reference/get-a-wallet)
