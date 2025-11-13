@@ -16,8 +16,8 @@ Payment methods are the number of ways merchants can collect payments from their
 
 Here is a list of the payment channels supported on Fincra;
 
-  * [Cards](http://google.com)
-  * [Bank Transfers](http://google.com)
-  * [POS Terminal](http://google.com)
-  * [Pay Attitude](http://google.com)
-  * [Virtual Accounts](http://google.com)
+* [Cards](http://google.com)
+* [Bank Transfers](http://google.com)
+* [POS Terminal](http://google.com)
+* [Pay Attitude](http://google.com)
+* [Virtual Accounts](http://google.com)
