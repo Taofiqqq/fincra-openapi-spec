@@ -10,8 +10,7 @@ metadata:
 next:
   description: ''
 ---
-List Of Currencies We Support
------------------------------
+## List Of Currencies We Support
 
 | Currency Name       | Currency Name |
 | :------------------ | :------------ |
@@ -23,8 +22,7 @@ List Of Currencies We Support
 | Ugandan shilling    | UGX           |
 | Ghanaian cedi       | GHS           |
 
-Currency Pairs
---------------
+## Currency Pairs
 
 A currency pair is the quotation of two different currencies, with the value of one currency being quoted against the other. We have two types of currency pairs which are conversion currency pair and disbursement currency pair.
 
