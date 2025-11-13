@@ -14,6 +14,6 @@ next:
   description: ''
 ---
 > 📘 Business ID
-> 
-> - [Get Parent business ID](/reference/business-1#get-parent-business-id) 
-> - [Get Subaccount business ID](/reference/introduction-2#subaccount-id)
+>
+> * [Get Parent business ID](/reference/business-1#get-parent-business-id) 
+> * [Get Subaccount business ID](/reference/introduction-2#subaccount-id)
