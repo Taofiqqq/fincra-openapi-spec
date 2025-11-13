@@ -13,20 +13,19 @@ next:
 This section covers the parameters needed to process payments to bank accounts in Europe
 
 > 📘 Understanding the sections below is required to fully comprehend how the payout API works.
-> 
-> - [How to transfer money to a bank account ](/docs/introduction-10)
-> - [Beneficiary Types](/docs/introduction-10#beneficiary-types)
+>
+> * [How to transfer money to a bank account ](/docs/introduction-10)
+> * [Beneficiary Types](/docs/introduction-10#beneficiary-types)
 
 <br />
 
-SEPA AND SEPA Instant Transfers
--------------------------------
+## SEPA AND SEPA Instant Transfers
 
 The processing parameters that are required to process payments to European accounts using the SEPA or SEPA Instant payment schemes are explained in this section. 
 
 > 📘 Notes
-> 
-> - Please be advised that payments made using SEPA can take up to a day to reach their intended recipient, but payments made using SEPA Instant are usually received within 10 seconds.
+>
+> * Please be advised that payments made using SEPA can take up to a day to reach their intended recipient, but payments made using SEPA Instant are usually received within 10 seconds.
 
 To make payments you will need to send the required parameters to the [payout endpoint](/reference/payout-1)
 
