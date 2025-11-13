@@ -10,26 +10,55 @@ metadata:
 next:
   description: ''
 ---
-The beneficiary’s API allows the business to create beneficiaries that can receive payments.
+The beneficiary’s API allows the business to create beneficiaries that can receive payments.\
 **NOTE**: Beneficiaries and recipients are used interchangeably in this documentation.
 
+## Beneficiary Account Type
 
-## Beneficiary Account Type 
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        S/N
+      </th>
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "S/N",
-    "h-1": "Beneficiary Type",
-    "h-2": "Description",
-    "0-0": "1",
-    "0-1": "individual",
-    "0-2": "An individual that is the sole beneficiary of the payment.",
-    "1-0": "2",
-    "1-1": "corporate",
-    "1-2": "An organisation or company that is the sole beneficiary of the payment."
-  },
-  "cols": 3,
-  "rows": 2
-}
-[/block]
+      <th style={{ textAlign: "left" }}>
+        Beneficiary Type
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        1
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        individual
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        An individual that is the sole beneficiary of the payment.
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        2
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        corporate
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        An organisation or company that is the sole beneficiary of the payment.
+      </td>
+    </tr>
+  </tbody>
+</Table>
