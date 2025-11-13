@@ -17,13 +17,13 @@ Virtual accounts can be created in a variety of different currencies, and each o
 
 **Note**
 
-- For NGN virtual accounts, the name on the BVN must correspond with both the `KYCInfomation.firstName` and `KYCInfomation.lastName`sent in the payload, otherwise, the following error will be received:  `BVN doesn't match the provided name`
-- Only requests for Individual and NGN corporate virtual accounts will be instantly approved.
+* For NGN virtual accounts, the name on the BVN must correspond with both the `KYCInfomation.firstName` and `KYCInfomation.lastName`sent in the payload, otherwise, the following error will be received:  `BVN doesn't match the provided name`
+* Only requests for Individual and NGN corporate virtual accounts will be instantly approved.
 
 > 📘 Hey 👋 we recommend checking out the following sections before making use of the endpoints in this section
-> 
-> - [Virtual Account Webhook Structure](/reference/virtual-account-webhook)
-> - [Use cases](fincra-virtual-accounts#virtual-account-use-cases)
-> - [Account request](/reference/how-to-create-virtual-accounts#1---request-a-virtual-account)
-> - [Account type](/reference/fincra-virtual-accounts)
-> - [Documents](/docs/documents-required-for-virtual-accounts-creation)
+>
+> * [Virtual Account Webhook Structure](/reference/virtual-account-webhook)
+> * [Use cases](fincra-virtual-accounts#virtual-account-use-cases)
+> * [Account request](/reference/how-to-create-virtual-accounts#1---request-a-virtual-account)
+> * [Account type](/reference/fincra-virtual-accounts)
+> * [Documents](/docs/documents-required-for-virtual-accounts-creation)
