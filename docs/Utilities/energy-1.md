@@ -111,10 +111,10 @@ If successful, a JSON response containing details of the meter will be returned
 
 After identifying the provider, the next step is to make your bill payment. This can be done by making a request to the [purchase energy endpoint](/refs/purcase-energy) using the following parameters:
 
-- phone_no : This indicates the phone number of the user.
-- amount: The indicates the amount to be charged
-- provider: The energy bill service provider
-- meter: The meter number
+* phone\_no : This indicates the phone number of the user.
+* amount: The indicates the amount to be charged
+* provider: The energy bill service provider
+* meter: The meter number
 
 ```curl
 curl --request POST \
@@ -161,5 +161,5 @@ If successful, a JSON response containing details of your utility bill payment w
 }
 ```
 
-Important notes:  
+Important notes:\
 The `customer_reference` refers to the unique reference of the transaction on your system, while the reference refers to the `reference` generated for this transaction on Fincra system.
