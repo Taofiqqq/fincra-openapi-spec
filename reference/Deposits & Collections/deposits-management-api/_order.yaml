@@ -1,3 +1,4 @@
 - verify-deposit-status-by-reference
 - verify-deposit-by-merchant-reference
 - get-all-collections
+- fetch-deposits-by-virtual-account-id
