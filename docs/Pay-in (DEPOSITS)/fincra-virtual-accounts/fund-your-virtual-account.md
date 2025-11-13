@@ -30,8 +30,8 @@ The following steps need to be taken in order to receive payments in your accoun
 You can create a virtual account by using our create virtual account endpoints.
 
 > 👍 Endpoints:
-> 
-> - /profile/virtual-accounts/requests/: This endpoint lets you create a virtual account on our platform.
+>
+> * /profile/virtual-accounts/requests/: This endpoint lets you create a virtual account on our platform.
 
 ```json Virtual account request
 {
