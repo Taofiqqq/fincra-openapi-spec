@@ -22,81 +22,284 @@ To initialize the transaction, you'll need to pass information such as email, fi
 
 Please find below the request parameters for the endpoint.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Field",
-    "h-1": "Data Type",
-    "h-2": "Required",
-    "h-3": "Description",
-    "0-0": "key",
-    "0-1": "string",
-    "0-2": "Required",
-    "0-3": "Your public key",
-    "1-0": "currency",
-    "1-1": "string",
-    "1-2": "Optional",
-    "1-3": "The currency in which the customer should be charged. Only NGN is available for now.",
-    "2-0": "customer",
-    "2-1": "object",
-    "2-2": "Required",
-    "2-3": "The JSON object containing the customer name, email, and phone number",
-    "3-0": "customer.name",
-    "3-1": "string",
-    "3-2": "Required",
-    "3-3": "The name of the customer",
-    "4-0": "customer.email",
-    "4-1": "string",
-    "4-2": "Optional",
-    "4-3": "The email of the customer",
-    "5-0": "customer.PhoneNumber",
-    "5-1": "string",
-    "5-2": "Optional",
-    "5-3": "The phone number  of the customer",
-    "6-0": "reference",
-    "6-1": "string",
-    "6-2": "Optional",
-    "6-3": "Your transaction reference. Must be unique for every transaction.  \nIf you do not provide one, a unique transaction reference would be generated for the transaction.",
-    "7-0": "feeBearer",
-    "7-1": "string",
-    "7-2": "Required",
-    "7-3": "This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`.",
-    "8-0": "metadata",
-    "8-1": "object",
-    "8-2": "Required",
-    "8-3": "Include any information you'd want to send to Fincra in this object.  \ne.g metadata: {userId: \"my_user_id\" }",
-    "9-0": "settlementDestination",
-    "9-1": "string",
-    "9-2": "Optional",
-    "9-3": "Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now  \nValue for settlementDestination would be **wallet**",
-    "10-0": "onSuccess",
-    "10-1": "[Function]",
-    "10-2": "Optional",
-    "10-3": "A function that executes any action you want to perform when the transaction is successful, can be a success message or a redirect Url.",
-    "11-0": "onClose",
-    "11-1": "[Function]",
-    "11-2": "Optional",
-    "11-3": "Javascript function that is called if the customer closes the payment modal instead of making a payment",
-    "12-0": "paymentMethods",
-    "12-1": "array",
-    "12-2": "Optional",
-    "12-3": "The payment method you want to make available to your customers  E.g, Bank (bank_transfer), card (card), payAttitude.",
-    "13-0": "defaultPaymentMethod",
-    "13-1": "string",
-    "13-2": "Optional",
-    "13-3": "The Payment method that should be active by default on the checkout page E.g bank_transfer, card, payAttitude."
-  },
-  "cols": 4,
-  "rows": 14,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
 
+      <th>
+        Data Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        key
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        Your public key
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        currency
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The currency in which the customer should be charged. Only NGN is available for now.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer
+      </td>
+
+      <td>
+        object
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The JSON object containing the customer name, email, and phone number
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.name
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The name of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.email
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The email of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer.PhoneNumber
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The phone number  of the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        reference
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Your transaction reference. Must be unique for every transaction.\
+        If you do not provide one, a unique transaction reference would be generated for the transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        feeBearer
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        metadata
+      </td>
+
+      <td>
+        object
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        Include any information you'd want to send to Fincra in this object.\
+        e.g metadata: \{userId: "my\_user\_id" }
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        settlementDestination
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now\
+        Value for settlementDestination would be **wallet**
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        onSuccess
+      </td>
+
+      <td>
+        [Function]
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        A function that executes any action you want to perform when the transaction is successful, can be a success message or a redirect Url.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        onClose
+      </td>
+
+      <td>
+        [Function]
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Javascript function that is called if the customer closes the payment modal instead of making a payment
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        paymentMethods
+      </td>
+
+      <td>
+        array
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The payment method you want to make available to your customers  E.g, Bank (bank\_transfer), card (card), payAttitude.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        defaultPaymentMethod
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The Payment method that should be active by default on the checkout page E.g bank\_transfer, card, payAttitude.
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 If you already have the client information recorded in your database, you can retrieve it from there, or through a form like the one below:
 
@@ -163,8 +366,8 @@ function payFincra(e) {
 
 **Take note of the following:**  
 
-- The <code>key</code> field here takes your Fincra _public_ key.
-- The <code>amount</code> field here is the amount to be collected.
+* The <code>key</code> field here takes your Fincra *public* key.
+* The <code>amount</code> field here is the amount to be collected.
 
 ## 3 - Receive and validate webhook notification
 
