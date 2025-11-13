@@ -16,5 +16,5 @@ next:
   description: ''
 ---
 > 📘 Note
-> 
+>
 > Unless payment has been made, this endpoint would return a 404 error.
