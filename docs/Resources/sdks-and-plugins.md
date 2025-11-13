@@ -18,4 +18,4 @@ On the other hand, **[Plugins](plugins)** are perfect for businesses that want a
 
 <br />
 
--
+*
