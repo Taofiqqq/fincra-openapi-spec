@@ -10,13 +10,13 @@ metadata:
 next:
   description: ''
 ---
-Use the following **sandbox-only** test accounts and mobile money numbers to simulate **name validation** and **payouts**. Each row indicates whether the scenario should **pass** or **fail** (see the _Sim Outcome_ column).
+Use the following **sandbox-only** test accounts and mobile money numbers to simulate **name validation** and **payouts**. Each row indicates whether the scenario should **pass** or **fail** (see the *Sim Outcome* column).
 
 > **How to use**
 >
-> - For **name validation**, submit the account details exactly as shown.
-> - For **payout tests**, amounts and currencies must match the currency shown for each account.
-> - **Sim Outcome:** `Pass` = return a successful validation/payout response. `Fail` = return a rejection/failed validation message.
+> * For **name validation**, submit the account details exactly as shown.
+> * For **payout tests**, amounts and currencies must match the currency shown for each account.
+> * **Sim Outcome:** `Pass` = return a successful validation/payout response. `Fail` = return a rejection/failed validation message.
 
 ***
 
@@ -69,7 +69,7 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 | **Pass**    | Mobile Money | MTN Mobile Money Zambia | 260951234567          | Mutinta Phiri       | MTN       | –                      | –             | –     |
 | **Pass**    | Bank         | Zanaco Bank             | 3004005006            | Zanaco Test Account | ZNCOZMLU  | ZNCOZMLUXXX / ZNCOZMLU | Mzuzu (402)   | Mzuzu |
 
-> _Note: City/branch details above are placeholders for sandbox behavior and may not reflect live banking geography._
+> *Note: City/branch details above are placeholders for sandbox behavior and may not reflect live banking geography.*
 
 ***
 
@@ -139,6 +139,6 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 
 ### Notes & Disclaimers
 
-- These credentials are **for sandbox only** and should not be used in production.
-- Field presence (e.g., BIC/SWIFT, branch codes) mirrors typical live requirements but is simplified for testing.
-- If you need **additional pass/fail scenarios** (e.g., insufficient funds, name mismatch), we can add more rows per country.
+* These credentials are **for sandbox only** and should not be used in production.
+* Field presence (e.g., BIC/SWIFT, branch codes) mirrors typical live requirements but is simplified for testing.
+* If you need **additional pass/fail scenarios** (e.g., insufficient funds, name mismatch), we can add more rows per country.
