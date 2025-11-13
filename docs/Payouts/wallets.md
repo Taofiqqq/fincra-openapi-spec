@@ -15,20 +15,18 @@ next:
 ---
 The Fincra Balance API consists of endpoints that provide information such as account balances, Balance ID, or Balance for a business. With the Fincra Balance APIs, You can manage the account balance for your business and that of your subaccounts. For more details on the Fincra Balance API please see the [API reference](/reference/get-a-wallet)
 
-Features Of Our Balance API
----------------------------
+## Features Of Our Balance API
 
-- **Payouts**: You can make payouts to a banking institution or another Fincra balance by making use of our [Fincra Balance Transfer API](/reference/payout-1)
-- **Wallets and sub-accounts**: You can use our balance infrastructure to build your app. You do not need to add balance functionality to your app; simply create your users as sub-accounts on our platform, and their unique balances will be assigned to them automatically.
-- **Security**: We make use of complex algorithms in securing our balances.
-- **Collections**: You can use our balance to store funds received through the various collection methods we provide. For more details please see the methods [here](/reference/get-all-collections)
+* **Payouts**: You can make payouts to a banking institution or another Fincra balance by making use of our [Fincra Balance Transfer API](/reference/payout-1)
+* **Wallets and sub-accounts**: You can use our balance infrastructure to build your app. You do not need to add balance functionality to your app; simply create your users as sub-accounts on our platform, and their unique balances will be assigned to them automatically.
+* **Security**: We make use of complex algorithms in securing our balances.
+* **Collections**: You can use our balance to store funds received through the various collection methods we provide. For more details please see the methods [here](/reference/get-all-collections)
 
-Fincra Balance
---------------
+## Fincra Balance
 
 There are three states of balance namely locked balance, ledger balance, and available balance.
 
-|  Balances        | Description                                                                                                                                                                                   |
+| Balances         | Description                                                                                                                                                                                   |
 | :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | lockedBalance    | This is a certain amount that is locked from withdrawing for a certain reason.e.g when a payout is initiated or when a collection is pending.                                                 |
 | availableBalance | This is the amount that is available for making payouts or conversions e.g you can use this balance to make a transfer of funds from your balance to a banking institution or another wallet. |
