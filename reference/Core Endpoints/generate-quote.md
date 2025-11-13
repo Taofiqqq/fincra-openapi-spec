@@ -25,5 +25,5 @@ next:
 Once you generate a quote pay attention to the response field `reference`. This is the quote reference that will be passed in the cross-currency payout request or conversion request depending on your use case.
 
 > 🚧 Note
-> 
+>
 > Quotes are only valid for 30 seconds for cross-currency payouts and conversions. After generating a quote ensure to use it within the allotted time frame.
