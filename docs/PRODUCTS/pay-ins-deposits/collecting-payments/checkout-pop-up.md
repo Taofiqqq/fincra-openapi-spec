@@ -30,12 +30,12 @@ Please find below the full request parameters for the endpoint `(add the endpoin
 | customer.phoneNumber  | string        | Optional     | The phone number of the customer                                                                                                                                                                                        |
 | reference             | string        | Optional     | Your transaction reference. Must be unique for every transaction. If you do not provide one, a unique transaction reference would be generated for the transaction.                                                     |
 | feeBearer             | string        | Required     | This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`. |
-| metadata              | object        | Required     | Include any information you'd want to send to Fincra in this object. e.g metadata: {userId: "my_user_id" }                                                                                                              |
+| metadata              | object        | Required     | Include any information you'd want to send to Fincra in this object. e.g metadata: \{userId: "my\_user\_id" }                                                                                                           |
 | settlementDestination | string        | Optional     | Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for nowValue for settlementDestination would be **wallet**                                |
 | onSuccess             | [Function]    | Optional     | A function that executes any action you want to perform when the transaction is successful, can be a success message or a redirect Url.                                                                                 |
 | onClose               | [Function]    | Optional     | Javascript function that is called if the customer closes the payment modal instead of making a payment                                                                                                                 |
-| paymentMethods        | array         | Optional     | The payment method you want to make available to your customers E.g, Bank (bank_transfer), card (card), payAttitude. Refer to the list of payment methods for your preferred option.                                    |
-| defaultPaymentMethod  | string        | Optional     | The Payment method that should be active by default on the checkout page E.g bank_transfer, card, payAttitude.                                                                                                          |
+| paymentMethods        | array         | Optional     | The payment method you want to make available to your customers E.g, Bank (bank\_transfer), card (card), payAttitude. Refer to the list of payment methods for your preferred option.                                   |
+| defaultPaymentMethod  | string        | Optional     | The Payment method that should be active by default on the checkout page E.g bank\_transfer, card, payAttitude.                                                                                                         |
 
 If you already have the customer information in your database, you can retrieve it or through a form like the one below:
 
@@ -99,16 +99,16 @@ function payFincra(e) {
 ```
 
 > 📘 Take note of the following
-> 
-> - The `key` field here takes your Fincra _public_ key.
-> - The `amount` field here is the amount to be collected.
+>
+> * The `key` field here takes your Fincra *public* key.
+> * The `amount` field here is the amount to be collected.
 
 # 3 - Receive and Verify Webhook Notification
 
 Set up your system to listen for webhook events. We will send a notification to your webhook URL to indicate the status of the transaction. Refer to our guide on securing and validating webhook notifications on your end.
 
 > 📘 Note
-> 
+>
 > Webhooks will only be sent for successful transactions.
 
 ## Webhook Response
