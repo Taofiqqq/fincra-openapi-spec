@@ -12,9 +12,9 @@ next:
 ---
 To start interacting with the Virtual Cards API endpoints, you need to have your API key, which you can get from your dashboard and pass to the request headers.
 
-| Key     | Value       |
-| :------ | :---------- |
-| api-key | {{api-key}} |
+| Key     | Value         |
+| :------ | :------------ |
+| api-key | \{\{api-key}} |
 
 To start using a virtual card endpoint, it is important to note the following steps
 
@@ -26,118 +26,448 @@ To create virtual cards, you can either create them directly with the issuing en
 
 These are the fields required to create a customer
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Fied",
-    "h-1": "Mandatory",
-    "h-2": "Type",
-    "h-3": "Description",
-    "0-0": "identifier",
-    "0-1": "Yes",
-    "0-2": "string",
-    "0-3": "An identifier is anything that uniquely identifies the customer on your end. e.g user id, email address, etc.",
-    "1-0": "business",
-    "1-1": "Yes",
-    "1-2": "string",
-    "1-3": "Your business ID.",
-    "2-0": "email",
-    "2-1": "Yes",
-    "2-2": "string",
-    "2-3": "The email must be unique just as the identifier.",
-    "3-0": "firstName",
-    "3-1": "Yes",
-    "3-2": "string",
-    "3-3": "The customer's first name. This is required to create a virtual card.",
-    "4-0": "lastName",
-    "4-1": "Yes",
-    "4-2": "string",
-    "4-3": "The customer's last name. This is required to create a virtual card.",
-    "5-0": "middleName",
-    "5-1": "No",
-    "5-2": "string",
-    "5-3": "The customer's middle name",
-    "6-0": "dob",
-    "6-1": "Yes",
-    "6-2": "string",
-    "6-3": "The birthdate of the customer (YYYY-MM-DD).",
-    "7-0": "phone.countryCode",
-    "7-1": "Yes",
-    "7-2": "string",
-    "7-3": "The customer's country dialing code. e.g +234",
-    "8-0": "phone.number",
-    "8-1": "Yes",
-    "8-2": "string",
-    "8-3": "The customer's phone number",
-    "9-0": "address.country",
-    "9-1": "Yes",
-    "9-2": "string",
-    "9-3": "The address of the country",
-    "10-0": "address.zip",
-    "10-1": "Yes",
-    "10-2": "string",
-    "10-3": "The country zip code",
-    "11-0": "address.street",
-    "11-1": "Yes",
-    "11-2": "string",
-    "11-3": "The street name",
-    "12-0": "address.state",
-    "12-1": "Yes",
-    "12-2": "string",
-    "12-3": "The state address",
-    "13-0": "address.city",
-    "13-1": "Yes",
-    "13-2": "string",
-    "13-3": "The city address",
-    "14-0": "chargeCurrency",
-    "14-1": "Yes",
-    "14-2": "string",
-    "14-3": "This allows the customer  to specify the Fincra balance they want to be debited from or credited to (in the case of card withdrawal)",
-    "15-0": "documents",
-    "15-1": "Yes",
-    "15-2": "Array of objects - image, type, number, issuedCountryCode, issuedDate, expirationDate as string.  \nThe document `type` can either be a `passport`, `driverLicense` or `votersCard`",
-    "15-3": "Customer's identification documents. At least one document is required.",
-    "16-0": "documents.image",
-    "16-1": "Yes",
-    "16-2": "string",
-    "16-3": "Image URL of the identification document. e.g International Passport.",
-    "17-0": "documents.type",
-    "17-1": "Yes",
-    "17-2": "string",
-    "17-3": "The type of ID document e.g `passport`, `driverLicense`, `idCard`.  \n  \nPlease see the required values [here](/docs/documents-required-for-virtual-accounts-creation#individual-virtual-account)",
-    "18-0": "documents.number",
-    "18-1": "Yes",
-    "18-2": "string",
-    "18-3": "The number on the document",
-    "19-0": "documents.issuedCountryCode",
-    "19-1": "Yes",
-    "19-2": "string",
-    "19-3": "The country that issued the document.Should be in ISO 3166-1 alpha-2 – two-letter country codes format (e.g NG, US, GH)",
-    "20-0": "documents.issuedBy",
-    "20-1": "No",
-    "20-2": "string",
-    "20-3": "The government agency in charge of issuing the document.",
-    "21-0": "documents.issuedDate",
-    "21-1": "Yes",
-    "21-2": "string",
-    "21-3": "The date the document was issued (\"YYYY-mm-dd\")",
-    "22-0": "documents.expirationDate",
-    "22-1": "Yes",
-    "22-2": "string",
-    "22-3": "The expiration date on the document (\"YYYY-mm-dd\")"
-  },
-  "cols": 4,
-  "rows": 23,
-  "align": [
-    "left",
-    "left",
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Fied
+      </th>
 
-<br>
+      <th>
+        Mandatory
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        identifier
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        An identifier is anything that uniquely identifies the customer on your end. e.g user id, email address, etc.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        business
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Your business ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        email
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The email must be unique just as the identifier.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        firstName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's first name. This is required to create a virtual card.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        lastName
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's last name. This is required to create a virtual card.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        middleName
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's middle name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        dob
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The birthdate of the customer (YYYY-MM-DD).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        phone.countryCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's country dialing code. e.g +234
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        phone.number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The customer's phone number
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        address.country
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The address of the country
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        address.zip
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The country zip code
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        address.street
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The street name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        address.state
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The state address
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        address.city
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The city address
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        chargeCurrency
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        This allows the customer  to specify the Fincra balance they want to be debited from or credited to (in the case of card withdrawal)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        Array of objects - image, type, number, issuedCountryCode, issuedDate, expirationDate as string.\
+        The document `type` can either be a `passport`, `driverLicense` or `votersCard`
+      </td>
+
+      <td>
+        Customer's identification documents. At least one document is required.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.image
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        Image URL of the identification document. e.g International Passport.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.type
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The type of ID document e.g `passport`, `driverLicense`, `idCard`.  
+
+        Please see the required values [here](/docs/documents-required-for-virtual-accounts-creation#individual-virtual-account)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The number on the document
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.issuedCountryCode
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The country that issued the document.Should be in ISO 3166-1 alpha-2 – two-letter country codes format (e.g NG, US, GH)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.issuedBy
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The government agency in charge of issuing the document.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.issuedDate
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The date the document was issued ("YYYY-mm-dd")
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        documents.expirationDate
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        The expiration date on the document ("YYYY-mm-dd")
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+<br />
 
 The payload should look like this
 
@@ -229,8 +559,8 @@ Below is a sample response
 
 After creating a customer, a card can then be created using the `cid` that was returned in the response data when creating a customer.  
 
-The `cid `in the response data above is `60febd3c-157a-4ae4-aeed-863c5530ec42`.  
-You can either create a **USD visa or MasterCard **virtual card for a customer.
+The `cid `in the response data above is `60febd3c-157a-4ae4-aeed-863c5530ec42`.\
+You can either create a **USD visa or MasterCard** virtual card for a customer.
 
 `POST `Request - `https://sandboxapi.fincra.com/profile/issuing`
 
@@ -247,7 +577,7 @@ The payload should look like this
 }
 ```
 
-**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card **
+**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card**
 
 Below is a sample response
 
@@ -335,7 +665,7 @@ The payload should look like this
 }
 ```
 
-**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card **
+**Please note that amount is an important field to be passed in the payload when creating a MasterCard virtual card**
 
 Below is a sample response
 
@@ -417,10 +747,10 @@ Below is the sample response
 
 ## Getting All Cards Per Customer
 
-You can get all the cards attached to a customer by calling the below endpoint:  
+You can get all the cards attached to a customer by calling the below endpoint:\
 `GET` request `[https://sandboxapi.fincra.com/profile/issuing/?cid={cid}&business={businessID}`
 
-The `cid` will be the value generated when creating the customer, while the value of the business is your `businessID`.  
+The `cid` will be the value generated when creating the customer, while the value of the business is your `businessID`.\
 Below is a sample response for a customer with a `cid` of `e79ecab7-b573-4c61-969f-ad61860d7bb8` that has 2 virtual cards attached to them `(1 Visa and 1 Mastercard)`.
 
 ```json
