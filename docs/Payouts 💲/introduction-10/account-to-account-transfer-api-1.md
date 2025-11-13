@@ -17,23 +17,21 @@ Fincra transfers can only be made from one account to another if their base curr
 Webhooks are not sent for these transfers, you are admonished to make use of the [response object](/docs/account-to-account-transfer-api-1#wallet-to-wallet-response-object)you get when you make a transfer from your balance to another balance.
 
 > 📘 Hey 👋 we recommend checking out the following section
-> 
-> - [Business ](/docs/get-business-id)
+>
+> * [Business ](/docs/get-business-id)
 
-How to make a transfer to another Fincra account:
--------------------------------------------------
+## How to make a transfer to another Fincra account:
 
 The following steps need to be taken in order to process payments to another user on Fincra
 
-1 - Topup
----------
+## 1 - Topup
 
 You can fund your balance by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints.
 
 > 📘 For more details on virtual account creation and funding please read the following sections :
-> 
-> - [How to create a virtual account](/docs/create-virtual-accounts#virtual-account-request-parameters)
-> - [How to fund your account ](/docs/introduction-9)
+>
+> * [How to create a virtual account](/docs/create-virtual-accounts#virtual-account-request-parameters)
+> * [How to fund your account ](/docs/introduction-9)
 
 We will send a notification to your webhook URL whenever your balance is funded
 
@@ -60,8 +58,7 @@ We will send a notification to your webhook URL whenever your balance is funded
 }
 ```
 
-2 - Request transfer
---------------------
+## 2 - Request transfer
 
 Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. 
 
