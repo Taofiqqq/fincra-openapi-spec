@@ -17,12 +17,12 @@ Virtual accounts can be created in a variety of different currencies, and each o
 
 **Note**
 
-- The meansOfId field should contain a URL to the document or the file upload.
+* The meansOfId field should contain a URL to the document or the file upload.
 
 > 📘 Hey 👋 we recommend checking out the following sections before making use of the endpoints in this section
-> 
-> - [Virtual Account Webhook Structure](/reference/virtual-account-webhook)
-> - [Use cases](fincra-virtual-accounts#virtual-account-use-cases)
-> - [Account request](/reference/how-to-create-virtual-accounts#1---request-a-virtual-account)
-> - [Account type](/reference/fincra-virtual-accounts)
-> - [Documents](/docs/documents-required-for-virtual-accounts-creation)
+>
+> * [Virtual Account Webhook Structure](/reference/virtual-account-webhook)
+> * [Use cases](fincra-virtual-accounts#virtual-account-use-cases)
+> * [Account request](/reference/how-to-create-virtual-accounts#1---request-a-virtual-account)
+> * [Account type](/reference/fincra-virtual-accounts)
+> * [Documents](/docs/documents-required-for-virtual-accounts-creation)
