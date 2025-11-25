@@ -35,7 +35,7 @@ Regardless of whether you are a startup or a global enterprise, discover the sea
                     <img src="https://files.readme.io/e0e7f38-.png" alt="Avatar" class="icon">
                     <h4>Payouts</h4>
                     <p>Learn how to make local and international payouts in different currencies</p>
-                  <a id="cool" href="/docs/introduction-10" class="btn">Read More</a>
+                  <a id="cool" href="/docs/payout-overview#/" class="btn">Read More</a>
                 </div>
 
          
