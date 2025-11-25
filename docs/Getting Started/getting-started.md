@@ -28,7 +28,7 @@ Regardless of whether you are a startup or a global enterprise, discover the sea
                     <img src="https://files.readme.io/e0e7f38-.png" alt="Avatar" class="icon">
                     <h4>Payins</h4>
                     <p>Learn how to receive fast and secure payments with Fincra.</p>
-                    <a id="cool" href="/docs/introduction-9" class="btn">Read More</a>
+                    <a id="cool" href="/docs/payin-overview#/" class="btn">Read More</a>
                 </div>
               
                 <div class="card">
