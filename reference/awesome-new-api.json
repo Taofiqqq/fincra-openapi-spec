@@ -11461,19 +11461,20 @@
         "deprecated": false
       }
     },
-    "/v2/mandate-mgt/mandates/?perPage={perPage}-1": {
+    "/v2/mandate-mgt/payments/{reference}": {
       "get": {
         "summary": "Copy of List all Mandates",
         "description": "This API lets you get all mandates that has been initiated by your merchant account. Note, the path param is passed in the url as a query parameter",
         "operationId": "get_v2mandate-mgtmandates?perPage={perPage}-1",
         "parameters": [
           {
-            "name": "perPage",
             "in": "path",
+            "name": "reference",
             "schema": {
               "type": "string"
             },
-            "required": true
+            "required": true,
+            "description": "The transaction reference passed when initiating debit on mandate"
           }
         ],
         "responses": {
