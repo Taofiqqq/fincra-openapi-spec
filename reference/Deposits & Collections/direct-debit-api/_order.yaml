@@ -1,5 +1,5 @@
 - create-mandate
+- get-mandate-info
 - initiate-debit-on-mandate
 - verify-mandate-status
-- get-mandate-info
 - list-all-mandates
