@@ -2,4 +2,4 @@
 - get-mandate-info
 - list-all-mandates
 - initiate-debit-on-mandate
-- verify-mandate-status
+- verify-mandate-debit-status
