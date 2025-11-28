@@ -1,5 +1,5 @@
 ---
-title: Verify Mandate Status
+title: Verify Mandate Debit Status
 excerpt: >-
   This API lets you get the details/status of a debit initiated on a mandate.
   Note, the path param is passed in the url as a query parameter
