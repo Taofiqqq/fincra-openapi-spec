@@ -17,7 +17,7 @@ In this section, we will go over the steps required to set up and maintain an NG
 > 📘 Important
 >
 > * BVN is required when requesting a permanent virtual account.
-> * Only requests for Individual NGN virtual accounts will be instantly approved.
+> * Requests for NGN virtual accounts will be instantly approved.
 > * Funds received by a virtual account created settles in the balances of the merchant.
 
 ## Supported Banks
