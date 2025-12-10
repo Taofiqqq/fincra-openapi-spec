@@ -31,6 +31,7 @@ Listed below are the banks that are supported in the creation of NGN virtual acc
 | 3       | Wema Bank           | wema      | yes         |
 | 4       | Providus Bank       | providus  | no          |
 | 5       | Guaranty Trust Bank | habari    | yes         |
+| 6       | Sterling Bank       | sterling  | yes         |
 
 ## API Guide
 
