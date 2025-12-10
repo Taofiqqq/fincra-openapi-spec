@@ -12,7 +12,7 @@ next:
 ---
 In this section, we will go over the steps required to set up and maintain an NGN permanent virtual account. We would like to start by explaining how permanent virtual accounts can be created on Fincra.
 
-* By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](create-permanent-ngn-virtual-account) 
+* By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](create-permanent-ngn-virtual-account)
 
 > 📘 Important
 >
@@ -24,12 +24,13 @@ In this section, we will go over the steps required to set up and maintain an NG
 
 Listed below are the banks that are supported in the creation of NGN virtual accounts. This value is what you pass in under the "`channel`" field when making a virtual account request.
 
-| **S/N** | **Bank**      | **Value** | **Enabled** |
-| ------- | ------------- | --------- | :---------- |
-| 1       | Bold MFB      | bold      | yes         |
-| 2       | Globus Bank   | globus    | yes         |
-| 3       | Wema Bank     | wema      | yes         |
-| 4       | Providus Bank | providus  | no          |
+| **S/N** | **Bank**            | **Value** | **Enabled** |
+| ------- | ------------------- | --------- | :---------- |
+| 1       | Bold MFB            | bold      | yes         |
+| 2       | Globus Bank         | globus    | yes         |
+| 3       | Wema Bank           | wema      | yes         |
+| 4       | Providus Bank       | providus  | no          |
+| 5       | Guaranty Trust Bank | habari    | yes         |
 
 ## API Guide
 
@@ -57,7 +58,7 @@ For Corporate
 | --------------------------- | --------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
 | currency                    | yes       | string | The virtual account currency.e.g NGN                                                                                   |
 | accountType                 | yes       | string | The virtual account type . This should be "corporate"                                                                  |
-| channel                     | No        | string | The value should be `wema` for wema bank accounts and `vfd` for VFD bank accounts. `wema` is the default channel       |
+| channel                     | No        | string | The value should be `wema` for wema bank accounts, and `habari` for GTB accounts. `wema` is the default channel        |
 | dateOfBirth                 | No        | string | The date of birth of the customer. required only when creating VFD virtual accounts in NGN. Format (mm/dd/yyyy )       |
 | bvn                         | No        | string | Bank verification number. compulsory for `vfd` bank accounts . This must be the date of birth on thee customer's `BVN` |
 | KYCInformation.email        | No        | string | The customer's email.                                                                                                  |
@@ -187,7 +188,7 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 
 Important Notes:
 
-* \_id : This is the unique Identifier for the virtual account that was just created.
+* _id : This is the unique Identifier for the virtual account that was just created.
 * business : This is your business ID.
 * entityType : This states that the virtual account belongs to you
 
@@ -316,7 +317,7 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/?currency=ngn' 
 --header 'api-key: <Your API secret key>'
 ```
 
- If successful, you will receive a JSON snippet with the details of all virtual account requests made.
+If successful, you will receive a JSON snippet with the details of all virtual account requests made.
 
 ```json
 {
