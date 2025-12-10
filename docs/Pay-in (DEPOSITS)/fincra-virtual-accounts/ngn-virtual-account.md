@@ -26,7 +26,7 @@ Listed below are the banks that are supported in the creation of NGN virtual acc
 
 | **S/N** | **Bank**            | **Value** | **Enabled** |
 | ------- | ------------------- | --------- | :---------- |
-| 1       | Bold MFB            | bold      | yes         |
+| 1       | Bold MFB            | bold      | no          |
 | 2       | Globus Bank         | globus    | yes         |
 | 3       | Wema Bank           | wema      | yes         |
 | 4       | Providus Bank       | providus  | no          |
