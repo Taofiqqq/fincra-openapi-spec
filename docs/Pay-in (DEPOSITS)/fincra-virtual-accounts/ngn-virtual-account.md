@@ -55,17 +55,17 @@ Please find below the request parameters for the endpoint in step 2.
 
 For Corporate
 
-| Field                       | Mandatory | type   | Description                                                                                                            |
-| --------------------------- | --------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
-| currency                    | yes       | string | The virtual account currency.e.g NGN                                                                                   |
-| accountType                 | yes       | string | The virtual account type . This should be "corporate"                                                                  |
-| channel                     | No        | string | The value should be `wema` for wema bank accounts, and `habari` for GTB accounts. `wema` is the default channel        |
-| dateOfBirth                 | No        | string | The date of birth of the customer. required only when creating VFD virtual accounts in NGN. Format (mm/dd/yyyy )       |
-| bvn                         | No        | string | Bank verification number. compulsory for `vfd` bank accounts . This must be the date of birth on thee customer's `BVN` |
-| KYCInformation.email        | No        | string | The customer's email.                                                                                                  |
-| KYCInformation.businessName | Yes       | string | The customer's business name .                                                                                         |
-| KYCInformation.bvn          | Yes       | string | Bank verification number.                                                                                              |
-| KYCInformation.bvnName      | Yes       | string | The name you want to be on the account. This must be the same name on the customer's`BVN`                              |
+| Field                       | Mandatory | type   | Description                                                                                                     |
+| --------------------------- | --------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| currency                    | yes       | string | The virtual account currency.e.g NGN                                                                            |
+| accountType                 | yes       | string | The virtual account type . This should be "corporate"                                                           |
+| channel                     | No        | string | The value should be `wema` for wema bank accounts, and `habari` for GTB accounts. `wema` is the default channel |
+| dateOfBirth                 | No        | string | The date of birth of the customer.                                                                              |
+| bvn                         | yes       | string | Bank verification number.                                                                                       |
+| KYCInformation.email        | No        | string | The customer's email.                                                                                           |
+| KYCInformation.businessName | Yes       | string | The customer's business name .                                                                                  |
+| KYCInformation.bvn          | Yes       | string | Bank verification number.                                                                                       |
+| KYCInformation.bvnName      | Yes       | string | The name you want to be on the account. This must be the same name on the customer's`BVN`                       |
 
 <br />
 
