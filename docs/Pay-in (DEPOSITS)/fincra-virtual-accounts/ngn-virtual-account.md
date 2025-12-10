@@ -22,7 +22,7 @@ In this section, we will go over the steps required to set up and maintain an NG
 
 ## Supported Banks
 
-Listed below are the banks that are supported in the creation of NGN virtual accounts. This value is what you pass in under the "`channel`" field when making a virtual account request.
+Listed below are the banks that are supported in the creation of NGN permanent virtual accounts. This value is what you pass in under the "`channel`" field when making a virtual account request.
 
 | **S/N** | **Bank**            | **Value** | **Enabled** |
 | ------- | ------------------- | --------- | :---------- |
