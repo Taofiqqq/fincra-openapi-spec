@@ -34,9 +34,9 @@ The funds can be:
 | Ghana         | GHS      | Yes                       | N/A        | N/A        |
 | Zambia        | ZMW      | Coming Soon               | N/A        | N/A        |
 | South Africa  | ZAR      | Coming Soon               | N/A        | N/A        |
-| Cameroon      | XAF      | Yes                       | N/A        | N/A        |
+| Cameroon      | XAF      | Coming Soon               | N/A        | N/A        |
 | Cote d'Ivoire | XOF      | Coming Soon               | N/A        | N/A        |
-| Tanzania      | TZS      | Coming Soon               | N/A        | N/A        |
+| Tanzania      | TZS      | Yes                       | N/A        | N/A        |
 
 ## Settlement Reference 🕒
 
@@ -63,7 +63,7 @@ The funds can be:
 >
 > * Settlements from the pool account to your Fincra merchant account are not instant. Fincra currently maintains 4 settlement cycles between the hours of 9am to 6pm WAT on business days.
 > * A dedicated email address will be created for Merchant to share payment receipts
-> * A unique customer ID must be created for each of your customers, following this pattern\
+> * A unique customer ID must be created for each of your customers, following this pattern  
 >   `AAFC{8-digit padded ID}{Currency}`
 
 Where;
@@ -126,7 +126,7 @@ Where;
   <thead>
     <tr>
       <th>
-        \# 
+        #
       </th>
 
       <th>
@@ -190,14 +190,14 @@ Where;
       </td>
 
       <td>
-        Confirm the simulated inflow and get the status using this endpoint.  
+        Confirm the simulated inflow and get the status using this endpoint.
 
         Learn more about setting up and validating webhooks [here](https://docs.fincra.com/docs/webhooks) .
       </td>
 
       <td>
-        * \*Webhook\*\*: [https://docs.fincra.com/docs/payin-webhook](https://docs.fincra.com/docs/payin-webhook)  
-        * \*API\*\*: [https://docs.fincra.com/reference/get-collection-record-by-reference](https://docs.fincra.com/reference/get-collection-record-by-reference)
+        * *Webhook**: [https://docs.fincra.com/docs/payin-webhook](https://docs.fincra.com/docs/payin-webhook)
+        * *API**: [https://docs.fincra.com/reference/get-collection-record-by-reference](https://docs.fincra.com/reference/get-collection-record-by-reference)
       </td>
     </tr>
 
@@ -243,7 +243,7 @@ Where;
       </td>
 
       <td>
-        Generate quote 
+        Generate quote
       </td>
 
       <td>
@@ -287,8 +287,8 @@ Where;
       </td>
 
       <td>
-        * \*Webhook\*\*: [https://docs.fincra.com/docs/conversions-webhook](https://docs.fincra.com/docs/conversions-webhook)  
-        * \*API\*\*: [https://docs.fincra.com/reference/verify-conversion-status](https://docs.fincra.com/reference/verify-conversion-status)
+        * *Webhook**: [https://docs.fincra.com/docs/conversions-webhook](https://docs.fincra.com/docs/conversions-webhook)
+        * *API**: [https://docs.fincra.com/reference/verify-conversion-status](https://docs.fincra.com/reference/verify-conversion-status)
       </td>
     </tr>
 
@@ -320,15 +320,15 @@ Where;
       </td>
 
       <td>
-        Confirm the status of the payout transaction using this endpoint.  
+        Confirm the status of the payout transaction using this endpoint.
 
         You can also listen for the successful payout webhook.
       </td>
 
       <td>
-        * \*Webhook\*\*: [https://docs.fincra.com/docs/payout-webhook](https://docs.fincra.com/docs/payout-webhook)  
-        * \*API\*\*: [https://docs.fincra.com/reference/verify-payout-status-by-reference](https://docs.fincra.com/reference/verify-payout-status-by-reference)  
-        * \*API\*\*: [https://docs.fincra.com/reference/fetch-payout-by-customer-reference](https://docs.fincra.com/reference/fetch-payout-by-customer-reference)
+        * *Webhook**: [https://docs.fincra.com/docs/payout-webhook](https://docs.fincra.com/docs/payout-webhook)
+        * *API**: [https://docs.fincra.com/reference/verify-payout-status-by-reference](https://docs.fincra.com/reference/verify-payout-status-by-reference)
+        * *API**: [https://docs.fincra.com/reference/fetch-payout-by-customer-reference](https://docs.fincra.com/reference/fetch-payout-by-customer-reference)
       </td>
     </tr>
   </tbody>
