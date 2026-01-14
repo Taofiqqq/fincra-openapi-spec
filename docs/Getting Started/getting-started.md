@@ -12,7 +12,7 @@ next:
 ---
 # Welcome to our API documentation
 
-Fincra offers a contemporary financial infrastructure designed for businesses and developers, enabling them to facilitate local and international payouts, gather payments from customers, and create virtual accounts.
+Fincra offers a contemporary financial infrastructure designed for businesses and developers, enabling them to facilitate local and international payouts, gather payments from customers, and create virtual accounts. 
 
 # Get Started
 
