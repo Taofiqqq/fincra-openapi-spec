@@ -68,6 +68,8 @@ Your API keys are available on the dashboard under `My Acc > Acc Settings > API 
 
 ## 📄 Required KYB Documents
 
+> ⚠️ Submit documents in **PDF or JPEG** format.  All documents submitted by foreign entities must be notarized
+
 ### Limited Liability Company
 
 | Document                           | Required    |
@@ -93,10 +95,6 @@ Your API keys are available on the dashboard under `My Acc > Acc Settings > API 
 | KRA PIN/Tax ID             | ✅           |
 | Business Certificate       | ✅           |
 | Supporting Docs            | 🟡 Optional |
-
-<Callout icon="📎" theme="default">
-  ### Submit documents in **PDF or JPEG** format. Notarization is required for foreign entities.
-</Callout>
 
 ***
 
