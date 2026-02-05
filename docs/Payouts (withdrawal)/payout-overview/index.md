@@ -20,21 +20,21 @@ Your Fincra account can be used to send money across different countries and cur
 
 ## Supported Payout Currencies
 
-| Currency | Supported Methods                 |
-| :------- | :-------------------------------- |
-| NGN      | Bank Account                      |
-| GHS      | Mobile Money, Bank Account        |
-| KES      | Mobile Money, Bank Account        |
-| UGX      | Mobile Money, Bank Account        |
-| ZMW      | Mobile Money, Bank Account        |
-| TZS      | Mobile Money, Bank Account        |
-| XAF      | Mobile Money                      |
-| XOF      | Mobile Money                      |
-| ZAR      | Bank Account                      |
-| EGP      | Cash Pickup, Wallet, Bank Account |
-| USD      | Bank Account                      |
-| EUR      | Bank Account                      |
-| GBP      | Bank Account                      |
+| Currency | Supported Methods                       |
+| :------- | :-------------------------------------- |
+| NGN      | Bank Account                            |
+| GHS      | Mobile Money, Bank Account              |
+| KES      | Mobile Money, Bank Account              |
+| UGX      | Mobile Money, Bank Account              |
+| ZMW      | Mobile Money, Bank Account              |
+| TZS      | Mobile Money, Bank Account              |
+| XAF      | Mobile Money                            |
+| XOF      | Mobile Money                            |
+| ZAR      | Bank Account                            |
+| EGP      | Cash Pickup, Mobile Money, Bank Account |
+| USD      | Bank Account                            |
+| EUR      | Bank Account                            |
+| GBP      | Bank Account                            |
 
 ## Local Payout vs Cross Border Payout
 
