@@ -391,18 +391,6 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 
 <br />
 
-<br />
-
-<br />
-
-<br />
-
-<br />
-
-<br />
-
-<br />
-
 ## 🌎 FX Currencies (USD / EUR / GBP) — Dummy Bank Accounts
 
 > These are **dummy IBAN/Routing** examples for sandbox flows that require international details. Use only in **test**; not valid for live banking.
