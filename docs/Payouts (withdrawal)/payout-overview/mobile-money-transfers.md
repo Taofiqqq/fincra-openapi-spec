@@ -12,11 +12,11 @@ next:
 ---
 This section covers the parameters needed to process payments to mobile money wallets. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-mobile-money-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
 
-To view all currencies supported for mobile money transfers, please view the [supported currencies page](/docs/supported-currencies) 
+To view all currencies supported for mobile money transfers, please view the [supported currencies page](/docs/supported-currencies)
 
 ### Common Details
 
-So first, let's go through the basic information needed for any account. You'll need to provide these details. 
+So first, let's go through the basic information needed for any account. You'll need to provide these details.
 
 <Table align={["left","left","left","left"]}>
   <thead>
@@ -108,7 +108,7 @@ So first, let's go through the basic information needed for any account. You'll 
       </td>
 
       <td>
-        The value that is to be transferred from the source currency wallet.  
+        The value that is to be transferred from the source currency wallet.
 
         Note: Decimals are not allowed as 'amount', for UGX payouts
       </td>
@@ -146,7 +146,7 @@ So first, let's go through the basic information needed for any account. You'll 
       </td>
 
       <td>
-        The value should be sent as mobile\_money\_wallet
+        The value should be sent as mobile_money_wallet
       </td>
     </tr>
 
@@ -182,7 +182,7 @@ So first, let's go through the basic information needed for any account. You'll 
       </td>
 
       <td>
-        This is the reference generated when the source currency is compared against the destination currency.  
+        This is the reference generated when the source currency is compared against the destination currency.
 
         This is required when the source currency is not the same as the destination currency. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote)
       </td>
@@ -390,7 +390,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        This value is the mobile money wallet provider's code. You must use the [List bank endpoint](/reference/get-banks) to obtain this value.  
+        This value is the mobile money wallet provider's code. You must use the [List bank endpoint](/reference/get-banks) to obtain this value.
 
         Note: When mobileMoneyCode is "AIRTEL", the 'amount' field must be a whole number, not a decimal.
       </td>
@@ -518,7 +518,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
 
         Only required if sender.type is individual
       </td>
@@ -538,7 +538,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
 
         Only required if sender.type is corporate
       </td>
@@ -778,6 +778,27 @@ The payload should look like this :
         "type": "individual",
         "country": "CM",
         "mobileMoneyCode": "MTN"
+    },
+    "files": {},
+    "description": "I want to pay my vendor"
+}
+```
+```Text EGP
+{
+    "business": "{{The business ID}}",
+    "sourceCurrency": "EGP",
+    "destinationCurrency": "EGP",
+    "amount": "10",
+    "paymentDestination": "mobile_money_wallet",
+    "customerName": "Test Fincra",
+    "customerReference": "02_11_2024_26_39PM",
+    "beneficiary": {
+        "firstName": "Test",
+        "lastName": "Technologies",
+        "email": "chukwuemeka@fincra.com",
+        "accountHolderName": "Test TECHNOLOGIES LTD",
+        "accountNumber": "0961111111",
+        "type": "individual",
     },
     "files": {},
     "description": "I want to pay my vendor"
