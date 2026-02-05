@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Use the following **sandbox-only** test accounts and mobile money numbers to simulate **name validation** and **payouts**. Each row indicates whether the scenario should **pass** or **fail** (see the *Sim Outcome* column).
+Use the following **sandbox-only** test accounts and mobile money numbers to simulate **name validation** and **payouts**. Each row indicates whether the scenario should **pass** or **fail** (see the _Sim Outcome_ column).
 
 > **How to use**
 >
@@ -69,7 +69,7 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 | **Pass**    | Mobile Money | MTN Mobile Money Zambia | 260951234567          | Mutinta Phiri       | MTN       | –                      | –             | –     |
 | **Pass**    | Bank         | Zanaco Bank             | 3004005006            | Zanaco Test Account | ZNCOZMLU  | ZNCOZMLUXXX / ZNCOZMLU | Mzuzu (402)   | Mzuzu |
 
-> *Note: City/branch details above are placeholders for sandbox behavior and may not reflect live banking geography.*
+> _Note: City/branch details above are placeholders for sandbox behavior and may not reflect live banking geography._
 
 ***
 
@@ -110,6 +110,298 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 | **Pass**    | Mobile Money | Orange Money Cameroon | 237651234567          | Ngassa Clarisse | ORANGE    | –         | –             | –    |
 
 ***
+
+## **🇪🇬 Egypt (EGP)**
+
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Sim Outcome
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Institution
+      </th>
+
+      <th>
+        Account/Wallet Number
+      </th>
+
+      <th>
+        Account Name
+      </th>
+
+      <th>
+        Bank Code
+      </th>
+
+      <th>
+        BIC/SWIFT
+      </th>
+
+      <th>
+        Branch (Code)
+      </th>
+
+      <th>
+        City
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        **Fail**
+      </td>
+
+      <td>
+        Wallet
+      </td>
+
+      <td>
+        Vodafone
+      </td>
+
+      <td>
+        201055555000
+      </td>
+
+      <td>
+        Abdul Hassan
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        –
+      </td>
+
+      <td>
+        –
+      </td>
+
+      <td>
+        –
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Fail**
+      </td>
+
+      <td>
+        Bank
+      </td>
+
+      <td>
+        Commercial International Bank
+      </td>
+
+      <td>
+        100045022000
+      </td>
+
+      <td>
+        Mohammed  
+        Abdul
+      </td>
+
+      <td>
+        CIB
+      </td>
+
+      <td>
+        CIBEEGCXXXX
+      </td>
+
+      <td>
+        –
+      </td>
+
+      <td>
+        –
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Fail**
+      </td>
+
+      <td>
+        Cash Pickup
+      </td>
+
+      <td>
+        BANQUE DU CAIRE
+      </td>
+
+      <td>
+        201055555000
+      </td>
+
+      <td>
+        Yusuf Hassan
+      </td>
+
+      <td>
+        BDC
+      </td>
+
+      <td>
+        BCAIEGCXXXX
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Pass**
+      </td>
+
+      <td>
+        Wallet
+      </td>
+
+      <td>
+        Vodafone
+      </td>
+
+      <td>
+        201055555001
+      </td>
+
+      <td>
+        Abdul Hassan
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        -
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Pass**
+      </td>
+
+      <td>
+        Bank
+      </td>
+
+      <td>
+        Commercial International Bank
+      </td>
+
+      <td>
+        100045022001
+      </td>
+
+      <td>
+        Mohammed  
+        Abdul
+      </td>
+
+      <td>
+        CIB
+      </td>
+
+      <td>
+        CIBEEGCXXXX
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        -
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Pass**
+      </td>
+
+      <td>
+        Cash Pickup
+      </td>
+
+      <td>
+        BANQUE DU CAIRE
+      </td>
+
+      <td>
+        201055555001
+      </td>
+
+      <td>
+        Yusuf Hassan
+      </td>
+
+      <td>
+        BDC
+      </td>
+
+      <td>
+        BCAIEGCXXXX
+      </td>
+
+      <td>
+        -
+      </td>
+
+      <td>
+        -
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+<br />
 
 ## 🌎 FX Currencies (USD / EUR / GBP) — Dummy Bank Accounts
 
