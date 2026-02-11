@@ -783,7 +783,7 @@ The payload should look like this :
     "description": "I want to pay my vendor"
 }
 ```
-```Text EGP
+```json EGP
 {
     "business": "{{The business ID}}",
     "sourceCurrency": "EGP",
