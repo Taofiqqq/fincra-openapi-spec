@@ -14,7 +14,7 @@ This section covers the parameters needed to process payments to bank accounts. 
 
 ### Common Details
 
-So first, let's go through the basic information needed for any kind of account. You'll need to provide these details. 
+So first, let's go through the basic information needed for any kind of account. You'll need to provide these details.
 
 <Table align={["left","left","left","left"]}>
   <thead>
@@ -178,7 +178,7 @@ So first, let's go through the basic information needed for any kind of account.
       </td>
 
       <td style={{ textAlign: "left" }}>
-        This is the reference generated when the source currency is compared against the destination currency.  
+        This is the reference generated when the source currency is compared against the destination currency.
 
         This is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote)
       </td>
@@ -306,7 +306,7 @@ So first, let's go through the basic information needed for any kind of account.
       </td>
 
       <td style={{ textAlign: "left" }}>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
 
         Only required if sender.type is individual
       </td>
@@ -326,7 +326,7 @@ So first, let's go through the basic information needed for any kind of account.
       </td>
 
       <td style={{ textAlign: "left" }}>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).  
+        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
 
         Only required if sender.type is corporate
       </td>
@@ -380,6 +380,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 | beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
 | beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
 | beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
 | beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
 | beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
 | beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
@@ -760,7 +761,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 | beneficiary.email             | Yes       | String | The type of beneficiary, see beneficiary types for more details                                                                                                                                               |
 | paymentScheme                 | Yes       | String | The [payment scheme](/docs/payment-scheme) relevant to the destination currency and region.                                                                                                                   |
 
-The payload should look like this : 
+The payload should look like this :
 
 ```json SEPA
 {
@@ -849,7 +850,7 @@ The payload should look like this :
 
 In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the United States.
 
-Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.\
+Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.  
 Kindly find attached supported bank list [here](/docs/supported-currencies#list-of-nigerian-banks-supported-for-usd-domiciliary-account-payment--for-payoutbank-transfer)
 
 > ❗️ Note:
@@ -1234,7 +1235,7 @@ Kindly find attached supported bank list [here](/docs/supported-currencies#list-
       </td>
 
       <td>
-        The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A.  
+        The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A.
 
         Only required for swift transfer.
       </td>
