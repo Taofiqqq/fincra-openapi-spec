@@ -1,6 +1,5 @@
 ---
 title: Multicurrency Virtual Account
-excerpt: ''
 deprecated: false
 hidden: true
 metadata:
@@ -55,7 +54,7 @@ We hope this guide provides you with a clearer understanding of the MCY concept 
 | GBP      | British Pounds |
 | EUR      | Euro           |
 
-<br />
+<br/>
 
 ## Endpoint Parameters
 
@@ -711,7 +710,7 @@ The payload should look like this :
 }
 ```
 
-</br>
+<br />
 
 ### Corporate Request
 
