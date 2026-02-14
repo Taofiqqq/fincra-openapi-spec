@@ -127,7 +127,7 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 
 > 📘 Important
 >
-> * This consent object is required only for merchants approved and enabled. Please confirm from your account manager.
+> * This consent object is required only for merchants approved and enabled. Please confirm from your account manager that you are enabled.
 >
 > * consent.isTermsAccepted must be true. Requests with false will be rejected.
 >
