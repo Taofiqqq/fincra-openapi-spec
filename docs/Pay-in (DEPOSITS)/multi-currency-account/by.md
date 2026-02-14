@@ -122,3 +122,12 @@ Please find below the request parameters for the endpoint.
 | consent.termsAndConditionAcceptance.ipAddress                      | Yes         | string              | IP address at the time of consent (IPv4 / IPv6)                                                                                                                                                                                                              |
 
 <br />
+
+API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-account)
+
+> 📘 Important
+>
+> * User consent must be captured before a Virtual Account request is fully processed.
+> * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
+>
+>
