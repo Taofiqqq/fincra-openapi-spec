@@ -128,6 +128,146 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 > 📘 Important
 >
 > * User consent must be captured before a Virtual Account request is fully processed.
+>
 > * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
->
->
+
+<br />
+
+### 2 - Request a virtual account
+
+Make an API request to the [create virtual account endpoint](/reference/create-fcy-virtual-account).
+
+Endpoint:
+
+```coffeescript POST
+{{base_url}}/profile/virtual-accounts/requests
+```
+```coffeescript cURL
+curl --location 'https://api.fincra.com/profile/virtual-accounts/requests' \
+--header 'api-key: <Your API secret key>' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+```
+
+Payload:
+
+```json Corporate Request
+{
+    "currency": "GBP",
+    "accountType": "corporate",
+    "purpose": "third_party", 
+    "merchantReference": "{{$rando}}",
+    "KYCInformation": {
+        "businessRegistrationName": "Meenah Books",
+        "businessRegistrationNumber": "1238##3919954",
+        "businessRegistrationCountry": "NG",
+        "tradingName": "Meenah Books",
+        "email": "mina@email.com",
+        "phone": "+1415df52671JJJ",
+        "website": "https://www.website.com",
+        "address": {
+            "countryOfResidence": "US",
+            "state": "NY",
+            "city": "New York",
+            "zip": "10000",
+            "street": "Business Ave",
+            "number": "456"
+        },
+        "directorsName": "Minat Bel",
+        "incorporationDate": "2000-01-15",
+        "incorporationCountryCode": "US",
+        "taxIdentificationNumber": "12-34g589",
+        "taxCountry": "US",
+        "companyType": "corporation",
+        "primarySourceOfFunds": "business_income",
+        "businessCategory": "retail",
+        "businessCategoryDescription": "Technology services and software development",
+        "primaryBusiness": "software",
+        "primaryBusinessDescription": "Software development and consulting services",
+        "estimatedMonthlyTurnover": "50000",
+        "projectedMonthlyInflow": "60000",
+        "projectedMonthlyOutflow": "40000",
+        "projectedTransactionFrequency": "daily",
+        "projectedMonthlyTransactionCount": "500",
+        "riskRating": "low",
+        "regulationStatus": "registered",
+        "regulator": "SEC",
+        "regulationNumber": "REG-15645",
+        "annualIncome": "500000", 
+        "fundsTransferCorridors": [
+            "US",
+            "GB",
+            "EU"
+        ],
+        "countriesOfOperation": [
+            "US",
+            "CA",
+            "GB"
+        ],
+        "expectedCounterparties": [
+            "customers",
+            "friends"
+        ],
+        "tradeInternationally": true,
+        "ultimateBeneficialOwners": [
+            {
+                "firstName": "John",
+                "lastName": "Doe",
+                "middleName": "Michael",
+                "dateOfBirth": "1000-01-01",
+                "nationality": "US",
+                "citizenships": [
+                    "US"
+                ],
+                "emailAddress": "john.doe@example.com",
+                "phoneNumber": "+14552671",
+                "address": {
+                    "countryOfResidence": "US",
+                    "state": "NY",
+                    "city": "New York",
+                    "zip": "10000",
+                    "street": "789 Owner St",
+                    "number": "789"
+                },
+                "taxCountry": "US",
+                "taxNumber": "123-45-679",
+                "beneficialOwnerType": "beneficial_owner",
+                "usResidencyStatus": "resident",
+                "politicallyExposedPerson": false,
+                "percentageOwnership": "51",
+                "title": "CEO",
+                "document": {
+                    "type": "passport",
+                    "number": "B00000",
+                    "issuedCountryCode": "US",
+                    "issuedBy": "US Department of State",
+                    "issuedDate": "2000-01-01",
+                    "expirationDate": "2030-01-01"
+                },
+                "meansOfId": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+                "utilityBill": "https://i.ibb.co/YFjRYfzj/1000074297.png"
+            }
+        ],
+        "businessPartners": []
+    },
+    "metadata": {
+        "customerid": "12355344",
+        "type": "blueee"
+    },
+    "regulatoryEvidence": "https://i.ibb.co/YFjRYfzj/1000074297.png", 
+    "incorporationDocuments": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "articleOfIncorporation": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "beneficialOwnershipCertificate": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "sourceOfFunds": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "utilityBill": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "entityName": "Acme Corporation",
+  "paymentFlowDescription": "Business operations, client payments, and vendor payments",
+"isTermsAccepted": true,
+    "termsAndConditionAcceptance": {
+        "date": "2025-01-31T10:30:00.000Z",
+        "ipAddress": "100.200.200.200"
+
+}
+```
+```json Response
+```
