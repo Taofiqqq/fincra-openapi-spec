@@ -413,7 +413,7 @@ Payload:
 You would receive a JSON snippet with the details of the virtual account, along with the `id` and `status`:
 
 ```json Response
-{{
+{
     "success": true,
     "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Thank you, Peter Buchanan. We are now processing your GBP account request",
     "data": {
