@@ -115,7 +115,7 @@ Please find below the request parameters for the endpoint.
 | KYCInformation.ultimateBeneficialOwners.meansOfId                  | Yes         | string/file         | Identification document. This can be a File Upload or a URL link to the document.                                                                                                                                                                            |
 | KYCInformation.ultimateBeneficialOwners.utilityBill                | Yes         | string/file         | Recent utility bill for address verification. This can be a File Upload or a URL link to the document.                                                                                                                                                       |
 | KYCInformation.ultimateBeneficialOwners.bankStatement              | Yes         | string/file         | Recent bank statement. This can be a File Upload or a URL link to the document.                                                                                                                                                                              |
-| KYCInformation.regulatoryEvidence                                  | Conditional | string/file         | Supporting document where regulation status is not "regulated" or "licensed"                                                                                                                                                                                 |
+| KYCInformation.regulatoryEvidence                                  | Conditional | string/file         | Supporting document where regulation status is  "regulated" or "licensed"                                                                                                                                                                                    |
 | merchantReference                                                  | Yes         | string              | A reference you can use to track the request.                                                                                                                                                                                                                |
 | consent.isTermsAccepted                                            | Yes         | boolean             | A confirmation that consent has been accepted                                                                                                                                                                                                                |
 | consent.termsAndConditionAcceptance.date                           | Yes         | string              | Timestamp when consent was captured (ISO 8601 UTC)                                                                                                                                                                                                           |
@@ -133,10 +133,10 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 >
 > * termsAndConditionAcceptance.date must be in ISO 8601 format and should be in UTC (recommended suffix: Z).
 >
->     Valid examples: YYYY-MM-DDTHH:MM:SSZ
+>   Valid examples: YYYY-MM-DDTHH:MM:SSZ
 >
->     2026-01-31T10:30:00Z
->     2026-01-31T10:30:00.000Z
+>   2026-01-31T10:30:00Z
+>   2026-01-31T10:30:00.000Z
 >
 > * termsAndConditionAcceptance.ipAddress must be a valid IPv4 or IPv6 address captured from the end user.
 >   Valid IPv4 example: 102.216.203.244
