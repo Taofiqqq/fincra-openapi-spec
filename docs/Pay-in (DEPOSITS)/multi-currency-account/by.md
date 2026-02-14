@@ -132,11 +132,13 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 > * consent.isTermsAccepted must be true. Requests with false will be rejected.
 >
 > * termsAndConditionAcceptance.date must be in ISO 8601 format and should be in UTC (recommended suffix: Z).
->   Valid examples:
->   2026-01-31T10:30:00Z
->   2026-01-31T10:30:00.000Z
 >
-> * termsAndConditionAcceptance.ipAddress must be a valid IPv4 or IPv6 address captured from the end user at the time of consent.
+>     Valid examples: YYYY-MM-DDTHH:MM:SSZ
+>
+>     2026-01-31T10:30:00Z
+>     2026-01-31T10:30:00.000Z
+>
+> * termsAndConditionAcceptance.ipAddress must be a valid IPv4 or IPv6 address captured from the end user.
 >   Valid IPv4 example: 102.216.203.244
 >   Valid IPv6 example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 >
