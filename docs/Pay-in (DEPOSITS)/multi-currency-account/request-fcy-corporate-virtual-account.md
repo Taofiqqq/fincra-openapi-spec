@@ -626,7 +626,7 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 Important Notes:
 
-* A Virtual Account request is considered complete only after the customer opens the consent link and accepts the Terms & Conditions. If consent is not completed within the time given, the request may expire and must be re-initiated.
+* A Virtual Account request is considered complete only after the customer opens the `**consent link **`and accepts the Terms & Conditions. If consent is not completed within the time given, the request may expire and must be re-initiated.
 * `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
 * It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
 
