@@ -302,28 +302,117 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 ```json Response
 {
-    "success": true,
-    "message": "Thank you, John Doe. We are now processing your EUR account request",
-    "data": {
-        "status": "pending",
-        "isActive": false,
-        "accountNumber": null,
-        "merchantReference": null,
-        "virtualAccountType": "additional",
-        "riskRating": "high",
-        "channelKycUpdateStatus": null,
-        "channelKycUpdateResponse": null,
-        "metadata": null,
-        "_id": "661e83489349bwe342c6a70",
-        "business": "62787427843dfn3848ws",
-        "currency": "USD",
-        "accountType": "corporate",
-        "entityType": "main_account",
-        "currencyType": "fiat",
-        "createdAt": "2025-04-16T14:03:50.757Z",
-        "updatedAt": "2025-04-16T14:03:50.757Z"
-    }
+    "currency": "GBP",
+    "accountType": "corporate",
+    "purpose": "third_party", 
+    "merchantReference": "{{$randomBankAccountBic}}",
+    "KYCInformation": {
+        "businessRegistrationName": "Meenah Books",
+        "businessRegistrationNumber": "1234*888*8954",
+        "businessRegistrationCountry": "NG",
+        "tradingName": "Meenah Books",
+        "email": "min@email.com",
+        "phone": "+51413452671JJJ",
+        "website": "https://www.website.com",
+        "address": {
+            "countryOfResidence": "US",
+            "state": "NY",
+            "city": "New York",
+            "zip": "103401",
+            "street": "Street Ave",
+            "number": "001"
+        },
+        "directorsName": "Mina Bell",
+        "incorporationDate": "1900-01-15",
+        "incorporationCountryCode": "US",
+        "taxIdentificationNumber": "12-3452fg89",
+        "taxCountry": "US",
+        "companyType": "corporation",
+        "primarySourceOfFunds": "business_income",
+        "businessCategory": "retail",
+        "businessCategoryDescription": "Technology services and software development",
+        "primaryBusiness": "software",
+        "primaryBusinessDescription": "Software development and consulting services",
+        "estimatedMonthlyTurnover": "50000",
+        "projectedMonthlyInflow": "60000",
+        "projectedMonthlyOutflow": "40000",
+        "projectedTransactionFrequency": "daily",
+        "projectedMonthlyTransactionCount": "500",
+        "riskRating": "low",
+        "regulationStatus": "registered",
+        "regulator": "SEC",
+        "regulationNumber": "REG-1r4545",
+        "annualIncome": "500000", 
+        "fundsTransferCorridors": [
+            "US",
+            "GB",
+            "EU"
+        ],
+        "countriesOfOperation": [
+            "US",
+            "CA",
+            "GB"
+        ],
+        "expectedCounterparties": [
+            "customers",
+            "friends"
+        ],
+        "tradeInternationally": true,
+        "ultimateBeneficialOwners": [
+            {
+                "firstName": "John",
+                "lastName": "Doe",
+                "middleName": "Michael",
+                "dateOfBirth": "1980-01-01",
+                "nationality": "US",
+                "citizenships": [
+                    "US"
+                ],
+                "emailAddress": "john.doe@example.com",
+                "phoneNumber": "+1635552671",
+                "address": {
+                    "countryOfResidence": "US",
+                    "state": "NY",
+                    "city": "New York",
+                    "zip": "10001",
+                    "street": "789 Owner St",
+                    "number": "789"
+                },
+                "taxCountry": "US",
+                "taxNumber": "123-45-6789",
+                "beneficialOwnerType": "beneficial_owner",
+                "usResidencyStatus": "resident",
+                "politicallyExposedPerson": false,
+                "percentageOwnership": "51",
+                "title": "CEO",
+                "document": {
+                    "type": "passport",
+                    "number": "B000000",
+                    "issuedCountryCode": "US",
+                    "issuedBy": "US Department of State",
+                    "issuedDate": "2000-01-01",
+                    "expirationDate": "2030-01-01"
+                },
+                "meansOfId": "https://i.ibb.co/YFjRYfzj/10074297.png",
+                "utilityBill": "https://i.ibb.co/YFjRYfzj/100007.png"
+            }
+        ],
+        "businessPartners": []
+    },
+    "metadata": {
+        "customerid": "12312344",
+        "type": "blueee"
+    },
+    "regulatoryEvidence": "https://i.ibb.co/YFjRYfzj/10074297.png", 
+    "incorporationDocuments": "https://i.ibb.co/YFjRYfz1000074297.png",
+    "articleOfIncorporation": "https://i.ibb.co/YFjRYfzj/100074297.png",
+    "beneficialOwnershipCertificate": "https://i.ibco/YFjRYfzj/1000074297.png",
+    "sourceOfFunds": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "utilityBill": "https://i.ibb.co/YFjRYfzj/100074297.png",
+    "entityName": "Corporation",
+    "paymentFlowDescription": "Business operations, client payments, and vendor payments"
 }
+
 ```
 
 Important Notes:
