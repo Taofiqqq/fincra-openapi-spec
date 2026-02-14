@@ -303,24 +303,24 @@ Payload:
     "merchantReference": "{{$randomBankAccountBic}}",
     "KYCInformation": {
         "businessRegistrationName": "Meenah Books",
-        "businessRegistrationNumber": "1234567919954",
+        "businessRegistrationNumber": "1238##3919954",
         "businessRegistrationCountry": "NG",
         "tradingName": "Meenah Books",
-        "email": "aminat+1@fincra.com",
-        "phone": "+14155552671JJJ",
-        "website": "https://www.acme.com",
+        "email": "mina@email.com",
+        "phone": "+1415df52671JJJ",
+        "website": "https://www.website.com",
         "address": {
             "countryOfResidence": "US",
             "state": "NY",
             "city": "New York",
-            "zip": "10001",
-            "street": "456 Business Ave",
+            "zip": "10000",
+            "street": "Business Ave",
             "number": "456"
         },
-        "directorsName": "Aminat Bello",
-        "incorporationDate": "2020-01-15",
+        "directorsName": "Minat Bel",
+        "incorporationDate": "2000-01-15",
         "incorporationCountryCode": "US",
-        "taxIdentificationNumber": "12-3456789",
+        "taxIdentificationNumber": "12-34g589",
         "taxCountry": "US",
         "companyType": "corporation",
         "primarySourceOfFunds": "business_income",
@@ -336,7 +336,7 @@ Payload:
         "riskRating": "low",
         "regulationStatus": "registered",
         "regulator": "SEC",
-        "regulationNumber": "REG-12345",
+        "regulationNumber": "REG-15645",
         "annualIncome": "500000", 
         "fundsTransferCorridors": [
             "US",
@@ -358,23 +358,23 @@ Payload:
                 "firstName": "John",
                 "lastName": "Doe",
                 "middleName": "Michael",
-                "dateOfBirth": "1980-01-01",
+                "dateOfBirth": "1000-01-01",
                 "nationality": "US",
                 "citizenships": [
                     "US"
                 ],
                 "emailAddress": "john.doe@example.com",
-                "phoneNumber": "+14155552671",
+                "phoneNumber": "+14552671",
                 "address": {
                     "countryOfResidence": "US",
                     "state": "NY",
                     "city": "New York",
-                    "zip": "10001",
+                    "zip": "10000",
                     "street": "789 Owner St",
                     "number": "789"
                 },
                 "taxCountry": "US",
-                "taxNumber": "123-45-6789",
+                "taxNumber": "123-45-679",
                 "beneficialOwnerType": "beneficial_owner",
                 "usResidencyStatus": "resident",
                 "politicallyExposedPerson": false,
@@ -382,10 +382,10 @@ Payload:
                 "title": "CEO",
                 "document": {
                     "type": "passport",
-                    "number": "B98765432",
+                    "number": "B00000",
                     "issuedCountryCode": "US",
                     "issuedBy": "US Department of State",
-                    "issuedDate": "2015-01-01",
+                    "issuedDate": "2000-01-01",
                     "expirationDate": "2030-01-01"
                 },
                 "meansOfId": "https://i.ibb.co/YFjRYfzj/1000074297.png",
@@ -395,10 +395,10 @@ Payload:
         "businessPartners": []
     },
     "metadata": {
-        "customerid": "12312344",
+        "customerid": "12355344",
         "type": "blueee"
     },
-    "regulatoryEvidence": "https://i.ibb.co/YFjRYfzj/1000074297.png", // required
+    "regulatoryEvidence": "https://i.ibb.co/YFjRYfzj/1000074297.png", 
     "incorporationDocuments": "https://i.ibb.co/YFjRYfzj/1000074297.png",
     "articleOfIncorporation": "https://i.ibb.co/YFjRYfzj/1000074297.png",
     "beneficialOwnershipCertificate": "https://i.ibb.co/YFjRYfzj/1000074297.png",
