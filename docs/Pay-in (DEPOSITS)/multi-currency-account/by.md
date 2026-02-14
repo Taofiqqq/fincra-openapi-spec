@@ -453,3 +453,11 @@ Payload:
 
 
 ```
+
+<br />
+
+<br />
+
+### 3 - Retrieving the details of a virtual bank account
+
+The details of a Virtual Bank Account can be retrieved at any time after creating the account. To do this, you will need to make an API request to the [Virtual Bank Account Query API](/reference/get-one-virtual-account).
