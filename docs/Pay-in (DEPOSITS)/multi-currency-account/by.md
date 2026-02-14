@@ -270,4 +270,186 @@ Payload:
 }
 ```
 ```json Response
+{
+    "success": true,
+    "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Thank you, Peter Buchanan. We are now processing your GBP account request",
+    "data": {
+        "status": "pending",
+        "isActive": false,
+        "accountNumber": null,
+        "alternateAccountNumbers": [],
+        "merchantReference": "ACXLRW1",
+        "KYCInformation": {
+            "businessRegistrationName": "Meenah Books",
+            "businessRegistrationNumber": "1234519955",
+            "businessRegistrationCountry": "NG",
+            "tradingName": "Meenah Books",
+            "email": "mina@email.com",
+            "phone": "+14155552671",
+            "website": "https://www.website.com",
+            "address": {
+                "countryOfResidence": "US",
+                "state": "NY",
+                "city": "New York",
+                "zip": "10000",
+                "street": "456 Business Ave",
+                "number": "456"
+            },
+            "directorsName": "minat Bel",
+            "incorporationDate": "2000-01-15T00:00:00.000Z",
+            "incorporationCountryCode": "US",
+            "taxIdentificationNumber": "12-34589",
+            "taxCountry": "US",
+            "companyType": "corporation",
+            "primarySourceOfFunds": "business_income",
+            "businessCategory": "retail",
+            "businessCategoryDescription": "Technology services and software development",
+            "primaryBusiness": "software",
+            "primaryBusinessDescription": "Software development and consulting services",
+            "estimatedMonthlyTurnover": "50000",
+            "projectedMonthlyInflow": "60000",
+            "projectedMonthlyOutflow": "40000",
+            "projectedTransactionFrequency": "daily",
+            "projectedMonthlyTransactionCount": "500",
+            "regulationStatus": "registered",
+            "regulator": "SEC",
+            "regulationNumber": "REG-12345",
+            "annualIncome": "500000",
+            "fundsTransferCorridors": [
+                "US",
+                "GB",
+                "EU"
+            ],
+            "countriesOfOperation": [
+                "US",
+                "CA",
+                "GB"
+            ],
+            "expectedCounterparties": [
+                "customers",
+                "friends"
+            ],
+            "tradeInternationally": true,
+            "ultimateBeneficialOwners": [
+                {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "middleName": "Michael",
+                    "dateOfBirth": "1980-01-01T00:00:00.000Z",
+                    "nationality": "US",
+                    "citizenships": [
+                        "US"
+                    ],
+                    "emailAddress": "john.doe@example.com",
+                    "phoneNumber": "+14552671",
+                    "address": {
+                        "countryOfResidence": "US",
+                        "state": "NY",
+                        "city": "New York",
+                        "zip": "10001",
+                        "street": "789 Owner St",
+                        "number": "789"
+                    },
+                    "taxCountry": "US",
+                    "taxNumber": "123-45-6789",
+                    "beneficialOwnerType": "beneficial_owner",
+                    "usResidencyStatus": "resident",
+                    "politicallyExposedPerson": false,
+                    "percentageOwnership": "51",
+                    "title": "CEO",
+                    "document": {
+                        "type": "passport",
+                        "number": "B98765432",
+                        "issuedCountryCode": "US",
+                        "issuedBy": "US Department of State",
+                        "issuedDate": "2015-01-01T00:00:00.000Z",
+                        "expirationDate": "2030-01-01T00:00:00.000Z"
+                    },
+                    "meansOfId": [
+                        {
+                            "name": "1000074297.png",
+                            "url": "https://bucket.s3.amazonaws.com/va_dummy/1000074297_9d61b3-69bc-4b91-aed8-29e1bbd81e11.png"
+                        }
+                    ],
+                    "utilityBill": [
+                        {
+                            "name": "1000074297.png",
+                            "url": "https://bucket.s3.amazonaws.com/va_dummy/10074297_62668ae0-b587-46e8-812e-81fa3129ac9d.png"
+                        }
+                    ],
+                    "attachments": [],
+                    "bankStatement": []
+                }
+            ],
+            "businessPartners": []
+        },
+        "accountInformation": null,
+        "note": null,
+        "accountOpeningFee": 0,
+        "pendingAdditionalInfoCount": 0,
+        "isPermanent": true,
+        "expiresAt": null,
+        "isSuspended": false,
+        "reason": "",
+        "meansOfId": [],
+        "bankStatement": [],
+        "utilityBill": [
+            {
+                "name": "1000074297.png",
+                "url": "https://bucket.s3.amazonaws.com/va_documents/1000074297_63299f25-e245-4204-9fa5-cff0b20bb4ab.png"
+            }
+        ],
+        "virtualAccountType": "additional",
+        "metadata": null,
+        "phoneNumber": null,
+        "sourceOfFunds": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_dummy/1000074297_ee6fb9e0-8b61-4555-8f0c-8f13f158902b.png"
+            }
+        ],
+        "leaseAgreement": [],
+        "beneficialOwnershipCertificate": [
+            {
+                "name": "1000074297.png",
+                "url": "https://bucket.s3.amazonaws.com/va_dummy/1000074297_37baaf2f-58d6-45e4-87f4-d81fd3f261e7.png"
+            }
+        ],
+        "articleOfIncorporation": [
+            {
+                "name": "1000074297.png",
+                "url": "https://bucket.s3.amazonaws.com/va_dummy/1000074297_892fdaa2-05d4-404e-a3ef-09e19e789211.png"
+            }
+        ],
+        "incorporationDocuments": [
+            {
+                "name": "1000074297.png",
+                "url": "https://bucket.s3.amazonaws.com/va_dummy/1000074297_3c5ad31c-38e8-4a6b-ba76-fe00441d63a5.png"
+            }
+        ],
+        "registerOfDirectors": [],
+        "accountOpeningDate": null,
+        "regulatoryEvidence": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_dummy/1000074297_274e8378-7ce3-4ccd-a4a5-929a31322d0e.png"
+            }
+        ],
+        "consentId": "698b348eae88888880*88**",
+        "_id": "*****88*dae43960012f221f6",
+        "customerId": "******43960012f221f8",
+        "business": "**8******4cdbaab9bb4576",
+        "currency": "GBP",
+        "accountType": "corporate",
+        "entityType": "main_account",
+        "currencyType": "fiat",
+        "createdAt": "2025-02-10T13:37:18.185Z",
+        "updatedAt": "2025-02-10T13:37:18.185Z",
+        "consentLink": "null",
+        "consentExpiresAt": "null"
+    }
+}
+
+
+
 ```
