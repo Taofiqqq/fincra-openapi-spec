@@ -4,7 +4,7 @@ excerpt: >-
   Approved merchants may submit consent metadata directly within the Virtual
   Account creation request. 
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
