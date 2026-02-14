@@ -1,5 +1,5 @@
 ---
-title: Request FCY Account (By Pass)
+title: Request FCY Account (Merchant Capture)
 excerpt: >-
   Approved merchants may submit consent metadata directly within the Virtual
   Account creation request. 
