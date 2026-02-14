@@ -187,6 +187,7 @@ Payload:
   "sourceOfFunds": "https://example-bucket.s3.amazonaws.com/dummy_source_funds.pdf",
   "leaseAgreement": "https://example-bucket.s3.amazonaws.com/dummy_lease_agreement.pdf",
   "beneficialOwnershipCertificate": "https://example-bucket.s3.amazonaws.com/dummy_boc.pdf",
+  "regulatoryEvidence": "https://example-bucket.s3.amazonaws.com/dummy_regulatory_evidence.pdf"
   "KYCInformation": {
     "email": "contact@example.com",
     "website": "https://example.com",
@@ -217,6 +218,7 @@ Payload:
     "directorsName": "John Smith",
     "incorporationCountryCode": "NG",
     "taxIdentificationNumber": "TX-00012345",
+    "annualIncome: "50,000",
     "estimatedMonthlyTurnover": "60000",
     "projectedMonthlyInflow": "120000",
     "projectedMonthlyOutflow": "95000",
