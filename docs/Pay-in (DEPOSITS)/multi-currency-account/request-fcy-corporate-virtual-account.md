@@ -20,6 +20,7 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 
 > 📘 Important
 >
+> * User consent must be captured before a Virtual Account request is fully processed.
 > * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
 > * Monthly limit per virtual account is 10,000 USD/GBP
 > * The USD account supports ACH, SWIFT and Fedwire transactions, ensuring swift and efficient payments.
@@ -587,8 +588,8 @@ You would receive a JSON snippet with the details of the virtual account, along 
         "currencyType": "fiat",
         "createdAt": "2025-02-10T13:37:18.185Z",
         "updatedAt": "2025-02-10T13:37:18.185Z",
-        "consentLink": "https://staging/virtual-accounts/terms?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zZW50SWQiOiI2OThiMzQ4ZWFlNDM5NjAwMTJmMjIyMDYiLCJ0aW1lc3RhbXAiOjE3NzA3MzA2MzgyNjQsImlhdCI6MTc3MDczMDYzOCwiZXhwIjoxNzcwNzczODM4fQ.P5_rp9oWmVSgOB1qu8ebNPDvz1710TaVhdHmgw4VgK5s1Y_sLTmF7KWpjH6UW2g7qTUdikiOVTJZzYwmyZBD0OoCUlhyTcAnDNAE3guyQHrWB6ccjm6FBmWkawjUbsD01oi-wMHjOosq5OJ2SgQVz5ZP-O1tyk_jIAE82mo2gOE",
-        "consentExpiresAt": "2026-02-11T01:37:18.248Z"
+        "consentLink": "https://staging/virtual-accounts/terms?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zZW50SWQiOiI2OThiMzQ4ZWFlNDM5NjAwMTJmMjIyMDYiLCJ0aW1lc3RhbXAiOjE3NzA3MzA2MzgyNjQsImlhdCI6MTc3MDczMDYzOCwiZXhwIjoxNzcwNzczODM4fQ.P5_rp9oWmVSgOB1qu8ebNPDvz1710TaVhdHmgw4VgK5s1Y_sLTmF7KWpjH6UW2g7qTUdikiOVTJZzYwmyZBD0OoCUlhyTcAnDNAE3guyQHrWB6ccjm6FBmWkawjUbsD01oi-wMHjOosq5OJ2SgQVz5ZP-O1tyk_jIAE8gOE",
+        "consentExpiresAt": "2025-02-11T01:37:18.248Z"
     }
 }
 
@@ -625,6 +626,7 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 Important Notes:
 
+* A Virtual Account request is considered complete only after the customer opens the consent link and accepts the Terms & Conditions. If consent is not completed within the time given, the request may expire and must be re-initiated.
 * `\_id` : This is the unique Identifier for the virtual account that was just created. Ensure to save this ID, as it would be needed when trying to retrieve the details of the created bank account or when retrieving transaction records.
 * It is also good to note that other fields would be included in the response. The ones shared are the ones that are necessary to note. The full payload sent in the request would also be returned in this response.
 
