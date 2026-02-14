@@ -304,115 +304,183 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 ```json Response
 {
-    "currency": "GBP",
-    "accountType": "corporate",
-    "purpose": "third_party", 
-    "merchantReference": "{{$randomBankAccountBic}}",
-    "KYCInformation": {
-        "businessRegistrationName": "Meenah Books",
-        "businessRegistrationNumber": "1234*888*8954",
-        "businessRegistrationCountry": "NG",
-        "tradingName": "Meenah Books",
-        "email": "min@email.com",
-        "phone": "+51413452671JJJ",
-        "website": "https://www.website.com",
-        "address": {
-            "countryOfResidence": "US",
-            "state": "NY",
-            "city": "New York",
-            "zip": "103401",
-            "street": "Street Ave",
-            "number": "001"
+    "success": true,
+    "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Thank you, Peter Buchanan. We are now processing your GBP account request",
+    "data": {
+        "status": "pending",
+        "isActive": false,
+        "accountNumber": null,
+        "alternateAccountNumbers": [],
+        "merchantReference": "ACXELRW1",
+        "KYCInformation": {
+            "businessRegistrationName": "Meenah Books",
+            "businessRegistrationNumber": "1234567919955",
+            "businessRegistrationCountry": "NG",
+            "tradingName": "Meenah Books",
+            "email": "aminat+1@fincra.com",
+            "phone": "+14155552671",
+            "website": "https://www.acme.com",
+            "address": {
+                "countryOfResidence": "US",
+                "state": "NY",
+                "city": "New York",
+                "zip": "10001",
+                "street": "456 Business Ave",
+                "number": "456"
+            },
+            "directorsName": "Aminat Bello",
+            "incorporationDate": "2020-01-15T00:00:00.000Z",
+            "incorporationCountryCode": "US",
+            "taxIdentificationNumber": "12-3456789",
+            "taxCountry": "US",
+            "companyType": "corporation",
+            "primarySourceOfFunds": "business_income",
+            "businessCategory": "retail",
+            "businessCategoryDescription": "Technology services and software development",
+            "primaryBusiness": "software",
+            "primaryBusinessDescription": "Software development and consulting services",
+            "estimatedMonthlyTurnover": "50000",
+            "projectedMonthlyInflow": "60000",
+            "projectedMonthlyOutflow": "40000",
+            "projectedTransactionFrequency": "daily",
+            "projectedMonthlyTransactionCount": "500",
+            "regulationStatus": "registered",
+            "regulator": "SEC",
+            "regulationNumber": "REG-12345",
+            "annualIncome": "500000",
+            "fundsTransferCorridors": [
+                "US",
+                "GB",
+                "EU"
+            ],
+            "countriesOfOperation": [
+                "US",
+                "CA",
+                "GB"
+            ],
+            "expectedCounterparties": [
+                "customers",
+                "friends"
+            ],
+            "tradeInternationally": true,
+            "ultimateBeneficialOwners": [
+                {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "middleName": "Michael",
+                    "dateOfBirth": "1980-01-01T00:00:00.000Z",
+                    "nationality": "US",
+                    "citizenships": [
+                        "US"
+                    ],
+                    "emailAddress": "john.doe@example.com",
+                    "phoneNumber": "+14155552671",
+                    "address": {
+                        "countryOfResidence": "US",
+                        "state": "NY",
+                        "city": "New York",
+                        "zip": "10001",
+                        "street": "789 Owner St",
+                        "number": "789"
+                    },
+                    "taxCountry": "US",
+                    "taxNumber": "123-45-6789",
+                    "beneficialOwnerType": "beneficial_owner",
+                    "usResidencyStatus": "resident",
+                    "politicallyExposedPerson": false,
+                    "percentageOwnership": "51",
+                    "title": "CEO",
+                    "document": {
+                        "type": "passport",
+                        "number": "B98765432",
+                        "issuedCountryCode": "US",
+                        "issuedBy": "US Department of State",
+                        "issuedDate": "2015-01-01T00:00:00.000Z",
+                        "expirationDate": "2030-01-01T00:00:00.000Z"
+                    },
+                    "meansOfId": [
+                        {
+                            "name": "1000074297.png",
+                            "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_9df861b3-69bc-4b91-aed8-29e1bbd81e11.png"
+                        }
+                    ],
+                    "utilityBill": [
+                        {
+                            "name": "1000074297.png",
+                            "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_62668ae0-b587-46e8-812e-81fa3129ac9d.png"
+                        }
+                    ],
+                    "attachments": [],
+                    "bankStatement": []
+                }
+            ],
+            "businessPartners": []
         },
-        "directorsName": "Mina Bell",
-        "incorporationDate": "1900-01-15",
-        "incorporationCountryCode": "US",
-        "taxIdentificationNumber": "12-3452fg89",
-        "taxCountry": "US",
-        "companyType": "corporation",
-        "primarySourceOfFunds": "business_income",
-        "businessCategory": "retail",
-        "businessCategoryDescription": "Technology services and software development",
-        "primaryBusiness": "software",
-        "primaryBusinessDescription": "Software development and consulting services",
-        "estimatedMonthlyTurnover": "50000",
-        "projectedMonthlyInflow": "60000",
-        "projectedMonthlyOutflow": "40000",
-        "projectedTransactionFrequency": "daily",
-        "projectedMonthlyTransactionCount": "500",
-        "riskRating": "low",
-        "regulationStatus": "registered",
-        "regulator": "SEC",
-        "regulationNumber": "REG-1r4545",
-        "annualIncome": "500000", 
-        "fundsTransferCorridors": [
-            "US",
-            "GB",
-            "EU"
-        ],
-        "countriesOfOperation": [
-            "US",
-            "CA",
-            "GB"
-        ],
-        "expectedCounterparties": [
-            "customers",
-            "friends"
-        ],
-        "tradeInternationally": true,
-        "ultimateBeneficialOwners": [
+        "accountInformation": null,
+        "note": null,
+        "accountOpeningFee": 0,
+        "pendingAdditionalInfoCount": 0,
+        "isPermanent": true,
+        "expiresAt": null,
+        "isSuspended": false,
+        "reason": "",
+        "meansOfId": [],
+        "bankStatement": [],
+        "utilityBill": [
             {
-                "firstName": "John",
-                "lastName": "Doe",
-                "middleName": "Michael",
-                "dateOfBirth": "1980-01-01",
-                "nationality": "US",
-                "citizenships": [
-                    "US"
-                ],
-                "emailAddress": "john.doe@example.com",
-                "phoneNumber": "+1635552671",
-                "address": {
-                    "countryOfResidence": "US",
-                    "state": "NY",
-                    "city": "New York",
-                    "zip": "10001",
-                    "street": "789 Owner St",
-                    "number": "789"
-                },
-                "taxCountry": "US",
-                "taxNumber": "123-45-6789",
-                "beneficialOwnerType": "beneficial_owner",
-                "usResidencyStatus": "resident",
-                "politicallyExposedPerson": false,
-                "percentageOwnership": "51",
-                "title": "CEO",
-                "document": {
-                    "type": "passport",
-                    "number": "B000000",
-                    "issuedCountryCode": "US",
-                    "issuedBy": "US Department of State",
-                    "issuedDate": "2000-01-01",
-                    "expirationDate": "2030-01-01"
-                },
-                "meansOfId": "https://i.ibb.co/YFjRYfzj/10074297.png",
-                "utilityBill": "https://i.ibb.co/YFjRYfzj/100007.png"
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_63299f25-e245-4204-9fa5-cff0b20bb4ab.png"
             }
         ],
-        "businessPartners": []
-    },
-    "metadata": {
-        "customerid": "12312344",
-        "type": "blueee"
-    },
-    "regulatoryEvidence": "https://i.ibb.co/YFjRYfzj/10074297.png", 
-    "incorporationDocuments": "https://i.ibb.co/YFjRYfz1000074297.png",
-    "articleOfIncorporation": "https://i.ibb.co/YFjRYfzj/100074297.png",
-    "beneficialOwnershipCertificate": "https://i.ibco/YFjRYfzj/1000074297.png",
-    "sourceOfFunds": "https://i.ibb.co/YFjRYfzj/1000074297.png",
-    "utilityBill": "https://i.ibb.co/YFjRYfzj/100074297.png",
-    "entityName": "Corporation",
-    "paymentFlowDescription": "Business operations, client payments, and vendor payments"
+        "virtualAccountType": "additional",
+        "metadata": null,
+        "phoneNumber": null,
+        "sourceOfFunds": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_ee6fb9e0-8b61-4555-8f0c-8f13f158902b.png"
+            }
+        ],
+        "leaseAgreement": [],
+        "beneficialOwnershipCertificate": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_37baaf2f-58d6-45e4-87f4-d81fd3f261e7.png"
+            }
+        ],
+        "articleOfIncorporation": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_892fdaa2-05d4-404e-a3ef-09e19e789211.png"
+            }
+        ],
+        "incorporationDocuments": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_3c5ad31c-38e8-4a6b-ba76-fe00441d63a5.png"
+            }
+        ],
+        "registerOfDirectors": [],
+        "accountOpeningDate": null,
+        "regulatoryEvidence": [
+            {
+                "name": "1000074297.png",
+                "url": "https://fincra-staging-bucket.s3.amazonaws.com/va_documents/1000074297_274e8378-7ce3-4ccd-a4a5-929a31322d0e.png"
+            }
+        ],
+        "consentId": "698b348eae43960012f22206",
+        "_id": "698b348dae43960012f221f6",
+        "customerId": "698b348eae43960012f221f8",
+        "business": "64493f61864cdbaab9bb4576",
+        "currency": "GBP",
+        "accountType": "corporate",
+        "entityType": "main_account",
+        "currencyType": "fiat",
+        "createdAt": "2026-02-10T13:37:18.185Z",
+        "updatedAt": "2026-02-10T13:37:18.185Z",
+        "consentLink": "https://staging.flq.rocks/virtual-accounts/terms?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zZW50SWQiOiI2OThiMzQ4ZWFlNDM5NjAwMTJmMjIyMDYiLCJ0aW1lc3RhbXAiOjE3NzA3MzA2MzgyNjQsImlhdCI6MTc3MDczMDYzOCwiZXhwIjoxNzcwNzczODM4fQ.P5_rp9oWmVSgOB1qu8ebNPDvz1710TaVhdHmgw4VgK5s1Y_sLTmF7KWpjH6UW2g7qTUdikiOVTJZzYwmyZBD0OoCUlhyTcAnDNAE3guyQHrWB6ccjm6FBmWkawjUbsD01oi-wMHjOosq5OJ2SgQVz5ZP-O1tyk_jIAE82mo2gOE",
+        "consentExpiresAt": "2026-02-11T01:37:18.248Z"
+    }
 }
 
 ```
