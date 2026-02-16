@@ -41,7 +41,7 @@ Virtual accounts are currently available in the following currencies :
 | US Dollar       | USD           | ACH, SWIFT and Fedwire | Yes          |
 | EURO            | EUR           | SEPA, SEPA Instant     | Yes          |
 | British  Pounds | GBP           | FPS, CHAPS             | Yes          |
-| CAD Dollar      | CAD           | Interac Etransfer      | Yes          |
+| CA Dollar       | CAD           | Interac Etransfer      | Yes          |
 
 ## API Guide
 
@@ -56,7 +56,7 @@ Please find below the request parameters for the endpoint.
 | currency                                                           | Yes         | string              | The virtual account currency. E.g., USD                                                                                                                                                                                                                      |
 | accountType                                                        | Yes         | string              | `corporate` for corporate accounts.                                                                                                                                                                                                                          |
 | entityName                                                         | Yes         | string              | Registered legal name of the business entity.                                                                                                                                                                                                                |
-| reason                                                             | Yes         | string              | Short reason or purpose for the account request (e.g., `Recieving payments`, `Live onboarding`).                                                                                                                                                             |
+| reason                                                             | Yes         | string              | Reason for account request (e.g., `Recieving payments`, `Salary`).                                                                                                                                                                                           |
 | purpose                                                            | Yes         | string              | Purpose of the account. Accepted value: `third_party`.                                                                                                                                                                                                       |
 | utilityBill                                                        | Yes         | string/file         | Recent utility bill or valid address proof document (within 3 months). This can be a File Upload or a URL link to the document.                                                                                                                              |
 | bankStatement                                                      | No          | string/file         | Bank statement as address proof. Required if used as `utilityBill`. This can be a File Upload or a URL link to the document.                                                                                                                                 |
