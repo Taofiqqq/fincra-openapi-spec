@@ -298,6 +298,7 @@ Payload:
 {
     "currency": "GBP",
     "accountType": "corporate",
+    "reason": "Demo Submission",
     "purpose": "third_party", 
     "merchantReference": "{{$randomBankAccountBic}}",
     "KYCInformation": {
@@ -306,7 +307,7 @@ Payload:
         "businessRegistrationCountry": "NG",
         "tradingName": "Meenah Books",
         "email": "mina@email.com",
-        "phone": "+1415df52671JJJ",
+        "phone": "+141552671000",
         "website": "https://www.website.com",
         "address": {
             "countryOfResidence": "US",
@@ -337,10 +338,10 @@ Payload:
         "regulator": "SEC",
         "regulationNumber": "REG-15645",
         "annualIncome": "500000", 
-        "fundsTransferCorridors": [
+        "fundsTransferCorridors": [ 
             "US",
             "GB",
-            "EU"
+            "NG"
         ],
         "countriesOfOperation": [
             "US",
@@ -388,7 +389,9 @@ Payload:
                     "expirationDate": "2030-01-01"
                 },
                 "meansOfId": "https://i.ibb.co/YFjRYfzj/1000074297.png",
-                "utilityBill": "https://i.ibb.co/YFjRYfzj/1000074297.png"
+                "utilityBill": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+                "bankStatement": "https://i.ibb.co/YFjRYfzj/1000074297.png"
+
             }
         ],
         "businessPartners": []
