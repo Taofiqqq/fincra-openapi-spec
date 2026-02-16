@@ -394,7 +394,15 @@ Payload:
 
             }
         ],
-        "businessPartners": []
+      "businessPartners": [
+     {
+        "name": "Alpha Traders Ltd.",
+        "incorporationCountryCode": "UK",
+        "plannedTransfersQuantityMonth": 40,
+        "plannedTransfersEurVolumeMonth": 75000,
+        "basisPartnership": "Distribution",
+        "website": "https://alphatraders.uk"
+      }]
     },
     "metadata": {
         "customerid": "12355344",
