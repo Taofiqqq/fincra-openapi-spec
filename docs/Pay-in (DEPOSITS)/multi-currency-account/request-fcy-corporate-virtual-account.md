@@ -414,6 +414,8 @@ Payload:
     "beneficialOwnershipCertificate": "https://i.ibb.co/YFjRYfzj/1000074297.png",
     "sourceOfFunds": "https://i.ibb.co/YFjRYfzj/1000074297.png",
     "utilityBill": "https://i.ibb.co/YFjRYfzj/1000074297.png",
+    "bankStatement":"https://i.ibb.co/YFjRYfzj/1000074297.png" 
+,
     "entityName": "Acme Corporation",
     "paymentFlowDescription": "Business operations, client payments, and vendor payments"
 }
