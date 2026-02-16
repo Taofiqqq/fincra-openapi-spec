@@ -22,7 +22,7 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 >
 > * User consent must be captured before a Virtual Account request is fully processed.
 > * Funds received by a virtual account created, settles in the respective currency balance of the merchant.
-> * Monthly limit per virtual account is 10,000 USD/GBP
+> * Monthly limit per virtual account is 10,000 USD/GBP/EUR/CAD
 > * The USD account supports ACH, SWIFT and Fedwire transactions, ensuring swift and efficient payments.
 > * The EUR account supports SEPA and SEPA Instant ensuring swift and efficient payments across Europe.
 > * The GBP account supports FPS and CHAPS ensuring swift and efficient payments.
