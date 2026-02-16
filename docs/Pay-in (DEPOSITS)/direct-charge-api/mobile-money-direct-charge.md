@@ -26,15 +26,17 @@ Kindly find the currencies and providers supported for mobile money payments bel
 
 ## List Of Available Operators (Providers)
 
-| KES               | GHS                        | UGX    | ZMW    | TZS      | XOF    | XAF    |
-| :---------------- | :------------------------- | :----- | :----- | :------- | :----- | :----- |
-| SAFARICOM (MPESA) | MTN                        | MTN    | MTN    | AIRTEL   | MOOV   | MOOV   |
-| AIRTEL            | AIRTEL\_TIGO, AIRTEL, TIGO | AIRTEL | AIRTEL | TIGOPESA | ORANGE | ORANGE |
-| EQUITEL           | VODAFONE                   |        | ZAMTEL |          | MTN    | MTN    |
-|                   |                            |        |        |          | AIRTEL | AIRTEL |
-|                   |                            |        |        |          | FREE   | FREE   |
+| KES               | GHS                       | UGX    | ZMW    | TZS      | XOF    | XAF    |
+| :---------------- | :------------------------ | :----- | :----- | :------- | :----- | :----- |
+| SAFARICOM (MPESA) | MTN                       | MTN    | MTN    | AIRTEL   | MOOV   | MOOV   |
+| AIRTEL            | AIRTEL_TIGO, AIRTEL, TIGO | AIRTEL | AIRTEL | TIGOPESA | ORANGE | ORANGE |
+| EQUITEL           | VODAFONE                  |        | ZAMTEL |          | MTN    | MTN    |
+|                   |                           |        |        |          | AIRTEL | AIRTEL |
+|                   |                           |        |        |          | FREE   | FREE   |
 
-## List Of Mobile Money Codes By Currency
+## List Of Mobile Money Codes By Currency  
+
+In instances where end customers do not get approval prompts the following USSD codes can be dialed to approve pending transactions.   
 
 <Table align={["left","left","left","left","left"]}>
   <thead>
@@ -54,17 +56,11 @@ Kindly find the currencies and providers supported for mobile money payments bel
       <th>
         XOF (West African CFA Franc)
 
-
-
-
-        BEN, BF, CIV, SN 
+        BEN, BF, CIV, SN
       </th>
 
       <th>
         XAF (Central African CFA Franc)
-
-
-
 
         CM, COG, GAB
       </th>
@@ -74,67 +70,45 @@ Kindly find the currencies and providers supported for mobile money payments bel
   <tbody>
     <tr>
       <td>
-        * \*\*334#\*\* for MPESA
+        * **334#** for MPESA
       </td>
 
       <td>
-        * \*\*170#\*\* for MTN Mobile Money
+        * **170#** for MTN Mobile Money
       </td>
 
       <td>
-        * \*\*185#\*\* for Airtel
+        * **185#** for Airtel
       </td>
 
       <td>
-        * \*\*855#\*\* for Moov (BEN)
+        * **855#** for Moov (BEN)
       </td>
 
       <td>
-        * \*\*126#\*\* for MTN (CM)
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        * \*\*334#\*\* for Airtel Money
-      </td>
-
-      <td>
-        * \*\*110#\*\* for Vodafone Cash
-      </td>
-
-      <td>
-        * \*\*165#\*\* for MTN
-      </td>
-
-      <td>
-        * \*\*144# or \*145#\*\* for Orange (BF, CIV, SN)
-      </td>
-
-      <td>
-        * \*\#150#\*\* for Orange (CM)
+        * **126#** for MTN (CM)
       </td>
     </tr>
 
     <tr>
       <td>
-
+        * **334#** for Airtel Money
       </td>
 
       <td>
-        * \*\*110#\*\* for AirtelTigo Money
+        * **110#** for Vodafone Cash
       </td>
 
       <td>
-        * \*\*144#\*\* for Africell
+        * **165#** for MTN
       </td>
 
       <td>
-        * \*\*126#\*\* for MTN (BEN)
+        * **144# or *145#** for Orange (BF, CIV, SN)
       </td>
 
       <td>
-        * \*\*105#\*\* for MTN (COG)
+        * *#150#** for Orange (CM)
       </td>
     </tr>
 
@@ -144,6 +118,28 @@ Kindly find the currencies and providers supported for mobile money payments bel
       </td>
 
       <td>
+        * **110#** for AirtelTigo Money
+      </td>
+
+      <td>
+        * **144#** for Africell
+      </td>
+
+      <td>
+        * **126#** for MTN (BEN)
+      </td>
+
+      <td>
+        * **105#** for MTN (COG)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+
+      <td>
 
       </td>
 
@@ -152,25 +148,25 @@ Kindly find the currencies and providers supported for mobile money payments bel
       </td>
 
       <td>
-        * \*\*145#\*\* for Free (SN)
+        * **145#** for Free (SN)
       </td>
 
       <td>
-        * \*\*303#\*\* for Airtel (GAB)
+        * **303#** for Airtel (GAB)
       </td>
     </tr>
   </tbody>
 </Table>
 
-**Take note\&#xA;**&#x54;he  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
+**Take note&#xA;**The  [List available mobile money operators](https://docs.fincra.com/reference/list-mobile-money-operators) endpoints can be used to get details about the available mobile money operators.
 
-\*\* BEN - Benin, BF - Burkina Faso, CIV - Cote d'Ivoire, GNB - GGuinea-Bissau, SN - Senegal, CM - Cameroun, COG - Republic of Congo, GAB - Gabon
+** BEN - Benin, BF - Burkina Faso, CIV - Cote d'Ivoire, GNB - GGuinea-Bissau, SN - Senegal, CM - Cameroun, COG - Republic of Congo, GAB - Gabon
 
 The following steps are required to accept mobile money payments :
 
 ## 1 - Initiate Charge
 
-To charge a customer, you will need to collect the necessary payment information from the customer. 
+To charge a customer, you will need to collect the necessary payment information from the customer.
 
 | Field                 | Required | Type   | Description                                                                                                                              |
 | :-------------------- | :------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------- |
@@ -207,12 +203,12 @@ Then, prepare your data object to look like the sample below :
 }
 ```
 
-Send a POST request with the payment data above to the [initiate a mobile money charge endpoint](/reference/initiate-a-charge). If the request is successful, you will receive a response containing the transaction status `pending` as well as other important parameters such as: 
+Send a POST request with the payment data above to the [initiate a mobile money charge endpoint](/reference/initiate-a-charge). If the request is successful, you will receive a response containing the transaction status `pending` as well as other important parameters such as:
 
 * `data.id`  refers to the unique identifier of the transaction
 * `data.reference` refers to the unique identifier of the transaction on your platform.
 * `data.message` This is the message which contains the payment procedures. You are expected to display the `data.message` to your customer to make payments, and then listen to webhook for transaction notification or query the verify payment endpoint at intervals.
-* `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). Take note of the message field for the operator specific instructions. 
+* `data.auth_model` **Important!** If `auth_model` is `OTP`, an `OTP` would be sent to customer, which would be needed to [authorize the charge](mobile-money-direct-charge#2---authorize-charge). Take note of the message field for the operator specific instructions.
 
 Here is a sample response that you will receive after initiating a payment and requires the customer to complete the process:
 
