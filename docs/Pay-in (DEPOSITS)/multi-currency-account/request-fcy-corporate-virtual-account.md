@@ -485,33 +485,6 @@ You would receive a JSON snippet with the details of the virtual account, along 
 
 
 ```
-```
-{
-    "success": true,
-    "message": "Thank you, John Doe. We are now processing your EUR account request",
-    "data": {
-        "status": "pending",
-        "isActive": false,
-        "accountNumber": null,
-        "merchantReference": null,
-        "virtualAccountType": "additional",
-        "riskRating": "high",
-        "channelKycUpdateStatus": null,
-        "channelKycUpdateResponse": null,
-        "metadata": null,
-        "_id": "661e83489349bwe342c6a70",
-        "business": "62787427843dfn3848ws",
-        "currency": "USD",
-        "accountType": "corporate",
-        "entityType": "main_account",
-        "currencyType": "fiat",
-        "createdAt": "2025-04-16T14:03:50.757Z",
-        "updatedAt": "2025-04-16T14:03:50.757Z"
-    }
-}
-```
-```Text Response
-```
 
 Important Notes:
 
