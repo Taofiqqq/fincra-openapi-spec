@@ -37,12 +37,12 @@ Each payout must specify a **payment scheme** corresponding to the desired netwo
 
 Example:
 
-* `USDT_TRC20`
-* `USDT_ERC20`
-* `USDT_SOLANA`
-* `USDT_BEP20`
-* `USDC_ERC20`
-* `USDC_SOLANA`
+* `usdt_trc20`
+* `usdt_erc20`
+* `usdt_solana`
+* `usdt_bep20`
+* `usdc_erc20`
+* `usdc_solana`
 
 **Wallet Beneficiaries**
 
