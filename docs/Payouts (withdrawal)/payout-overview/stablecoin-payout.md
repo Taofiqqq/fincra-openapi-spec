@@ -9,59 +9,97 @@ Stablecoin payouts enable businesses to send funds directly to blockchain wallet
 
 ***
 
-# How Stablecoin Payouts Work
+**How Stablecoin Payouts Work**
 
 The payout process generally follows these steps:
 
-## 1. Generate Quote (Optional)
+1. **Generate Quote (Optional):** Required when converting from fiat or another currency into a stablecoin.
+2. **Initiate Payout:** Send the payout request with a wallet address and blockchain network.
+3. **Processing & Settlement:** The system validates the payout, performs any required conversion, and settles the funds on the selected blockchain network.
 
-Required when converting from fiat or another currency into a stablecoin.
+**Supported Stablecoins**
 
-This step determines:
+| **Stablecoin** |     **Description**     |
+| :------------: | :---------------------: |
+|    **USDT**    |    Tether stablecoin    |
+|    **USDC**    |         USD Coin        |
+|    **cNGN**    | Naira-backed stablecoin |
 
-* Exchange rate
-* Fees
-* Final payout amount
+**Supported Blockchain Networks**
 
-## 2. Initiate Payout
+| **Stablecoin** |                   **Supported Networks**                  |
+| :------------: | :-------------------------------------------------------: |
+|    **USDT**    |                TRC20, ERC20, Solana, BEP20                |
+|    **USDC**    |                       ERC20, Solana                       |
+|    **cNGN**    | Supported network depends on the settlement configuration |
 
-Send the payout request with:
+Each payout must specify a **payment scheme** corresponding to the desired network.
 
-* Wallet address
-* Blockchain network
-* Stablecoin payment scheme
+Example:
 
-## 3. Processing & Settlement
+* `USDT_TRC20`
+* `USDT_ERC20`
+* `USDT_SOLANA`
+* `USDT_BEP20`
+* `USDC_ERC20`
+* `USDC_SOLANA`
 
-The system:
+**Wallet Beneficiaries**
 
-* Validates the payout request
-* Performs required currency conversion
-* Posts ledger transactions
-* Settles funds on the selected blockchain network
+Unlike bank payouts, stablecoin payouts require a **wallet address** instead of bank account details.
 
-***
+Example beneficiary payload:
 
-# Supported Stablecoins
+```json
+{
+ "walletAddress": "TWMjBKD61DLXXQr6AvVnDMcVs5p46QSFzT",
+ "destinationTag": "test-memo"
+}
 
-| Stablecoin | Description             |
-| ---------- | ----------------------- |
-| USDT       | Tether stablecoin       |
-| USDC       | USD Coin                |
-| cNGN       | Naira-backed stablecoin |
+```
 
-***
+|     **Field**    |                   **Description**                   |
+| :--------------: | :-------------------------------------------------: |
+|  `walletAddress` |          Destination crypto wallet address          |
+| `destinationTag` | Optional memo/tag required by some wallet providers |
 
-# Supported Blockchain Networks
+**What’s Different from Fiat Payouts**
 
-| Stablecoin | Supported Networks                  |
-| ---------- | ----------------------------------- |
-| USDT       | TRC20, ERC20, Solana, BEP20         |
-| USDC       | ERC20, Solana                       |
-| cNGN       | Depends on settlement configuration |
+Stablecoin payouts introduce several new parameters compared to traditional (fiat) payout flows.
 
-Each payout must specify a **payment scheme** corresponding to the desired blockchain network.
+**1. Payment Destination**
 
-### Example Payment Schemes
+Stablecoin payouts must use:
 
-<br />
+`paymentDestination: crypto_wallet`
+
+This indicates that the payout is routed to a blockchain wallet rather than a bank account.
+
+**2. Payment Scheme**
+
+A **payment scheme** must be specified to indicate the blockchain network.
+
+Example:
+
+`paymentScheme: USDT_TRC20`
+
+**3. Beneficiary Structure**
+
+Instead of bank account details, the beneficiary object includes wallet details.
+
+* `beneficiary.walletAddress`
+* `beneficiary.destinationTag`
+
+**Supported Payout Types**
+
+Stablecoin payouts support the following transaction types:
+
+* **Same-Currency Stablecoin Payout**
+  * Example: `USDT` → `USDT`
+  * No FX quote required.
+* **Cross-Currency Stablecoin Payout**
+  * Example: `KES` → `USDT`, `USD` → `USDC`, `NGN` → `cNGN`
+  * Requires **quote generation** before initiating payout.
+* **Conversion Only**
+  * Convert one currency into a stablecoin without initiating a payout.
+  * Example: `KES` → `USDT` conversion
