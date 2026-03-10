@@ -1,5 +1,5 @@
 ---
-title: Stablecoin Payout
+title: Stablecoin Payouts
 deprecated: false
 hidden: false
 metadata:
