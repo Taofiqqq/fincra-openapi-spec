@@ -1,6 +1,6 @@
 ---
 title: Initiate Stablecoin Payout
-excerpt: This API lets you make payouts to USDT wallets
+excerpt: 'This API lets you make payouts to stablecoin wallet addresses '
 api:
   file: awesome-new-api.json
   operationId: initiate-mobile-money-payout-1
@@ -22,11 +22,10 @@ Sample Payload
   "description": "Payment",
   "paymentDestination": "crypto_wallet",
   "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  "paymentScheme": "USDT_TRC20",
+  "paymentScheme": "usdt_trc20",
   "beneficiary": {
     "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "destinationTag": "test-memo"
-  },
-  "relationshipWithBeneficiary": "self"
+  }
 }
 ```
