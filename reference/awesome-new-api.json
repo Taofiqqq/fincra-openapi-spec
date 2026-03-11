@@ -11594,23 +11594,27 @@
                     "type": "string",
                     "description": "The currency which is used to fund the  payout",
                     "enum": [
+                      "USDT",
+                      "NGN",
                       "GHS",
                       "KES",
                       "UGX",
                       "TZS",
-                      "ZMW"
-                    ]
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "ZMW",
+                      "ZAR"
+                    ],
+                    "default": "USDT"
                   },
                   "destinationCurrency": {
                     "type": "string",
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "ZMW"
-                    ]
+                      "USDT"
+                    ],
+                    "default": "USDT"
                   },
                   "amount": {
                     "type": "string",
