@@ -7631,7 +7631,8 @@
                     "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
                     "default": "mobile_money_wallet",
                     "enum": [
-                      "crypto_wallet"
+                      "crypto_wallet",
+                      "ff"
                     ]
                   },
                   "paymentScheme": {
