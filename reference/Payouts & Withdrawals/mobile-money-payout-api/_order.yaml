@@ -1,7 +1,6 @@
 - list-mobile-money-operators
 - list-mobile-money-operators-by-currency
 - initiate-mobile-money-payout
-- initiate-mobile-money-payout-1
 - generate-momo-quote
 - verify-mobile-money-payout-status-by-reference
 - verify-mobile-money-payout-status-by-customer-reference
