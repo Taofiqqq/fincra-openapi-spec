@@ -11587,7 +11587,8 @@
                   "business",
                   "description",
                   "customerReference",
-                  "beneficiary"
+                  "beneficiary",
+                  "paymentScheme"
                 ],
                 "properties": {
                   "sourceCurrency": {
@@ -11819,13 +11820,21 @@
                     "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
                     "default": "mobile_money_wallet",
                     "enum": [
-                      "bank_account",
-                      "mobile_money_wallet"
+                      "crypto_wallet"
                     ]
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency and region e.g sepa"
+                    "description": "The payment scheme relevant to the destination currency and region e.g sepa",
+                    "enum": [
+                      "usdt_trc20",
+                      "usdt_erc20",
+                      "usdt_solana",
+                      "usdt_bep20",
+                      "usdc_erc20",
+                      "usdc_solana"
+                    ],
+                    "default": "usdt_trc20"
                   },
                   "quoteReference": {
                     "type": "string",
