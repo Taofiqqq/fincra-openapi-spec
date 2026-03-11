@@ -1020,320 +1020,6 @@
         "deprecated": false
       }
     },
-    "/quotes/generate": {
-      "post": {
-        "summary": "Generate a Quote",
-        "description": "This endpoint is used for generating a quote. Quotes are used to initiate conversions, cross-currency payout, or cross-currency checkout (coming soon).",
-        "operationId": "generate-quote",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "sourceCurrency",
-                  "destinationCurrency",
-                  "amount",
-                  "action",
-                  "transactionType",
-                  "business",
-                  "paymentDestination",
-                  "beneficiaryType"
-                ],
-                "properties": {
-                  "sourceCurrency": {
-                    "type": "string",
-                    "description": "The currency which is used to fund a currency conversion or payout"
-                  },
-                  "destinationCurrency": {
-                    "type": "string",
-                    "description": "The currency in which the recipient will be receiving funds",
-                    "enum": [
-                      "NGN",
-                      "USD",
-                      "EUR",
-                      "GBP",
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZX",
-                      "ZMW",
-                      "XAF",
-                      "XOF",
-                      "USDT",
-                      "USDC",
-                      "CNGN"
-                    ]
-                  },
-                  "amount": {
-                    "type": "string",
-                    "description": "The amount you want to send or convert"
-                  },
-                  "action": {
-                    "type": "string",
-                    "description": "the value can only be \"send\" for conversions and disbursement.",
-                    "default": "send"
-                  },
-                  "transactionType": {
-                    "type": "string",
-                    "description": "If you want to make a payout, choose \"disbursement,\" and if you want to convert a currency and receive the funds in your Fincra balance, choose \"conversion.”",
-                    "default": "conversion",
-                    "enum": [
-                      "conversion",
-                      "disbursement"
-                    ]
-                  },
-                  "business": {
-                    "type": "string",
-                    "description": "The unique Identifier of the business"
-                  },
-                  "feeBearer": {
-                    "type": "string",
-                    "description": "If you choose Customer, the fee would be deducted from the amount the beneficiary will receive. If you choose business, the fee would be deducted business balance for a cross-currency payout.",
-                    "default": "customer",
-                    "enum": [
-                      "customer",
-                      "business"
-                    ]
-                  },
-                  "paymentDestination": {
-                    "type": "string",
-                    "description": "This is the type of account you want to send your payments to.  For conversions the payment destination must always be `fliqpay_wallet` and for payouts the payment destination must always be `bank_account` or `mobile_money_wallet`",
-                    "default": "fliqpay_wallet",
-                    "enum": [
-                      "bank_account",
-                      "fliqpay_wallet",
-                      "mobile_money_wallet"
-                    ]
-                  },
-                  "paymentScheme": {
-                    "type": "string",
-                    "description": "This is the valid payment scheme for the destination currency you want to generate a quote for. This is only required when the transaction type is disbursement(to foreign currencies) and not conversion"
-                  },
-                  "beneficiaryType": {
-                    "type": "string",
-                    "description": "The beneficiary type e.g individual or corporate. This is necessary in order to generate quotes for all African currencies.",
-                    "default": "individual",
-                    "enum": [
-                      "individual",
-                      "corporate"
-                    ]
-                  },
-                  "delay": {
-                    "type": "boolean",
-                    "description": "This is only required when payment integration method is \"Global Collections\"",
-                    "default": false
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Wallet conversion": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"Quote generated successfully\",\n    \"data\": {\n        \"sourceCurrency\": \"KES\",\n        \"destinationCurrency\": \"USD\",\n        \"sourceAmount\": 10000,\n        \"destinationAmount\": 92.99999999999999,\n        \"action\": \"send\",\n        \"transactionType\": \"conversion\",\n        \"fee\": 0,\n        \"initialAmount\": 10000,\n        \"quotedAmount\": 92.99999999999999,\n        \"rate\": 0.0093,\n        \"amountToCharge\": 10000,\n        \"amountToReceive\": 93,\n        \"reference\": \"5abe864c-0137-493e-b6ce-e51d424243e2\",\n        \"expireAt\": \"2024-10-10T07:57:05.923Z\",\n        \"settlementDate\": \"2024-10-10T07:55:05.000Z\"\n    }\n}"
-                  },
-                  "Payout": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"Quote generated successfully\",\n    \"data\": {\n        \"sourceCurrency\": \"KES\",\n        \"destinationCurrency\": \"USD\",\n        \"sourceAmount\": 10000,\n        \"destinationAmount\": 92.99999999999999,\n        \"action\": \"send\",\n        \"transactionType\": \"disbursement\",\n        \"fee\": 1,\n        \"initialAmount\": 10000,\n        \"quotedAmount\": 92.99999999999999,\n        \"rate\": 0.0093,\n        \"amountToCharge\": 10000,\n        \"amountToReceive\": 92,\n        \"reference\": \"5a5bf618-f96b-444a-85f0-bcfaa25f77d1\",\n        \"expireAt\": \"2024-10-10T08:01:52.132Z\",\n        \"feeCurrency\": \"USD\",\n        \"feeRate\": 1\n    }\n}"
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "title": "Wallet conversion",
-                      "type": "object",
-                      "properties": {
-                        "success": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "Quote generated successfully"
-                        },
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "sourceCurrency": {
-                              "type": "string",
-                              "example": "KES"
-                            },
-                            "destinationCurrency": {
-                              "type": "string",
-                              "example": "USD"
-                            },
-                            "sourceAmount": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "destinationAmount": {
-                              "type": "number",
-                              "example": 92.99999999999999,
-                              "default": 0
-                            },
-                            "action": {
-                              "type": "string",
-                              "example": "send"
-                            },
-                            "transactionType": {
-                              "type": "string",
-                              "example": "conversion"
-                            },
-                            "fee": {
-                              "type": "integer",
-                              "example": 0,
-                              "default": 0
-                            },
-                            "initialAmount": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "quotedAmount": {
-                              "type": "number",
-                              "example": 92.99999999999999,
-                              "default": 0
-                            },
-                            "rate": {
-                              "type": "number",
-                              "example": 0.0093,
-                              "default": 0
-                            },
-                            "amountToCharge": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "amountToReceive": {
-                              "type": "integer",
-                              "example": 93,
-                              "default": 0
-                            },
-                            "reference": {
-                              "type": "string",
-                              "example": "5abe864c-0137-493e-b6ce-e51d424243e2"
-                            },
-                            "expireAt": {
-                              "type": "string",
-                              "example": "2024-10-10T07:57:05.923Z"
-                            },
-                            "settlementDate": {
-                              "type": "string",
-                              "example": "2024-10-10T07:55:05.000Z"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "title": "Payout",
-                      "type": "object",
-                      "properties": {
-                        "success": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "Quote generated successfully"
-                        },
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "sourceCurrency": {
-                              "type": "string",
-                              "example": "KES"
-                            },
-                            "destinationCurrency": {
-                              "type": "string",
-                              "example": "USD"
-                            },
-                            "sourceAmount": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "destinationAmount": {
-                              "type": "number",
-                              "example": 92.99999999999999,
-                              "default": 0
-                            },
-                            "action": {
-                              "type": "string",
-                              "example": "send"
-                            },
-                            "transactionType": {
-                              "type": "string",
-                              "example": "disbursement"
-                            },
-                            "fee": {
-                              "type": "integer",
-                              "example": 1,
-                              "default": 0
-                            },
-                            "initialAmount": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "quotedAmount": {
-                              "type": "number",
-                              "example": 92.99999999999999,
-                              "default": 0
-                            },
-                            "rate": {
-                              "type": "number",
-                              "example": 0.0093,
-                              "default": 0
-                            },
-                            "amountToCharge": {
-                              "type": "integer",
-                              "example": 10000,
-                              "default": 0
-                            },
-                            "amountToReceive": {
-                              "type": "integer",
-                              "example": 92,
-                              "default": 0
-                            },
-                            "reference": {
-                              "type": "string",
-                              "example": "5a5bf618-f96b-444a-85f0-bcfaa25f77d1"
-                            },
-                            "expireAt": {
-                              "type": "string",
-                              "example": "2024-10-10T08:01:52.132Z"
-                            },
-                            "feeCurrency": {
-                              "type": "string",
-                              "example": "USD"
-                            },
-                            "feeRate": {
-                              "type": "integer",
-                              "example": 1,
-                              "default": 0
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/conversions/initiate": {
       "post": {
         "summary": "Initiate Currency Conversion",
@@ -11421,6 +11107,339 @@
                 "schema": {
                   "type": "object",
                   "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/quotes/generate": {
+      "post": {
+        "summary": "Generate a Quote",
+        "description": "This endpoint is used for generating a quote. Quotes are used to initiate conversions, cross-currency payout, or cross-currency checkout (coming soon).",
+        "operationId": "generate-quote",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sourceCurrency",
+                  "destinationCurrency",
+                  "amount",
+                  "action",
+                  "transactionType",
+                  "business",
+                  "paymentDestination"
+                ],
+                "properties": {
+                  "sourceCurrency": {
+                    "type": "string",
+                    "description": "The currency which is used to fund a currency conversion or payout"
+                  },
+                  "destinationCurrency": {
+                    "type": "string",
+                    "description": "The currency in which the recipient will be receiving funds",
+                    "enum": [
+                      "NGN",
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "GHS",
+                      "KES",
+                      "UGX",
+                      "TZX",
+                      "ZMW",
+                      "XAF",
+                      "XOF",
+                      "USDT",
+                      "USDC",
+                      "CNGN"
+                    ]
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "The transaction amount.\nWith send action, it represents the amount being sent in the source currency.\n\nWith receive action, it represents the amount to be received in the destination currency."
+                  },
+                  "action": {
+                    "type": "string",
+                    "description": "Determines how amount is interpreted.\n\nsend — quote returns how much the recipient will receive.\nreceive — quote returns how much the sender must pay",
+                    "default": "send",
+                    "enum": [
+                      "send",
+                      "receive"
+                    ]
+                  },
+                  "transactionType": {
+                    "type": "string",
+                    "description": "If you want to make a payout, choose \"disbursement,\" and if you want to convert a currency and receive the funds in your Fincra balance, choose \"conversion.”",
+                    "default": "conversion",
+                    "enum": [
+                      "conversion",
+                      "disbursement"
+                    ]
+                  },
+                  "business": {
+                    "type": "string",
+                    "description": "The unique Identifier of the business"
+                  },
+                  "feeBearer": {
+                    "type": "string",
+                    "description": "If you choose Customer, the fee would be deducted from the amount the beneficiary will receive. If you choose business, the fee would be deducted business balance for a cross-currency payout.",
+                    "default": "customer",
+                    "enum": [
+                      "customer",
+                      "business"
+                    ]
+                  },
+                  "paymentDestination": {
+                    "type": "string",
+                    "description": "This is the type of account you want to send your payments to.  For conversions the payment destination must always be `fliqpay_wallet` and for payouts the payment destination must always be `bank_account` , `mobile_money_wallet` or `crypto_wallet`",
+                    "default": "fliqpay_wallet",
+                    "enum": [
+                      "bank_account",
+                      "fliqpay_wallet",
+                      "mobile_money_wallet",
+                      "crypto_wallet"
+                    ]
+                  },
+                  "paymentScheme": {
+                    "type": "string",
+                    "description": "This is the valid payment scheme for the destination currency you want to generate a quote for. This is only required when the transaction type is disbursement(to foreign currencies or crypto wallet) and not conversion",
+                    "enum": [
+                      "swift",
+                      "ach",
+                      "fps",
+                      "sepa",
+                      "sepa_instant",
+                      "chaps",
+                      "fed_wire",
+                      "usdt_erc20",
+                      "usdt_trc20",
+                      "usdt_solana",
+                      "usdt_bep20",
+                      "usdc_erc20",
+                      "usdc_solana"
+                    ]
+                  },
+                  "beneficiaryType": {
+                    "type": "string",
+                    "description": "The beneficiary type e.g individual or corporate. This is necessary in order to generate quotes for all African currencies.",
+                    "default": "individual",
+                    "enum": [
+                      "individual",
+                      "corporate"
+                    ]
+                  },
+                  "delay": {
+                    "type": "boolean",
+                    "description": "This is only required when payment integration method is \"Global Collections\"",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Wallet conversion": {
+                    "value": "{\n    \"success\": true,\n    \"message\": \"Quote generated successfully\",\n    \"data\": {\n        \"sourceCurrency\": \"KES\",\n        \"destinationCurrency\": \"USD\",\n        \"sourceAmount\": 10000,\n        \"destinationAmount\": 92.99999999999999,\n        \"action\": \"send\",\n        \"transactionType\": \"conversion\",\n        \"fee\": 0,\n        \"initialAmount\": 10000,\n        \"quotedAmount\": 92.99999999999999,\n        \"rate\": 0.0093,\n        \"amountToCharge\": 10000,\n        \"amountToReceive\": 93,\n        \"reference\": \"5abe864c-0137-493e-b6ce-e51d424243e2\",\n        \"expireAt\": \"2024-10-10T07:57:05.923Z\",\n        \"settlementDate\": \"2024-10-10T07:55:05.000Z\"\n    }\n}"
+                  },
+                  "Payout": {
+                    "value": "{\n    \"success\": true,\n    \"message\": \"Quote generated successfully\",\n    \"data\": {\n        \"sourceCurrency\": \"KES\",\n        \"destinationCurrency\": \"USD\",\n        \"sourceAmount\": 10000,\n        \"destinationAmount\": 92.99999999999999,\n        \"action\": \"send\",\n        \"transactionType\": \"disbursement\",\n        \"fee\": 1,\n        \"initialAmount\": 10000,\n        \"quotedAmount\": 92.99999999999999,\n        \"rate\": 0.0093,\n        \"amountToCharge\": 10000,\n        \"amountToReceive\": 92,\n        \"reference\": \"5a5bf618-f96b-444a-85f0-bcfaa25f77d1\",\n        \"expireAt\": \"2024-10-10T08:01:52.132Z\",\n        \"feeCurrency\": \"USD\",\n        \"feeRate\": 1\n    }\n}"
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "title": "Wallet conversion",
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Quote generated successfully"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "example": "KES"
+                            },
+                            "destinationCurrency": {
+                              "type": "string",
+                              "example": "USD"
+                            },
+                            "sourceAmount": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "destinationAmount": {
+                              "type": "number",
+                              "example": 92.99999999999999,
+                              "default": 0
+                            },
+                            "action": {
+                              "type": "string",
+                              "example": "send"
+                            },
+                            "transactionType": {
+                              "type": "string",
+                              "example": "conversion"
+                            },
+                            "fee": {
+                              "type": "integer",
+                              "example": 0,
+                              "default": 0
+                            },
+                            "initialAmount": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "quotedAmount": {
+                              "type": "number",
+                              "example": 92.99999999999999,
+                              "default": 0
+                            },
+                            "rate": {
+                              "type": "number",
+                              "example": 0.0093,
+                              "default": 0
+                            },
+                            "amountToCharge": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "amountToReceive": {
+                              "type": "integer",
+                              "example": 93,
+                              "default": 0
+                            },
+                            "reference": {
+                              "type": "string",
+                              "example": "5abe864c-0137-493e-b6ce-e51d424243e2"
+                            },
+                            "expireAt": {
+                              "type": "string",
+                              "example": "2024-10-10T07:57:05.923Z"
+                            },
+                            "settlementDate": {
+                              "type": "string",
+                              "example": "2024-10-10T07:55:05.000Z"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "title": "Payout",
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Quote generated successfully"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "example": "KES"
+                            },
+                            "destinationCurrency": {
+                              "type": "string",
+                              "example": "USD"
+                            },
+                            "sourceAmount": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "destinationAmount": {
+                              "type": "number",
+                              "example": 92.99999999999999,
+                              "default": 0
+                            },
+                            "action": {
+                              "type": "string",
+                              "example": "send"
+                            },
+                            "transactionType": {
+                              "type": "string",
+                              "example": "disbursement"
+                            },
+                            "fee": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            },
+                            "initialAmount": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "quotedAmount": {
+                              "type": "number",
+                              "example": 92.99999999999999,
+                              "default": 0
+                            },
+                            "rate": {
+                              "type": "number",
+                              "example": 0.0093,
+                              "default": 0
+                            },
+                            "amountToCharge": {
+                              "type": "integer",
+                              "example": 10000,
+                              "default": 0
+                            },
+                            "amountToReceive": {
+                              "type": "integer",
+                              "example": 92,
+                              "default": 0
+                            },
+                            "reference": {
+                              "type": "string",
+                              "example": "5a5bf618-f96b-444a-85f0-bcfaa25f77d1"
+                            },
+                            "expireAt": {
+                              "type": "string",
+                              "example": "2024-10-10T08:01:52.132Z"
+                            },
+                            "feeCurrency": {
+                              "type": "string",
+                              "example": "USD"
+                            },
+                            "feeRate": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             }
