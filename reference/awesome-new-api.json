@@ -7385,9 +7385,9 @@
     },
     "/disbursements/payouts": {
       "post": {
-        "summary": "Initiate Mobile Money Payout",
+        "summary": "Copy of Initiate Mobile Money Payout",
         "description": "This API lets you make payouts to bank accounts and mobile money wallets",
-        "operationId": "initiate-mobile-money-payout",
+        "operationId": "initiate-mobile-money-payout-1",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7400,39 +7400,44 @@
                   "business",
                   "description",
                   "customerReference",
-                  "beneficiary"
+                  "beneficiary",
+                  "paymentScheme"
                 ],
                 "properties": {
                   "sourceCurrency": {
                     "type": "string",
                     "description": "The currency which is used to fund the  payout",
                     "enum": [
+                      "USDT",
+                      "NGN",
                       "GHS",
                       "KES",
                       "UGX",
                       "TZS",
-                      "ZMW"
-                    ]
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "ZMW",
+                      "ZAR"
+                    ],
+                    "default": "USDT"
                   },
                   "destinationCurrency": {
                     "type": "string",
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "ZMW"
-                    ]
+                      "USDT"
+                    ],
+                    "default": "USDT"
                   },
                   "amount": {
                     "type": "string",
                     "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": "200"
+                    "default": "10"
                   },
                   "business": {
                     "type": "string",
-                    "description": "The unique Identifier of the parent business or sub account"
+                    "description": "The unique Identifier of the parent business"
                   },
                   "description": {
                     "type": "string",
@@ -7628,31 +7633,25 @@
                     "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
                     "default": "mobile_money_wallet",
                     "enum": [
-                      "bank_account",
-                      "mobile_money_wallet"
+                      "crypto_wallet"
                     ]
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency and region e.g sepa"
+                    "description": "The payment scheme relevant to the destination currency and region e.g sepa",
+                    "enum": [
+                      "usdt_trc20",
+                      "usdt_erc20",
+                      "usdt_solana",
+                      "usdt_bep20",
+                      "usdc_erc20",
+                      "usdc_solana"
+                    ],
+                    "default": "usdt_trc20"
                   },
                   "quoteReference": {
                     "type": "string",
                     "description": "This is the reference generated when the source currency is compared against the destination currency. This is compulsory for cross-currency payouts."
-                  },
-                  "sender": {
-                    "type": "object",
-                    "description": "The details of the customer initiating the payout",
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "The customer's full name. This name would show up in the transfer narration."
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "The customer's email"
-                      }
-                    }
                   }
                 }
               },
@@ -11562,398 +11561,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/disbursements/payouts-1": {
-      "post": {
-        "summary": "Copy of Initiate Mobile Money Payout",
-        "description": "This API lets you make payouts to bank accounts and mobile money wallets",
-        "operationId": "initiate-mobile-money-payout-1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "sourceCurrency",
-                  "destinationCurrency",
-                  "amount",
-                  "business",
-                  "description",
-                  "customerReference",
-                  "beneficiary",
-                  "paymentScheme"
-                ],
-                "properties": {
-                  "sourceCurrency": {
-                    "type": "string",
-                    "description": "The currency which is used to fund the  payout",
-                    "enum": [
-                      "USDT",
-                      "NGN",
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "USD",
-                      "EUR",
-                      "GBP",
-                      "ZMW",
-                      "ZAR"
-                    ],
-                    "default": "USDT"
-                  },
-                  "destinationCurrency": {
-                    "type": "string",
-                    "description": "The currency in which the recipient will be receiving funds",
-                    "enum": [
-                      "USDT"
-                    ],
-                    "default": "USDT"
-                  },
-                  "amount": {
-                    "type": "string",
-                    "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": "10"
-                  },
-                  "business": {
-                    "type": "string",
-                    "description": "The unique Identifier of the parent business"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "The description of the payout",
-                    "default": "Payment"
-                  },
-                  "customerReference": {
-                    "type": "string",
-                    "description": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions.",
-                    "default": "TXT-001"
-                  },
-                  "beneficiary": {
-                    "type": "object",
-                    "description": "The recipient of the funds",
-                    "required": [
-                      "type",
-                      "accountHolderName",
-                      "accountNumber",
-                      "bankCode"
-                    ],
-                    "properties": {
-                      "firstName": {
-                        "type": "string",
-                        "description": "The first name of the beneficiary .",
-                        "default": "John"
-                      },
-                      "lastName": {
-                        "type": "string",
-                        "description": "The last name of the beneficiary.",
-                        "default": "Doe"
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "The email of the beneficiary",
-                        "default": "test@fincra.com"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "The type of beneficiary receiving the payout, which might be either an individual or a corporation.",
-                        "default": "individual",
-                        "enum": [
-                          "individual",
-                          "corporate"
-                        ]
-                      },
-                      "accountHolderName": {
-                        "type": "string",
-                        "description": "The name of the beneficiary on the bank account",
-                        "default": "john doe"
-                      },
-                      "accountNumber": {
-                        "type": "string",
-                        "description": "The account number of the beneficiary(This means beneficiary phone number for Mobile money use case)",
-                        "default": "0726219090"
-                      },
-                      "mobileMoneyCode": {
-                        "type": "string",
-                        "description": "This is a unique Identifier of the beneficiary mobile money wallet",
-                        "default": "901"
-                      },
-                      "country": {
-                        "type": "string",
-                        "description": "The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB",
-                        "default": "GB"
-                      },
-                      "bankCode": {
-                        "type": "string",
-                        "description": "The bank code of the beneficiary's bank",
-                        "default": "044"
-                      },
-                      "bankSwiftCode": {
-                        "type": "string",
-                        "description": "The bank swift code of the beneficiary"
-                      },
-                      "bankAddress": {
-                        "type": "object",
-                        "properties": {
-                          "country": {
-                            "type": "string",
-                            "description": "The code of country according to  ISO 3166-1 alpha-2 codes",
-                            "default": "GB"
-                          },
-                          "state": {
-                            "type": "string",
-                            "description": "The state",
-                            "default": "Lagos"
-                          },
-                          "zip": {
-                            "type": "string",
-                            "description": "The zip/postal code",
-                            "default": "123455"
-                          },
-                          "city": {
-                            "type": "string",
-                            "description": "The city name",
-                            "default": "Paris"
-                          },
-                          "street": {
-                            "type": "string",
-                            "description": "The street name",
-                            "default": "12,josephus"
-                          }
-                        }
-                      },
-                      "sortCode": {
-                        "type": "string",
-                        "description": "The bank sort code of the beneficiary. This is required to process a payout to a bank in the United kingdom",
-                        "default": "9090"
-                      },
-                      "registrationNumber": {
-                        "type": "string",
-                        "description": "This field only applies to a EUR/GBP corporate beneficiary. A government institution provides the company's unique registration number.",
-                        "default": "A909"
-                      },
-                      "address": {
-                        "type": "object",
-                        "description": "The address of the beneficiary",
-                        "required": [
-                          "countryOfResidence",
-                          "zip",
-                          "street",
-                          "number",
-                          "state",
-                          "city"
-                        ],
-                        "properties": {
-                          "countryOfResidence": {
-                            "type": "string",
-                            "description": "The code of country according to ISO 3166-1 Alpha 2"
-                          },
-                          "zip": {
-                            "type": "string",
-                            "description": "Zip Code."
-                          },
-                          "street": {
-                            "type": "string",
-                            "description": "Street Name."
-                          },
-                          "number": {
-                            "type": "string",
-                            "description": "The house number."
-                          },
-                          "state": {
-                            "type": "string",
-                            "description": "The state."
-                          },
-                          "city": {
-                            "type": "string",
-                            "description": "The city name."
-                          }
-                        }
-                      },
-                      "document": {
-                        "type": "object",
-                        "description": "The document needed to process the transaction",
-                        "required": [
-                          "type",
-                          "number",
-                          "issuedCountryCode",
-                          "issuedBy"
-                        ],
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "description": "type of ID document e.g International Passport"
-                          },
-                          "number": {
-                            "type": "string",
-                            "description": "The number on the document"
-                          },
-                          "issuedCountryCode": {
-                            "type": "string",
-                            "description": "The country that issued the document.Should  be in ISO 3166-1 alpha-2 – two-letter country codes format(NG)"
-                          },
-                          "issuedBy": {
-                            "type": "string",
-                            "description": "The government agency in charge of issuing the document."
-                          },
-                          "issuedDate": {
-                            "type": "string",
-                            "description": "The date the document was issued(\"YYYY-MM-DD\")"
-                          },
-                          "expirationDate": {
-                            "type": "string",
-                            "description": "The expiration date on the document (\"YYYY-MM-DD\")."
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "paymentDestination": {
-                    "type": "string",
-                    "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
-                    "default": "mobile_money_wallet",
-                    "enum": [
-                      "crypto_wallet"
-                    ]
-                  },
-                  "paymentScheme": {
-                    "type": "string",
-                    "description": "The payment scheme relevant to the destination currency and region e.g sepa",
-                    "enum": [
-                      "usdt_trc20",
-                      "usdt_erc20",
-                      "usdt_solana",
-                      "usdt_bep20",
-                      "usdc_erc20",
-                      "usdc_solana"
-                    ],
-                    "default": "usdt_trc20"
-                  },
-                  "quoteReference": {
-                    "type": "string",
-                    "description": "This is the reference generated when the source currency is compared against the destination currency. This is compulsory for cross-currency payouts."
-                  }
-                }
-              },
-              "examples": {
-                "Payout to mobile money wallet": {
-                  "value": {
-                    "sourceCurrency": "NGN",
-                    "destinationCurrency": "GHS",
-                    "beneficiary": {
-                      "country": "GH",
-                      "firstName": "John",
-                      "lastName": "Doe",
-                      "email": "johndoe@gmail.com",
-                      "mobileMoneyCode": "GH280100",
-                      "type": "individual",
-                      "accountHolderName": "John Doe",
-                      "accountNumber": "0726292111",
-                      "bankCode": "044",
-                      "sortCode": "89dd",
-                      "registrationNumber": "89dd"
-                    },
-                    "paymentDestination": "mobile_money_wallet",
-                    "amount": "100",
-                    "business": "",
-                    "description": "transfer",
-                    "customerReference": "BXT-TT",
-                    "quoteReference": "c77b8d87-2673-4f7a-b8d8-b0815b81fd62"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"Payout processed successfully\",\n    \"data\": {\n        \"id\": 1254,\n        \"reference\": \"5dcf24700a9a4f67\",\n        \"customerReference\": \"TXT-001\",\n        \"status\": \"processing\",\n        \"documentsRequired\": []\n    }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Payout processed successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "example": 1254,
-                          "default": 0
-                        },
-                        "reference": {
-                          "type": "string",
-                          "example": "5dcf24700a9a4f67"
-                        },
-                        "customerReference": {
-                          "type": "string",
-                          "example": "TXT-001"
-                        },
-                        "status": {
-                          "type": "string",
-                          "example": "processing"
-                        },
-                        "documentsRequired": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "422",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": false,\n    \"error\": \"Cannot continue, Duplicate Customer Reference Passed\",\n    \"errorType\": \"DUPLICATE_CUSTOMER_REFERENCE\"\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false,
-                      "default": true
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Cannot continue, Duplicate Customer Reference Passed"
-                    },
-                    "errorType": {
-                      "type": "string",
-                      "example": "DUPLICATE_CUSTOMER_REFERENCE"
-                    }
-                  }
                 }
               }
             }
