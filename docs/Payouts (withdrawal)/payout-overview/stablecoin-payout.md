@@ -27,11 +27,11 @@ The payout process generally follows these steps:
 
 **Supported Blockchain Networks**
 
-| **Stablecoin** |                   **Supported Networks**                  |
-| :------------: | :-------------------------------------------------------: |
-|    **USDT**    |                TRC20, ERC20, Solana, BEP20                |
-|    **USDC**    |                       ERC20, Solana                       |
-|    **cNGN**    | Supported network depends on the settlement configuration |
+| **Stablecoin** |    **Supported Networks**   |
+| :------------: | :-------------------------: |
+|    **USDT**    | TRC20, ERC20, Solana, BEP20 |
+|    **USDC**    |        ERC20, Solana        |
+|    **cNGN**    |     ERC20, Solana, BEP20    |
 
 Each payout must specify a **payment scheme** corresponding to the desired network.
 
