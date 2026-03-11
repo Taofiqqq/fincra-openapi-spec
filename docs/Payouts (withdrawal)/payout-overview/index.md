@@ -71,6 +71,7 @@ If you are technically savvy and can code in any programming language, all you h
 
 * [Bank accounts](/v2.0/docs/making-bank-account-transfers)
 * [Mobile Money wallets](/v2.0/docs/mobile-money-transfers)
+* [Stablecoin Payouts](/docs/stablecoin-payouts)
 
 **Note:** As you can see in the video, when you try to make payments using the payout API, we ask for information such as payout schemes and destinations. In the following section, we will go over payment schemes and payment destinations in detail.
 
@@ -84,6 +85,7 @@ This is the type of account you want to send your payments to. Find the payment 
 | Mobile money wallet | mobile_money_wallet |
 | Fincra Account      | wallet              |
 | Cash PickUp         | cash_pick_up        |
+| Crypto Wallet       | crypto_wallet       |
 
 ## List Of Currencies Supported For Payouts
 
