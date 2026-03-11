@@ -7656,12 +7656,13 @@
                     "properties": {
                       "walletAddress": {
                         "type": "string",
-                        "description": "",
+                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. This address must correspond to the selected paymentScheme and blockchain network.",
                         "default": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
                       },
                       "destinationTag": {
                         "type": "string",
-                        "default": "test-memo"
+                        "default": "test-memo",
+                        "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
                       }
                     },
                     "required": [
