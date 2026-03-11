@@ -1043,7 +1043,11 @@
                 "properties": {
                   "sourceCurrency": {
                     "type": "string",
-                    "description": "The currency which is used to fund a currency conversion or payout",
+                    "description": "The currency which is used to fund a currency conversion or payout"
+                  },
+                  "destinationCurrency": {
+                    "type": "string",
+                    "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
                       "NGN",
                       "USD",
@@ -1052,17 +1056,14 @@
                       "GHS",
                       "KES",
                       "UGX",
-                      "TZS",
+                      "TZX",
                       "ZMW",
-                      "ZAR",
+                      "XAF",
+                      "XOF",
                       "USDT",
                       "USDC",
                       "CNGN"
                     ]
-                  },
-                  "destinationCurrency": {
-                    "type": "string",
-                    "description": "The currency in which the recipient will be receiving funds"
                   },
                   "amount": {
                     "type": "string",
