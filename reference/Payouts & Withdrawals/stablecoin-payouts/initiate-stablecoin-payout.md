@@ -1,6 +1,6 @@
 ---
 title: Initiate Stablecoin Payout
-excerpt: 'This API lets you make payouts to stablecoin wallet addresses '
+excerpt: This API lets you make payouts to USDT wallets
 api:
   file: awesome-new-api.json
   operationId: initiate-mobile-money-payout-1
