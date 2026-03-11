@@ -1,5 +1,5 @@
 ---
-title: Copy of Generate Quote
+title: Generate Quote
 deprecated: false
 hidden: false
 link:
