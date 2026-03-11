@@ -5,7 +5,7 @@ hidden: false
 metadata:
   robots: index
 ---
-Stablecoin payouts enable businesses to send funds directly to blockchain wallets using supported stablecoins such as **USDT**, **USDC**, and **cNGN**. Stablecoin  transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-stablecoin-payout)
+Stablecoin payouts enable businesses to send funds directly to blockchain wallets using supported stablecoins such as **USDT**, **USDC**, and **cNGN**. Stablecoin  transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-stablecoin-payout) 
 
 ***
 
