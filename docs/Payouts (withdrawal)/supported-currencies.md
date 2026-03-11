@@ -151,11 +151,67 @@ next:
 Digital asset payouts allow you to send funds directly to supported blockchain wallets, independent of country or banking infrastructure. Unlike traditional payouts that depend on destination countries and local currencies, digital asset payouts are network-based and can be sent globally.
 Currently supported digital assets include:
 
-| Asset | Description             | Supported Network           |
-| :---- | :---------------------- | :-------------------------- |
-| USDT  | Tether USD stablecoin   | TRC20, ERC20, Solana, BEP20 |
-| USDC  | USD Coin stablecoin     | ERC20, Solana               |
-| cNGN  | Naira-backed stablecoin | ERC20, BEP20, Solana        |
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Asset
+      </th>
+
+      <th>
+        Description 
+      </th>
+
+      <th>
+        Supported Network
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        USDT
+      </td>
+
+      <td>
+        Tether USD stablecoin
+      </td>
+
+      <td>
+        TRC20, ERC20, Solana, BEP20
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        USDC
+      </td>
+
+      <td>
+        USD Coin stablecoin
+      </td>
+
+      <td>
+        ERC20, Solana
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        cNGN
+      </td>
+
+      <td>
+        Naira-backed stablecoin
+      </td>
+
+      <td>
+        <br />
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ### List of Nigerian Banks Supported for USD Domiciliary Account Payment  for Payout(Bank Transfer)
 
