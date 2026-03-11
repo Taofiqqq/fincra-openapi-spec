@@ -7666,8 +7666,7 @@
                       }
                     },
                     "required": [
-                      "walletAddress",
-                      "destinationTag"
+                      "walletAddress"
                     ]
                   }
                 }
