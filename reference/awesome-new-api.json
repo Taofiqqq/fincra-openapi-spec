@@ -11623,7 +11623,7 @@
                   },
                   "business": {
                     "type": "string",
-                    "description": "The unique Identifier of the parent business or sub account"
+                    "description": "The unique Identifier of the parent business"
                   },
                   "description": {
                     "type": "string",
