@@ -1043,7 +1043,22 @@
                 "properties": {
                   "sourceCurrency": {
                     "type": "string",
-                    "description": "The currency which is used to fund a currency conversion or payout"
+                    "description": "The currency which is used to fund a currency conversion or payout",
+                    "enum": [
+                      "NGN",
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "GHS",
+                      "KES",
+                      "UGX",
+                      "TZS",
+                      "ZMW",
+                      "ZAR",
+                      "USDT",
+                      "USDC",
+                      "CNGN"
+                    ]
                   },
                   "destinationCurrency": {
                     "type": "string",
