@@ -7629,7 +7629,7 @@
                   "paymentDestination": {
                     "type": "string",
                     "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
-                    "default": "ff",
+                    "default": "crypto_wallet",
                     "enum": [
                       "crypto_wallet",
                       "ff"
