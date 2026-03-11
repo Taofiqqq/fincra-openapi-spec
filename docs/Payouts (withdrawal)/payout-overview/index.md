@@ -16,7 +16,7 @@ Your Fincra account can be used to send money across different countries and cur
 
 * Local and International [ bank accounts ](/docs/making-bank-account-transfers)
 * [ Mobile money wallets](/docs/mobile-money-transfers)
-* [Stablecoin wallets](/docs/mobile-money-transfers)
+* [Stablecoin wallets](/docs/stablecoin-payout)
 * Another Fincra account by using the [Fincra to Fincra transfer API](/docs/wallet-to-wallet-transfer-api-1)
 
 ## Supported Payout Currencies
@@ -36,6 +36,9 @@ Your Fincra account can be used to send money across different countries and cur
 | USD      | Bank Account                            |
 | EUR      | Bank Account                            |
 | GBP      | Bank Account                            |
+| USDT     | Crypto Wallet                           |
+| USDC     | Crypto Wallet                           |
+| CNGN     | Crypto Wallet                           |
 
 ## Local Payout vs Cross Border Payout
 
@@ -46,6 +49,15 @@ You can perform these transfers both through your portal and using the API.
 
 * [Local Payouts](/docs/same-currency-payouts)
 * [Cross Border Payouts](/docs/cross-border-payouts)
+
+## Stablecoin Payout
+
+The Stablecoin Payout API allows you to send funds directly to cryptocurrency wallets using supported stablecoin networks. You can disburse stablecoins to recipients globally without relying on traditional banking rails.
+Stablecoin payouts are available through both your portal and the API
+
+**Learn how you can make** :
+
+* [Stablecoin Payouts](/docs/stablecoin-payouts)
 
 ### Making Payouts On Your Portal
 
