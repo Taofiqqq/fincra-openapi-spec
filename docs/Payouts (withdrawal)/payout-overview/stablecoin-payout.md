@@ -13,7 +13,7 @@ Stablecoin payouts enable businesses to send funds directly to blockchain wallet
 
 The payout process generally follows these steps:
 
-1. **Generate Quote (Optional):** Required when converting from fiat or another currency into a stablecoin.
+1. **Generate Quote (Optional):** Required when converting from fiat or another currency to a stablecoin.
 2. **Initiate Payout:** Send the payout request with a wallet address and blockchain network.
 3. **Processing & Settlement:** The system validates the payout, performs any required conversion, and settles the funds on the selected blockchain network.
 
@@ -31,7 +31,7 @@ The payout process generally follows these steps:
 | :------------: | :-------------------------: |
 |    **USDT**    | TRC20, ERC20, Solana, BEP20 |
 |    **USDC**    |        ERC20, Solana        |
-|    **cNGN**    |     ERC20, Solana, BEP20    |
+|    **cNGN**    |                             |
 
 Each payout must specify a **payment scheme** corresponding to the desired network.
 
@@ -63,45 +63,4 @@ Example beneficiary payload:
 |  `walletAddress` |          Destination crypto wallet address          |
 | `destinationTag` | Optional memo/tag required by some wallet providers |
 
-**What’s Different from Fiat Payouts**
-
-Stablecoin payouts introduce several new parameters compared to traditional (fiat) payout flows.
-
-**1. Payment Destination**
-
-Stablecoin payouts must use:
-
-`paymentDestination: crypto_wallet`
-
-This indicates that the payout is routed to a blockchain wallet rather than a bank account.
-
-**2. Payment Scheme**
-
-A **payment scheme** must be specified to indicate the blockchain network.
-
-Example:
-
-`paymentScheme: usdt_trc20
-
-`
-
-**3. Beneficiary Structure**
-
-Instead of bank account details, the beneficiary object includes wallet details.
-
-* `beneficiary.walletAddress`
-* `beneficiary.destinationTag`
-
-**Supported Payout Types**
-
-Stablecoin payouts support the following transaction types:
-
-* **Same-Currency Stablecoin Payout**
-  * Example: `USDT` → `USDT`
-  * No FX quote required.
-* **Cross-Currency Stablecoin Payout**
-  * Example: `KES` → `USDT`, `USD` → `USDC`, `NGN` → `cNGN`
-  * Requires **quote generation** before initiating payout.
-* **Conversion Only**
-  * Convert one currency into a stablecoin without initiating a payout.
-  * Example: `KES` → `USDT` conversion
+<br />
