@@ -10,12 +10,13 @@ metadata:
 next:
   description: ''
 ---
-Your Fincra account can be used to send money across different countries and currencies. Fincra provides different options to match your use case. With Fincra you can transfer to bank accounts, mobile money wallets, and other Fincra accounts.
+Your Fincra account can be used to send money across different countries and currencies. Fincra provides different options to match your use case. With Fincra you can transfer to bank accounts, mobile money wallets, stablecoin wallets, and other Fincra accounts.
 
 **Learn how you can make payments to**:
 
 * Local and International [ bank accounts ](/docs/making-bank-account-transfers)
 * [ Mobile money wallets](/docs/mobile-money-transfers)
+* [Stablecoin wallets](/docs/mobile-money-transfers)
 * Another Fincra account by using the [Fincra to Fincra transfer API](/docs/wallet-to-wallet-transfer-api-1)
 
 ## Supported Payout Currencies
