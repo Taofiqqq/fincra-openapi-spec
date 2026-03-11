@@ -7578,7 +7578,8 @@
                   "description",
                   "customerReference",
                   "paymentScheme",
-                  "beneficiary"
+                  "beneficiary",
+                  "paymentDestination"
                 ],
                 "properties": {
                   "sourceCurrency": {
@@ -7586,7 +7587,6 @@
                     "description": "The currency which is used to fund the  payout",
                     "enum": [
                       "USDT",
-                      "NGN",
                       "GHS",
                       "KES",
                       "UGX",
@@ -7595,7 +7595,10 @@
                       "EUR",
                       "GBP",
                       "ZMW",
-                      "ZAR"
+                      "ZAR",
+                      "USDC",
+                      "CNGN",
+                      "NGN"
                     ],
                     "default": "USDT"
                   },
@@ -7603,14 +7606,16 @@
                     "type": "string",
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
-                      "USDT"
+                      "USDT",
+                      "USDC",
+                      "CNGN"
                     ],
                     "default": "USDT"
                   },
                   "amount": {
                     "type": "string",
                     "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": "10"
+                    "default": ""
                   },
                   "business": {
                     "type": "string",
@@ -7619,16 +7624,16 @@
                   "description": {
                     "type": "string",
                     "description": "The description of the payout",
-                    "default": "Payment"
+                    "default": ""
                   },
                   "customerReference": {
                     "type": "string",
                     "description": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions.",
-                    "default": "TXT-001"
+                    "default": ""
                   },
                   "paymentDestination": {
                     "type": "string",
-                    "description": "This is the type of account you want to send your payments to e.g bank account, mobile money wallet",
+                    "description": "This is the type of account you want to send your payments (must be crypto_wallet)",
                     "default": "crypto_wallet",
                     "enum": [
                       "crypto_wallet"
@@ -7636,7 +7641,7 @@
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency and region e.g sepa",
+                    "description": "The payment scheme relevant to the destination currency payment network",
                     "enum": [
                       "usdt_trc20",
                       "usdt_erc20",
@@ -7649,7 +7654,7 @@
                   },
                   "quoteReference": {
                     "type": "string",
-                    "description": "This is the reference generated when the source currency is compared against the destination currency. This is compulsory for cross-currency payouts."
+                    "description": "This is the reference generated for FX quote. This is required for cross-currency payouts."
                   },
                   "beneficiary": {
                     "type": "object",
