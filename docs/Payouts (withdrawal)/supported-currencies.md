@@ -146,6 +146,17 @@ next:
 | 126 | United States of America        | US         | Bank Account        | USD      |
 | 127 | Uruguay                         | UY         | Bank Account        | USD      |
 
+### Digital Asset Payouts 
+
+Digital asset payouts allow you to send funds directly to supported blockchain wallets, independent of country or banking infrastructure. Unlike traditional payouts that depend on destination countries and local currencies, digital asset payouts are network-based and can be sent globally.
+Currently supported digital assets include:
+
+| Asset | Description             | Supported Network           |
+| :---- | :---------------------- | :-------------------------- |
+| USDT  | Tether USD stablecoin   | TRC20, ERC20, Solana, BEP20 |
+| USDC  | USD Coin stablecoin     | ERC20, Solana               |
+| cNGN  | Naira-backed stablecoin | Solana, Etherum             |
+
 ### List of Nigerian Banks Supported for USD Domiciliary Account Payment  for Payout(Bank Transfer)
 
 1. Access bank
