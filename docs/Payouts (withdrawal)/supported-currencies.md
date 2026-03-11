@@ -155,7 +155,7 @@ Currently supported digital assets include:
 | :---- | :---------------------- | :-------------------------- |
 | USDT  | Tether USD stablecoin   | TRC20, ERC20, Solana, BEP20 |
 | USDC  | USD Coin stablecoin     | ERC20, Solana               |
-| cNGN  | Naira-backed stablecoin | Solana, Etherum             |
+| cNGN  | Naira-backed stablecoin | ERC20, BEP20, Solana        |
 
 ### List of Nigerian Banks Supported for USD Domiciliary Account Payment  for Payout(Bank Transfer)
 
