@@ -11619,7 +11619,7 @@
                   "amount": {
                     "type": "string",
                     "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": "200"
+                    "default": "10"
                   },
                   "business": {
                     "type": "string",
