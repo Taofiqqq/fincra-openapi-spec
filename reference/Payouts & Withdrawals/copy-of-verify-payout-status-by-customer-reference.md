@@ -1,5 +1,5 @@
 ---
-title: Copy of Verify Payout Status by Customer Reference
+title: Verify Payout Status by Customer Reference
 deprecated: false
 hidden: false
 link:
