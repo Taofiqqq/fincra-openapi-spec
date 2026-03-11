@@ -11839,20 +11839,6 @@
                   "quoteReference": {
                     "type": "string",
                     "description": "This is the reference generated when the source currency is compared against the destination currency. This is compulsory for cross-currency payouts."
-                  },
-                  "sender": {
-                    "type": "object",
-                    "description": "The details of the customer initiating the payout",
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "The customer's full name. This name would show up in the transfer narration."
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "The customer's email"
-                      }
-                    }
                   }
                 }
               },
