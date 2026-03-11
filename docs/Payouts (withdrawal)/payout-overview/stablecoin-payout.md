@@ -1,7 +1,7 @@
 ---
 title: Stablecoin Payouts
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
