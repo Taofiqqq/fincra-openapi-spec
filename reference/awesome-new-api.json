@@ -7383,27 +7383,18 @@
               "examples": {
                 "Payout to mobile money wallet": {
                   "value": {
-                    "sourceCurrency": "NGN",
-                    "destinationCurrency": "GHS",
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "USDT",
+                    "destinationCurrency": "USDT",
+                    "amount": "10",
+                    "description": "Payment",
+                    "paymentDestination": "crypto_wallet",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "paymentScheme": "usdt_trc20",
                     "beneficiary": {
-                      "country": "GH",
-                      "firstName": "John",
-                      "lastName": "Doe",
-                      "email": "johndoe@gmail.com",
-                      "mobileMoneyCode": "GH280100",
-                      "type": "individual",
-                      "accountHolderName": "John Doe",
-                      "accountNumber": "0726292111",
-                      "bankCode": "044",
-                      "sortCode": "89dd",
-                      "registrationNumber": "89dd"
-                    },
-                    "paymentDestination": "mobile_money_wallet",
-                    "amount": "100",
-                    "business": "",
-                    "description": "transfer",
-                    "customerReference": "BXT-TT",
-                    "quoteReference": "c77b8d87-2673-4f7a-b8d8-b0815b81fd62"
+                      "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                      "destinationTag": "test-memo"
+                    }
                   }
                 }
               }
