@@ -7300,7 +7300,9 @@
                       "ZAR",
                       "USDC",
                       "CNGN",
-                      "NGN"
+                      "NGN",
+                      "XAF",
+                      "XOF"
                     ],
                     "default": "USDT"
                   },
