@@ -24,14 +24,15 @@ In this section, we will go over the steps required to set up and maintain an NG
 
 Listed below are the banks that are supported in the creation of NGN permanent virtual accounts. This value is what you pass in under the "`channel`" field when making a virtual account request.
 
-| **S/N** | **Bank**            | **Value** | **Enabled** |
-| ------- | ------------------- | --------- | :---------- |
-| 1       | Bold MFB            | bold      | no          |
-| 2       | Globus Bank         | globus    | yes         |
-| 3       | Wema Bank           | wema      | yes         |
-| 4       | Providus Bank       | providus  | no          |
-| 5       | Guaranty Trust Bank | habari    | yes         |
-| 6       | Sterling Bank       | sterling  | yes         |
+| **S/N** | **Bank**            | **Value**  | **Enabled** |
+| ------- | ------------------- | ---------- | :---------- |
+| 1       | Bold MFB            | bold       | no          |
+| 2       | Globus Bank         | globus     | yes         |
+| 3       | Wema Bank           | wema       | yes         |
+| 4       | Providus Bank       | providus   | no          |
+| 5       | Guaranty Trust Bank | habari     | yes         |
+| 6       | Sterling Bank       | sterling   | yes         |
+| 7       | Moniepoint          | moniepoint | yes         |
 
 ## API Guide
 
