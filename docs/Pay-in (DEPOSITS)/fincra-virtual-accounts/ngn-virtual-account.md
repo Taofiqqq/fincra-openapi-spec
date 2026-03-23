@@ -32,7 +32,7 @@ Listed below are the banks that are supported in the creation of NGN permanent v
 | 4       | Providus Bank       | providus   | no          |
 | 5       | Guaranty Trust Bank | habari     | yes         |
 | 6       | Sterling Bank       | sterling   | yes         |
-| 7       | Moniepoint          | moniepoint | yes         |
+| 7       | Moniepoint MFB      | moniepoint | yes         |
 
 ## API Guide
 
