@@ -31,7 +31,7 @@ The funds can be:
 | :------------ | :------- | :------------------------ | :--------- | :--------- |
 | Kenya         | KES      | Yes                       | N/A        | N/A        |
 | Uganda        | UGX      | Coming Soon               | N/A        | N/A        |
-| Ghana         | GHS      | Yes                       | N/A        | N/A        |
+| Ghana         | GHS      | N/A                       | N/A        | N/A        |
 | Zambia        | ZMW      | Coming Soon               | N/A        | N/A        |
 | South Africa  | ZAR      | Coming Soon               | N/A        | N/A        |
 | Cameroon      | XAF      | Coming Soon               | N/A        | N/A        |
@@ -196,8 +196,8 @@ Where;
       </td>
 
       <td>
-        * *Webhook**: [https://docs.fincra.com/docs/payin-webhook](https://docs.fincra.com/docs/payin-webhook)
-        * *API**: [https://docs.fincra.com/reference/get-collection-record-by-reference](https://docs.fincra.com/reference/get-collection-record-by-reference)
+        * _Webhook_*: [https://docs.fincra.com/docs/payin-webhook](https://docs.fincra.com/docs/payin-webhook)
+        * _API_*: [https://docs.fincra.com/reference/get-collection-record-by-reference](https://docs.fincra.com/reference/get-collection-record-by-reference)
       </td>
     </tr>
 
@@ -287,8 +287,8 @@ Where;
       </td>
 
       <td>
-        * *Webhook**: [https://docs.fincra.com/docs/conversions-webhook](https://docs.fincra.com/docs/conversions-webhook)
-        * *API**: [https://docs.fincra.com/reference/verify-conversion-status](https://docs.fincra.com/reference/verify-conversion-status)
+        * _Webhook_*: [https://docs.fincra.com/docs/conversions-webhook](https://docs.fincra.com/docs/conversions-webhook)
+        * _API_*: [https://docs.fincra.com/reference/verify-conversion-status](https://docs.fincra.com/reference/verify-conversion-status)
       </td>
     </tr>
 
@@ -326,9 +326,9 @@ Where;
       </td>
 
       <td>
-        * *Webhook**: [https://docs.fincra.com/docs/payout-webhook](https://docs.fincra.com/docs/payout-webhook)
-        * *API**: [https://docs.fincra.com/reference/verify-payout-status-by-reference](https://docs.fincra.com/reference/verify-payout-status-by-reference)
-        * *API**: [https://docs.fincra.com/reference/fetch-payout-by-customer-reference](https://docs.fincra.com/reference/fetch-payout-by-customer-reference)
+        * _Webhook_*: [https://docs.fincra.com/docs/payout-webhook](https://docs.fincra.com/docs/payout-webhook)
+        * _API_*: [https://docs.fincra.com/reference/verify-payout-status-by-reference](https://docs.fincra.com/reference/verify-payout-status-by-reference)
+        * _API_*: [https://docs.fincra.com/reference/fetch-payout-by-customer-reference](https://docs.fincra.com/reference/fetch-payout-by-customer-reference)
       </td>
     </tr>
   </tbody>
