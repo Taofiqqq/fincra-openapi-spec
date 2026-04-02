@@ -1,7 +1,7 @@
 ---
 title: Copy of NGN Virtual Account
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
