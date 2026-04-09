@@ -7,9 +7,7 @@ metadata:
 ---
 <br />
 
-<br />
-
-# 💳 Card Issuing 
+# 💳 Card Issuing
 
 Fincra Card Issuing allows businesses to issue and manage payment cards for individuals and businesses.
 
