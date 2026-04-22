@@ -20,4 +20,4 @@ There are three ways of accepting card payments with Fincra :
 
 * Mobile money payments with [Checkouts](https://docs.fincra.com/docs/checkout-redirect)
 * Mobile money payments with [Payment Links](https://docs.fincra.com/edit/payment-links)
-* Mobile money payments using our Direct Charge APIs. Typically this involves handling some sensitive customer data, so you are required to be PCI DSS certified. If your business is PCI-DSS compliant and you would like to send user information to our APIs from your end, kindly reach out to us at [support@fincra.com](support@fincra.com)
+* Mobile money payments using our Direct Charge APIs. [[Mobile Money Direct Charge](https://docs.fincra.com/docs/mobile-money-direct-charge)]. Typically this involves handling some sensitive customer data, so you are required to be PCI DSS certified. If your business is PCI-DSS compliant and you would like to send user information to our APIs from your end, kindly reach out to us at [support@fincra.com](support@fincra.com)
