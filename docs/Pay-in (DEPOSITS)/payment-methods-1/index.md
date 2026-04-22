@@ -20,5 +20,5 @@ Here is a list of the payment channels supported on Fincra;
 * [Cards](/docs/card-1)
 * [Bank Transfers](/docs/bank-transfer)
 * [Pay Attitude](/docs/pay-attitude)
-* [Mobile Money](/docs/mobile-money-api)
+* [Mobile Money](https://docs.fincra.com/update/docs/mobile-money)
 * [POS Terminal](/docs/pos-terminal-overview)
