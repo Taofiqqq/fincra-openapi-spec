@@ -166,7 +166,7 @@ Please find below the request parameters for the endpoint.
       </td>
 
       <td>
-        Your transaction reference. Must be unique for every transaction.\
+        Your transaction reference. Must be unique for every transaction.  
         If you do not provide one, a unique transaction reference would be generated for the transaction.
       </td>
     </tr>
@@ -203,8 +203,8 @@ Please find below the request parameters for the endpoint.
       </td>
 
       <td>
-        Include any information you'd want to send to Fincra in this object.\
-        e.g metadata: \{userId: "my\_user\_id" }
+        Include any information you'd want to send to Fincra in this object.  
+        e.g metadata: \{userId: "my_user_id" }
       </td>
     </tr>
 
@@ -222,7 +222,7 @@ Please find below the request parameters for the endpoint.
       </td>
 
       <td>
-        Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now\
+        Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now  
         Value for settlementDestination would be **wallet**
       </td>
     </tr>
@@ -277,7 +277,7 @@ Please find below the request parameters for the endpoint.
       </td>
 
       <td>
-        The payment method you want to make available to your customers  E.g, Bank (bank\_transfer), card (card), payAttitude.
+        The payment method you want to make available to your customers  E.g, Bank (bank_transfer), card (card), mobile money, payAttitude.
       </td>
     </tr>
 
@@ -295,7 +295,7 @@ Please find below the request parameters for the endpoint.
       </td>
 
       <td>
-        The Payment method that should be active by default on the checkout page E.g bank\_transfer, card, payAttitude.
+        The Payment method that should be active by default on the checkout page E.g bank_transfer, card, payAttitude.
       </td>
     </tr>
   </tbody>
@@ -362,9 +362,9 @@ function payFincra(e) {
      }
 ```
 
-**Take note of the following:**  
+**Take note of the following:**
 
-* The <code>key</code> field here takes your Fincra *public* key.
+* The <code>key</code> field here takes your Fincra _public_ key.
 * The <code>amount</code> field here is the amount to be collected.
 
 ## 3 - Receive and validate webhook notification
