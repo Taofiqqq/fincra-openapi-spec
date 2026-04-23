@@ -108,12 +108,14 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
 | ----------- | ------------ | --------------------- | --------------------- | --------------- | --------- | --------- | ------------- | ---- |
 | **Fail**    | Mobile Money | MTN Mobile            | 237671234567          | Mbappe Simon    | MTN       | –         | –             | –    |
 | **Pass**    | Mobile Money | Orange Money Cameroon | 237651234567          | Ngassa Clarisse | ORANGE    | –         | –             | –    |
+| **Pass**    | Bank         | ECOBANK CAMEROUN      | 5001002003            | Tchamba Pierre  | 85526075  | _         | _             | _    |
+| **Fail**    | Bank         | AFRILAND FIRST BANK   | 5001002004            | Fotso Marie     | 97957771  | _         | _             | _    |
 
 ***
 
 ## **🇪🇬 Egypt (EGP)**
 
-<Table>
+<Table align={["left","left","left","left","left","left","left","left","left"]}>
   <thead>
     <tr>
       <th>
@@ -177,7 +179,7 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
@@ -292,19 +294,19 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
-        -
+        * <br />
       </td>
     </tr>
 
@@ -339,11 +341,11 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
-        -
+        * <br />
       </td>
     </tr>
 
@@ -377,11 +379,11 @@ Use the following **sandbox-only** test accounts and mobile money numbers to sim
       </td>
 
       <td>
-        -
+        * <br />
       </td>
 
       <td>
-        -
+        * <br />
       </td>
     </tr>
   </tbody>
