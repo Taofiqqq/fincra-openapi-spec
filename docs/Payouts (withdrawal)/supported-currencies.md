@@ -34,7 +34,7 @@ next:
 | 14  | France                          | FR         | Bank Account                | EUR      |
 | 15  | Gabon                           | GA         | Mobile Wallet               | XAF      |
 | 16  | Germany                         | GH         | Bank Account                | EUR      |
-| 17  | Ghana                           | GH         | Mobile Wallet               | GHS      |
+| 17  | Ghana                           | GH         | Mobile Wallet, Bank Account | GHS      |
 | 18  | Greece                          | GR         | Bank Account                | EUR      |
 | 19  | Hungary                         | HU         | Bank Account                | EUR      |
 | 20  | Ireland                         | IE         | Bank Account                | EUR      |
