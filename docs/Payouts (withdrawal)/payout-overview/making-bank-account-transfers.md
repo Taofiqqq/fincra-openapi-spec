@@ -1564,3 +1564,161 @@ The payload should look like this :
 }
 
 ```
+
+<br />
+
+## TZS Pay-Outs  
+
+  In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Tanzania. 
+
+| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
+| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
+| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
+| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
+| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
+| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
+| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
+| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+
+  
+
+The payload should look like this :
+
+```json TZS
+{
+  "customerReference": "ABC123XYZ789",
+  "sourceCurrency": "TZS",
+  "destinationCurrency": "TZS",
+  "customerName": "Test User",
+  "amount": 10000,
+  "paymentDestination": "bank_account",
+  "beneficiary": {
+    "firstName": "Demo Business Ltd",
+    "accountHolderName": "Demo Business Ltd",
+    "accountNumber": "12345678901",
+    "type": "corporate",
+    "country": "TZ",
+    "bankCode": "UBA",
+    "bankName": "Bank of Tanzania",
+    "bankSwiftCode": "TANZTZTX",
+    "lastName": null
+  },
+  "description": "Sample transaction description",
+  "sender": {
+    "name": "Test Sender",
+    "address": "123 Sample Street, Kampala",
+    "email": "test.sender@example.com",
+    "phone": "+256700000000"
+  },
+  "business": "1234567890abcdef12345678"
+}
+```
+
+<br />
+
+   
+
+## XAF Pay-Outs
+
+In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in CEMAC regions. 
+
+| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
+| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
+| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
+| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
+| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
+| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
+| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
+| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+
+The payload should look like this :
+
+```json XAF
+{
+  "customerReference": "ABC123XYZ789",
+  "sourceCurrency": "XAF",
+  "destinationCurrency": "XAF",
+  "customerName": "Test User",
+  "amount": 10000,
+  "paymentDestination": "bank_account",
+  "beneficiary": {
+    "firstName": "Demo Business Ltd",
+    "accountHolderName": "Demo Business Ltd",
+    "accountNumber": "1234567890",
+    "type": "corporate",
+    "country": "CM",
+    "bankCode": "80007125",
+    "bankName": "BGFIBANK CAMEROUN SA",
+    "bankSwiftCode": "BGFICMCX",
+    "lastName": null
+  },
+  "description": "Sample transaction description",
+  "sender": {
+    "name": "Test Sender",
+    "address": "123 Sample Street, Kampala",
+    "email": "test.sender@example.com",
+    "phone": "+225700000000"
+  },
+  "business": "1234567890abcdef12345678"
+}
+```
+
+<br />
+
+<br />
+
+## XOF Pay-Outs
+
+ In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in UEMOA/WAEMU regions. 
+
+| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
+| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
+| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
+| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
+| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
+| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
+| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
+| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
+| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+
+  
+
+The payload should look like this :
+
+```json XOF
+{
+  "customerReference": "ABC123XYZ789",
+  "sourceCurrency": "XOF",
+  "destinationCurrency": "XOF",
+  "customerName": "Test User",
+  "amount": 10000,
+  "paymentDestination": "bank_account",
+  "beneficiary": {
+    "firstName": "Demo Business Ltd",
+    "accountHolderName": "Demo Business Ltd",
+    "accountNumber": "1234567890",
+    "type": "corporate",
+    "country": "CI",
+    "bankCode": "13505183",
+    "bankName": "GT Bank Cote d Ivoire",
+    "bankSwiftCode": "GTBICIABXXX",
+    "lastName": null
+  },
+  "description": "Sample transaction description",
+  "sender": {
+    "name": "Test Sender",
+    "address": "123 Sample Street, Kampala",
+    "email": "test.sender@example.com",
+    "phone": "+256700000000"
+  },
+  "business": "1234567890abcdef12345678"
+}
+```
