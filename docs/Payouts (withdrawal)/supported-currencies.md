@@ -14,7 +14,7 @@ next:
 
 > 📘 Note
 >
-> Make sure you put the right country code in the `country` field when you send a request to the payout API. If you don't do this, the payout will not be successful. The payout API requires the country [alpha2Code](https://www.nationsonline.org/oneworld/country_code_list.htm). Kindly Check out the [payout documentation](/docs/introduction-10) to learn how to make payouts.
+> Make sure you put the right country code in the `country` field when you send a request to the payout API. If you don't do this, the payout will not be successful. The payout API requires the country [alpha2Code](https://www.nationsonline.org/oneworld/country_code_list.htm). Kindly Check out the [payout documentation](https://docs.fincra.com/docs/cross-border-payouts) to learn how to make payouts.
 
 | S/N | Country                         | Alpha2Code | Payment Destination         | Currency |
 | --- | ------------------------------- | ---------- | --------------------------- | -------- |
@@ -148,8 +148,7 @@ next:
 
 ### Digital Asset Payouts
 
-Digital asset payouts allow you to send funds directly to supported blockchain wallets, independent of country or banking infrastructure. Unlike traditional payouts that depend on destination countries and local currencies, digital asset payouts are network-based and can be sent globally.
-Currently supported digital assets include:
+Digital asset payouts allow you to send funds directly to supported blockchain wallets, independent of country or banking infrastructure. Unlike traditional payouts that depend on destination countries and local currencies, digital asset payouts are network-based and can be sent globally. Currently supported digital assets include:
 
 | Asset | Description             | Supported Network           |
 | :---- | :---------------------- | :-------------------------- |
