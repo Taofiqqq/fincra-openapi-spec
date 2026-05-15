@@ -19,6 +19,7 @@ This guide explains how to integrate static **KES (Kenyan Shilling) Virtual Acco
 * KES VA setup requires **manual onboarding** of your main account by Fincra.
 * Once approved, you can create **sub-accounts** via the API.
 * Onboarding typically takes up to **48 hours** (based on document completeness).
+* Collections above KES 999,999 may trigger supporting documentation (RFI).
 
 ***
 
