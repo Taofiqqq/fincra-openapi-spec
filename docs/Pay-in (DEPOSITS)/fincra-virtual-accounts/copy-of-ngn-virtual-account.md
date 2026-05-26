@@ -1,5 +1,5 @@
 ---
-title: Copy of NGN Virtual Account
+title: ' NGN Virtual Account'
 deprecated: false
 hidden: true
 metadata:
