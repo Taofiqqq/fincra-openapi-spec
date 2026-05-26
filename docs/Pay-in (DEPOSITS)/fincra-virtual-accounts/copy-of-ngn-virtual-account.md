@@ -5,9 +5,83 @@ hidden: true
 metadata:
   robots: index
 ---
-In this section, we will go over the steps required to set up and maintain an NGN permanent virtual account. We would like to start by explaining how permanent virtual accounts can be created on Fincra.
+This document outlines the updates to the NGN Virtual Account Creation and KYC Verification API. The primary objective of these changes is to transition from a BVN-only verification model to a more robust, document-based KYC system. This enables account creation for users without a BVN (using alternative IDs) and introduces deeper verification for corporate entities and Ultimate Beneficial Owners (UBOs)
 
 * By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](create-permanent-ngn-virtual-account)
+
+# 📋 Change Summary
+
+## Key Changes
+
+* **Granular KYC**  
+  Introduced the `document` object to support identity verification documents such as passports, national IDs, and similar credentials.
+
+* **Address Validation**  
+  Structured address objects are now mandatory for both individual and corporate entities.
+
+* **Flexible File Uploads**  
+  All document fields (e.g., IDs, utility bills, bank statements) support:
+  * Direct file uploads
+  * Publicly accessible file URLs
+
+* **Enhanced Corporate KYC Requirements**  
+  Corporate entities must now provide details for **Ultimate Beneficial Owners (UBOs)**, including:
+  * Identification documents
+  * Structured address information
+
+* **Conditional Validation Rules**  
+  For **NGN virtual account requests**, users must provide **at least one** of the following:
+  * `utilityBill`
+  * `bankStatement`
+
+***
+
+> [!IMPORTANT]
+>
+> ### Document Requirement for NGN Accounts
+>
+> When submitting an **NGN virtual account request**, the API will reject the request if **both** `utilityBill` and `bankStatement` are missing.
+>
+> You **must provide at least one**.
+>
+> [!IMPORTANT]
+>
+> ### File Handling Rules
+>
+> The API accepts document fields as **strings**:
+>
+> * If the string begins with `http`, it is treated as a **public file URL**.
+> * If the request uses `multipart/form-data`, uploaded **binary files** will be processed automatically.
+>
+> [!IMPORTANT]
+>
+> ### BVN Bypass Behaviour
+>
+> If the `bvn` field is omitted from `KYCInformation`:
+>
+> * The `document` object becomes **mandatory**
+> * Physical file uploads (e.g., `meansOfId`) become **strictly required**
+>
+> [!IMPORTANT]
+>
+> ### Country Code Format
+>
+> Always use **ISO 3166-1 alpha-2** country codes.
+>
+> Examples:
+>
+> * `NG` → Nigeria
+> * `KE` → Kenya
+>
+> [!IMPORTANT]
+>
+> ### Date Format Requirement
+>
+> All dates must follow the format:
+>
+> `YYYY-MM-DD`
+>
+> Incorrect formats will result in validation failures.
 
 > 📘 Important
 >
