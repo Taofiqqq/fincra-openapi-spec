@@ -438,7 +438,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
@@ -456,7 +456,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
@@ -465,6 +465,24 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 
       <td>
         The customer's email.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        sender.phoneNumber
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The customer's phone number.
       </td>
     </tr>
 
@@ -586,7 +604,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
