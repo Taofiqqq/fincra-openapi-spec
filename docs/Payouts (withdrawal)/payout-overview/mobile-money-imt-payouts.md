@@ -638,21 +638,11 @@ The payload should look like this :
    },
    "sender":{
       "name":"John Doe",
-      "firstName":"John",
-      "lastName":"Doe",
       "email":"[john.doe@example.com](mailto:john.doe@example.com)",
       "phone":"2548034567898",
       "type":"individual",
       "birthDate":"1990-01-15",
-      "birthPlace":"Nairobi",
-      "address":{
-         "street":"123 Ngong Road",
-         "city":"Nairobi",
-         "state":"Nairobi County",
-         "postalCode":"00100",
-         "country":"KE"
-      },
-      "sourceOfFunds":"Business income",
+      "address":"123 Ngong Road, Nairobi, Kenya",
       "idNumber":"12345678",
       "idType":"national_id",
       "nationality":"KE",
