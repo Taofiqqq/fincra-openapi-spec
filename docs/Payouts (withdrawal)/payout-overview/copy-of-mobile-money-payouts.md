@@ -1,7 +1,7 @@
 ---
-title: Copy of Mobile Money Payouts
+title: Mobile Money IMT Payouts
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   robots: index
 ---
