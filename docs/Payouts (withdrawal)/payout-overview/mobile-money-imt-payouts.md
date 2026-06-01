@@ -141,7 +141,7 @@ So first, let's go through the basic information needed for any account. You'll 
       </td>
 
       <td>
-        The value should be sent as mobile_money_wallet
+        The value should be sent as mobile\_money\_wallet
       </td>
     </tr>
 
@@ -397,7 +397,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        **No**
+        Yes
       </td>
 
       <td>
@@ -415,7 +415,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
@@ -563,7 +563,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
@@ -634,12 +634,29 @@ The payload should look like this :
       "mobileMoneyCode":"SAFARICOM",
       "accountNumber":"2548034567898",
       "type":"individual",
-      "email":"aa@aa.com"
+      "email":"[aa@aa.com](mailto:aa@aa.com)"
    },
    "sender":{
-      "name":"Customer Name",
+      "name":"John Doe",
+      "firstName":"John",
+      "lastName":"Doe",
+      "email":"[john.doe@example.com](mailto:john.doe@example.com)",
       "phone":"2548034567898",
-      "address":"Customer full address"
+      "type":"individual",
+      "birthDate":"1990-01-15",
+      "birthPlace":"Nairobi",
+      "address":{
+         "street":"123 Ngong Road",
+         "city":"Nairobi",
+         "state":"Nairobi County",
+         "postalCode":"00100",
+         "country":"KE"
+      },
+      "sourceOfFunds":"Business income",
+      "idNumber":"12345678",
+      "idType":"national_id",
+      "nationality":"KE",
+      "countryOfOrigin":"KE"
    }
 }
 ```
@@ -821,3 +838,5 @@ The payload should look like this :
 > ❗️ Note
 >
 > When paying out to UGX, amount must be a whole number
+
+<br />
