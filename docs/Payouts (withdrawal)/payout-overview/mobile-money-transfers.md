@@ -1,5 +1,5 @@
 ---
-title: Mobile Money Payouts
+title: Mobile Money Local Payouts
 excerpt: ''
 deprecated: false
 hidden: false
