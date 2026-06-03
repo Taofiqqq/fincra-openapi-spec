@@ -1,12 +1,7 @@
 ---
-title: Cash Pick Up Security Questions
-excerpt: >-
-  This API lets you view a security questions required when using cash pick up
-  payout method
 api:
   file: awesome-new-api.json
   operationId: cash-pickup-security-questions
-deprecated: false
 hidden: true
 metadata:
   title: ''

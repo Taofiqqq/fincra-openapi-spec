@@ -1,10 +1,7 @@
 ---
-title: Get Wallets
-excerpt: This endpoint lists all the account balance information of a business .
 api:
   file: awesome-new-api.json
   operationId: get-wallets
-deprecated: false
 hidden: false
 metadata:
   title: ''

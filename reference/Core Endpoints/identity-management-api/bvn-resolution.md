@@ -1,10 +1,7 @@
 ---
-title: BVN Resolution
-excerpt: This API lets you verify a bank verification number(BVN)
 api:
   file: awesome-new-api.json
   operationId: bvn-resolution
-deprecated: false
 hidden: false
 metadata:
   title: ''

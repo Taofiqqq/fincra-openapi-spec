@@ -1,12 +1,7 @@
 ---
-title: Get Merchant Information
-excerpt: >-
-  This API lets you retrieves the unique Identifier of your business and other
-  information such as your email etc.
 api:
   file: awesome-new-api.json
   operationId: get-parent-business-id-additional-endpoint
-deprecated: false
 hidden: false
 metadata:
   title: ''

@@ -1,10 +1,7 @@
 ---
-title: Rates
-excerpt: ''
 api:
   file: awesome-new-api.json
   operationId: rates
-deprecated: false
 hidden: false
 metadata:
   title: ''

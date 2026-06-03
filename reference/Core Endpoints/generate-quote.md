@@ -1,12 +1,7 @@
 ---
-title: Generate a Quote
-excerpt: >-
-  This endpoint is used for generating a quote. Quotes are used to initiate
-  conversions, cross-currency payout, or cross-currency checkout (coming soon).
 api:
   file: awesome-new-api.json
   operationId: generate-quote
-deprecated: false
 hidden: false
 metadata:
   title: ''

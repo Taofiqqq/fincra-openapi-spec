@@ -2276,6 +2276,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "businessID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -2439,7 +2447,7 @@
         "parameters": [
           {
             "name": "businessID",
-            "in": "header",
+            "in": "path",
             "description": "The business id",
             "required": true,
             "schema": {
@@ -2448,7 +2456,7 @@
           },
           {
             "name": "cid",
-            "in": "header",
+            "in": "path",
             "description": "The Customer id",
             "required": true,
             "schema": {
@@ -2703,7 +2711,17 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/profile/issuing/{id}/freeze": {
@@ -2785,7 +2803,17 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/profile/issuing/{id}/unfreeze": {
@@ -2867,7 +2895,17 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/profile/issuing/{id}/withdraw": {
@@ -2952,7 +2990,17 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/profile/issuing/{id}/transactions": {
@@ -2963,7 +3011,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "header",
+            "in": "path",
             "description": "The Id required here is the card id",
             "required": true,
             "schema": {
@@ -3938,6 +3986,20 @@
                     "enum": [
                       "globus"
                     ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
                   }
                 }
               }
@@ -6180,7 +6242,7 @@
         "operationId": "get-refund-status",
         "parameters": [
           {
-            "name": "id",
+            "name": "reference",
             "in": "path",
             "description": "The refund's unique identifier",
             "schema": {
@@ -9243,11 +9305,10 @@
         "parameters": [
           {
             "name": "x-business-id",
-            "in": "path",
+            "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           }
         ],
         "requestBody": {
@@ -10280,7 +10341,7 @@
             }
           },
           {
-            "name": "virtualAccountType",
+            "name": "type",
             "in": "path",
             "description": "The account type. Default to main for pool account collections",
             "required": true,

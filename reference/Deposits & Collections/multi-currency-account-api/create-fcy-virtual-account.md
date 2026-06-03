@@ -1,10 +1,7 @@
 ---
-title: Create FCY virtual account
-excerpt: This API lets you create FCY virtual accounts.
 api:
   file: awesome-new-api.json
   operationId: create-fcy-virtual-account
-deprecated: false
 hidden: false
 metadata:
   title: ''

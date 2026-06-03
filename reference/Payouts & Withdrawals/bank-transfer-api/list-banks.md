@@ -1,12 +1,7 @@
 ---
-title: List Banks
-excerpt: >-
-  This API lets you view a list of banks and mobile money wallet providers,
-  together with their details such as code, swiftCode, and Bic.
 api:
   file: awesome-new-api.json
   operationId: list-banks
-deprecated: false
 hidden: false
 metadata:
   title: ''

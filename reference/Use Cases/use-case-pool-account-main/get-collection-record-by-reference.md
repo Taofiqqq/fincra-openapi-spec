@@ -1,13 +1,7 @@
 ---
-title: Get Collection record by reference
-excerpt: >-
-  This endpoint returns details of a payment into your Fincra position. You can
-  use this endpoint to verify the status and details of a payment after
-  receiving the collection.successful webhook.
 api:
   file: awesome-new-api.json
   operationId: get-collection-record-by-reference
-deprecated: false
 hidden: true
 metadata:
   title: ''

@@ -1,12 +1,7 @@
 ---
-title: Get Business Information
-excerpt: >-
-  This API lets you retrieves the unique Identifier of your business and other
-  information such as your email etc.
 api:
   file: awesome-new-api.json
   operationId: get-business-information
-deprecated: false
 hidden: false
 metadata:
   title: ''

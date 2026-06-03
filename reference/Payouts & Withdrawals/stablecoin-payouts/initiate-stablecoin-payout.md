@@ -1,12 +1,7 @@
 ---
-title: Initiate Stablecoin Payout
-excerpt: >-
-  This API allows you to send payouts to supported cryptocurrency wallets,
-  including USDT, USDC, and cNGN.
 api:
   file: awesome-new-api.json
   operationId: initiate-mobile-money-payout-1
-deprecated: false
 hidden: false
 link:
   new_tab: false

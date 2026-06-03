@@ -1,12 +1,7 @@
 ---
-title: Request Account
-excerpt: >-
-  This API lets you create a temporary virtual account that can be used to
-  receive payments over a period of time
 api:
   file: awesome-new-api.json
   operationId: request-temporary-virtual-account
-deprecated: false
 hidden: false
 metadata:
   title: ''

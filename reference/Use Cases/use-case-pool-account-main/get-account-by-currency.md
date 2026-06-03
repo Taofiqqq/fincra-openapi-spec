@@ -1,12 +1,7 @@
 ---
-title: Get Account by Currency
-excerpt: >-
-  This endpoint is used to fetch account linked to a business by the specified
-  currency.
 api:
   file: awesome-new-api.json
   operationId: get-account-by-currency
-deprecated: false
 hidden: true
 metadata:
   title: ''

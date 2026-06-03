@@ -1,12 +1,7 @@
 ---
-title: Get all wallet balances
-excerpt: >-
-  This endpoint is used to fetch the various balances for your different
-  currency wallets.
 api:
   file: awesome-new-api.json
   operationId: get-all-wallet-balances
-deprecated: false
 hidden: true
 metadata:
   title: ''

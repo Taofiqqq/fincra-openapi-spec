@@ -1,12 +1,7 @@
 ---
-title: Transfer To A Fincra Account
-excerpt: >-
-  This API lets you transfer funds from your account to the account of another
-  user on our platform
 api:
   file: awesome-new-api.json
   operationId: account-to-account-transfer-api
-deprecated: false
 hidden: false
 metadata:
   title: ''

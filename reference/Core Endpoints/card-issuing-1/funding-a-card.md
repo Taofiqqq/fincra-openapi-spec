@@ -1,10 +1,7 @@
 ---
-title: Funding A Virtual card
-excerpt: This API allows funding of the virtual card
 api:
   file: awesome-new-api.json
   operationId: funding-a-card
-deprecated: false
 hidden: true
 metadata:
   title: ''

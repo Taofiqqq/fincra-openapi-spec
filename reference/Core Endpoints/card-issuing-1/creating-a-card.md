@@ -1,10 +1,7 @@
 ---
-title: Creating A Card
-excerpt: ''
 api:
   file: awesome-new-api.json
   operationId: creating-a-card
-deprecated: false
 hidden: true
 metadata:
   title: ''

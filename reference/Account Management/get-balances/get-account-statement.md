@@ -1,10 +1,7 @@
 ---
-title: Get Account Statement
-excerpt: ''
 api:
   file: awesome-new-api.json
   operationId: get-account-statement
-deprecated: false
 hidden: false
 metadata:
   title: ''

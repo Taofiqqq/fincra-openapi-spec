@@ -1,10 +1,7 @@
 ---
-title: Simulate Collection
-excerpt: Call this endpoint to simulate a transfer into your account
 api:
   file: awesome-new-api.json
   operationId: simulate-collection
-deprecated: false
 hidden: true
 metadata:
   title: ''

@@ -1,12 +1,7 @@
 ---
-title: Getting All Cards Per Customer
-excerpt: >-
-  This api allows you to  get all the cards attached to a customer by calling
-  the below endpoint:
 api:
   file: awesome-new-api.json
   operationId: getting-all-cards-per-customer
-deprecated: false
 hidden: true
 metadata:
   title: ''
