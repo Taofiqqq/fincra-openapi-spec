@@ -4,7 +4,7 @@ deprecated: false
 hidden: false
 link:
   new_tab: false
-  url: https://docs.fincra.com/reference/get-a-quote
+  url: '  https://docs.fincra.com/reference/generate-quote'
 metadata:
   robots: index
 ---
