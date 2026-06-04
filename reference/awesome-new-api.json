@@ -7365,7 +7365,7 @@
                       "XAF",
                       "XOF"
                     ],
-                    "default": "USDT"
+                    "default": "NGN"
                   },
                   "destinationCurrency": {
                     "type": "string",
@@ -7392,7 +7392,7 @@
                   "amount": {
                     "type": "string",
                     "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": ""
+                    "default": "5000"
                   },
                   "business": {
                     "type": "string",
@@ -7401,7 +7401,7 @@
                   "description": {
                     "type": "string",
                     "description": "The description of the payout",
-                    "default": ""
+                    "default": "Payment for services"
                   },
                   "customerReference": {
                     "type": "string",
@@ -7490,22 +7490,18 @@
                       },
                       "phone": {
                         "type": "string",
-                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts.",
-                        "default": "+254700000000"
+                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts."
                       },
                       "mobileMoneyCode": {
                         "type": "string",
-                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts.",
-                        "default": "MPESA"
+                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts."
                       },
                       "walletAddress": {
                         "type": "string",
-                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network.",
-                        "default": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network."
                       },
                       "destinationTag": {
                         "type": "string",
-                        "default": "test-memo",
                         "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
                       }
                     }
