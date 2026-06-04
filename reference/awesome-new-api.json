@@ -468,7 +468,7 @@
           {
             "name": "walletID",
             "in": "path",
-            "description": "The ID of the wallet. This is gotten from https://docs.fincra.com/reference/get-all-the-balance-for-a-business",
+            "description": "The ID of the wallet. This is gotten from the [Get Wallets](https://docs.fincra.com/reference/get-wallets) endpoint.",
             "schema": {
               "type": "string",
               "default": "12345"
@@ -7326,7 +7326,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Copy of Initiate Mobile Money Payout",
+        "summary": "Initiate Mobile Money Payout",
         "description": "This API lets you make payouts to bank accounts and mobile money wallets",
         "operationId": "initiate-mobile-money-payout-1",
         "requestBody": {
@@ -11062,7 +11062,7 @@
     },
     "/v2/mandate-mgt/payments/{reference}": {
       "get": {
-        "summary": "Copy of List all Mandates",
+        "summary": "List all Mandates",
         "description": "This API lets you get all mandates that has been initiated by your merchant account. Note, the path param is passed in the url as a query parameter",
         "operationId": "get_v2mandate-mgtmandates?perPage={perPage}-1",
         "parameters": [
@@ -11500,35 +11500,6 @@
           }
         },
         "deprecated": false
-      }
-    },
-    "/disbursements/payouts/new-endpoint": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "parameters": [],
-        "summary": "New Initiate Mobile Money Payout",
-        "operationId": "post_disbursements-payouts-new-endpoint",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-              }
-            }
-          }
-        }
       }
     }
   },
