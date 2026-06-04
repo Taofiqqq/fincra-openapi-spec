@@ -11503,15 +11503,15 @@
       }
     },
     "/disbursements/payouts/new-endpoint": {
-      "get": {
+      "post": {
         "responses": {
           "200": {
             "description": ""
           }
         },
         "parameters": [],
-        "operationId": "get_disbursements-payouts-new-endpoint",
-        "summary": "New Initiate Mobile Money Payout"
+        "summary": "New Initiate Mobile Money Payout",
+        "operationId": "post_disbursements-payouts-new-endpoint"
       }
     }
   },
