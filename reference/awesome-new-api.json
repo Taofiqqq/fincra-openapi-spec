@@ -7327,7 +7327,7 @@
       },
       "post": {
         "summary": "Initiate Payout",
-        "description": "This API lets you make payouts to bank accounts and mobile money wallets",
+        "description": "This API lets you make payouts to bank accounts, mobile money wallets, and crypto/stablecoin wallets. The payout category is determined by the `paymentDestination` field — see the request examples for each category.",
         "operationId": "initiate-mobile-money-payout-1",
         "requestBody": {
           "content": {
@@ -7341,7 +7341,6 @@
                   "business",
                   "description",
                   "customerReference",
-                  "paymentScheme",
                   "beneficiary",
                   "paymentDestination"
                 ],
@@ -7373,10 +7372,22 @@
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
                       "USDT",
+                      "GHS",
+                      "KES",
+                      "UGX",
+                      "TZS",
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "ZMW",
+                      "ZAR",
                       "USDC",
-                      "CNGN"
+                      "CNGN",
+                      "NGN",
+                      "XAF",
+                      "XOF"
                     ],
-                    "default": "USDT"
+                    "default": "NGN"
                   },
                   "amount": {
                     "type": "string",
@@ -7399,24 +7410,41 @@
                   },
                   "paymentDestination": {
                     "type": "string",
-                    "description": "This is the type of account you want to send your payments (must be crypto_wallet)",
-                    "default": "crypto_wallet",
+                    "description": "The type of account you want to send the payout to. Use `bank_account` for bank transfers, `mobile_money_wallet` for mobile money payouts, and `crypto_wallet` for stablecoin/crypto payouts.",
+                    "default": "bank_account",
                     "enum": [
-                      "crypto_wallet"
+                      "bank_account",
+                      "mobile_money_wallet",
+                      "crypto_wallet",
+                      "cash_pick_up",
+                      "fliqpay_wallet"
                     ]
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency payment network",
+                    "description": "The payment scheme relevant to the destination currency payment network. Required for cross-border and crypto payouts; optional for local bank transfers (e.g. NGN to NGN).",
                     "enum": [
+                      "sepa",
+                      "sepa_instant",
+                      "fps",
+                      "chaps",
+                      "swift",
+                      "fed_ach",
+                      "fed_wire",
+                      "ach",
+                      "cnaps",
+                      "erc20",
+                      "btc_mainnet",
+                      "eth",
                       "usdt_trc20",
                       "usdt_erc20",
                       "usdt_solana",
                       "usdt_bep20",
                       "usdc_erc20",
-                      "usdc_solana"
-                    ],
-                    "default": "usdt_trc20"
+                      "usdc_solana",
+                      "usdc_bep20",
+                      "cngn_bep20"
+                    ]
                   },
                   "quoteReference": {
                     "type": "string",
@@ -7424,10 +7452,55 @@
                   },
                   "beneficiary": {
                     "type": "object",
+                    "description": "The recipient of the payout. The fields you provide depend on the `paymentDestination`: bank account fields for `bank_account`, phone/mobile money fields for `mobile_money_wallet`, and wallet fields for `crypto_wallet`.",
                     "properties": {
+                      "firstName": {
+                        "type": "string",
+                        "description": "The recipient's first name. Used for bank account and mobile money payouts.",
+                        "default": "John"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "description": "The recipient's last name. Used for bank account and mobile money payouts.",
+                        "default": "Doe"
+                      },
+                      "accountHolderName": {
+                        "type": "string",
+                        "description": "The name on the recipient's bank account, as returned by Verify Account Number.",
+                        "default": "John Doe"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Whether the recipient is an individual or a corporate entity.",
+                        "enum": [
+                          "individual",
+                          "corporate"
+                        ],
+                        "default": "individual"
+                      },
+                      "accountNumber": {
+                        "type": "string",
+                        "description": "The recipient's bank account number. Required for `bank_account` payouts.",
+                        "default": "0123456789"
+                      },
+                      "bankCode": {
+                        "type": "string",
+                        "description": "The recipient bank's code. Required for `bank_account` payouts.",
+                        "default": "044"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts.",
+                        "default": "+254700000000"
+                      },
+                      "mobileMoneyCode": {
+                        "type": "string",
+                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts.",
+                        "default": "MPESA"
+                      },
                       "walletAddress": {
                         "type": "string",
-                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. This address must correspond to the selected paymentScheme and blockchain network.",
+                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network.",
                         "default": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
                       },
                       "destinationTag": {
@@ -7435,15 +7508,49 @@
                         "default": "test-memo",
                         "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
                       }
-                    },
-                    "required": [
-                      "walletAddress"
-                    ]
+                    }
                   }
                 }
               },
               "examples": {
-                "Payout to mobile money wallet": {
+                "Bank Transfer Payout": {
+                  "value": {
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "NGN",
+                    "amount": "5000",
+                    "description": "Payment for services",
+                    "paymentDestination": "bank_account",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "beneficiary": {
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "type": "individual",
+                      "accountHolderName": "John Doe",
+                      "accountNumber": "0123456789",
+                      "bankCode": "044"
+                    }
+                  }
+                },
+                "Mobile Money Payout": {
+                  "value": {
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "KES",
+                    "destinationCurrency": "KES",
+                    "amount": "1000",
+                    "description": "Payment for services",
+                    "paymentDestination": "mobile_money_wallet",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "beneficiary": {
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "type": "individual",
+                      "phone": "+254700000000",
+                      "mobileMoneyCode": "MPESA"
+                    }
+                  }
+                },
+                "Stablecoin Payout": {
                   "value": {
                     "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
                     "sourceCurrency": "USDT",
