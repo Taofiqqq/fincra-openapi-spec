@@ -5,8 +5,6 @@ hidden: false
 metadata:
   robots: index
 ---
-# Initiate Payout (Mobile Money)
-
 This page shows how to send a **mobile money payout** using the Initiate Payout endpoint. To run it interactively, use the **[Initiate Payout](../reference/initiate-mobile-money-payout-1)** endpoint and select the **"Mobile Money Payout"** example.
 
 ```
