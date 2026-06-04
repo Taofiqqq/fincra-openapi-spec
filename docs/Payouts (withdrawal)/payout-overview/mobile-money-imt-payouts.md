@@ -746,9 +746,18 @@ The payload should look like this :
         "email":"aa@aa.com"
     },
     "sender":{
-      "name":"Customer Name",
+      "name":"John Doe",
+      "email":"john.doe@example.com",
       "phone":"2548034567898",
-      "address":"Customer full address"
+      "type":"individual",
+      "birthDate":"1990-01-15",
+      "birthPlace":"Nigeria",
+      "address":"123 Ngong Road, Nairobi, Kenya",
+      "idNumber":"12345678",
+      "idType":"national_id",
+      "nationality":"GH",
+      "countryOfOrigin":"GH",
+      "sourceOfFunds":"Personal"
    }
 }
 ```
@@ -774,9 +783,18 @@ The payload should look like this :
         "email": "aa@aa.com"
     },
     "sender":{
-      "name":"Customer Name",
-      "phone":"2567734567898",
-      "address":"Customer full address"
+      "name":"John Doe",
+      "email":"john.doe@example.com",
+      "phone":"2548034567898",
+      "type":"individual",
+      "birthDate":"1990-01-15",
+      "birthPlace":"Nigeria",
+      "address":"123 Ngong Road, Nairobi, Kenya",
+      "idNumber":"12345678",
+      "idType":"national_id",
+      "nationality":"UG",
+      "countryOfOrigin":"UG",
+      "sourceOfFunds":"Personal"
    }
 }
 ```
@@ -800,10 +818,24 @@ The payload should look like this :
         "mobileMoneyCode": "MTN"
     },
     "files": {},
-    "description": "I want to pay my vendor"
+    "description": "I want to pay my vendor",
+"sender":{
+      "name":"John Doe",
+      "email":"john.doe@example.com",
+      "phone":"2548034567898",
+      "type":"individual",
+      "birthDate":"1990-01-15",
+      "birthPlace":"Nigeria",
+      "address":"123 Ngong Road, Nairobi, Kenya",
+      "idNumber":"12345678",
+      "idType":"national_id",
+      "nationality":"ZM",
+      "countryOfOrigin":"ZM",
+      "sourceOfFunds":"Personal"
+   }
 }
 ```
-```Text TZS
+```json TZS
 {
    "business":"{{The business ID}}",
    "sourceCurrency":"TZS",
@@ -825,9 +857,18 @@ The payload should look like this :
       "email":"aa@aa.com"
    },
    "sender":{
-      "name":"Customer Name",
-      "phone":"255717292000",
-      "address":"Customer full address"
+      "name":"John Doe",
+      "email":"john.doe@example.com",
+      "phone":"2548034567898",
+      "type":"individual",
+      "birthDate":"1990-01-15",
+      "birthPlace":"Nigeria",
+      "address":"123 Ngong Road, Nairobi, Kenya",
+      "idNumber":"12345678",
+      "idType":"national_id",
+      "nationality":"KE",
+      "countryOfOrigin":"KE",
+      "sourceOfFunds":"Personal"
    }
 }
 ```
@@ -851,7 +892,21 @@ The payload should look like this :
         "mobileMoneyCode": "MTN"
     },
     "files": {},
-    "description": "I want to pay my vendor"
+    "description": "I want to pay my vendor",
+    "sender":{
+          "name":"John Doe",
+          "email":"john.doe@example.com",
+          "phone":"2548034567898",
+          "type":"individual",
+          "birthDate":"1990-01-15",
+          "birthPlace":"Nigeria",
+          "address":"123 Ngong Road, Nairobi, Kenya",
+          "idNumber":"12345678",
+          "idType":"national_id",
+          "nationality":"KE",
+          "countryOfOrigin":"KE",
+          "sourceOfFunds":"Personal"
+       }	
 }
 ```
 ```json XAF
@@ -874,7 +929,21 @@ The payload should look like this :
         "mobileMoneyCode": "MTN"
     },
     "files": {},
-    "description": "I want to pay my vendor"
+    "description": "I want to pay my vendor",
+    "sender":{
+          "name":"John Doe",
+          "email":"john.doe@example.com",
+          "phone":"2548034567898",
+          "type":"individual",
+          "birthDate":"1990-01-15",
+          "birthPlace":"Nigeria",
+          "address":"123 Ngong Road, Nairobi, Kenya",
+          "idNumber":"12345678",
+          "idType":"national_id",
+          "nationality":"KE",
+          "countryOfOrigin":"KE",
+          "sourceOfFunds":"Personal"
+       }	
 }
 ```
 ```json EGP
