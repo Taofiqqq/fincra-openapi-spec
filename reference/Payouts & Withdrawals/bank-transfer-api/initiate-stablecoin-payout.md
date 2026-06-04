@@ -12,17 +12,20 @@ Sample Payload
 
 ```json JSON
 {
-  "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-  "sourceCurrency": "USDT",
-  "destinationCurrency": "USDT",
-  "amount": "10",
-  "description": "Payment",
-  "paymentDestination": "crypto_wallet",
-  "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  "paymentScheme": "usdt_trc20",
+  "sourceCurrency": "NGN",
+  "destinationCurrency": "NGN",
+  "amount": "5000",
+  "description": "Payment for services",
+  "paymentDestination": "bank_account",
   "beneficiary": {
-    "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "destinationTag": "test-memo"
+    "firstName": "John",
+    "lastName": "Doe",
+    "accountHolderName": "John Doe",
+    "type": "individual",
+    "accountNumber": "0123456789",
+    "bankCode": "044"
   }
 }
 ```
+
+<br />
