@@ -11511,7 +11511,24 @@
         },
         "parameters": [],
         "summary": "New Initiate Mobile Money Payout",
-        "operationId": "post_disbursements-payouts-new-endpoint"
+        "operationId": "post_disbursements-payouts-new-endpoint",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
