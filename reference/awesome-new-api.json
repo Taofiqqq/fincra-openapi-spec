@@ -7326,7 +7326,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Initiate Mobile Money Payout",
+        "summary": "Initiate Payout",
         "description": "This API lets you make payouts to bank accounts and mobile money wallets",
         "operationId": "initiate-mobile-money-payout-1",
         "requestBody": {
