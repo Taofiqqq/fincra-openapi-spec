@@ -2,7 +2,7 @@
 api:
   file: awesome-new-api.json
   operationId: post_disbursements-payouts-new-endpoint
-hidden: true
+hidden: false
 link:
   new_tab: false
 metadata:
