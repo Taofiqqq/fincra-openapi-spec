@@ -447,6 +447,42 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 
     <tr>
       <td>
+        sender.firstName
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The customer's first name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        sender.lastName
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The customer's last name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
         sender.email
       </td>
 
@@ -465,7 +501,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 
     <tr>
       <td>
-        sender.phoneNumber
+        sender.phone
       </td>
 
       <td>
@@ -581,7 +617,7 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
       </td>
 
       <td>
-        No
+        Yes
       </td>
 
       <td>
@@ -590,6 +626,24 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 
       <td>
         Person's date of birth (for individual senders)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        sender.birthPlace
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Person's place of birth (for individual senders)
       </td>
     </tr>
 
@@ -608,6 +662,24 @@ In addition to the [common details ](/docs/bank-account-transfers#common-details
 
       <td>
         The senders nationality
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        sender.sourceOfFunds
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The senders source of funds
       </td>
     </tr>
   </tbody>
@@ -638,15 +710,17 @@ The payload should look like this :
    },
    "sender":{
       "name":"John Doe",
-      "email":"[john.doe@example.com](mailto:john.doe@example.com)",
+      "email":"john.doe@example.com",
       "phone":"2548034567898",
       "type":"individual",
       "birthDate":"1990-01-15",
+      "birthPlace":"Nigeria",
       "address":"123 Ngong Road, Nairobi, Kenya",
       "idNumber":"12345678",
       "idType":"national_id",
       "nationality":"KE",
-      "countryOfOrigin":"KE"
+      "countryOfOrigin":"KE",
+      "sourceOfFunds":"Personal"
    }
 }
 ```
