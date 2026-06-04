@@ -11501,6 +11501,18 @@
         },
         "deprecated": false
       }
+    },
+    "/disbursements/payouts/new-endpoint": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "operationId": "get_disbursements-payouts-new-endpoint",
+        "summary": "New Initiate Mobile Money Payout"
+      }
     }
   },
   "x-readme": {
