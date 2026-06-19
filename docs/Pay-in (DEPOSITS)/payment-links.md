@@ -16,12 +16,19 @@ Using Payment Links, you can create a payment page and share a link to it with y
 
 Let's get started 👊🏼
 
+| **S/N** | Currency | Collection Method   | Available |
+| ------- | -------- | ------------------- | :-------- |
+| 1       | NGN      | bank transfer, card | yes       |
+| 2       | GBP      | open banking        | yes       |
+| 3       | EUR      | open banking        | yes       |
+| 4       | GHS      | MoMo                | yes       |
+
 ## 1 - Create A Payment Link
 
 You must first create a [Fincra account](https://app.fincra.com/auth/signup). In order to do this,  you access the dashboard on your portal and navigate to the Payins → Payment links page and click the ‘Create a Payment Link’ button, then :
 
-* Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Checkout will appear to a customer just before they make payment.
-* Click on Create.
+- Fill in the details of your new Payment link in the form and choose the link’s configurations. As you enter some details, you’d see a preview of how the Checkout will appear to a customer just before they make payment.
+- Click on Create.
 
 ![](https://files.readme.io/cdf7ec7-Screenshot_2022-04-20_at_15.52.19_1.png "Screenshot 2022-04-20 at 15.52.19 (1).png")
 
@@ -33,7 +40,7 @@ Every Payment Link comes with a customizable URL that can be shared with custome
 
 ## 3 - Track Your Payments
 
-Payments can be viewed on the details page of your payment link on the Dashboard. 
+Payments can be viewed on the details page of your payment link on the Dashboard.
 
 ![](https://files.readme.io/b192eb2-Screenshot_2023-06-16_at_17.08.03.png)
 
@@ -42,3 +49,5 @@ Payments can be viewed on the details page of your payment link on the Dashboard
 You can either modify the details and use your payment link, or deactivate or delete the link once you've finished collecting payments. simply browse to the payment link's information page and select your specific action
 
 ![](https://files.readme.io/a8fc779-Screenshot_2022-04-22_at_12.45.43.png "Screenshot 2022-04-22 at 12.45.43.png")
+
+<br />
