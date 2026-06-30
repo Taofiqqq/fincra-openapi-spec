@@ -16,10 +16,10 @@ This guide explains how to integrate static **KES (Kenyan Shilling) Virtual Acco
 
 ## ⚠️ Important Setup Notice
 
-* KES VA setup requires **manual onboarding** of your main account by Fincra.
-* Once approved, you can create **sub-accounts** via the API.
-* Onboarding typically takes up to **48 hours** (based on document completeness).
-* Collections above KES 999,999 may trigger Request For Information (RFI).  An invoice issued on the business's official letterhead validating the underlying transaction.
+- KES VA setup requires **manual onboarding** of your main account by Fincra.
+- Once approved, you can create **sub-accounts** via the API.
+- Onboarding typically takes up to **120 hours** (based on document completeness).
+- Collections above KES 999,999 may trigger Request For Information (RFI).  An invoice issued on the business's official letterhead validating the underlying transaction.
 
 ***
 
@@ -49,27 +49,29 @@ Your API keys are available on the dashboard under `My Acc > Acc Settings > API 
 
 ### For Sole Proprietorship:
 
-* Business Name
-* Full Name (Proprietor)
-* Date of Birth (DD/MM/YYYY)
-* Gender
-* Business Industry
-* Business Address
-* Next of Kin Full Name & Phone (with country code)
-* Relationship to Next of Kin
+- Business Name
+- Full Name (Proprietor)
+- Date of Birth (DD/MM/YYYY)
+- Gender
+- Business Industry
+- Business Address
+- Next of Kin Full Name & Phone (with country code)
+- Relationship to Next of Kin
 
 ### For LLCs or Partnerships:
 
-* Business Name
-* Operating Mode (e.g. any two to sign)
-* Business Industry
-* Business Address
+- Business Name
+- Operating Mode (e.g. any two to sign)
+- Business Industry
+- Business Address
 
 ***
 
 ## 📄 Required KYB Documents
 
-> ⚠️ Submit documents in **PDF or JPEG** format.  All documents submitted by foreign entities must be notarized
+<Callout icon="⚠️" theme="warn">
+  ### Submit documents in **PDF or JPEG** format.  All documents submitted by foreign entities must be notarized
+</Callout>
 
 ### Limited Liability Company
 
@@ -101,20 +103,20 @@ Your API keys are available on the dashboard under `My Acc > Acc Settings > API 
 
 ## 📝 Submit Onboarding Request
 
-Send your onboarding request to: **`kes.varequests@fincra.com`**
+Send your onboarding request to: `kes.varequests@fincra.com`
 
 Include:
 
-* **Subject:** `<Your Business Name> - Request for KES VA`
-* **Body:** Basic information listed above
-* **Attachments:** Required KYB documents
+- **Subject:** `<Your Business Name> - Request for KES VA`
+- **Body:** Basic information listed above
+- **Attachments:** Required KYB documents
 
 ***
 
 ## 🧾 Naming Convention
 
-* Your **main VA name** is your business name.
-* **Sub-accounts** are labeled as: `BusinessName_SubAccountName`
+- Your **main VA name** is your business name.
+- **Sub-accounts** are labeled as: `BusinessName_SubAccountName`
 
 ***
 
@@ -256,11 +258,13 @@ curl --location 'https://api.fincra.com/profile/virtual-accounts/requests' \
 }
 ```
 
-> ℹ️ Any `businessName` in your request is appended to your onboarded name.
->
-> * Main: `Fincra Technologies Limited`
-> * Sub: `Merchant 1`
-> * Final: `Fincra Technologies Limited_Merchant 1`
+<Callout icon="ℹ️" theme="info">
+  ### Any `businessName` in your request is appended to your onboarded name.
+
+  - Main: `Fincra Technologies Limited`
+  - Sub: `Merchant 1`
+  - Final: `Fincra Technologies Limited_Merchant 1`
+</Callout>
 
 ***
 
