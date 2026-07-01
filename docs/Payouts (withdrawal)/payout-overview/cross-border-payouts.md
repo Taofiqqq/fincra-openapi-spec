@@ -17,7 +17,7 @@ Money can be transferred from one currency to another, through cross-currency tr
 
   - [Payment Schemes ](/docs/payment-scheme)
   - [Payment Destinations](/docs/transaction-types-1#payment-destination)
-  - [Payout Overview ](/docs/introduction-10)
+  - [Payout Overview ](/docs/payout-overview)
 </Callout>
 
 **Note**
