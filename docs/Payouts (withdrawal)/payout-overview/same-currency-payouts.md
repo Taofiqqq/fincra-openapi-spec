@@ -17,7 +17,7 @@ Local payouts, often known as **same currency transfers**, are transfers of fund
 
   - [Payment Schemes ](/docs/payment-scheme)
   - [Payment Destinations](/docs/transaction-types-1#payment-destination)
-  - [Payout Overview ](/docs/introduction-10)
+  - [Payout Overview ](/docs/payout-overview)
 </Callout>
 
 **Note**
