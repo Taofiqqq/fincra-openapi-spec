@@ -5,7 +5,7 @@ hidden: false
 metadata:
   robots: index
 ---
-This section covers the parameters needed to process payments to mobile money wallets. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-mobile-money-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
+This section covers the parameters needed to process payments to mobile money wallets. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout-1). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
 
 To view all currencies supported for mobile money transfers, please view the [supported currencies page](/docs/supported-currencies)
 
@@ -968,8 +968,10 @@ The payload should look like this :
 }
 ```
 
-> ❗️ Note
->
-> When paying out to UGX, amount must be a whole number
+<Callout icon="❗️" theme="error">
+  ### Note
+
+  When paying out to UGX, amount must be a whole number
+</Callout>
 
 <br />
