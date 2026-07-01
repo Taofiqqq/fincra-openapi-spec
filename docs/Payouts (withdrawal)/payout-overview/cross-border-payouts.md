@@ -12,16 +12,17 @@ next:
 ---
 Money can be transferred from one currency to another, through cross-currency transactions. For instance, you may send US dollars to a bank account in Europe or AUD to a bank account in the UK. You can make these transfers using both your portal and the API. This feature is available for both bank account transfers and mobile money transfers.
 
-> 📘 To learn how to make cross currency payouts using the Fincra API, you must read and understand the sections below.
->
-> * [Payment Beneficiaries ](/docs/introduction-10#beneficiary-types)
-> * [Payment Schemes ](/docs/payment-scheme)
-> * [Payment Destinations](/docs/transaction-types-1#payment-destination)
-> * [Payout Overview ](/docs/introduction-10)
+<Callout icon="📘" theme="info">
+  ### To learn how to make cross currency payouts using the Fincra API, you must read and understand the sections below.
+
+  - [Payment Schemes ](/docs/payment-scheme)
+  - [Payment Destinations](/docs/transaction-types-1#payment-destination)
+  - [Payout Overview ](/docs/introduction-10)
+</Callout>
 
 **Note**
 
-* All transfers have a timeframe by which they settle in the receiver's account; please review the [payment scheme](payment-scheme) section to ascertain the settlement time.
+- All transfers have a timeframe by which they settle in the receiver's account; please review the [payment scheme](payment-scheme) section to ascertain the settlement time.
 
 ## How to make a Cross border payout using Fincra API
 
@@ -29,15 +30,17 @@ The following steps need to be taken in order to process payments to a foreign a
 
 ## 1 - Topup
 
-You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints. 
+You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints.
 
 **Note:** To test transactions, you can fund your sandbox account. For more information, please see the [test section](sandbox-environment)
 
-> 📘 For more details on  virtual account creation and funding please read the following sections :
->
-> * [How to create a virtual account](/docs/how-to-create-virtual-accounts)
-> * [How to fund your account in the live environment](/docs/fund-your-virtual-account)
-> * [How to fund your account in the test environment](/docs/testing-your-integration#test-payouts-for--transfers)
+<Callout icon="📘" theme="info">
+  ### For more details on  virtual account creation and funding please read the following sections :
+
+  - [How to create a virtual account](/docs/how-to-create-virtual-accounts)
+  - [How to fund your account in the live environment](/docs/fund-your-virtual-account)
+  - [How to fund your account in the test environment](/docs/testing-your-integration#test-payouts-for--transfers)
+</Callout>
 
 <br />
 
@@ -74,8 +77,8 @@ This is compulsory for cross-currency payouts. You will need to use our [quote A
 
 **Please take note of the following**
 
-* A quote expires after a certain period of time
-* The [Payment Scheme Page](payment-scheme) lists the currencies that require a payment scheme.
+- A quote expires after a certain period of time
+- The [Payment Scheme Page](payment-scheme) lists the currencies that require a payment scheme.
 
 For more details on how to generate a quote, please see the [quote API](generate-quote)
 
@@ -117,12 +120,12 @@ For more details on how to generate a quote, please see the [quote API](generate
 
 ## 4 - Request  payout
 
-Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. 
+Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response.
 
-* Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the [payment scheme page](payment-scheme).
-* Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.[here](fetch-payout-by-customer-reference)
-* We advise that you add a `customerReference`  to your payload to avoid sending duplicate transactions.
-* Only payouts with the explicit status  `failed` should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed . Kindly re-query using this [here](fetch-payout-by-customer-reference) before you retry.
+- Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the [payment scheme page](payment-scheme).
+- Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.[here](fetch-payout-by-customer-reference)
+- We advise that you add a `customerReference`  to your payload to avoid sending duplicate transactions.
+- Only payouts with the explicit status  `failed` should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed . Kindly re-query using this [here](fetch-payout-by-customer-reference) before you retry.
 
 ```json Payout request
 {
