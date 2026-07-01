@@ -12,16 +12,17 @@ next:
 ---
 Local payouts, often known as **same currency transfers**, are transfers of funds from one account to another denominated in the same currency. For example, transferring money from one EURO account to another EURO account. You can make these transfers using either the portal or via API. This feature is available for both bank accounts and mobile money transfers.
 
-> 📘 To learn how to make local transfers using the Fincra API, you must read and understand the sections below.
->
-> * [Payment Beneficiaries ](/docs/introduction-10#beneficiary-types)
-> * [Payment Schemes ](/docs/payment-scheme)
-> * [Payment Destinations](/docs/transaction-types-1#payment-destination)
-> * [Payout Overview ](/docs/introduction-10)
+<Callout icon="📘" theme="info">
+  ### To learn how to make local transfers using the Fincra API, you must read and understand the sections below.
+
+  - [Payment Schemes ](/docs/payment-scheme)
+  - [Payment Destinations](/docs/transaction-types-1#payment-destination)
+  - [Payout Overview ](/docs/introduction-10)
+</Callout>
 
 **Note**
 
-* All transfers have a timeframe by which they settle in the receiver's account; please review the [payment scheme](/docs/introduction-10#payment-schemes) section to ascertain the settlement time.
+- All transfers have a timeframe by which they settle in the receiver's account; please review the [payment scheme](/docs/introduction-10#payment-schemes) section to ascertain the settlement time.
 
 ## How to make a local transfer using Fincra API
 
@@ -29,15 +30,17 @@ The following steps need to be taken in order to process payments to a local acc
 
 ## 1 - Topup
 
- You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints. 
+You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your wallet/account using our virtual account creation endpoints.
 
 **Note:** To test transactions, you can fund your sandbox account. For more information, please see the [test section](/docs/testing-your-integration#test-payouts-for--transfers)
 
-> 📘 For more details on  virtual account creation and funding please read the following sections :
->
-> * [How to create a virtual account](/docs/how-to-create-virtual-accounts)
-> * [How to fund your account in the live environment](/docs/fund-your-virtual-account)
-> * [How to fund your account in the test environment](/docs/testing-your-integration#test-payouts-for--transfers)
+<Callout icon="📘" theme="info">
+  ### For more details on  virtual account creation and funding please read the following sections :
+
+  - [How to create a virtual account](/docs/how-to-create-virtual-accounts)
+  - [How to fund your account in the live environment](/docs/fund-your-virtual-account)
+  - [How to fund your account in the test environment](/docs/testing-your-integration#test-payouts-for--transfers)
+</Callout>
 
 <br />
 
@@ -70,13 +73,13 @@ You must collect the customer's account information and ensure that it is valid 
 
 ## 3 - Request  payout
 
-Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. 
+Kindly ensure you fill out all of the necessary fields in order for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response.
 
-* Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the [payment scheme page](/docs/payment-scheme).
-* Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.[here](https://docs.fincra.com/docs/introduction-10#payout-status)
-* Only payouts with the explicit status  `failed` should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed. Kindly re-query using this [link](https://docs.fincra.com/reference/fetch-payout-by-customer-reference) before you retry.
-* `bankCode` Lists can be found [here](/reference/list-banks)
-* We advise that you add a `customerReference`  to your payload to avoid sending duplicate transactions.
+- Some currencies require a payment scheme to be processed. Lists of the currencies can be found on the [payment scheme page](/docs/payment-scheme).
+- Payment status is returned after a request is received, and it can be `successful`, `processing`, or `failed`. Please see our payment status page for additional information.[here](https://docs.fincra.com/docs/introduction-10#payout-status)
+- Only payouts with the explicit status  `failed` should be retried. If you receive a `Timeout Message` it doesn't mean the transaction has failed. Kindly re-query using this [link](https://docs.fincra.com/reference/fetch-payout-by-customer-reference) before you retry.
+- `bankCode` Lists can be found [here](/reference/list-banks)
+- We advise that you add a `customerReference`  to your payload to avoid sending duplicate transactions.
 
 ```json Payout request
 {
