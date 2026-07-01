@@ -10,365 +10,32 @@ metadata:
 next:
   description: ''
 ---
-This section covers the parameters needed to process payments to bank accounts. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-bank-transfer). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
+This section covers the parameters needed to process payments to bank accounts. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
 
 ### Common Details
 
 So first, let's go through the basic information needed for any kind of account. You'll need to provide these details.
 
-<Table align={["left","left","left","left"]}>
-  <thead>
-    <tr>
-      <th style={{ textAlign: "left" }}>
-        Field
-      </th>
-
-      <th style={{ textAlign: "left" }}>
-        Mandatory
-      </th>
-
-      <th style={{ textAlign: "left" }}>
-        Type
-      </th>
-
-      <th style={{ textAlign: "left" }}>
-        Description
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        business
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The ID of the business making the payout.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sourceCurrency
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The currency which is used to fund the payout
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        destinationCurrency
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The currency in which the recipient will be receiving funds
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        amount
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The value that is to be transferred from the source currency wallet.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        description
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        A simple description of payment e.g "From Daniella”
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        paymentDestination
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        customerReference
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Yes
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advise that you add it to your payload
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        quoteReference
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        This is the reference generated when the source currency is compared against the destination currency.
-
-        This is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote)
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        **sender**
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Object
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The details of the customer initiating the payout. This is only required for FCY payouts and cross-border merchants/transactions.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.type
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        One of: `individual`, `corporate`
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.name
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The customer's full name. This name would show up in the transfer narration.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.email
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        The customer's email.
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.idType
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        One of: `business_registration_number`, `passport`, `national_identification_number`, `drivers_license`
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.idNumber
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Identity number of selected identification type
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.countryOfOrigin
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
-
-        Only required if sender.type is individual
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.countryOfIncorporation
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).
-
-        Only required if sender.type is corporate
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.address
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Full address of business or individual
-      </td>
-    </tr>
-
-    <tr>
-      <td style={{ textAlign: "left" }}>
-        sender.birthDate
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        No
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        String
-      </td>
-
-      <td style={{ textAlign: "left" }}>
-        Person's date of birth (for individual senders)
-      </td>
-    </tr>
-  </tbody>
-</Table>
+| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                                              |
+| :---------------------------- | :-------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| business                      | Yes       | String | The ID of the business making the payout.                                                                                                                                                                                                |
+| sourceCurrency                | Yes       | String | The currency which is used to fund the payout                                                                                                                                                                                            |
+| destinationCurrency           | Yes       | String | The currency in which the recipient will be receiving funds                                                                                                                                                                              |
+| amount                        | Yes       | String | The value that is to be transferred from the source currency wallet.                                                                                                                                                                     |
+| description                   | Yes       | String | A simple description of payment e.g "From Daniella”                                                                                                                                                                                      |
+| paymentDestination            | Yes       | String | This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details.                                                                               |
+| customerReference             | Yes       | String | The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advise that you add it to your payload                                                                                        |
+| quoteReference                | No        | String | This is the reference generated when the source currency is compared against the destination currency.This is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote) |
+| **sender**                    | No        | Object | The details of the customer initiating the payout. This is only required for FCY payouts and cross-border merchants/transactions.                                                                                                        |
+| sender.type                   | No        | String | One of: `individual`, `corporate`                                                                                                                                                                                                        |
+| sender.name                   | No        | String | The customer's full name. This name would show up in the transfer narration.                                                                                                                                                             |
+| sender.email                  | No        | String | The customer's email.                                                                                                                                                                                                                    |
+| sender.idType                 | No        | String | One of: `business_registration_number`, `passport`, `national_identification_number`, `drivers_license`                                                                                                                                  |
+| sender.idNumber               | No        | String | Identity number of selected identification type                                                                                                                                                                                          |
+| sender.countryOfOrigin        | No        | String | Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).Only required if sender.type is individual                                                                                                                                     |
+| sender.countryOfIncorporation | No        | String | Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).Only required if sender.type is corporate                                                                                                                                      |
+| sender.address                | No        | String | Full address of business or individual                                                                                                                                                                                                   |
+| sender.birthDate              | No        | String | Person's date of birth (for individual senders)                                                                                                                                                                                          |
 
 ## NGN Pay-Outs
 
@@ -894,12 +561,13 @@ The payload should look like this :
 
 In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the United States.
 
-Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.  
-Kindly find attached supported bank list [here](/docs/supported-currencies#list-of-nigerian-banks-supported-for-usd-domiciliary-account-payment--for-payoutbank-transfer)
+Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.<br />Kindly find attached supported bank list [here](/docs/supported-currencies#list-of-nigerian-banks-supported-for-usd-domiciliary-account-payment--for-payoutbank-transfer)
 
-> ❗️ Note:
->
-> USD Payouts can only be made to USD domiciled banks
+<Callout icon="❗️" theme="error">
+  ### Note:
+
+  USD Payouts can only be made to USD domiciled banks
+</Callout>
 
 <Table align={["left","left","left","left"]}>
   <thead>
@@ -1716,3 +1384,5 @@ The payload should look like this :
   "business": "1234567890abcdef12345678"
 }
 ```
+
+<br />
