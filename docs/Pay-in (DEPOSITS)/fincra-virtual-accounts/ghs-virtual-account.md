@@ -16,9 +16,9 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
 
 ## 📌 Key Points
 
-* **Real-time issuing:** Both individual and corporate GHS virtual accounts are issued instantly.
-* **Settlement:** Funds are settled into the merchant’s GHS wallet.
-* **Authentication:** Uses API keys in the header (not standard Bearer token).
+- **Real-time issuing:** Both individual and corporate GHS virtual accounts are issued instantly.
+- **Settlement:** Funds are settled into the merchant’s GHS wallet.
+- **Authentication:** Uses API keys in the header (not standard Bearer token).
 
 ***
 
@@ -35,9 +35,9 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
 
 ## 🏦 Supported Bank
 
-| Bank Name         | GHIPSS Code | Notes                       |
-| ----------------- | ----------- | --------------------------- |
-| **Affinity Bank** | `300341`    | Default issuing institution |
+| Bank Name      | GHIPSS Code | Notes                       |
+| -------------- | ----------- | --------------------------- |
+| **First Bank** | `200100`    | Default issuing institution |
 
 <br />
 
@@ -124,7 +124,7 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
       "accountNumber": "7003000100286",
       "accountName": "Oma's Empire",
       "reference": "2bd48a28-0199-4de8-bac0-ae998efaad9e",
-      "bankName": "Affinity"
+      "bankName": "First Bank"
     },
     "_id": "6865acbe26869a007121d7f5b",
     "business": "64493f61864cdb7aab9bb4576",
@@ -140,8 +140,8 @@ This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtu
 
 **Notes:**
 
-* `_id`: Unique virtual account ID.
-* `business`: Your Business ID.
+- `_id`: Unique virtual account ID.
+- `business`: Your Business ID.
 
 ***
 
@@ -223,3 +223,5 @@ Refer to: **[Funding a Virtual Account →](https://docs.fincra.com/docs/funding
 <Callout icon="📌" theme="default">
   ### For updates on changes to the Virtual Account endpoint, watch your email.
 </Callout>
+
+<br />
