@@ -20,10 +20,12 @@ To convert one currency to another, the following steps must be taken.
 
 You can fund your account by making deposits into your account or by requesting a manual top-up. You can create a virtual account to fund your account using our virtual account creation endpoints.
 
-> 📘 For more details on  virtual account creation and funding please read the following sections :
->
-> * [How to create a virtual account](/docs/how-to-create-virtual-accounts)
-> * [How to fund your account](/docs/mobile-money-transfers)
+<Callout icon="📘" theme="info">
+  ### For more details on  virtual account creation and funding please read the following sections :
+
+  - [How to create a virtual account](/docs/how-to-create-virtual-accounts)
+  - [How to fund your account](/docs/mobile-money-transfers)
+</Callout>
 
 We will send a notification to your webhook URL whenever your account is funded.
 
@@ -52,7 +54,7 @@ We will send a notification to your webhook URL whenever your account is funded.
 
 ## 2 - Generate a quote
 
-For details on how to generate a quote please see the [generate quote endpoint ](/reference/get-a-quote) . For conversions, the payment destination must always be `fliqpay_wallet`
+For details on how to generate a quote please see the [generate quote endpoint ](/reference/generate-quote) . For conversions, the payment destination must always be `fliqpay_wallet`
 
 ```json Quote request
 {   
@@ -91,7 +93,7 @@ For details on how to generate a quote please see the [generate quote endpoint ]
 
 ## 3 - Request conversion
 
-Kindly ensure you fill out all the necessary fields for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. Please see the [conversion API ](/reference/make-a-currency-conversion) for the required payload that should be sent. 
+Kindly ensure you fill out all the necessary fields for your payment to be processed. If the wrong payload is sent, the transaction will fail and you will receive a failed response. Please see the [conversion API ](/reference/initiate-currency-conversion) for the required payload that should be sent.
 
 ```json Conversion request
 {
