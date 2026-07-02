@@ -23,8 +23,8 @@ You can fund your account by making deposits into your account or by requesting 
 <Callout icon="📘" theme="info">
   ### For more details on  virtual account creation and funding please read the following sections :
 
-  - [How to create a virtual account](/docs/how-to-create-virtual-accounts)
-  - [How to fund your account](/docs/mobile-money-transfers)
+  - [How to create a virtual account](/docs/fincra-virtual-accounts)
+  - [How to fund your account](/docs/funding-a-virtual-account)
 </Callout>
 
 We will send a notification to your webhook URL whenever your account is funded.
@@ -105,7 +105,7 @@ Kindly ensure you fill out all the necessary fields for your payment to be proce
 
 ## 4 - Receive and validate webhook notification
 
-Listen for webhook events. We will send a notification to your webhook URL that indicates the status of the conversion. Read our [guide](/docs/secret-key) on securing and validating the webhook notification on your end.
+Listen for webhook events. We will send a notification to your webhook URL that indicates the status of the conversion. Read our [guide](/docs/validating-webhook) on securing and validating the webhook notification on your end.
 
 ```json Webhook
 {
