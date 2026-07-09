@@ -12,13 +12,15 @@ next:
 ---
 In this section, we will go over the steps required to set up and maintain an NGN permanent virtual account. We would like to start by explaining how permanent virtual accounts can be created on Fincra.
 
-* By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](create-permanent-ngn-virtual-account)
+- By using the merchant account: All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/create-local-currency-virtual-account)
 
-> 📘 Important
->
-> * BVN is required when requesting a permanent virtual account.
-> * Requests for NGN virtual accounts will be instantly approved.
-> * Funds received by a virtual account created settles in the balances of the merchant.
+<Callout icon="📘" theme="info">
+  ### Important
+
+  - BVN is required when requesting a permanent virtual account.
+  - Requests for NGN virtual accounts will be instantly approved.
+  - Funds received by a virtual account created settles in the balances of the merchant.
+</Callout>
 
 ## Supported Banks
 
@@ -190,9 +192,9 @@ If successful, you will receive a JSON snippet with the details of the newly cre
 
 Important Notes:
 
-* _id : This is the unique Identifier for the virtual account that was just created.
-* business : This is your business ID.
-* entityType : This states that the virtual account belongs to you
+- \_id : This is the unique Identifier for the virtual account that was just created.
+- business : This is your business ID.
+- entityType : This states that the virtual account belongs to you
 
 ### 3 - Receive and validate webhook notification
 
@@ -229,7 +231,7 @@ Webhook Response:
 
 Important Notes:
 
-* id : This is the unique Identifier for the virtual account that was just created.
+- id : This is the unique Identifier for the virtual account that was just created.
 
 ### 4 - Retrieving the details of a virtual bank account
 
@@ -436,3 +438,5 @@ If successful, you will receive a JSON snippet with the details of all virtual a
     }
 }
 ```
+
+<br />
