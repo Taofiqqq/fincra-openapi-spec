@@ -1,5 +1,5 @@
 - verify-dedicated-account-bvn-api
-- create-fcy-virtual-account-1
+- create-local-currency-virtual-account
 - fetch-ngn-virtual-account-by-id
 - fetch-account-information-by-id-copy
 - fetch-account-information-by-id-copy-1
