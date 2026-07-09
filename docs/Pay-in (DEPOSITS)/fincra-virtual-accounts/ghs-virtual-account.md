@@ -12,6 +12,8 @@ next:
 ---
 This guide provides instructions for integrating **static GHS (Ghana Cedi) Virtual Accounts** via API. Merchants can create **permanent virtual accounts** to receive GHS payments from customers. Funds do not sit in the virtual account directly — the VA acts as a collection reference mapped to the merchant’s **GHS wallet**.
 
+All that is needed is for the request to be made by calling the [create virtual account endpoint](/reference/create-local-currency-virtual-account)
+
 ***
 
 ## 📌 Key Points
