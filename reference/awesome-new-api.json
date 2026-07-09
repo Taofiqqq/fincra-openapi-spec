@@ -11607,8 +11607,8 @@
     },
     "/profile/virtual-accounts/requests-1": {
       "post": {
-        "summary": "Copy of Create FCY virtual account",
-        "description": "This API lets you create FCY virtual accounts.",
+        "summary": "Create Virtual Account",
+        "description": "This API lets you create local currency virtual accounts.",
         "operationId": "create-fcy-virtual-account-1",
         "requestBody": {
           "content": {
@@ -11618,9 +11618,6 @@
                 "required": [
                   "currency",
                   "accountType",
-                  "utilityBill",
-                  "bankStatement",
-                  "meansOfId",
                   "KYCInformation"
                 ],
                 "properties": {
@@ -11629,75 +11626,38 @@
                     "description": "The virtual account currency.",
                     "default": "USD",
                     "enum": [
-                      "USD",
-                      "EUR",
-                      "GBP"
+                      "NGN",
+                      "GHS",
+                      "KES",
+                      "TZS"
                     ]
                   },
                   "accountType": {
                     "type": "string",
                     "description": "The Virtual account type",
                     "enum": [
-                      "individual"
+                      "individual",
+                      "corporate"
                     ]
-                  },
-                  "utilityBill": {
-                    "type": "string",
-                    "description": "Electricity bills, water bills or any detailed invoice showing the usage of a service. This should be a URL link to the document. This fields applies only to Individual MCY/EUR/GBP virtual accounts.",
-                    "default": "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
-                  },
-                  "bankStatement": {
-                    "type": "string",
-                    "description": "Customer's bank statement. This fields applies only to Individual MCY/EUR/GBP virtual accounts. This should be a URL link to the document.",
-                    "default": "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
-                  },
-                  "meansOfId": {
-                    "type": "string",
-                    "description": "The customer's means of identification which should be a valid government ID e.g voters card, driving license. This should be a URL link to the document. This fields applies only to Individual MCY/EUR/GBP virtual accounts."
                   },
                   "KYCInformation": {
                     "type": "object",
                     "description": "Know your customer information",
                     "required": [
-                      "firstName",
-                      "lastName",
-                      "email",
-                      "phone",
-                      "birthDate",
-                      "nationality",
-                      "sourceOfIncome",
-                      "occupation",
-                      "employmentStatus",
-                      "accountDesignation",
-                      "taxCountry",
-                      "taxNumber",
-                      "monthlyTransactionCount",
-                      "monthlyTransactionVolume"
+                      "email"
                     ],
                     "properties": {
                       "firstName": {
                         "type": "string",
-                        "description": "The first name of the customer.This is required when requesting an individual virtual account."
+                        "description": "The first name of the customer. This is required when requesting an individual virtual account."
                       },
                       "lastName": {
                         "type": "string",
-                        "description": "The last name of the customer.This is required when requesting an individual virtual account."
+                        "description": "The last name of the customer. This is required when requesting an individual virtual account."
                       },
-                      "email": {
-                        "type": "string",
-                        "description": "The email of the customer."
-                      },
-                      "phone": {
-                        "type": "string",
-                        "description": "The phone number of the customer .This fields applies only to MCY/EUR/GBP virtual accounts."
-                      },
-                      "birthDate": {
-                        "type": "string",
-                        "description": "The birthdate of the customer(YYYY-MM-DD ). This has to match the birthdate on the identity document to be provided."
-                      },
-                      "address": {
+                      "businessName": {
                         "type": "object",
-                        "description": "The address of the customer . This fields applies only to MCY/EUR/GBP virtual accounts.",
+                        "description": "The name of the business the account is being created for. This is the name that would be assigned to the virtual account.",
                         "required": [
                           "countryOfResidence",
                           "zip",
@@ -11733,49 +11693,21 @@
                           }
                         }
                       },
-                      "nationality": {
+                      "email": {
                         "type": "string",
-                        "description": "The customer's nationality e.g NG."
+                        "description": "The email of the customer."
                       },
-                      "document": {
-                        "type": "object",
-                        "description": "The means of identification of the customer .This fields applies only to MCY/EUR/GBP virtual accounts.",
-                        "required": [
-                          "type",
-                          "number",
-                          "issuedCountryCode",
-                          "issuedBy"
-                        ],
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "description": "type of ID document e.g International Passport"
-                          },
-                          "number": {
-                            "type": "string",
-                            "description": "The number on the document"
-                          },
-                          "issuedCountryCode": {
-                            "type": "string",
-                            "description": "The country that issued the document.Should  be in ISO 3166-1 alpha-2 – two-letter country codes format(NG)"
-                          },
-                          "issuedBy": {
-                            "type": "string",
-                            "description": "The government agency in charge of issuing the document."
-                          },
-                          "issuedDate": {
-                            "type": "string",
-                            "description": "The date the document was issued(\"YYYY-MM-DD\")"
-                          },
-                          "expirationDate": {
-                            "type": "string",
-                            "description": "The expiration date on the document (\"YYYY-MM-DD\")."
-                          }
-                        }
-                      },
-                      "sourceOfIncome": {
+                      "phoneNumber": {
                         "type": "string",
-                        "description": "Customer's source of income.This fields applies only to MCY/EUR/GBP virtual accounts.",
+                        "description": "The phone number of the customer."
+                      },
+                      "bvn": {
+                        "type": "string",
+                        "description": "The bank verification number of the customer. This is required for NGN account requests"
+                      },
+                      "bvnName": {
+                        "type": "string",
+                        "description": "Customer's full name that matches the BVN record. This is required for NGN corporate account request",
                         "enum": [
                           "salary",
                           "business_income",
@@ -11790,62 +11722,6 @@
                           "crypto",
                           "other"
                         ]
-                      },
-                      "occupation": {
-                        "type": "string",
-                        "description": "The occupation of the customer."
-                      },
-                      "incomeBand": {
-                        "type": "object",
-                        "description": "Customer's income band.",
-                        "required": [
-                          "lower",
-                          "upper"
-                        ],
-                        "properties": {
-                          "lower": {
-                            "type": "string",
-                            "description": "The start of the income band"
-                          },
-                          "upper": {
-                            "type": "string",
-                            "description": "The end of the income band"
-                          }
-                        }
-                      },
-                      "employmentStatus": {
-                        "type": "string",
-                        "description": "Customer's employment status.This fields applies only to MCY/EUR/GBP virtual accounts.",
-                        "enum": [
-                          "employed",
-                          "self_employed",
-                          "unemployed",
-                          "student",
-                          "retired",
-                          "homemaker",
-                          "freelancer",
-                          "other"
-                        ]
-                      },
-                      "accountDesignation": {
-                        "type": "string",
-                        "description": "Specific use of the account. This fields applies only to MCY/EUR/GBP virtual accounts."
-                      },
-                      "taxCountry": {
-                        "type": "string",
-                        "description": "This is required for USD virtual account requests. (e.g., US for the United States, EU for the European Union, NG for Nigeria)"
-                      },
-                      "taxNumber": {
-                        "type": "string",
-                        "description": "This is required for USD virtual account requests. Only required when tax country is US"
-                      },
-                      "monthlyTransactionCount": {
-                        "type": "string",
-                        "description": "The expected number of transactions."
-                      },
-                      "monthlyTransactionVolume": {
-                        "type": "string",
-                        "description": "The expected volume account would be receiving monthly."
                       }
                     }
                   },
