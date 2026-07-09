@@ -11718,16 +11718,16 @@
                           "crypto",
                           "other"
                         ]
-                      },
-                      "phoneNumber": {
-                        "type": "string",
-                        "description": "The phone number of the customer."
                       }
                     }
                   },
                   "merchantReference": {
                     "type": "string",
                     "description": "A unique ID/reference of the virtual account on your system."
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "The customer's phone number"
                   }
                 }
               },
