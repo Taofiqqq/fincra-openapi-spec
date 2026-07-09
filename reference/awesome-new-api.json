@@ -11657,7 +11657,7 @@
                       },
                       "businessName": {
                         "type": "object",
-                        "description": "The name of the business the account is being created for. This is the name that would be assigned to the virtual account.",
+                        "description": "The name of the business the account is being created for. This is the name that would be assigned to the virtual account. This is required when account type is corporate",
                         "required": [
                           "countryOfResidence",
                           "zip",
