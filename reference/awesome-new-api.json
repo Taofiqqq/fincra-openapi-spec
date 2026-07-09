@@ -11697,10 +11697,6 @@
                         "type": "string",
                         "description": "The email of the customer."
                       },
-                      "phoneNumber": {
-                        "type": "string",
-                        "description": "The phone number of the customer."
-                      },
                       "bvn": {
                         "type": "string",
                         "description": "The bank verification number of the customer. This is required for NGN account requests"
@@ -11722,6 +11718,10 @@
                           "crypto",
                           "other"
                         ]
+                      },
+                      "phoneNumber": {
+                        "type": "string",
+                        "description": "The phone number of the customer."
                       }
                     }
                   },
@@ -11732,45 +11732,58 @@
                 }
               },
               "examples": {
-                "NGN": {
+                "GHS - Individual": {
                   "value": {
-                    "success": true,
-                    "message": "Thank you, Efe Billionaire. A NGN virtual account has been created for you",
-                    "data": {
-                      "status": "approved",
-                      "isActive": true,
-                      "accountNumber": "4231804889",
-                      "KYCInformation": {
-                        "firstName": "EFE",
-                        "lastName": "EBIEROMA"
-                      },
-                      "accountInformation": {
-                        "accountNumber": "4231804889",
-                        "accountName": "EFE EBIEROMA",
-                        "bankName": "WEMA BANK",
-                        "reference": "e3f34686-84b7-4add-be81-db8cbb804569"
-                      },
-                      "accountOpeningFee": 0,
-                      "pendingAdditionalInfoCount": 0,
-                      "isPermanent": true,
-                      "expiresAt": null,
-                      "reason": null,
-                      "monthlyVolume": null,
-                      "entityName": null,
-                      "paymentFlowDescription": null,
-                      "attachments": [],
-                      "meansOfId": [],
-                      "utilityBill": [],
-                      "virtualAccountType": "additional",
-                      "_id": "622c48dea944150467b31d49",
-                      "business": "607b3cae67c64480bbf1b995",
-                      "currency": "NGN",
-                      "accountType": "individual",
-                      "entityType": "main_account",
-                      "currencyType": "fiat",
-                      "createdAt": "2022-03-12T07:16:46.863Z",
-                      "updatedAt": "2022-03-12T07:16:46.863Z"
+                    "accountType": "individual",
+                    "currency": "GHS",
+                    "KYCInformation": {
+                      "firstName": "Hi",
+                      "lastName": "Corporation",
+                      "email": "textme@gmail.com"
+                    },
+                    "merchantReference": "merchant-6d78f9j00",
+                    "phoneNumber": "+233209876543"
+                  },
+                  "summary": "GHS - Individual"
+                },
+                "NGN - Individual": {
+                  "summary": "NGN - Individual",
+                  "value": {
+                    "currency": "NGN",
+                    "accountType": "individual",
+                    "KYCInformation": {
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "email": "customer@theiremail.com",
+                      "bvn": "12345678901"
+                    },
+                    "merchantReference": "001"
+                  }
+                },
+                "NGN - Corporate": {
+                  "summary": "NGN - Corporate",
+                  "value": {
+                    "dateOfBirth": "10-12-1993",
+                    "accountType": "corporate",
+                    "currency": "NGN",
+                    "KYCInformation": {
+                      "bvn": "90909090909",
+                      "bvnName": "jane foster",
+                      "businessName": "jane"
                     }
+                  }
+                },
+                "GHS - Corporate": {
+                  "summary": "GHS - Corporate",
+                  "value": {
+                    "accountType": "corporate",
+                    "currency": "GHS",
+                    "KYCInformation": {
+                      "businessName": "Oma's Empire",
+                      "email": "Empire@gmail.com"
+                    },
+                    "merchantReference": "merchant-8jdf9j00",
+                    "phoneNumber": "+233206786543"
                   }
                 }
               }
