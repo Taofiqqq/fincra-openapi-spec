@@ -11624,7 +11624,7 @@
                   "currency": {
                     "type": "string",
                     "description": "The virtual account currency.",
-                    "default": "USD",
+                    "default": "GHS",
                     "enum": [
                       "NGN",
                       "GHS",
@@ -11796,8 +11796,91 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
-                    "value": "{\n  \"success\": true,\n  \"message\": \"Thank you, Omobola Ibrahim. We are now processing your GBP account request\",\n  \"data\": {\n    \"status\": \"pending\",\n    \"isActive\": false,\n    \"accountNumber\": null,\n    \"merchantReference\": null,\n    \"KYCInformation\": {\n      \"address\": {\n        \"countryOfResidence\": \"NG\",\n        \"zip\": \"23401\",\n        \"street\": \"Ikereku\",\n        \"number\": \"2\",\n        \"state\": \"Lagos\",\n        \"city\": \"Alimosho\"\n      },\n      \"document\": {\n        \"type\": \"passport\",\n        \"number\": \"B23455\",\n        \"issuedCountryCode\": \"NG\",\n        \"issuedBy\": \"government\",\n        \"issuedDate\": \"2020-01-01\",\n        \"expirationDate\": \"2025-02-02T00:00:00.000Z\"\n      },\n      \"firstName\": \"Ayomide\",\n      \"lastName\": \"Omotolani\",\n      \"email\": \"omotola@gmail.com\",\n      \"birthDate\": \"1223-02-02\",\n      \"nationality\": \"NG\",\n      \"incomeBand\": \"0-90000\",\n      \"phone\": \"09098765432\",\n      \"occupation\": \"Dev Rel\",\n      \"sourceOfIncome\": \"Dev rel\",\n      \"accountDesignation\": \"personal\",\n      \"employmentStatus\": \"Employed\"\n    },\n    \"accountInformation\": null,\n    \"verifiedKYCData\": null,\n    \"note\": null,\n    \"accountOpeningFee\": 0,\n    \"pendingAdditionalInfoCount\": 0,\n    \"isPermanent\": true,\n    \"expiresAt\": null,\n    \"isCheckoutVa\": false,\n    \"isBankTransferVa\": false,\n    \"isSuspended\": false,\n    \"reason\": null,\n    \"monthlyVolume\": null,\n    \"entityName\": null,\n    \"paymentFlowDescription\": null,\n    \"attachments\": [],\n    \"meansOfId\": [\n      {\n        \"name\": \"france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg\",\n        \"url\": \"https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_033abdf0-2adc-499c-af6d-086b315d5cdc.jpg\"\n      }\n    ],\n    \"bankStatement\": [\n      {\n        \"name\": \"france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg\",\n        \"url\": \"https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_85379bd3-8cf6-444f-848b-97b03e8f7a1c.jpg\"\n      }\n    ],\n    \"utilityBill\": [\n      {\n        \"name\": \"france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg\",\n        \"url\": \"https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_347b4c39-ccd0-4298-a5d4-c8b11e113e90.jpg\"\n      }\n    ],\n    \"virtualAccountType\": \"additional\",\n    \"riskRating\": null,\n    \"checklist\": null,\n    \"riskScreening\": null,\n    \"channelKycUpdateStatus\": null,\n    \"channelKycUpdateResponse\": null,\n    \"_id\": \"64ad8a2748165924f46d6ad0\",\n    \"business\": \"63da866cb938c4e0b871f514\",\n    \"currency\": \"GBP\",\n    \"accountType\": \"individual\",\n    \"entityType\": \"main_account\",\n    \"currencyType\": \"fiat\",\n    \"createdAt\": \"2023-07-11T16:58:15.641Z\",\n    \"updatedAt\": \"2023-07-11T16:58:15.641Z\"\n  }\n}"
+                  "NGN": {
+                    "summary": "NGN",
+                    "value": {
+                      "success": true,
+                      "message": "We use this to communicate information to you.",
+                      "data": {
+                        "status": "approved",
+                        "isActive": true,
+                        "accountNumber": "3992219528",
+                        "merchantReference": null,
+                        "KYCInformation": {
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "email": "customer@theiremail.com"
+                        },
+                        "accountInformation": {
+                          "accountNumber": "3992219528",
+                          "accountName": "Customer's full name",
+                          "bankName": "GLOBUS BANK",
+                          "bankCode": "103"
+                        },
+                        "verifiedKYCData": null,
+                        "note": null,
+                        "accountOpeningFee": 0,
+                        "pendingAdditionalInfoCount": 0,
+                        "isPermanent": true,
+                        "expiresAt": null,
+                        "isCheckoutVa": false,
+                        "isBankTransferVa": false,
+                        "isSuspended": false,
+                        "reason": null,
+                        "monthlyVolume": null,
+                        "entityName": null,
+                        "paymentFlowDescription": null,
+                        "attachments": [],
+                        "meansOfId": [],
+                        "bankStatement": [],
+                        "utilityBill": [],
+                        "virtualAccountType": "additional",
+                        "riskRating": null,
+                        "checklist": null,
+                        "riskScreening": null,
+                        "channelKycUpdateStatus": null,
+                        "channelKycUpdateResponse": null,
+                        "_id": "************************",
+                        "business": "*******************",
+                        "currency": "NGN",
+                        "accountType": "individual",
+                        "entityType": "main_account",
+                        "currencyType": "fiat",
+                        "createdAt": "@timestamp",
+                        "updatedAt": "@timestamp"
+                      }
+                    }
+                  },
+                  "GHS": {
+                    "value": {
+                      "success": true,
+                      "message": "A GHS virtual account has been created for you",
+                      "data": {
+                        "status": "approved",
+                        "isActive": true,
+                        "accountNumber": "7003000100286",
+                        "merchantReference": "merchant-8j9j00",
+                        "KYCInformation": {
+                          "businessName": "Oma's Empire",
+                          "email": "email@gmail.com"
+                        },
+                        "accountInformation": {
+                          "accountNumber": "7003000100286",
+                          "accountName": "Oma's Empire",
+                          "reference": "2bd48a28-0199-4de8-bac0-ae998efaad9e",
+                          "bankName": "First Bank"
+                        },
+                        "_id": "6865acbe26869a007121d7f5b",
+                        "business": "64493f61864cdb7aab9bb4576",
+                        "currency": "GHS",
+                        "accountType": "corporate",
+                        "entityType": "main_account",
+                        "currencyType": "fiat",
+                        "createdAt": "2025-07-02T22:03:42.724Z",
+                        "updatedAt": "2025-07-02T22:03:42.724Z"
+                      }
+                    },
+                    "summary": "GHS"
                   }
                 },
                 "schema": {
