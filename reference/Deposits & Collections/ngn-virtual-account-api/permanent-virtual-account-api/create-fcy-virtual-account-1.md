@@ -2,7 +2,7 @@
 api:
   file: awesome-new-api.json
   operationId: create-fcy-virtual-account-1
-hidden: true
+hidden: false
 link:
   new_tab: false
 metadata:
