@@ -271,7 +271,7 @@ It is **mandatory** to perform a transaction status query to verify that the pay
 | paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                                                                                 |
 | paymentScheme               | string | ✅        | `cnaps` → CNY and CNH<br />`swift` → CNH only                                                                                                               |
 | sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                                                                                  |
-| purposeOfFund               | object | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)                                                                 |
+| purposeOfFund               | string | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)                                                                 |
 | files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)                                                            |
 | relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self).                                                        |
 | quoteReference              | string | optional | This is the reference generated for FX quote. Required for cross-currency payouts (e.g. NGN→CNY); optional only when source and destination currency match. |
