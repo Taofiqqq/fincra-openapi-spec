@@ -1,1383 +1,246 @@
 ---
-title: Copy of Bank Account Transfers
+title: Payout to China (CNY/CNH)
+excerpt: Guide to integrate payout to China
 deprecated: false
 hidden: true
 metadata:
   robots: index
 ---
-This section covers the parameters needed to process payments to bank accounts. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. 
+This section covers the parameters and prerequisites needed to process payments to bank accounts in China. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. **If you are making onshore payouts (China mainland) use CNY and if you're making payout  to offshore(HongKong, Singapore) China use CNH.**
 
-### Common Details
+## Initiate CNY/CNH Payout
 
-So first, let's go through the basic information needed for any kind of account. You'll need to provide these details.
+To successfully initiate a CNY or CNH payout, make sure you provide every field in the request body below and also read the prerequisite and ensure you have everything before initiating a CNY or CNH payout, to avoid any compliance delay, make sure you pass all the necessary supporting documents.
 
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                                              |
-| :---------------------------- | :-------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| business                      | Yes       | String | The ID of the business making the payout.                                                                                                                                                                                                |
-| sourceCurrency                | Yes       | String | The currency which is used to fund the payout                                                                                                                                                                                            |
-| destinationCurrency           | Yes       | String | The currency in which the recipient will be receiving funds                                                                                                                                                                              |
-| amount                        | Yes       | String | The value that is to be transferred from the source currency wallet.                                                                                                                                                                     |
-| description                   | Yes       | String | A simple description of payment e.g "From Daniella”                                                                                                                                                                                      |
-| paymentDestination            | Yes       | String | This is the type of account you want to send your payments to, see [payment destinations](/docs/transaction-types-1#payment-destination) for more details.                                                                               |
-| customerReference             | Yes       | String | The transaction's unique identifier on your system. Customer references prevent duplicate transactions. We advise that you add it to your payload                                                                                        |
-| quoteReference                | No        | String | This is the reference generated when the source currency is compared against the destination currency.This is required for cross-currency payouts. You can generate a quote using the [Generate quote endpoint.](/reference/get-a-quote) |
-| **sender**                    | No        | Object | The details of the customer initiating the payout. This is only required for FCY payouts and cross-border merchants/transactions.                                                                                                        |
-| sender.type                   | No        | String | One of: `individual`, `corporate`                                                                                                                                                                                                        |
-| sender.name                   | No        | String | The customer's full name. This name would show up in the transfer narration.                                                                                                                                                             |
-| sender.email                  | No        | String | The customer's email.                                                                                                                                                                                                                    |
-| sender.idType                 | No        | String | One of: `business_registration_number`, `passport`, `national_identification_number`, `drivers_license`                                                                                                                                  |
-| sender.idNumber               | No        | String | Identity number of selected identification type                                                                                                                                                                                          |
-| sender.countryOfOrigin        | No        | String | Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).Only required if sender.type is individual                                                                                                                                     |
-| sender.countryOfIncorporation | No        | String | Country code in ISO 3166-alpha2 format (e.g., NG, US, GB).Only required if sender.type is corporate                                                                                                                                      |
-| sender.address                | No        | String | Full address of business or individual                                                                                                                                                                                                   |
-| sender.birthDate              | No        | String | Person's date of birth (for individual senders)                                                                                                                                                                                          |
+### Prerequisite
 
-## NGN Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Nigeria. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json Individual Beneficiary
-{
-    "amount": 5070,
-    "beneficiary": {
-        "accountHolderName": "Customer Name",
-        "accountNumber": "17874878234",
-        "bankCode": "044",
-        // "country": "NG",
-        "firstName": "Customer",
-        "lastName": "Name",
-        "type": "individual"
-    },
-    "business": "{{Your Business ID}}",
-    "customerReference": "{{$randomUUID}}",
-    "description": "Test",
-    "destinationCurrency": "NGN",
-    "paymentDestination": "bank_account",
-    "sourceCurrency": "NGN",
-    "sender":{
-        "name":"Customer Name",
-        "email":"customername@theirmail.com"
-    }
-}
-```
-```json Corporate Beneficiary
-{
-    "business": "{{Your business ID}}",
-    "sourceCurrency": "NGN",
-    "destinationCurrency": "NGN",
-    "amount": "1000",
-    "description": "i want to pay my vendor",
-    "paymentDestination": "bank_account",
-    "customerReference": "{{$randomUUID}}",
-    "quoteReference": "1330bd3c-1e09-4c1c-887f-7f1d72ff905e",
-    "beneficiary": {
-        "firstName": "Hassan",
-        "lastName": "Sarz",
-        "accountHolderName": "Hassan Sarz",
-        "country": "NG",
-        "phone": "0803443433",
-        "accountNumber": "0124775489",
-        "type": "corporate",
-        "email": "aa@aa.com",
-        "bankCode": "058"
-    }
-}
-```
-
-## EGP Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Egypt. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json EGP
-{
-  "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-  "sourceCurrency": "EGP",
-  "destinationCurrency": "EGP",
-  "amount": 100,
-  "description": "Payment for services",
-  "paymentDestination": "bank_account",
-  "customerReference": "ref-12345678-xxxx-xxxx-xxxx-1234567890ab",
-  "beneficiary": {
-    "accountHolderName": "John Doe",
-    "accountNumber": "1000******97",
-    "type": "individual",
-    "firstName": "John",
-    "lastName": "Doe",
-    "bankCode": "0000"
-  }
-}
-
-```
-
-## ZMW Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Zambia. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json ZMW
-{
-    "business": "{{Your Business ID}}",
-    "sourceCurrency": "ZMW",
-    "destinationCurrency": "ZMW",
-    "amount": "121",
-    "paymentDestination": "bank_account",
-    "customerReference": "{{$randomUUID}}",
-    "beneficiary": {
-        "firstName": "Test",
-        "lastName": "Technologies",
-        "email": "nycix@mailinator.com",
-        "accountHolderName": "Tebogo Njoroge",
-        "type": "individual",
-        "country": "ZM",
-        "accountNumber": "260961111111",
-        "bankCode": "002"
-    },
-    "description": "Test",
-    "sender": {
-        "name": "Customer Name",
-        "email":"customername@theirmail.com"
-    }
-}
-```
-
-## ZAR Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in South Africa. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json ZAR
-{
-  "sourceCurrency": "ZAR",
-  "destinationCurrency": "ZAR",
-  "amount": 10,
-  "business": "{{Your Business ID}}",
-  "description": "Payment",
-  "customerReference": "54c80ef8928989",
-  "beneficiary": {
-    "firstName": "Customer",
-    "lastName": "Name",
-    "type": "individual",
-    "accountHolderName": "Customer Name",
-    "accountNumber": "63892389287",
-    "bankCode": "250655",
-    "country": "ZA",
-    "bankSwiftCode": "FIRNZAJJ"
-  },
-  "paymentDestination": "bank_account"
-}
-```
-
-## GHS Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Ghana. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankSwiftCode     | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json GHS
-{
-    "business": "653faf6c5eeb80c89ef7dce4",
-    "sourceCurrency": "GHS",
-    "destinationCurrency": "GHS",
-    "amount": "4.00",
-    "paymentDestination": "bank_account",
-    "customerReference": "22_01_2014_4_20PM",
-    "beneficiary": {
-        "firstName": "Test",
-        "lastName": "Technologies",
-        "email": "customer@theirmail.com",
-        "accountHolderName": "Test TECHNOLOGIES LTD",
-        "accountNumber": "1020820171412",
-        "type": "individual",
-        "country": "GH",
-        "bankSwiftCode": "ABNGGHAC"
-    },
-    "description": "Payment for services"
-}
-```
-
-## KES Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Kenya. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json KES
-{
-    "business": "615eb7015e137543357df000",
-    "sourceCurrency": "KES",
-    "destinationCurrency": "KES",
-    "amount": "55.00",
-    "paymentDestination": "bank_account",
-    "customerReference": "a12FWEWffeeWWWdEdF322",
-    "beneficiary": {
-        "firstName": "Test",
-        "lastName": "Technologies",
-        "email": "nycix@mailinator.com",
-        "accountHolderName": "Test TECHNOLOGIES LTD",
-        "accountNumber": "1400005942049",
-        "type": "corporate",
-        "country": "KE",
-        "bankCode": "ZEBLGHAC"
-    },
-    "description": "has"
-}
-```
-
-## UGX Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Uganda. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json UGX
-{
-  "customerReference": "ABC123XYZ789",
-  "sourceCurrency": "UGX",
-  "destinationCurrency": "UGX",
-  "customerName": "Test User",
-  "amount": 10000,
-  "paymentDestination": "bank_account",
-  "beneficiary": {
-    "firstName": "Demo Business Ltd",
-    "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "1234567890",
-    "type": "corporate",
-    "country": "UG",
-    "bankCode": "UBA",
-    "bankName": "United Bank for Africa Uganda Limited",
-    "bankSwiftCode": "UNAFUGKA",
-    "lastName": null
-  },
-  "description": "Sample transaction description",
-  "sender": {
-    "name": "Test Sender",
-    "address": "123 Sample Street, Kampala",
-    "email": "test.sender@example.com",
-    "phone": "+256700000000"
-  },
-  "business": "1234567890abcdef12345678"
-}
-```
-
-## GBP Pay-Outs
-
-In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the United Kingdom.
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all types of beneficiaries.                                                                                                                                                         |
-| beneficiary.accountNumber     | Yes       | String | This is the bank account number of the beneficiary.                                                                                                                                                           |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.bankSwiftCode     | No        | String | The beneficiary's bank swift code according to [ISO9362](https://en.wikipedia.org/wiki/ISO_9362) . e.g UBSWCHZH80A. Only required for swift transfer.                                                         |
-| beneficiary.sortCode          | Yes       | String | The beneficiary's bank sort code. Sort codes are the domestic bank codes used to route money transfers between financial institutions in the United Kingdom, and in the Republic of Ireland. e.g 000000       |
-| paymentScheme                 | Yes       | String | The [payment scheme](/docs/payment-scheme) is relevant to the destination currency and region.                                                                                                                |
-
-The payload should look like this :
-
-```json FPS
-{
-    "business": "{{The business ID}}",
-    "sourceCurrency": "GBP",
-    "destinationCurrency": "GBP",
-    "amount": "1000",
-    "description": "i want to pay my vendor",
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "Hassan",
-        "lastName": "Sarz",
-        "accountHolderName": "Hassan Sarz",
-        "country": "NG",
-        "phone": "0803443433",
-        "accountNumber": "GBXXCLJU04130780008933",
-        "type": "individual",
-        "email": "aa@aa.com",,
-        "sortCode" : "000000"
-    },
-    "paymentScheme": "fps",
-    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-```
-```json CHAPS
-{
-    "business": "{{The business ID}}",
-    "sourceCurrency": "GBP",
-    "destinationCurrency": "GBP",
-    "amount": "1000",
-    "description": "i want to pay my vendor",
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "Hassan",
-        "lastName": "Sarz",
-        "accountHolderName": "Hassan Sarz",
-        "country": "NG",
-        "phone": "0803443433",
-        "accountNumber": "GBXXCLJU04130780008933",
-        "type": "individual",
-        "email": "aa@aa.com",,
-        "sortCode" : "000000",
-        "bankSwiftCode" : "UBSWCHZH80A"
-    },
-    "paymentScheme": "chaps",
-    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-```
-
-## EUR Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the European Union.
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all types of beneficiaries.                                                                                                                                                         |
-| beneficiary.accountNumber     | Yes       | String | This is the [IBAN](https://docs.fincra.com/docs/verify-iban-and-account-numbers#account-number-verification) of the beneficiary.                                                                              |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | Yes       | String | The type of beneficiary, see beneficiary types for more details                                                                                                                                               |
-| paymentScheme                 | Yes       | String | The [payment scheme](/docs/payment-scheme) relevant to the destination currency and region.                                                                                                                   |
-
-The payload should look like this :
-
-```json SEPA
-{
-    "business": "{{The business ID}}",
-    "sourceCurrency": "EUR",
-    "destinationCurrency": "EUR",
-    "amount": "1000",
-    "description": "i want to pay my vendor",
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "Hassan",
-        "lastName": "Sarz",
-        "accountHolderName": "Hassan Sarz",
-        "country": "NG",
-        "phone": "0803443433",
-        "accountNumber": "GBXXCLJU04130780008933",
-        "type": "individual",
-        "email": "aa@aa.com",
-    },
-    "paymentScheme": "sepa",
-  "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-```
-```json SEPA_INSTANT
-{
-    "business": "{{The business ID}}",
-    "sourceCurrency": "EUR",
-    "destinationCurrency": "EUR",
-    "amount": "1000",
-    "description": "i want to pay my vendor",
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "Hassan",
-        "lastName": "Sarz",
-        "accountHolderName": "Hassan Sarz",
-        "country": "NG",
-        "phone": "0803443433",
-        "accountNumber": "GBXXCLJU04130780008933",
-        "type": "individual",
-        "email": "aa@aa.com",
-    },
-    "paymentScheme": "sepa",
-    "quoteReference": "d187b2fa-27cd-43e6-b622-66361e409c6d",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-```
-
-## USD Pay-Outs
-
-In addition to the [common details](/docs/bank-account-transfers#common-details) needed to process a successful payment, the following fields are also required when sending money to a bank account in the United States.
-
-Also, we have catered for making bank transfers to Nigerian Banks for USD Domiciliary account payments.<br />Kindly find attached supported bank list [here](/docs/supported-currencies#list-of-nigerian-banks-supported-for-usd-domiciliary-account-payment--for-payoutbank-transfer)
+1. Make sure you have created CNY or CNH wallet on the dashboard and it is funded. You can fund it by initiating a conversion from any currency to CNY or CNH on the dashboard or via the [API](/docs/conversions).
+2. Collect all the necessary supporting document from the sender.
 
 <Callout icon="❗️" theme="error">
   ### Note:
 
-  USD Payouts can only be made to USD domiciled banks
+  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. View all payment purpose and required document here.
 </Callout>
 
-<Table align={["left","left","left","left"]}>
-  <thead>
-    <tr>
-      <th>
-        Field
-      </th>
+### Request body
 
-      <th>
-        Mandatory
-      </th>
-
-      <th>
-        Type
-      </th>
-
-      <th>
-        Description
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>
-        files
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String/file/array
-      </td>
-
-      <td>
-        A document explaining the reason for the payment. This can be a file upload or an accessible file URL.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        paymentScheme
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The [payment scheme](/docs/payment-scheme)  relevant to the destination currency and region.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        **beneficiary**
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        Object
-      </td>
-
-      <td>
-        The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.firstName
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The first name of the beneficiary
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.lastName
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The last name of the beneficiary .
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.phoneNumber
-      </td>
-
-      <td>
-        No
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The mobile number of the beneficiary
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.email
-      </td>
-
-      <td>
-        No
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The beneficiary's email
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.accountHolderName
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        This is the bank account number of the beneficiary
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.accountNumber
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        This is the bank account number of the beneficiary or phone number if the account is a mobile money wallet.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.type
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The type of beneficiary, see beneficiary types for more details
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.country
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        **beneficiary.address**
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        Object
-      </td>
-
-      <td>
-        This is only required for swift payments
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.address.street
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.address.state
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.address.city
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.address.zip
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.address.country
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm) codes standards e.g NG, GB
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        **beneficiary.bankName**
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The name of the beneficiary bank.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankCode
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        This
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankSwiftCode
-      </td>
-
-      <td>
-        No
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The bank swift code according to ISO9362 . These two letters indicate the country where the bank is located.e.g UBSWCHZH80A.
-
-        Only required for swift transfer.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        **beneficiary.bankAddress**
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        Object
-      </td>
-
-      <td>
-        Only required for Swift and Fedwire transfers.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankAddress.street
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankAddress.state
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankAddress.city
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankAddress.zip
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        beneficiary.bankAddress.country
-      </td>
-
-      <td>
-        Yes
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The country in which the bank of the beneficiary is located. This field should be according to [ISO 3166-1 alpha-2](https://www.nationsonline.org/oneworld/country_code_list.htm)  codes standards e.g NG, GB
-      </td>
-    </tr>
-  </tbody>
-</Table>
-
-The payload should look like this :
-
-```json USD (Swift)
+```json B2B
 {
-    "customerReference": "{{Your Transaction Reference}}",
-    "sourceCurrency": "USD",
-    "destinationCurrency": "USD",
-    "customerName": "John Doe",
-    "amount": 1000,
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "John",
-        "email": "johndoe@gmail.com",
-        "address": {
-            "street": "123 Main Street",
-            "state": "California",
-            "city": "Los Angeles",
-            "zip": "90001",
-            "country": "US"
-        },
-        "accountHolderName": "John Doe",
-        "accountNumber": "9876543210",
-        "type": "individual",
-        "country": "US",
-        "bankName": "Bank of America",
-        "bankSwiftCode": "026009593",
-        "bankAddress": {
-            "street": "100 N Tryon St",
-            "state": "North Carolina",
-            "city": "Charlotte",
-            "zip": "28202",
-            "country": "US"
-        }
+  "sourceCurrency": "NGN",
+  "destinationCurrency": "CNY",
+  "amount": 1500000.50,
+  "business": "64f1c2a9b3e8d7f012345678",
+  "customerReference": "PAYOUT-2026-07-14-0001",
+  "paymentDestination": "bank_account",
+  "paymentScheme": "cnaps",
+  "quoteReference": "8f3a2b1c9d9b3e8d7",
+  "relationshipWithBeneficiary": "supplier",
+  "description": "Payment for electronics shipment - Invoice INV-2044",
+  "feeBearer": "business",
+  "beneficiary": {
+    "type": "corporate",
+    "firstName": "伟",
+    "accountHolderName": "深圳市华信电子科技有限公司",
+    "email": "finance@huaxin-electronics.cn",
+    "phone": "+8613800138000",
+    "accountNumber": "6222020200112345678",
+    "country": "CN",
+    "bankName": "Industrial and Commercial Bank of China",
+    "bankSwiftCode": "102584000021",
+    "registrationNumber": "91440300MA5F2K3X8Q",
+    "incorporationCountry": "CN",
+    "bankAddress": {
+      "country": "CN",
+      "state": "Guangdong",
+      "zip": "518000",
+      "city": "Shenzhen",
+      "street": "88 Fuhua Road, Futian District"
     },
-    "files": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-    "paymentScheme": "swift",
-    "description": "description",
-    "business": "{{Your Business ID}}",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
+    "address": {
+      "country": "CN",
+      "state": "Guangdong",
+      "zip": "518057",
+      "city": "Shenzhen",
+      "street": "12 Keji South Road, Nanshan District"
+    }
+  },
+  "sender": {
+    "type": "corporate",
+    "name": "Acme Trading Limited",
+    "email": "payments@acmetrading.com",
+    "phone": "+2348012345678",
+    "nationality": "NG",
+    "address": "14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+    "idType": "business_registration_number",
+    "idNumber": "RC1234567",
+    "countryOfIncorporation": "NG"
+  },
+  "purposeOfFund": "goods_trade",
+  "files": [
+    {
+      "file": "<file_url>",
+      "documentType": "invoice"
+    }
+  ]
+}
+```
+```json C2B
+{
+  "sourceCurrency": "NGN",
+  "destinationCurrency": "CNY",
+  "amount": 500000.00,
+  "business": "64f1c2a9b3e8d7f012345678",
+  "customerReference": "PAYOUT-C2B-2026-07-14-0002",
+  "paymentDestination": "bank_account",
+  "paymentScheme": "cnaps",
+  "quoteReference": "3d7e9f2a1b345678",
+  "relationshipWithBeneficiary": "vendor",
+  "description": "Payment for freelance design services - Contract SC-0917",
+  "feeBearer": "customer",
+  "beneficiary": {
+    "type": "corporate",
+    "firstName": "丽",
+    "lastName": "王",
+    "accountHolderName": "上海创意设计服务有限公司",
+    "email": "billing@chuangyi-design.cn",
+    "phone": "+8613912345678",
+    "accountNumber": "6217003820011223344",
+    "country": "CN",
+    "bankName": "China Construction Bank",
+    "bankSwiftCode": "105290000012",
+    "registrationNumber": "91310115MA1K4L7T2W",
+    "incorporationCountry": "CN",
+    "bankAddress": {
+      "country": "CN",
+      "state": "Shanghai",
+      "zip": "200120",
+      "city": "Shanghai",
+      "street": "900 Century Avenue, Pudong New District"
+    },
+    "address": {
+      "country": "CN",
+      "state": "Shanghai",
+      "zip": "200235",
+      "city": "Shanghai",
+      "street": "45 Caobao Road, Xuhui District"
+    }
+  },
+  "sender": {
+    "type": "individual",
+    "name": "Chinedu Okafor",
+    "email": "chinedu.okafor@example.com",
+    "phone": "+2348098765432",
+    "nationality": "NG",
+    "address": "7 Bode Thomas Street, Surulere, Lagos, Nigeria",
+    "idType": "international_passport",
+    "idNumber": "A50123456",
+    "countryOfOrigin": "NG"
+  },
+  "purposeOfFund": "payment_for_services",
+  "files": [
+    {
+      "file": "<file_url>",
+      "documentType": "service_contract"
+    }
+  ]
+}
+```
+
+### Response body
+
+```json Payout Response
+{
+    "success": true,
+    "message": "Payout processed successfully",
+    "data": {
+        "id": 14483,
+        "reference": "PAYOUT-2026-07-14-0001",
+        "customerReference": null, // this would be returned as your customer reference if it is sent in the request payload
+        "status": "processing"
     }
 }
-
-```
-```json USD (ACH)
-{
-    "customerReference": "{{Your Transaction Reference}}",
-    "sourceCurrency": "USD",
-    "destinationCurrency": "USD",
-    "customerName": "John Doe",
-    "amount": 1000,
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "John",
-        "email": "johndoe@gmail.com",
-        "address": {
-            "street": "123 Main Street",
-            "state": "California",
-            "city": "Los Angeles",
-            "zip": "90001",
-            "country": "US"
-        },
-        "accountHolderName": "John Doe",
-        "accountNumber": "9876543210",
-        "type": "individual",
-        "country": "US",
-        "bankName": "Bank of America",
-        "bankCode": "026009593"
-    },
-    "files": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-    "paymentScheme": "ach",
-    "description": "description",
-    "business": "{{Your Business ID}}",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-
-```
-```json USD (Fedwire)
-{
-    "customerReference": "{{Your Transaction Reference}}",
-    "sourceCurrency": "USD",
-    "destinationCurrency": "USD",
-    "customerName": "John Doe",
-    "amount": 1000,
-    "paymentDestination": "bank_account",
-    "beneficiary": {
-        "firstName": "John",
-        "email": "johndoe@gmail.com",
-        "address": {
-            "street": "123 Main Street",
-            "state": "California",
-            "city": "Los Angeles",
-            "zip": "90001",
-            "country": "US"
-        },
-        "accountHolderName": "John Doe",
-        "accountNumber": "9876543210",
-        "type": "individual",
-        "country": "US",
-        "bankName": "Bank of America",
-        "bankCode": "026009593",
-        "bankAddress": {
-            "street": "100 N Tryon St",
-            "state": "North Carolina",
-            "city": "Charlotte",
-            "zip": "28202",
-            "country": "US"
-        }
-    },
-    "files": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-    "paymentScheme": "fed_wire",
-    "description": "description",
-    "business": "{{Your Business ID}}",
- "sender": {
-        "senderType": "business",
-        "name": "Example Corp",
-        "email": "business@example.com",
-        "idType": "business_registration_number",
-        "idNumber": "XXXXXX",
-        "countryOfOrigin": "XX",
-        "address": {
-          "street": "Sample Street",
-          "state": "Sample State",
-          "city": "Sample City",
-          "zip": "000000",
-          "country": "XX"
-        },
-        "proofOfAddress": "https://fastly.picsum.photos/id/304/200/300.jpg?hmac=YXd3iLkNQM9NGjwZ31Tiycz66IymYZreYRfvXIrq6l8",
-        "websiteAddress": "https://website.com/",
-        "birthDate": "01/02/1993",
-        "employmentStatus": "employed"
-    }
-}
-
 ```
 
-<br />
+## Request payload details
 
-## TZS Pay-Outs
+| Field                       | Type   | Required | Notes                                                                                                |
+| --------------------------- | ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| sourceCurrency              | string | ✅        | Uppercased. Whole numbers only if the source currency is a zero-decimal currency.                    |
+| destinationCurrency         | string | ✅        | CNY or CNH (uppercased).                                                                             |
+| amount                      | number | ✅        | Decimal allowed unless source currency is zero-decimal.                                              |
+| business                    | string | ✅        | 24-character business id.                                                                            |
+| customerReference           | string | ✅        | Merchant's unique reference.                                                                         |
+| paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                          |
+| paymentScheme               | string | ✅        | `cnaps`                                                                                              |
+| sender                      | object | ✅        | All fields required (see sender object).                                                             |
+| purposeOfFund               | object | ✅        | Reason for the payment. See enum list below                                                          |
+| files                       | array  | ✅        | Supporting document file(s) - see document types.                                                    |
+| relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
+| quoteReference              | string | ✅        | Reference of the FX quote used for the payout.                                                       |
+| description                 | string | Optional | Free-text narration (min 1 char if present).                                                         |
+| feeBearer                   | string | Optional | Who bears the fee.                                                                                   |
+| beneficiary                 | object | ✅        | The receiver of the funds. see beneficiary object                                                    |
 
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in Tanzania. 
+## Beneficiary object
 
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+| Field                | Type   | Required          | Description / constraints                                                                                                             |
+| -------------------- | ------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| type                 | string | ✅                 | `corporate` (corporate only)                                                                                                          |
+| firstName            | string | ✅                 | Beneficiary first name (for corporate, the contact/legal-rep first name must be in Chinese characters). Trimmed.                      |
+| accountHolderName    | string | ✅                 | Name on the bank account **exactly** as held at the beneficiary bank. Must match Chinese bank records or the payout will be returned. |
+| email                | string | ✅                 | Valid email address.                                                                                                                  |
+| phone                | string | ✅                 | Beneficiary phone number (include country code, e.g. +86...).                                                                         |
+| accountNumber        | string | ✅                 | Beneficiary bank account number                                                                                                       |
+| country              | string | ✅                 | ISO 3166-1 alpha-2 country code, uppercased — CN for domestic CNY beneficiaries.                                                      |
+| bankName             | string | ✅                 | Full beneficiary bank name. _(Already enforced by the schema for CNY/CNH.)_                                                           |
+| bankSwiftCode        | string | ✅                 | SWIFT/BIC of the beneficiary bank. **CNAPS code should be passed here for CNAPS payment scheme.**                                     |
+| bankAddress          | object | ✅                 | Beneficiary bank's address — strict address shape (see here).                                                                         |
+| address              | object | ✅                 | Beneficiary's residential / registered address — strict address shape (see here).                                                     |
+| registrationNumber   | string | ✅ (for corporate) | Company registration number (must be Unified Social Credit Code).                                                                     |
+| incorporationCountry | string | ✅ (for corporate) | Country of incorporation (ISO alpha-2).                                                                                               |
 
-The payload should look like this :
+## Address object (strict)
 
-```json TZS
-{
-  "customerReference": "ABC123XYZ789",
-  "sourceCurrency": "TZS",
-  "destinationCurrency": "TZS",
-  "customerName": "Test User",
-  "amount": 10000,
-  "paymentDestination": "bank_account",
-  "beneficiary": {
-    "firstName": "Demo Business Ltd",
-    "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "12345678901",
-    "type": "corporate",
-    "country": "TZ",
-    "bankCode": "UBA",
-    "bankName": "Bank of Tanzania",
-    "bankSwiftCode": "TANZTZTX",
-    "lastName": null
-  },
-  "description": "Sample transaction description",
-  "sender": {
-    "name": "Test Sender",
-    "address": "123 Sample Street, Kampala",
-    "email": "test.sender@example.com",
-    "phone": "+256700000000"
-  },
-  "business": "1234567890abcdef12345678"
-}
-```
+Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 
-<br />
+| Field   | Type   | Required | Constraints                                     |
+| ------- | ------ | -------- | ----------------------------------------------- |
+| country | string | ✅        | ISO 3166-1 alpha-2 (max 2 characters), e.g. CN. |
+| state   | string | ✅        | Province / state, e.g. Guangdong.               |
+| zip     | string | ✅        | Postal code.                                    |
+| city    | string | ✅        | City, e.g. Shenzhen.                            |
+| street  | string | ✅        | Street address line.                            |
 
-## XAF Pay-Outs
+## Sender object&#x20;
 
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in CEMAC regions. 
+| Field                  | Type   | Required           | Description / constraints                                                                          |
+| ---------------------- | ------ | ------------------ | -------------------------------------------------------------------------------------------------- |
+| type                   | string | ✅                  | `individual` or `corporate`                                                                        |
+| name                   | string | ✅                  | Full legal name of the sender (person or company).                                                 |
+| email                  | string | ✅                  | Valid email address.                                                                               |
+| phone                  | string | ✅                  | Sender phone number, including country code.                                                       |
+| nationality            | string | ✅                  | Sender nationality (ISO alpha-2 recommended).                                                      |
+| address                | string | ✅                  | Full sender address as a single string.                                                            |
+| idType                 | string | ✅                  | One of: `national_id`, `international_passport`, `drivers_license`, `business_registration_number` |
+| idNumber               | string | ✅                  | Sender ID number, max 30 characters.                                                               |
+| countryOfOrigin        | string | ✅ (for individual) | Required for individual senders.                                                                   |
+| countryOfIncorporation | string | ✅ (for corporate)  | Required for corporate senders.                                                                    |
 
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+## Required document types per purpose of fund
 
-The payload should look like this :
+For each `purposeOfFund` there is a `documentType` mapped to it. These documents are collected upfront to reduce compliance RFI delays. Where multiple documents are listed for a single purpose, you are required to pass **all** the documents in the request body `files` array.
 
-```json XAF
-{
-  "customerReference": "ABC123XYZ789",
-  "sourceCurrency": "XAF",
-  "destinationCurrency": "XAF",
-  "customerName": "Test User",
-  "amount": 10000,
-  "paymentDestination": "bank_account",
-  "beneficiary": {
-    "firstName": "Demo Business Ltd",
-    "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "1234567890",
-    "type": "corporate",
-    "country": "CM",
-    "bankCode": "80007125",
-    "bankName": "BGFIBANK CAMEROUN SA",
-    "bankSwiftCode": "BGFICMCX",
-    "lastName": null
-  },
-  "description": "Sample transaction description",
-  "sender": {
-    "name": "Test Sender",
-    "address": "123 Sample Street, Kampala",
-    "email": "test.sender@example.com",
-    "phone": "+225700000000"
-  },
-  "business": "1234567890abcdef12345678"
-}
-```
-
-<br />
-
-<br />
-
-## XOF Pay-Outs
-
-In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in UEMOA/WAEMU regions. 
-
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
-
-The payload should look like this :
-
-```json XOF
-{
-  "customerReference": "ABC123XYZ789",
-  "sourceCurrency": "XOF",
-  "destinationCurrency": "XOF",
-  "customerName": "Test User",
-  "amount": 10000,
-  "paymentDestination": "bank_account",
-  "beneficiary": {
-    "firstName": "Demo Business Ltd",
-    "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "1234567890",
-    "type": "corporate",
-    "country": "CI",
-    "bankCode": "13505183",
-    "bankName": "GT Bank Cote d Ivoire",
-    "bankSwiftCode": "GTBICIABXXX",
-    "lastName": null
-  },
-  "description": "Sample transaction description",
-  "sender": {
-    "name": "Test Sender",
-    "address": "123 Sample Street, Kampala",
-    "email": "test.sender@example.com",
-    "phone": "+256700000000"
-  },
-  "business": "1234567890abcdef12345678"
-}
-```
+| purposeOfFund             | Required documentType(s)                        |
+| ------------------------- | ----------------------------------------------- |
+| `goods_trade`             | `invoice`                                       |
+| `services_trade`          | `service_contract`                              |
+| `payment_for_services`    | `service_contract`                              |
+| `professional_services`   | `service_contract`                              |
+| `information_services`    | `service_contract`                              |
+| `transportation_services` | `service_contract`                              |
+| `software_purchase`       | `purchase_agreement`                            |
+| `construction_services`   | `construction_contract`                         |
+| `employee_payroll`        | `payment_service_agreement`, `payroll_schedule` |
 
 <br />
