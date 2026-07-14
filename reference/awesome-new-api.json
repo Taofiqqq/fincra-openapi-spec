@@ -12175,6 +12175,337 @@
           }
         }
       }
+    },
+    "/disbursements/payouts-1": {
+      "post": {
+        "summary": "Copy of Initiate Payout",
+        "description": "This API lets you make payouts to bank accounts, mobile money wallets, and crypto/stablecoin wallets. The payout category is determined by the `paymentDestination` field — see the request examples for each category.",
+        "operationId": "initiate-mobile-money-payout-1-1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sourceCurrency",
+                  "destinationCurrency",
+                  "amount",
+                  "business",
+                  "description",
+                  "customerReference",
+                  "beneficiary",
+                  "paymentDestination"
+                ],
+                "properties": {
+                  "sourceCurrency": {
+                    "type": "string",
+                    "description": "The currency which is used to fund the  payout",
+                    "enum": [
+                      "USDT",
+                      "GHS",
+                      "KES",
+                      "UGX",
+                      "TZS",
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "ZMW",
+                      "ZAR",
+                      "USDC",
+                      "CNGN",
+                      "NGN",
+                      "XAF",
+                      "XOF"
+                    ],
+                    "default": "NGN"
+                  },
+                  "destinationCurrency": {
+                    "type": "string",
+                    "description": "The currency in which the recipient will be receiving funds",
+                    "enum": [
+                      "USDT",
+                      "GHS",
+                      "KES",
+                      "UGX",
+                      "TZS",
+                      "USD",
+                      "EUR",
+                      "GBP",
+                      "ZMW",
+                      "ZAR",
+                      "USDC",
+                      "CNGN",
+                      "NGN",
+                      "XAF",
+                      "XOF"
+                    ],
+                    "default": "NGN"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "The value that is to be transferred from the source currency wallet.",
+                    "default": "5000"
+                  },
+                  "business": {
+                    "type": "string",
+                    "description": "The unique Identifier of the parent business"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The description of the payout",
+                    "default": "Payment for services"
+                  },
+                  "customerReference": {
+                    "type": "string",
+                    "description": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions.",
+                    "default": ""
+                  },
+                  "paymentDestination": {
+                    "type": "string",
+                    "description": "The type of account you want to send the payout to. Use `bank_account` for bank transfers, `mobile_money_wallet` for mobile money payouts, and `crypto_wallet` for stablecoin/crypto payouts.",
+                    "default": "bank_account",
+                    "enum": [
+                      "bank_account",
+                      "mobile_money_wallet",
+                      "crypto_wallet",
+                      "cash_pick_up",
+                      "fliqpay_wallet"
+                    ]
+                  },
+                  "paymentScheme": {
+                    "type": "string",
+                    "description": "The payment scheme relevant to the destination currency payment network. Required for cross-border and crypto payouts; optional for local bank transfers (e.g. NGN to NGN).",
+                    "enum": [
+                      "sepa",
+                      "sepa_instant",
+                      "fps",
+                      "chaps",
+                      "swift",
+                      "fed_ach",
+                      "fed_wire",
+                      "ach",
+                      "cnaps",
+                      "erc20",
+                      "btc_mainnet",
+                      "eth",
+                      "usdt_trc20",
+                      "usdt_erc20",
+                      "usdt_solana",
+                      "usdt_bep20",
+                      "usdc_erc20",
+                      "usdc_solana",
+                      "usdc_bep20",
+                      "cngn_bep20"
+                    ]
+                  },
+                  "quoteReference": {
+                    "type": "string",
+                    "description": "This is the reference generated for FX quote. This is required for cross-currency payouts."
+                  },
+                  "beneficiary": {
+                    "type": "object",
+                    "description": "The recipient of the payout. The fields you provide depend on the `paymentDestination`: bank account fields for `bank_account`, phone/mobile money fields for `mobile_money_wallet`, and wallet fields for `crypto_wallet`.",
+                    "properties": {
+                      "firstName": {
+                        "type": "string",
+                        "description": "The recipient's first name. Used for bank account and mobile money payouts.",
+                        "default": "John"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "description": "The recipient's last name. Used for bank account and mobile money payouts.",
+                        "default": "Doe"
+                      },
+                      "accountHolderName": {
+                        "type": "string",
+                        "description": "The name on the recipient's bank account, as returned by Verify Account Number.",
+                        "default": "John Doe"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Whether the recipient is an individual or a corporate entity.",
+                        "enum": [
+                          "individual",
+                          "corporate"
+                        ],
+                        "default": "individual"
+                      },
+                      "accountNumber": {
+                        "type": "string",
+                        "description": "The recipient's bank account number. Required for `bank_account` payouts.",
+                        "default": "0123456789"
+                      },
+                      "bankCode": {
+                        "type": "string",
+                        "description": "The recipient bank's code. Required for `bank_account` payouts.",
+                        "default": "044"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts."
+                      },
+                      "mobileMoneyCode": {
+                        "type": "string",
+                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts."
+                      },
+                      "walletAddress": {
+                        "type": "string",
+                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network."
+                      },
+                      "destinationTag": {
+                        "type": "string",
+                        "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Bank Transfer Payout": {
+                  "value": {
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "NGN",
+                    "amount": "5000",
+                    "description": "Payment for services",
+                    "paymentDestination": "bank_account",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "beneficiary": {
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "type": "individual",
+                      "accountHolderName": "John Doe",
+                      "accountNumber": "0123456789",
+                      "bankCode": "044"
+                    }
+                  }
+                },
+                "Mobile Money Payout": {
+                  "value": {
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "KES",
+                    "destinationCurrency": "KES",
+                    "amount": "1000",
+                    "description": "Payment for services",
+                    "paymentDestination": "mobile_money_wallet",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "beneficiary": {
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "type": "individual",
+                      "phone": "+254700000000",
+                      "mobileMoneyCode": "MPESA"
+                    }
+                  }
+                },
+                "Stablecoin Payout": {
+                  "value": {
+                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                    "sourceCurrency": "USDT",
+                    "destinationCurrency": "USDT",
+                    "amount": "10",
+                    "description": "Payment",
+                    "paymentDestination": "crypto_wallet",
+                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "paymentScheme": "usdt_trc20",
+                    "beneficiary": {
+                      "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                      "destinationTag": "test-memo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n    \"success\": true,\n    \"message\": \"Payout processed successfully\",\n    \"data\": {\n        \"id\": 1254,\n        \"reference\": \"5dcf24700a9a4f67\",\n        \"customerReference\": \"TXT-001\",\n        \"status\": \"processing\",\n        \"documentsRequired\": []\n    }\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Payout processed successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1254,
+                          "default": 0
+                        },
+                        "reference": {
+                          "type": "string",
+                          "example": "5dcf24700a9a4f67"
+                        },
+                        "customerReference": {
+                          "type": "string",
+                          "example": "TXT-001"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "processing"
+                        },
+                        "documentsRequired": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n    \"success\": false,\n    \"error\": \"Cannot continue, Duplicate Customer Reference Passed\",\n    \"errorType\": \"DUPLICATE_CUSTOMER_REFERENCE\"\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false,
+                      "default": true
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Cannot continue, Duplicate Customer Reference Passed"
+                    },
+                    "errorType": {
+                      "type": "string",
+                      "example": "DUPLICATE_CUSTOMER_REFERENCE"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "x-readme": {
