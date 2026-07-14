@@ -1,7 +1,7 @@
 ---
 title: Payout to China (CNY/CNH)
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
