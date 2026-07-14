@@ -84,10 +84,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
   },
   "purposeOfFund": "goods_trade",
   "files": [
-    {
-      "file": "<file_url>",
-      "documentType": "invoice"
-    }
+    "https://example.com/uploaded-invoice.pdf"
   ]
 }
 ```
@@ -145,10 +142,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
   },
   "purposeOfFund": "payment_for_services",
   "files": [
-    {
-      "file": "<file_url>",
-      "documentType": "service_contract"
-    }
+    "https://example.com/uploaded-invoice.pdf"
   ]
 }
 ```
