@@ -56,7 +56,13 @@ Sample Payload for B2B or B2C.
     "email": "payments@acmetrading.com",
     "phone": "+2348012345678",
     "nationality": "NG",
-    "address": "14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+    "address": {
+      "country": "NG",
+      "state": "Lagos",
+      "zip": "101241",
+      "city": "Lagos",
+      "street": "14 Adeola Odeku Street, Victoria Island"
+    },
     "idType": "business_registration_number",
     "idNumber": "RC1234567",
     "countryOfIncorporation": "NG"
@@ -114,7 +120,13 @@ Sample Payload for B2B or B2C.
     "email": "chinedu.okafor@example.com",
     "phone": "+2348098765432",
     "nationality": "NG",
-    "address": "7 Bode Thomas Street, Surulere, Lagos, Nigeria",
+    "address": {
+      "country": "NG",
+      "state": "Lagos",
+      "zip": "101283",
+      "city": "Lagos",
+      "street": "7 Bode Thomas Street, Surulere"
+    },
     "idType": "international_passport",
     "idNumber": "A50123456",
     "countryOfOrigin": "NG"
