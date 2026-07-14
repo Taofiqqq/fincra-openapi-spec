@@ -174,13 +174,13 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                          |
 | paymentScheme               | string | ✅        | `cnaps`                                                                                              |
 | sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                           |
-| purposeOfFund               | object | ✅        | Reason for the payment. See enum list below                                                          |
-| files                       | array  | ✅        | Supporting document file(s) - [see document types](#document-types)                                  |
+| purposeOfFund               | object | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)          |
+| files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)     |
 | relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
 | quoteReference              | string | ✅        | Reference of the FX quote used for the payout.                                                       |
 | description                 | string | Optional | Free-text narration (min 1 char if present).                                                         |
 | feeBearer                   | string | Optional | Who bears the fee.                                                                                   |
-| beneficiary                 | object | ✅        | The receiver of the funds. see beneficiary object                                                    |
+| beneficiary                 | object | ✅        | The receiver of the funds. [see beneficiary object](#beneficiary-object)                             |
 
 ## Beneficiary object
 
@@ -195,12 +195,12 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | country              | string | ✅                 | ISO 3166-1 alpha-2 country code, uppercased — CN for domestic CNY beneficiaries.                                                      |
 | bankName             | string | ✅                 | Full beneficiary bank name. _(Already enforced by the schema for CNY/CNH.)_                                                           |
 | bankSwiftCode        | string | ✅                 | SWIFT/BIC of the beneficiary bank. **CNAPS code should be passed here for CNAPS payment scheme.**                                     |
-| bankAddress          | object | ✅                 | Beneficiary bank's address — strict address shape (see here).                                                                         |
-| address              | object | ✅                 | Beneficiary's residential / registered address — strict address shape (see here).                                                     |
+| bankAddress          | object | ✅                 | Beneficiary bank's address — strict address shape ([see address object](#address-object) below).                                      |
+| address              | object | ✅                 | Beneficiary's residential / registered address — strict address shape ([see address object](#address-object) below).                  |
 | registrationNumber   | string | ✅ (for corporate) | Company registration number (must be Unified Social Credit Code).                                                                     |
 | incorporationCountry | string | ✅ (for corporate) | Country of incorporation (ISO alpha-2).                                                                                               |
 
-## Address object (strict)
+## Address object
 
 Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 
