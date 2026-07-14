@@ -173,7 +173,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | customerReference           | string | ✅        | Merchant's unique reference.                                                                         |
 | paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                          |
 | paymentScheme               | string | ✅        | `cnaps`                                                                                              |
-| sender                      | object | ✅        | All fields required (see sender object).                                                             |
+| sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                           |
 | purposeOfFund               | object | ✅        | Reason for the payment. See enum list below                                                          |
 | files                       | array  | ✅        | Supporting document file(s) - see document types.                                                    |
 | relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
