@@ -261,23 +261,23 @@ It is **mandatory** to perform a transaction status query to verify that the pay
 
 ## Request payload details
 
-| Field                       | Type   | Required | Notes                                                                                                |
-| --------------------------- | ------ | -------- | ---------------------------------------------------------------------------------------------------- |
-| sourceCurrency              | string | ✅        | Uppercased. Whole numbers only if the source currency is a zero-decimal currency.                    |
-| destinationCurrency         | string | ✅        | CNY or CNH (uppercased).                                                                             |
-| amount                      | number | ✅        | Decimal allowed unless source currency is zero-decimal.                                              |
-| business                    | string | ✅        | 24-character business id.                                                                            |
-| customerReference           | string | ✅        | Merchant's unique reference.                                                                         |
-| paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                          |
-| paymentScheme               | string | ✅        | `cnaps` -> CNY and CNH<br />`swift` -> CNH only                                                      |
-| sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                           |
-| purposeOfFund               | object | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)          |
-| files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)     |
-| relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
-| quoteReference              | string | optional | Reference of the FX quote used for the payout.                                                       |
-| description                 | string | Optional | Free-text narration (min 1 char if present).                                                         |
-| feeBearer                   | string | Optional | Who bears the fee.                                                                                   |
-| beneficiary                 | object | ✅        | The receiver of the funds. [see beneficiary object](#beneficiary-object)                             |
+| Field                       | Type   | Required | Notes                                                                                                                                                       |
+| --------------------------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| sourceCurrency              | string | ✅        | Uppercased. Whole numbers only if the source currency is a zero-decimal currency.                                                                           |
+| destinationCurrency         | string | ✅        | CNY or CNH (uppercased).                                                                                                                                    |
+| amount                      | number | ✅        | Decimal allowed unless source currency is zero-decimal.                                                                                                     |
+| business                    | string | ✅        | 24-character business id.                                                                                                                                   |
+| customerReference           | string | ✅        | Merchant's unique reference.                                                                                                                                |
+| paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                                                                                 |
+| paymentScheme               | string | ✅        | `cnaps` → CNY and CNH<br />`swift` → CNH only                                                                                                               |
+| sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                                                                                  |
+| purposeOfFund               | object | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)                                                                 |
+| files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)                                                            |
+| relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self).                                                        |
+| quoteReference              | string | optional | This is the reference generated for FX quote. Required for cross-currency payouts (e.g. NGN→CNY); optional only when source and destination currency match. |
+| description                 | string | Optional | Free-text narration (min 1 char if present).                                                                                                                |
+| feeBearer                   | string | Optional | Who bears the fee.                                                                                                                                          |
+| beneficiary                 | object | ✅        | The receiver of the funds. [see beneficiary object](#beneficiary-object)                                                                                    |
 
 ### Beneficiary object
 
