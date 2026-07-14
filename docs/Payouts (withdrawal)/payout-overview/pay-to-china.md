@@ -231,7 +231,7 @@ It is mandatory to perform a transaction status query to verify that the payout 
 | purposeOfFund               | object | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)          |
 | files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)     |
 | relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
-| quoteReference              | string | ✅        | Reference of the FX quote used for the payout.                                                       |
+| quoteReference              | string | optional | Reference of the FX quote used for the payout.                                                       |
 | description                 | string | Optional | Free-text narration (min 1 char if present).                                                         |
 | feeBearer                   | string | Optional | Who bears the fee.                                                                                   |
 | beneficiary                 | object | ✅        | The receiver of the funds. [see beneficiary object](#beneficiary-object)                             |
