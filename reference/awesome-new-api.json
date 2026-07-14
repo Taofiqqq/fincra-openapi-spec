@@ -12233,7 +12233,7 @@
                     "default": "NGN"
                   },
                   "amount": {
-                    "type": "string",
+                    "type": "number",
                     "description": "The value that is to be transferred from the source currency wallet.",
                     "default": "5000"
                   },
