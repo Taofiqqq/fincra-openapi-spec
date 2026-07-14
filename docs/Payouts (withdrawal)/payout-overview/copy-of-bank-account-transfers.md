@@ -4,6 +4,12 @@ excerpt: Guide to integrate payout to China
 deprecated: false
 hidden: true
 metadata:
+  keywords:
+    - CNY
+    - CNH
+    - China
+    - Payout
+    - Supplier payments
   robots: index
 ---
 This section covers the parameters and prerequisites needed to process payments to bank accounts in China. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. **If you are making onshore payouts (China mainland) use CNY and if you're making payout to offshore(HongKong, Singapore) China use CNH.**
