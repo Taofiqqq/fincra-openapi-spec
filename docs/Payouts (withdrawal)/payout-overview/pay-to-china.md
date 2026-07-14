@@ -78,7 +78,13 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
     "email": "payments@acmetrading.com",
     "phone": "+2348012345678",
     "nationality": "NG",
-    "address": "14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+    "address": {
+      "country": "NG",
+      "state": "Lagos",
+      "zip": "101241",
+      "city": "Lagos",
+      "street": "14 Adeola Odeku Street, Victoria Island"
+    },
     "idType": "business_registration_number",
     "idNumber": "RC1234567",
     "countryOfIncorporation": "NG"
@@ -136,7 +142,13 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
     "email": "chinedu.okafor@example.com",
     "phone": "+2348098765432",
     "nationality": "NG",
-    "address": "7 Bode Thomas Street, Surulere, Lagos, Nigeria",
+    "address": {
+      "country": "NG",
+      "state": "Lagos",
+      "zip": "101283",
+      "city": "Lagos",
+      "street": "7 Bode Thomas Street, Surulere"
+    },
     "idType": "international_passport",
     "idNumber": "A50123456",
     "countryOfOrigin": "NG"
@@ -321,7 +333,7 @@ Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 | email                  | string | ✅                  | Valid email address.                                                                               |
 | phone                  | string | ✅                  | Sender phone number, including country code.                                                       |
 | nationality            | string | ✅                  | Sender nationality (ISO alpha-2 recommended).                                                      |
-| address                | string | ✅                  | Full sender address as a single string.                                                            |
+| address                | object | ✅                  | Full sender address. Strict shape - [see address object](#address-object)                          |
 | idType                 | string | ✅                  | One of: `national_id`, `international_passport`, `drivers_license`, `business_registration_number` |
 | idNumber               | string | ✅                  | Sender ID number, max 30 characters.                                                               |
 | countryOfOrigin        | string | ✅ (for individual) | Required for individual senders.                                                                   |
