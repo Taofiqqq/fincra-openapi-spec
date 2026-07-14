@@ -1,5 +1,5 @@
 ---
-title: Copy of Verify Payout Status by Reference
+title: Verify Payout Status by Reference
 deprecated: false
 hidden: true
 link:
