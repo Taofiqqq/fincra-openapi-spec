@@ -155,8 +155,8 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
     "message": "Payout processed successfully",
     "data": {
         "id": 14483,
-        "reference": "PAYOUT-2026-07-14-0001",
-        "customerReference": null, // this would be returned as your customer reference if it is sent in the request payload
+        "reference": "dihqQLR5gobbGJAzgzfWks",
+        "customerReference": "PAYOUT-2026-07-14-0001", 
         "status": "processing"
     }
 }
