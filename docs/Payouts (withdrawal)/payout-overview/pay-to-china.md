@@ -101,7 +101,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
   "quoteReference": "3d7e9f2a1b345678",
   "relationshipWithBeneficiary": "vendor",
   "description": "Payment for freelance design services - Contract SC-0917",
-  "feeBearer": "customer",
+  "feeBearer": "business",
   "beneficiary": {
     "type": "corporate",
     "firstName": "丽",
