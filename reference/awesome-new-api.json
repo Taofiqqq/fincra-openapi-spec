@@ -7613,8 +7613,33 @@
                         "description": "Country code in ISO-3166-alpha-2 (required for individual senders only)"
                       },
                       "address": {
-                        "type": "string",
-                        "description": "Full address of the ultimate sender"
+                        "type": "object",
+                        "description": "Full address of the ultimate sender",
+                        "properties": {
+                          "country": {
+                            "type": "string",
+                            "description": "Country code in ISO-3166-alpha-2"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "country",
+                          "state",
+                          "zip",
+                          "city",
+                          "street"
+                        ]
                       },
                       "idType": {
                         "type": "string",
