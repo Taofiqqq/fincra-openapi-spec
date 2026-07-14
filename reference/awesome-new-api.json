@@ -12194,7 +12194,12 @@
                   "description",
                   "customerReference",
                   "beneficiary",
-                  "paymentDestination"
+                  "paymentDestination",
+                  "paymentScheme",
+                  "purposeOfFunds",
+                  "files",
+                  "relationshipWithBeneficiary",
+                  "sender"
                 ],
                 "properties": {
                   "sourceCurrency": {
@@ -12223,21 +12228,6 @@
                     "type": "string",
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
-                      "USDT",
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "USD",
-                      "EUR",
-                      "GBP",
-                      "ZMW",
-                      "ZAR",
-                      "USDC",
-                      "CNGN",
-                      "NGN",
-                      "XAF",
-                      "XOF",
                       "CNY",
                       "CNH"
                     ],
@@ -12250,7 +12240,7 @@
                   },
                   "business": {
                     "type": "string",
-                    "description": "The unique Identifier of the parent business"
+                    "description": "Your unique business ID"
                   },
                   "description": {
                     "type": "string",
@@ -12264,40 +12254,18 @@
                   },
                   "paymentDestination": {
                     "type": "string",
-                    "description": "The type of account you want to send the payout to. Use `bank_account` for bank transfers, `mobile_money_wallet` for mobile money payouts, and `crypto_wallet` for stablecoin/crypto payouts.",
+                    "description": "Payment destination type",
                     "default": "bank_account",
                     "enum": [
-                      "bank_account",
-                      "mobile_money_wallet",
-                      "crypto_wallet",
-                      "cash_pick_up",
-                      "fliqpay_wallet"
+                      "bank_account"
                     ]
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency payment network. Required for cross-border and crypto payouts; optional for local bank transfers (e.g. NGN to NGN).",
+                    "description": "The payment scheme relevant to the destination currency payment network. \"cnaps\" supports only CNY, while \"swift\" supports both CNY and CNH.",
                     "enum": [
-                      "sepa",
-                      "sepa_instant",
-                      "fps",
-                      "chaps",
-                      "swift",
-                      "fed_ach",
-                      "fed_wire",
-                      "ach",
                       "cnaps",
-                      "erc20",
-                      "btc_mainnet",
-                      "eth",
-                      "usdt_trc20",
-                      "usdt_erc20",
-                      "usdt_solana",
-                      "usdt_bep20",
-                      "usdc_erc20",
-                      "usdc_solana",
-                      "usdc_bep20",
-                      "cngn_bep20"
+                      "swift"
                     ]
                   },
                   "quoteReference": {
@@ -12306,21 +12274,21 @@
                   },
                   "beneficiary": {
                     "type": "object",
-                    "description": "The recipient of the payout. The fields you provide depend on the `paymentDestination`: bank account fields for `bank_account`, phone/mobile money fields for `mobile_money_wallet`, and wallet fields for `crypto_wallet`.",
+                    "description": "The recipient of the payout.",
                     "properties": {
                       "firstName": {
                         "type": "string",
-                        "description": "The recipient's first name. Used for bank account and mobile money payouts.",
+                        "description": "The recipient's first name. ",
                         "default": "John"
                       },
                       "lastName": {
                         "type": "string",
-                        "description": "The recipient's last name. Used for bank account and mobile money payouts.",
+                        "description": "The recipient's last name.",
                         "default": "Doe"
                       },
                       "accountHolderName": {
                         "type": "string",
-                        "description": "The name on the recipient's bank account, as returned by Verify Account Number.",
+                        "description": "The name on the recipient's bank account. (must be in Chinese)",
                         "default": "John Doe"
                       },
                       "type": {
@@ -12334,34 +12302,199 @@
                       },
                       "accountNumber": {
                         "type": "string",
-                        "description": "The recipient's bank account number. Required for `bank_account` payouts.",
+                        "description": "The recipient's bank account number. ",
                         "default": "0123456789"
                       },
-                      "bankCode": {
+                      "bankSwiftCode": {
                         "type": "string",
                         "description": "The recipient bank's code. Required for `bank_account` payouts.",
-                        "default": "044"
+                        "default": "102584000021"
                       },
                       "phone": {
                         "type": "string",
-                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts."
+                        "description": "The recipient's phone number."
                       },
-                      "mobileMoneyCode": {
+                      "incorporationCountry": {
                         "type": "string",
-                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts."
+                        "description": "Country where the business is incorporated"
                       },
-                      "walletAddress": {
-                        "type": "string",
-                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network."
+                      "bankAddress": {
+                        "type": "object",
+                        "properties": {
+                          "country": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          }
+                        },
+                        "description": "Full address object of the recipient's bank",
+                        "required": [
+                          "street",
+                          "city",
+                          "zip",
+                          "state",
+                          "country"
+                        ]
                       },
-                      "destinationTag": {
-                        "type": "string",
-                        "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
+                      "address": {
+                        "type": "object",
+                        "description": "Recipient's address",
+                        "properties": {
+                          "country": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "country",
+                          "state",
+                          "zip",
+                          "city",
+                          "street"
+                        ]
                       }
                     },
                     "required": [
-                      "firstName"
+                      "firstName",
+                      "accountHolderName",
+                      "type",
+                      "accountNumber",
+                      "bankAddress",
+                      "address"
                     ]
+                  },
+                  "feeBearer": {
+                    "type": "string",
+                    "description": "Who bears the fee, value can either be customer or business"
+                  },
+                  "purposeOfFunds": {
+                    "type": "string",
+                    "description": "Reason for payment",
+                    "enum": [
+                      "goods_trade",
+                      "services_trade",
+                      "payment_for_services",
+                      "professional_services",
+                      "information_services",
+                      "transportation_services",
+                      "software_purchase",
+                      "construction_services",
+                      "employee_payroll"
+                    ]
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Supporting document URLs for the payment."
+                  },
+                  "relationshipWithBeneficiary": {
+                    "type": "string",
+                    "description": "Relationship type between sender and beneficiary ",
+                    "enum": [
+                      "self",
+                      "parents",
+                      "child",
+                      "siblings",
+                      "other_relatives",
+                      "spouse",
+                      "ex_spouse",
+                      "vendor",
+                      "supplier",
+                      "employee",
+                      "friends",
+                      "business_partner",
+                      "customer",
+                      "agent",
+                      "creditor",
+                      "debtor",
+                      "subsidiary_company",
+                      "branch_office",
+                      "holding_company",
+                      "franchisee"
+                    ]
+                  },
+                  "sender": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "corporate",
+                          "individual"
+                        ]
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Ultimate sender name"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Ultimate sender email address"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "description": "Ultimate sender phone number (e.g. +2341234567890)"
+                      },
+                      "nationality": {
+                        "type": "string",
+                        "description": "Country code in ISO-3166-alpha-2 (required for individual senders only)"
+                      },
+                      "address": {
+                        "type": "string",
+                        "description": "Full address of the ultimate sender"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "national_id",
+                          "international_passport",
+                          "drivers_license",
+                          "business_registration_number"
+                        ],
+                        "description": "Type of identification"
+                      },
+                      "idNumber": {
+                        "type": "string",
+                        "description": "Identification number of the selected idType"
+                      },
+                      "countryOfIncorporation": {
+                        "type": "string",
+                        "description": "Country code in ISO-3166-alpha-2 (required for corporate senders only)"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name",
+                      "email",
+                      "phone",
+                      "address",
+                      "idType",
+                      "idNumber"
+                    ],
+                    "description": "Ultimate sender/payer details"
                   }
                 }
               },
