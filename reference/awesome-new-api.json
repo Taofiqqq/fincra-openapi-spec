@@ -12191,7 +12191,6 @@
                   "destinationCurrency",
                   "amount",
                   "business",
-                  "description",
                   "customerReference",
                   "beneficiary",
                   "paymentDestination",
