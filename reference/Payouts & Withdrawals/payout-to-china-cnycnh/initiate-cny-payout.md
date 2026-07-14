@@ -69,7 +69,7 @@ Sample Payload for B2B or B2C.
   },
   "purposeOfFund": "goods_trade",
   "files": [
-    "http://example.com/uploaded-invoice.pdf"
+    "https://example.com/uploaded-invoice.pdf"
   ]
 }
 ```
