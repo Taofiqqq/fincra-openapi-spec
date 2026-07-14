@@ -27,7 +27,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 <Callout icon="❗️" theme="error">
   ### Note:
 
-  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. View all payment purpose and required document [here](#required-document-types-per-purpose-of-fund).
+  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. **Each document must not be more than 5MB and URL must be reachable publicly for at least 15 minutes.** View all payment purpose and required document [here](#required-document-types-per-purpose-of-fund).
 </Callout>
 
 ### Request body
@@ -245,7 +245,7 @@ if(encryptedData === signatureFromWebhook) {
 
 ## 3. Verify Payout
 
-It is mandatory to perform a transaction status query to verify that the payout is indeed successful and also the amount and references are correct. Check the reference here for details on [verify payout endpoint](/reference/fetch-payout-by-customer-reference)
+It is **mandatory** to perform a transaction status query to verify that the payout is indeed successful and also the amount and references are correct. Check the reference here for details on [verify payout endpoint](/reference/fetch-payout-by-customer-reference)
 
 ## Request payload details
 
