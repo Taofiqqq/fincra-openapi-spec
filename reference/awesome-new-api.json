@@ -7409,7 +7409,7 @@
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency payment network. \"cnaps\" supports both CNY and CNH, while \"swift\" supports CNH only",
+                    "description": "The payment scheme relevant to the destination currency payment network. \"cnaps\" supports only CNY, while \"swift\" supports CNY and CNH.",
                     "enum": [
                       "cnaps",
                       "swift"
