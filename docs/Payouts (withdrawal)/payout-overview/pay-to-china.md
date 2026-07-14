@@ -218,7 +218,7 @@ Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 | city    | string | ✅        | City, e.g. Shenzhen.                            |
 | street  | string | ✅        | Street address line.                            |
 
-## Sender object&#x20;
+## Sender object
 
 | Field                  | Type   | Required           | Description / constraints                                                                          |
 | ---------------------- | ------ | ------------------ | -------------------------------------------------------------------------------------------------- |
