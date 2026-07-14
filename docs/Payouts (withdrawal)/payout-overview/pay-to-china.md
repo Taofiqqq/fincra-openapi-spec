@@ -14,7 +14,7 @@ metadata:
 ---
 This section covers the parameters and prerequisites needed to process payments to bank accounts in China. Bank account transfers follow the same basic format: make a POST request to our [Payout API](/reference/initiate-payout). However, depending on the type of beneficiary and the account's currency, you might need to give some extra information. **If you are making onshore payouts (China mainland) use CNY and if you're making payout to offshore(HongKong, Singapore) China use CNH.**
 
-## Initiate CNY/CNH Payout
+## 1. Initiate CNY/CNH Payout
 
 To successfully initiate a CNY or CNH payout, make sure you provide every field in the request body below and also read the prerequisite and ensure you have everything before initiating a CNY or CNH payout, to avoid any compliance delay, make sure you pass all the necessary supporting documents.
 
@@ -168,6 +168,60 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 }
 ```
 
+## 2. Receive and validate webhooks
+
+Ensure you setup your webhook URL on the dashboard so that you can listen for webhooks after initiating a payout.
+
+```json Successful payout webhook
+{
+    "event": "payout.successful",
+    "data": {
+        "id": 14380,
+        "amountCharged": 500000,
+        "amountReceived": 2451.57,
+        "recipient": {
+            "name": "上海创意设计服务有限公司",
+            "accountNumber": "6217003820011223344",
+            "type": "corporate",
+            "email": "billing@chuangyi-design.cn"
+        },
+        "fee": 150,
+        "rate": 0.0049,
+        "paymentScheme": "cnaps",
+        "paymentDestination": "bank_account",
+        "sourceCurrency": "NGN",
+        "destinationCurrency": "CNY",
+        "status": "successful",
+        "createdAt": "2026-07-13T21:23:44.000Z",
+        "updatedAt": "2026-07-13T21:23:50.000Z",
+        "reference": "PAYOUT-C2B-2026-07-14-0002",
+        "reason": "Payout was successful",
+        "traceId": null,
+        "valuedAt": "2026-07-13T21:23:50.000Z"
+    }
+}
+
+```
+```javascript Webhook valiation
+import crypto from "crypto";
+
+const encryptedData =  crypto
+      .createHmac("SHA512", merchantWebhookSecretKey)
+      .update(JSON.stringify(payload)) 
+      .digest("hex");
+const signatureFromWebhook = req.headers['signature'];
+
+if(encryptedData === signatureFromWebhook) {
+  console.log("process");
+} else {
+  console.log("discard");
+}
+```
+
+## 3. Verify Payout
+
+It is mandatory to perform a transaction status query to verify that the payout is indeed successful and also the amount and references are correct. Check the reference here for details on [verify payout endpoint](/reference/fetch-payout-by-customer-reference)
+
 ## Request payload details
 
 | Field                       | Type   | Required | Notes                                                                                                |
@@ -188,7 +242,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | feeBearer                   | string | Optional | Who bears the fee.                                                                                   |
 | beneficiary                 | object | ✅        | The receiver of the funds. [see beneficiary object](#beneficiary-object)                             |
 
-## Beneficiary object
+### Beneficiary object
 
 | Field                | Type   | Required          | Description / constraints                                                                                                             |
 | -------------------- | ------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -206,7 +260,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | registrationNumber   | string | ✅ (for corporate) | Company registration number (must be Unified Social Credit Code).                                                                     |
 | incorporationCountry | string | ✅ (for corporate) | Country of incorporation (ISO alpha-2).                                                                                               |
 
-## Address object
+### Address object
 
 Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 
@@ -218,7 +272,7 @@ Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 | city    | string | ✅        | City, e.g. Shenzhen.                            |
 | street  | string | ✅        | Street address line.                            |
 
-## Sender object
+### Sender object
 
 | Field                  | Type   | Required           | Description / constraints                                                                          |
 | ---------------------- | ------ | ------------------ | -------------------------------------------------------------------------------------------------- |
@@ -233,7 +287,7 @@ Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
 | countryOfOrigin        | string | ✅ (for individual) | Required for individual senders.                                                                   |
 | countryOfIncorporation | string | ✅ (for corporate)  | Required for corporate senders.                                                                    |
 
-## Required document types per purpose of fund
+### Required document types per purpose of fund
 
 For each `purposeOfFund` there is a `documentType` mapped to it. These documents are collected upfront to reduce compliance RFI delays. Where multiple documents are listed for a single purpose, you are required to pass **all** the documents in the request body `files` array.
 
