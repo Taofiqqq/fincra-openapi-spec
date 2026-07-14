@@ -257,7 +257,7 @@ if(encryptedData === signatureFromWebhook) {
 
 ## 3. Verify Payout
 
-It is **mandatory** to perform a transaction status query to verify that the payout is indeed successful and also the amount and references are correct. Check the reference here for details on [verify payout endpoint](/reference/fetch-payout-by-customer-reference)
+It is **mandatory** to perform a transaction status query to verify that the payout is indeed successful and also the amount and references are correct. Check [verify payout endpoint](/reference/fetch-payout-by-customer-reference) for more details.
 
 ## Request payload details
 
