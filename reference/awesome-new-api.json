@@ -12196,7 +12196,7 @@
                   "beneficiary",
                   "paymentDestination",
                   "paymentScheme",
-                  "purposeOfFunds",
+                  "purposeOfFund",
                   "files",
                   "relationshipWithBeneficiary",
                   "sender"
@@ -12388,7 +12388,7 @@
                     "type": "string",
                     "description": "Who bears the fee, value can either be customer or business"
                   },
-                  "purposeOfFunds": {
+                  "purposeOfFund": {
                     "type": "string",
                     "description": "Reason for payment",
                     "enum": [
