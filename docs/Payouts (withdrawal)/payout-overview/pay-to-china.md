@@ -197,7 +197,37 @@ Ensure you setup your webhook URL on the dashboard so that you can listen for we
 }
 
 ```
-```javascript Webhook valiation
+```json Failed payout webhook
+{
+  "event": "payout.failed",
+  "data": {
+    "id": 14382,
+    "amountCharged": 12150,
+    "amountReceived": 12000,
+    "recipient": {
+      "name": "Hassan Sarz",
+      "accountNumber": "0124775489",
+      "type": "individual",
+      "email": "aa@aa.com"
+    },
+    "fee": 150,
+    "rate": 1,
+    "paymentScheme": "fps",
+    "paymentDestination": "bank_account",
+    "sourceCurrency": "GBP",
+    "destinationCurrency": "GBP",
+    "status": "failed",
+    "createdAt": "2022-02-21T03:51:53.000Z",
+    "updatedAt": "2022-02-21T03:54:10.000Z",
+    "reference": "9fd3f916-3b03-4bb2-af69-f42b64925919",
+    "customerReference": "4555r4554",// would be included if its passed at the point where payout was initiated
+    "reason": "Wrong beneficiary bank details",
+    "traceId": null,
+    "valuedAt": null
+  }
+}
+```
+```javascript Webhook validation
 import crypto from "crypto";
 
 const encryptedData =  crypto
