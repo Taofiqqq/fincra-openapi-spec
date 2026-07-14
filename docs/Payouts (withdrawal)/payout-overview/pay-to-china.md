@@ -310,7 +310,7 @@ The `bankSwiftCode` field carries a different identifier depending on your `paym
 <Callout icon="❗️" theme="error">
   ### **The CNAPS code is branch-specific, not bank-wide.**
 
-  Ask your beneficiary for the interbank number (联行号) of the exact branch holding the account — they can find it in their mobile banking app or bank statement. Passing a head-office code, a SWIFT/BIC under the `cnaps` scheme, or a code that isn't exactly 12 digits will cause the payout to fail or be returned. Note that `cnaps` does not support CNH. CNH payouts must use `swift`.
+  Ask your beneficiary for the interbank number (联行号) of the exact branch holding the account — they can find it in their mobile banking app or bank statement. Passing a head-office code, a SWIFT/BIC under the `cnaps` scheme, or a code that isn't exactly 12 digits will cause the payout to fail or be returned.
 </Callout>
 
 ### Address object
