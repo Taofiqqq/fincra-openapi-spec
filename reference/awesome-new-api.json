@@ -12178,7 +12178,7 @@
     },
     "/disbursements/payouts-1": {
       "post": {
-        "summary": "Initiate Payout",
+        "summary": "Initiate CNY Payout",
         "description": "This API lets you make payouts to China using CNY or CNH currencies.",
         "operationId": "initiate-mobile-money-payout-1-1",
         "requestBody": {
