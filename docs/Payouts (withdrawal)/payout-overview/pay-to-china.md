@@ -27,7 +27,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 <Callout icon="❗️" theme="error">
   ### Note:
 
-  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. **Each document must not be more than 5MB and URL must be reachable publicly for at least 15 minutes.** View all payment purpose and required document [here](#required-document-types-per-purpose-of-fund).
+  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. **Each document must not be more than 5MB and the URL must be reachable publicly for at least 15 minutes.** View all payment purpose and required document [here](#required-document-types-per-purpose-of-fund).
 </Callout>
 
 ### Request body
