@@ -12553,10 +12553,7 @@
                     },
                     "purposeOfFund": "payment_for_services",
                     "files": [
-                      {
-                        "file": "<file_url>",
-                        "documentType": "service_contract"
-                      }
+                      "https://example.com/uploaded-invoice.pdf"
                     ]
                   },
                   "summary": "C2B Payout"
@@ -12614,10 +12611,7 @@
                     },
                     "purposeOfFund": "goods_trade",
                     "files": [
-                      {
-                        "file": "<file_url>",
-                        "documentType": "invoice"
-                      }
+                      "https://example.com/uploaded-invoice.pdf"
                     ]
                   },
                   "summary": "B2B Payout"
