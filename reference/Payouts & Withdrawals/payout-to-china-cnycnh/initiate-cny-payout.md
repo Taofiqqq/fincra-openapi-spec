@@ -63,10 +63,7 @@ Sample Payload
   },
   "purposeOfFund": "goods_trade",
   "files": [
-    {
-      "file": "<file_url>",
-      "documentType": "invoice"
-    }
+    "http://example.com/uploaded-invoice.pdf"
   ]
 }
 ```
@@ -124,10 +121,7 @@ Sample Payload
   },
   "purposeOfFund": "payment_for_services",
   "files": [
-    {
-      "file": "<file_url>",
-      "documentType": "service_contract"
-    }
+    "https://example.com/uploaded-invoice.pdf"
   ]
 }
 ```
