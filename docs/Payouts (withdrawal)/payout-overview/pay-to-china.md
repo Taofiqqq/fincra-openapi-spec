@@ -16,7 +16,7 @@ This section covers the parameters and prerequisites needed to process payments 
 
 ## 1. Initiate CNY/CNH Payout
 
-To successfully initiate a CNY or CNH payout, make sure you provide every field in the request body below and also read the prerequisite and ensure you have everything before initiating a CNY or CNH payout, to avoid any compliance delay, make sure you pass all the necessary supporting documents. **Note that payout to China is only available for&#x20;**`corporate`**&#x20;beneficiaries.**
+To successfully initiate a CNY or CNH payout, make sure you provide every field in the request body below and also read the prerequisite and ensure you have everything before initiating a CNY or CNH payout, to avoid any compliance delay, make sure you pass all the necessary supporting documents.
 
 ### Prerequisite
 
