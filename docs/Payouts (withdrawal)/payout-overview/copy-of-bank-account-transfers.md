@@ -175,7 +175,7 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 | paymentScheme               | string | ✅        | `cnaps`                                                                                              |
 | sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                           |
 | purposeOfFund               | object | ✅        | Reason for the payment. See enum list below                                                          |
-| files                       | array  | ✅        | Supporting document file(s) - see document types.                                                    |
+| files                       | array  | ✅        | Supporting document file(s) - [see document types](#document-types)                                  |
 | relationshipWithBeneficiary | string | ✅        | One of the RelationshipWithBeneficiary enum values (e.g. employee, vendor, supplier, parents, self). |
 | quoteReference              | string | ✅        | Reference of the FX quote used for the payout.                                                       |
 | description                 | string | Optional | Free-text narration (min 1 char if present).                                                         |
