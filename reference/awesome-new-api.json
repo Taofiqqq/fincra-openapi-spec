@@ -12385,7 +12385,10 @@
                   },
                   "feeBearer": {
                     "type": "string",
-                    "description": "Who bears the fee, value can either be customer or business"
+                    "description": "Who bears the fee, value can either be customer or business",
+                    "enum": [
+                      "business"
+                    ]
                   },
                   "purposeOfFund": {
                     "type": "string",
