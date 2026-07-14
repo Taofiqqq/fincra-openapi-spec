@@ -8,7 +8,7 @@ link:
 metadata:
   robots: index
 ---
-Sample Payload
+Sample Payload for B2B or B2C.
 
 ```json B2B Payout
 {
