@@ -22,11 +22,12 @@ To successfully initiate a CNY or CNH payout, make sure you provide every field 
 
 1. Make sure you have created CNY or CNH wallet on the dashboard and it is funded. You can fund it by initiating a conversion from any currency to CNY or CNH on the dashboard or via the [API](/docs/conversions).
 2. Collect all the necessary supporting document from the sender.
+3. Ensure IP address is whitelisted before initiating payouts in production environments
 
 <Callout icon="❗️" theme="error">
   ### Note:
 
-  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. View all payment purpose and required document here.
+  Ensure you upload the required files for each payment purpose. For all payment for goods or trade, an invoice is required. If appropriate files are not uploaded, the payout would eventually be cancelled. View all payment purpose and required document [here](#required-document-types-per-purpose-of-fund).
 </Callout>
 
 ### Request body
