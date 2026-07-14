@@ -269,7 +269,7 @@ It is **mandatory** to perform a transaction status query to verify that the pay
 | business                    | string | ✅        | 24-character business id.                                                                                                                                   |
 | customerReference           | string | ✅        | Merchant's unique reference.                                                                                                                                |
 | paymentDestination          | string | ✅        | `bank_account` for CNY/CNH.                                                                                                                                 |
-| paymentScheme               | string | ✅        | `cnaps` → CNY and CNH<br />`swift` → CNH only                                                                                                               |
+| paymentScheme               | string | ✅        | `cnaps` → CNY only<br />`swift` → CNH and CNY                                                                                                               |
 | sender                      | object | ✅        | All fields required ([see sender object](#sender-object)).                                                                                                  |
 | purposeOfFund               | string | ✅        | Reason for the payment. [See enum list below](#required-document-types-per-purpose-of-fund)                                                                 |
 | files                       | array  | ✅        | Supporting document file(s) - [see document types](#required-document-types-per-purpose-of-fund)                                                            |
