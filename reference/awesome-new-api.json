@@ -7326,9 +7326,9 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Initiate Payout",
-        "description": "This API lets you make payouts to bank accounts, mobile money wallets, and crypto/stablecoin wallets. The payout category is determined by the `paymentDestination` field — see the request examples for each category.",
-        "operationId": "initiate-mobile-money-payout-1",
+        "summary": "Initiate CNY Payout",
+        "description": "This API lets you make payouts to China using CNY or CNH currencies.",
+        "operationId": "initiate-mobile-money-payout-1-1",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7339,10 +7339,14 @@
                   "destinationCurrency",
                   "amount",
                   "business",
-                  "description",
                   "customerReference",
                   "beneficiary",
-                  "paymentDestination"
+                  "paymentDestination",
+                  "paymentScheme",
+                  "purposeOfFund",
+                  "files",
+                  "relationshipWithBeneficiary",
+                  "sender"
                 ],
                 "properties": {
                   "sourceCurrency": {
@@ -7371,32 +7375,19 @@
                     "type": "string",
                     "description": "The currency in which the recipient will be receiving funds",
                     "enum": [
-                      "USDT",
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "USD",
-                      "EUR",
-                      "GBP",
-                      "ZMW",
-                      "ZAR",
-                      "USDC",
-                      "CNGN",
-                      "NGN",
-                      "XAF",
-                      "XOF"
+                      "CNY",
+                      "CNH"
                     ],
                     "default": "NGN"
                   },
                   "amount": {
-                    "type": "string",
+                    "type": "number",
                     "description": "The value that is to be transferred from the source currency wallet.",
                     "default": "5000"
                   },
                   "business": {
                     "type": "string",
-                    "description": "The unique Identifier of the parent business"
+                    "description": "Your unique business ID"
                   },
                   "description": {
                     "type": "string",
@@ -7410,40 +7401,18 @@
                   },
                   "paymentDestination": {
                     "type": "string",
-                    "description": "The type of account you want to send the payout to. Use `bank_account` for bank transfers, `mobile_money_wallet` for mobile money payouts, and `crypto_wallet` for stablecoin/crypto payouts.",
+                    "description": "Payment destination type",
                     "default": "bank_account",
                     "enum": [
-                      "bank_account",
-                      "mobile_money_wallet",
-                      "crypto_wallet",
-                      "cash_pick_up",
-                      "fliqpay_wallet"
+                      "bank_account"
                     ]
                   },
                   "paymentScheme": {
                     "type": "string",
-                    "description": "The payment scheme relevant to the destination currency payment network. Required for cross-border and crypto payouts; optional for local bank transfers (e.g. NGN to NGN).",
+                    "description": "The payment scheme relevant to the destination currency payment network. \"cnaps\" supports both CNY and CNH, while \"swift\" supports CNH only",
                     "enum": [
-                      "sepa",
-                      "sepa_instant",
-                      "fps",
-                      "chaps",
-                      "swift",
-                      "fed_ach",
-                      "fed_wire",
-                      "ach",
                       "cnaps",
-                      "erc20",
-                      "btc_mainnet",
-                      "eth",
-                      "usdt_trc20",
-                      "usdt_erc20",
-                      "usdt_solana",
-                      "usdt_bep20",
-                      "usdc_erc20",
-                      "usdc_solana",
-                      "usdc_bep20",
-                      "cngn_bep20"
+                      "swift"
                     ]
                   },
                   "quoteReference": {
@@ -7452,21 +7421,21 @@
                   },
                   "beneficiary": {
                     "type": "object",
-                    "description": "The recipient of the payout. The fields you provide depend on the `paymentDestination`: bank account fields for `bank_account`, phone/mobile money fields for `mobile_money_wallet`, and wallet fields for `crypto_wallet`.",
+                    "description": "The recipient of the payout.",
                     "properties": {
                       "firstName": {
                         "type": "string",
-                        "description": "The recipient's first name. Used for bank account and mobile money payouts.",
+                        "description": "The recipient's first name. ",
                         "default": "John"
                       },
                       "lastName": {
                         "type": "string",
-                        "description": "The recipient's last name. Used for bank account and mobile money payouts.",
+                        "description": "The recipient's last name.",
                         "default": "Doe"
                       },
                       "accountHolderName": {
                         "type": "string",
-                        "description": "The name on the recipient's bank account, as returned by Verify Account Number.",
+                        "description": "The name on the recipient's bank account. (must be in Chinese)",
                         "default": "John Doe"
                       },
                       "type": {
@@ -7480,87 +7449,322 @@
                       },
                       "accountNumber": {
                         "type": "string",
-                        "description": "The recipient's bank account number. Required for `bank_account` payouts.",
+                        "description": "The recipient's bank account number. ",
                         "default": "0123456789"
                       },
-                      "bankCode": {
+                      "bankSwiftCode": {
                         "type": "string",
                         "description": "The recipient bank's code. Required for `bank_account` payouts.",
-                        "default": "044"
+                        "default": "102584000021"
                       },
                       "phone": {
                         "type": "string",
-                        "description": "The recipient's phone number. Required for `mobile_money_wallet` payouts."
+                        "description": "The recipient's phone number."
                       },
-                      "mobileMoneyCode": {
+                      "incorporationCountry": {
                         "type": "string",
-                        "description": "The mobile money operator code. Required for `mobile_money_wallet` payouts."
+                        "description": "Country where the business is incorporated"
                       },
-                      "walletAddress": {
-                        "type": "string",
-                        "description": "The recipient’s cryptocurrency wallet address where the funds will be sent. Required for `crypto_wallet` payouts and must correspond to the selected paymentScheme and blockchain network."
+                      "bankAddress": {
+                        "type": "object",
+                        "properties": {
+                          "country": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          }
+                        },
+                        "description": "Full address object of the recipient's bank",
+                        "required": [
+                          "street",
+                          "city",
+                          "zip",
+                          "state",
+                          "country"
+                        ]
                       },
-                      "destinationTag": {
-                        "type": "string",
-                        "description": "An additional identifier required by some wallet providers or exchanges to route funds to the correct account within a shared wallet. This field is optional and should only be provided when required by the destination platform."
+                      "address": {
+                        "type": "object",
+                        "description": "Recipient's address",
+                        "properties": {
+                          "country": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "country",
+                          "state",
+                          "zip",
+                          "city",
+                          "street"
+                        ]
                       }
-                    }
+                    },
+                    "required": [
+                      "firstName",
+                      "accountHolderName",
+                      "type",
+                      "accountNumber",
+                      "bankAddress",
+                      "address"
+                    ]
+                  },
+                  "feeBearer": {
+                    "type": "string",
+                    "description": "Who bears the fee, value can either be customer or business",
+                    "enum": [
+                      "business"
+                    ]
+                  },
+                  "purposeOfFund": {
+                    "type": "string",
+                    "description": "Reason for payment",
+                    "enum": [
+                      "goods_trade",
+                      "services_trade",
+                      "payment_for_services",
+                      "professional_services",
+                      "information_services",
+                      "transportation_services",
+                      "software_purchase",
+                      "construction_services",
+                      "employee_payroll"
+                    ]
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Supporting document URLs for the payment."
+                  },
+                  "relationshipWithBeneficiary": {
+                    "type": "string",
+                    "description": "Relationship type between sender and beneficiary ",
+                    "enum": [
+                      "self",
+                      "parents",
+                      "child",
+                      "siblings",
+                      "other_relatives",
+                      "spouse",
+                      "ex_spouse",
+                      "vendor",
+                      "supplier",
+                      "employee",
+                      "friends",
+                      "business_partner",
+                      "customer",
+                      "agent",
+                      "creditor",
+                      "debtor",
+                      "subsidiary_company",
+                      "branch_office",
+                      "holding_company",
+                      "franchisee"
+                    ]
+                  },
+                  "sender": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "corporate",
+                          "individual"
+                        ]
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Ultimate sender name"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Ultimate sender email address"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "description": "Ultimate sender phone number (e.g. +2341234567890)"
+                      },
+                      "nationality": {
+                        "type": "string",
+                        "description": "Country code in ISO-3166-alpha-2 (required for individual senders only)"
+                      },
+                      "address": {
+                        "type": "string",
+                        "description": "Full address of the ultimate sender"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "national_id",
+                          "international_passport",
+                          "drivers_license",
+                          "business_registration_number"
+                        ],
+                        "description": "Type of identification"
+                      },
+                      "idNumber": {
+                        "type": "string",
+                        "description": "Identification number of the selected idType"
+                      },
+                      "countryOfIncorporation": {
+                        "type": "string",
+                        "description": "Country code in ISO-3166-alpha-2 (required for corporate senders only)"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name",
+                      "email",
+                      "phone",
+                      "address",
+                      "idType",
+                      "idNumber"
+                    ],
+                    "description": "Ultimate sender/payer details"
                   }
                 }
               },
               "examples": {
-                "Bank Transfer Payout": {
+                "C2B Payout": {
                   "value": {
-                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
                     "sourceCurrency": "NGN",
-                    "destinationCurrency": "NGN",
-                    "amount": "5000",
-                    "description": "Payment for services",
+                    "destinationCurrency": "CNY",
+                    "amount": 500000,
+                    "business": "64f1c2a9b3e8d7f012345678",
+                    "customerReference": "PAYOUT-C2B-2026-07-14-0002",
                     "paymentDestination": "bank_account",
-                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "paymentScheme": "cnaps",
+                    "quoteReference": "3d7e9f2a1b345678",
+                    "relationshipWithBeneficiary": "vendor",
+                    "description": "Payment for freelance design services - Contract SC-0917",
+                    "feeBearer": "business",
                     "beneficiary": {
-                      "firstName": "John",
-                      "lastName": "Doe",
+                      "type": "corporate",
+                      "firstName": "丽",
+                      "lastName": "王",
+                      "accountHolderName": "上海创意设计服务有限公司",
+                      "email": "billing@chuangyi-design.cn",
+                      "phone": "+8613912345678",
+                      "accountNumber": "6217003820011223344",
+                      "country": "CN",
+                      "bankName": "China Construction Bank",
+                      "bankSwiftCode": "105290000012",
+                      "registrationNumber": "91310115MA1K4L7T2W",
+                      "incorporationCountry": "CN",
+                      "bankAddress": {
+                        "country": "CN",
+                        "state": "Shanghai",
+                        "zip": "200120",
+                        "city": "Shanghai",
+                        "street": "900 Century Avenue, Pudong New District"
+                      },
+                      "address": {
+                        "country": "CN",
+                        "state": "Shanghai",
+                        "zip": "200235",
+                        "city": "Shanghai",
+                        "street": "45 Caobao Road, Xuhui District"
+                      }
+                    },
+                    "sender": {
                       "type": "individual",
-                      "accountHolderName": "John Doe",
-                      "accountNumber": "0123456789",
-                      "bankCode": "044"
-                    }
-                  }
+                      "name": "Chinedu Okafor",
+                      "email": "chinedu.okafor@example.com",
+                      "phone": "+2348098765432",
+                      "nationality": "NG",
+                      "address": "7 Bode Thomas Street, Surulere, Lagos, Nigeria",
+                      "idType": "international_passport",
+                      "idNumber": "A50123456",
+                      "countryOfOrigin": "NG"
+                    },
+                    "purposeOfFund": "payment_for_services",
+                    "files": [
+                      "https://example.com/uploaded-invoice.pdf"
+                    ]
+                  },
+                  "summary": "C2B Payout"
                 },
-                "Mobile Money Payout": {
+                "B2B Payout": {
                   "value": {
-                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-                    "sourceCurrency": "KES",
-                    "destinationCurrency": "KES",
-                    "amount": "1000",
-                    "description": "Payment for services",
-                    "paymentDestination": "mobile_money_wallet",
-                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "CNY",
+                    "amount": 1500000.5,
+                    "business": "64f1c2a9b3e8d7f012345678",
+                    "customerReference": "PAYOUT-2026-07-14-0001",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "cnaps",
+                    "quoteReference": "8f3a2b1c9d9b3e8d7",
+                    "relationshipWithBeneficiary": "supplier",
+                    "description": "Payment for electronics shipment - Invoice INV-2044",
+                    "feeBearer": "business",
                     "beneficiary": {
-                      "firstName": "John",
-                      "lastName": "Doe",
-                      "type": "individual",
-                      "phone": "+254700000000",
-                      "mobileMoneyCode": "MPESA"
-                    }
-                  }
-                },
-                "Stablecoin Payout": {
-                  "value": {
-                    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-                    "sourceCurrency": "USDT",
-                    "destinationCurrency": "USDT",
-                    "amount": "10",
-                    "description": "Payment",
-                    "paymentDestination": "crypto_wallet",
-                    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                    "paymentScheme": "usdt_trc20",
-                    "beneficiary": {
-                      "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                      "destinationTag": "test-memo"
-                    }
-                  }
+                      "type": "corporate",
+                      "firstName": "伟",
+                      "accountHolderName": "深圳市华信电子科技有限公司",
+                      "email": "finance@huaxin-electronics.cn",
+                      "phone": "+8613800138000",
+                      "accountNumber": "6222020200112345678",
+                      "country": "CN",
+                      "bankName": "Industrial and Commercial Bank of China",
+                      "bankSwiftCode": "102584000021",
+                      "registrationNumber": "91440300MA5F2K3X8Q",
+                      "incorporationCountry": "CN",
+                      "bankAddress": {
+                        "country": "CN",
+                        "state": "Guangdong",
+                        "zip": "518000",
+                        "city": "Shenzhen",
+                        "street": "88 Fuhua Road, Futian District"
+                      },
+                      "address": {
+                        "country": "CN",
+                        "state": "Guangdong",
+                        "zip": "518057",
+                        "city": "Shenzhen",
+                        "street": "12 Keji South Road, Nanshan District"
+                      }
+                    },
+                    "sender": {
+                      "type": "corporate",
+                      "name": "Acme Trading Limited",
+                      "email": "payments@acmetrading.com",
+                      "phone": "+2348012345678",
+                      "nationality": "NG",
+                      "address": "14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+                      "idType": "business_registration_number",
+                      "idNumber": "RC1234567",
+                      "countryOfIncorporation": "NG"
+                    },
+                    "purposeOfFund": "goods_trade",
+                    "files": [
+                      "https://example.com/uploaded-invoice.pdf"
+                    ]
+                  },
+                  "summary": "B2B Payout"
                 }
               }
             }
@@ -7617,7 +7821,10 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "required": [
+                    "success"
+                  ]
                 }
               }
             }
@@ -7647,13 +7854,15 @@
                       "type": "string",
                       "example": "DUPLICATE_CUSTOMER_REFERENCE"
                     }
-                  }
+                  },
+                  "required": [
+                    "success"
+                  ]
                 }
               }
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/disbursements/payouts/documents-upload": {
@@ -12169,547 +12378,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {}
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/disbursements/payouts-1": {
-      "post": {
-        "summary": "Initiate CNY Payout",
-        "description": "This API lets you make payouts to China using CNY or CNH currencies.",
-        "operationId": "initiate-mobile-money-payout-1-1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "sourceCurrency",
-                  "destinationCurrency",
-                  "amount",
-                  "business",
-                  "customerReference",
-                  "beneficiary",
-                  "paymentDestination",
-                  "paymentScheme",
-                  "purposeOfFund",
-                  "files",
-                  "relationshipWithBeneficiary",
-                  "sender"
-                ],
-                "properties": {
-                  "sourceCurrency": {
-                    "type": "string",
-                    "description": "The currency which is used to fund the  payout",
-                    "enum": [
-                      "USDT",
-                      "GHS",
-                      "KES",
-                      "UGX",
-                      "TZS",
-                      "USD",
-                      "EUR",
-                      "GBP",
-                      "ZMW",
-                      "ZAR",
-                      "USDC",
-                      "CNGN",
-                      "NGN",
-                      "XAF",
-                      "XOF"
-                    ],
-                    "default": "NGN"
-                  },
-                  "destinationCurrency": {
-                    "type": "string",
-                    "description": "The currency in which the recipient will be receiving funds",
-                    "enum": [
-                      "CNY",
-                      "CNH"
-                    ],
-                    "default": "NGN"
-                  },
-                  "amount": {
-                    "type": "number",
-                    "description": "The value that is to be transferred from the source currency wallet.",
-                    "default": "5000"
-                  },
-                  "business": {
-                    "type": "string",
-                    "description": "Your unique business ID"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "The description of the payout",
-                    "default": "Payment for services"
-                  },
-                  "customerReference": {
-                    "type": "string",
-                    "description": "The transaction's unique identifier on your system. Customer references prevent duplicate transactions.",
-                    "default": ""
-                  },
-                  "paymentDestination": {
-                    "type": "string",
-                    "description": "Payment destination type",
-                    "default": "bank_account",
-                    "enum": [
-                      "bank_account"
-                    ]
-                  },
-                  "paymentScheme": {
-                    "type": "string",
-                    "description": "The payment scheme relevant to the destination currency payment network. \"cnaps\" supports both CNY and CNH, while \"swift\" supports CNH only",
-                    "enum": [
-                      "cnaps",
-                      "swift"
-                    ]
-                  },
-                  "quoteReference": {
-                    "type": "string",
-                    "description": "This is the reference generated for FX quote. This is required for cross-currency payouts."
-                  },
-                  "beneficiary": {
-                    "type": "object",
-                    "description": "The recipient of the payout.",
-                    "properties": {
-                      "firstName": {
-                        "type": "string",
-                        "description": "The recipient's first name. ",
-                        "default": "John"
-                      },
-                      "lastName": {
-                        "type": "string",
-                        "description": "The recipient's last name.",
-                        "default": "Doe"
-                      },
-                      "accountHolderName": {
-                        "type": "string",
-                        "description": "The name on the recipient's bank account. (must be in Chinese)",
-                        "default": "John Doe"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Whether the recipient is an individual or a corporate entity.",
-                        "enum": [
-                          "individual",
-                          "corporate"
-                        ],
-                        "default": "individual"
-                      },
-                      "accountNumber": {
-                        "type": "string",
-                        "description": "The recipient's bank account number. ",
-                        "default": "0123456789"
-                      },
-                      "bankSwiftCode": {
-                        "type": "string",
-                        "description": "The recipient bank's code. Required for `bank_account` payouts.",
-                        "default": "102584000021"
-                      },
-                      "phone": {
-                        "type": "string",
-                        "description": "The recipient's phone number."
-                      },
-                      "incorporationCountry": {
-                        "type": "string",
-                        "description": "Country where the business is incorporated"
-                      },
-                      "bankAddress": {
-                        "type": "object",
-                        "properties": {
-                          "country": {
-                            "type": "string"
-                          },
-                          "state": {
-                            "type": "string"
-                          },
-                          "zip": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "street": {
-                            "type": "string"
-                          }
-                        },
-                        "description": "Full address object of the recipient's bank",
-                        "required": [
-                          "street",
-                          "city",
-                          "zip",
-                          "state",
-                          "country"
-                        ]
-                      },
-                      "address": {
-                        "type": "object",
-                        "description": "Recipient's address",
-                        "properties": {
-                          "country": {
-                            "type": "string"
-                          },
-                          "state": {
-                            "type": "string"
-                          },
-                          "zip": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "street": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "country",
-                          "state",
-                          "zip",
-                          "city",
-                          "street"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "firstName",
-                      "accountHolderName",
-                      "type",
-                      "accountNumber",
-                      "bankAddress",
-                      "address"
-                    ]
-                  },
-                  "feeBearer": {
-                    "type": "string",
-                    "description": "Who bears the fee, value can either be customer or business",
-                    "enum": [
-                      "business"
-                    ]
-                  },
-                  "purposeOfFund": {
-                    "type": "string",
-                    "description": "Reason for payment",
-                    "enum": [
-                      "goods_trade",
-                      "services_trade",
-                      "payment_for_services",
-                      "professional_services",
-                      "information_services",
-                      "transportation_services",
-                      "software_purchase",
-                      "construction_services",
-                      "employee_payroll"
-                    ]
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Supporting document URLs for the payment."
-                  },
-                  "relationshipWithBeneficiary": {
-                    "type": "string",
-                    "description": "Relationship type between sender and beneficiary ",
-                    "enum": [
-                      "self",
-                      "parents",
-                      "child",
-                      "siblings",
-                      "other_relatives",
-                      "spouse",
-                      "ex_spouse",
-                      "vendor",
-                      "supplier",
-                      "employee",
-                      "friends",
-                      "business_partner",
-                      "customer",
-                      "agent",
-                      "creditor",
-                      "debtor",
-                      "subsidiary_company",
-                      "branch_office",
-                      "holding_company",
-                      "franchisee"
-                    ]
-                  },
-                  "sender": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "corporate",
-                          "individual"
-                        ]
-                      },
-                      "name": {
-                        "type": "string",
-                        "description": "Ultimate sender name"
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "Ultimate sender email address"
-                      },
-                      "phone": {
-                        "type": "string",
-                        "description": "Ultimate sender phone number (e.g. +2341234567890)"
-                      },
-                      "nationality": {
-                        "type": "string",
-                        "description": "Country code in ISO-3166-alpha-2 (required for individual senders only)"
-                      },
-                      "address": {
-                        "type": "string",
-                        "description": "Full address of the ultimate sender"
-                      },
-                      "idType": {
-                        "type": "string",
-                        "enum": [
-                          "national_id",
-                          "international_passport",
-                          "drivers_license",
-                          "business_registration_number"
-                        ],
-                        "description": "Type of identification"
-                      },
-                      "idNumber": {
-                        "type": "string",
-                        "description": "Identification number of the selected idType"
-                      },
-                      "countryOfIncorporation": {
-                        "type": "string",
-                        "description": "Country code in ISO-3166-alpha-2 (required for corporate senders only)"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "name",
-                      "email",
-                      "phone",
-                      "address",
-                      "idType",
-                      "idNumber"
-                    ],
-                    "description": "Ultimate sender/payer details"
-                  }
-                }
-              },
-              "examples": {
-                "C2B Payout": {
-                  "value": {
-                    "sourceCurrency": "NGN",
-                    "destinationCurrency": "CNY",
-                    "amount": 500000,
-                    "business": "64f1c2a9b3e8d7f012345678",
-                    "customerReference": "PAYOUT-C2B-2026-07-14-0002",
-                    "paymentDestination": "bank_account",
-                    "paymentScheme": "cnaps",
-                    "quoteReference": "3d7e9f2a1b345678",
-                    "relationshipWithBeneficiary": "vendor",
-                    "description": "Payment for freelance design services - Contract SC-0917",
-                    "feeBearer": "business",
-                    "beneficiary": {
-                      "type": "corporate",
-                      "firstName": "丽",
-                      "lastName": "王",
-                      "accountHolderName": "上海创意设计服务有限公司",
-                      "email": "billing@chuangyi-design.cn",
-                      "phone": "+8613912345678",
-                      "accountNumber": "6217003820011223344",
-                      "country": "CN",
-                      "bankName": "China Construction Bank",
-                      "bankSwiftCode": "105290000012",
-                      "registrationNumber": "91310115MA1K4L7T2W",
-                      "incorporationCountry": "CN",
-                      "bankAddress": {
-                        "country": "CN",
-                        "state": "Shanghai",
-                        "zip": "200120",
-                        "city": "Shanghai",
-                        "street": "900 Century Avenue, Pudong New District"
-                      },
-                      "address": {
-                        "country": "CN",
-                        "state": "Shanghai",
-                        "zip": "200235",
-                        "city": "Shanghai",
-                        "street": "45 Caobao Road, Xuhui District"
-                      }
-                    },
-                    "sender": {
-                      "type": "individual",
-                      "name": "Chinedu Okafor",
-                      "email": "chinedu.okafor@example.com",
-                      "phone": "+2348098765432",
-                      "nationality": "NG",
-                      "address": "7 Bode Thomas Street, Surulere, Lagos, Nigeria",
-                      "idType": "international_passport",
-                      "idNumber": "A50123456",
-                      "countryOfOrigin": "NG"
-                    },
-                    "purposeOfFund": "payment_for_services",
-                    "files": [
-                      "https://example.com/uploaded-invoice.pdf"
-                    ]
-                  },
-                  "summary": "C2B Payout"
-                },
-                "B2B Payout": {
-                  "value": {
-                    "sourceCurrency": "NGN",
-                    "destinationCurrency": "CNY",
-                    "amount": 1500000.5,
-                    "business": "64f1c2a9b3e8d7f012345678",
-                    "customerReference": "PAYOUT-2026-07-14-0001",
-                    "paymentDestination": "bank_account",
-                    "paymentScheme": "cnaps",
-                    "quoteReference": "8f3a2b1c9d9b3e8d7",
-                    "relationshipWithBeneficiary": "supplier",
-                    "description": "Payment for electronics shipment - Invoice INV-2044",
-                    "feeBearer": "business",
-                    "beneficiary": {
-                      "type": "corporate",
-                      "firstName": "伟",
-                      "accountHolderName": "深圳市华信电子科技有限公司",
-                      "email": "finance@huaxin-electronics.cn",
-                      "phone": "+8613800138000",
-                      "accountNumber": "6222020200112345678",
-                      "country": "CN",
-                      "bankName": "Industrial and Commercial Bank of China",
-                      "bankSwiftCode": "102584000021",
-                      "registrationNumber": "91440300MA5F2K3X8Q",
-                      "incorporationCountry": "CN",
-                      "bankAddress": {
-                        "country": "CN",
-                        "state": "Guangdong",
-                        "zip": "518000",
-                        "city": "Shenzhen",
-                        "street": "88 Fuhua Road, Futian District"
-                      },
-                      "address": {
-                        "country": "CN",
-                        "state": "Guangdong",
-                        "zip": "518057",
-                        "city": "Shenzhen",
-                        "street": "12 Keji South Road, Nanshan District"
-                      }
-                    },
-                    "sender": {
-                      "type": "corporate",
-                      "name": "Acme Trading Limited",
-                      "email": "payments@acmetrading.com",
-                      "phone": "+2348012345678",
-                      "nationality": "NG",
-                      "address": "14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
-                      "idType": "business_registration_number",
-                      "idNumber": "RC1234567",
-                      "countryOfIncorporation": "NG"
-                    },
-                    "purposeOfFund": "goods_trade",
-                    "files": [
-                      "https://example.com/uploaded-invoice.pdf"
-                    ]
-                  },
-                  "summary": "B2B Payout"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"Payout processed successfully\",\n    \"data\": {\n        \"id\": 1254,\n        \"reference\": \"5dcf24700a9a4f67\",\n        \"customerReference\": \"TXT-001\",\n        \"status\": \"processing\",\n        \"documentsRequired\": []\n    }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Payout processed successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "example": 1254,
-                          "default": 0
-                        },
-                        "reference": {
-                          "type": "string",
-                          "example": "5dcf24700a9a4f67"
-                        },
-                        "customerReference": {
-                          "type": "string",
-                          "example": "TXT-001"
-                        },
-                        "status": {
-                          "type": "string",
-                          "example": "processing"
-                        },
-                        "documentsRequired": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success"
-                  ]
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "422",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": false,\n    \"error\": \"Cannot continue, Duplicate Customer Reference Passed\",\n    \"errorType\": \"DUPLICATE_CUSTOMER_REFERENCE\"\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false,
-                      "default": true
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Cannot continue, Duplicate Customer Reference Passed"
-                    },
-                    "errorType": {
-                      "type": "string",
-                      "example": "DUPLICATE_CUSTOMER_REFERENCE"
-                    }
-                  },
-                  "required": [
-                    "success"
-                  ]
                 }
               }
             }
