@@ -7417,7 +7417,7 @@
                   },
                   "quoteReference": {
                     "type": "string",
-                    "description": "This is the reference generated for FX quote. This is required for cross-currency payouts."
+                    "description": "This is the reference generated for FX quote. Required for cross-currency payouts (e.g. NGN→CNY); optional only when source and destination currency match."
                   },
                   "beneficiary": {
                     "type": "object",
