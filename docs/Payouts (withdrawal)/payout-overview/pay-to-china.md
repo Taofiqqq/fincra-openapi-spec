@@ -283,8 +283,9 @@ It is **mandatory** to perform a transaction status query to verify that the pay
 
 | Field                | Type   | Required          | Description / constraints                                                                                                             |
 | -------------------- | ------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| type                 | string | ✅                 | `corporate` (corporate only)                                                                                                          |
-| firstName            | string | ✅                 | Beneficiary first name (for corporate, the contact/legal-rep first name must be in Chinese characters). Trimmed.                      |
+| type                 | string | ✅                 | `corporate` or `individual`                                                                                                           |
+| firstName            | string | ✅                 | Beneficiary first name (for corporate, the contact/legal-rep first name must be in Chinese characters).                               |
+| lastName             | string | individual only   | Beneficiary last name                                                                                                                 |
 | accountHolderName    | string | ✅                 | Name on the bank account **exactly** as held at the beneficiary bank. Must match Chinese bank records or the payout will be returned. |
 | email                | string | ✅                 | Valid email address.                                                                                                                  |
 | phone                | string | ✅                 | Beneficiary phone number (include country code, e.g. +86...).                                                                         |
