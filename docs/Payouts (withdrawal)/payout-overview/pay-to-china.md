@@ -313,6 +313,12 @@ The `bankSwiftCode` field carries a different identifier depending on your `paym
   Ask your beneficiary for the interbank number (联行号) of the exact branch holding the account — they can find it in their mobile banking app or bank statement. Passing a head-office code, a SWIFT/BIC under the `cnaps` scheme, or a code that isn't exactly 12 digits will cause the payout to fail or be returned.
 </Callout>
 
+#### Quick reference: choosing your scheme
+
+- Paying an **onshore mainland China** account in **CNY** → use `paymentScheme: "cnaps"` with the branch CNAPS code. This is the faster, domestic rail.
+- Paying an **offshore** account (e.g. Hong Kong, Singapore) in **CNH** → use `paymentScheme: "swift"` with the bank's SWIFT/BIC. The cnaps scheme does not support CNH.
+- Paying **CNY via the international network** (where the beneficiary bank requires it) → `paymentScheme: "swift"` with the SWIFT/BIC is also supported for CNY.
+
 ### Address object
 
 Applies to both `beneficiary.address` and `beneficiary.bankAddress`:
