@@ -202,41 +202,41 @@ Ensure you setup your webhook URL on the dashboard so that you can listen for we
         "createdAt": "2026-07-13T21:23:44.000Z",
         "updatedAt": "2026-07-13T21:23:50.000Z",
         "reference": "PAYOUT-C2B-2026-07-14-0002",
+        "customerReference": "PAYOUT-2026-07-14-0001",
         "reason": "Payout was successful",
         "traceId": null,
         "valuedAt": "2026-07-13T21:23:50.000Z"
     }
 }
-
 ```
 ```json Failed payout webhook
 {
-  "event": "payout.failed",
-  "data": {
-    "id": 14382,
-    "amountCharged": 12150,
-    "amountReceived": 12000,
-    "recipient": {
-      "name": "Hassan Sarz",
-      "accountNumber": "0124775489",
-      "type": "individual",
-      "email": "aa@aa.com"
-    },
-    "fee": 150,
-    "rate": 1,
-    "paymentScheme": "fps",
-    "paymentDestination": "bank_account",
-    "sourceCurrency": "GBP",
-    "destinationCurrency": "GBP",
-    "status": "failed",
-    "createdAt": "2022-02-21T03:51:53.000Z",
-    "updatedAt": "2022-02-21T03:54:10.000Z",
-    "reference": "9fd3f916-3b03-4bb2-af69-f42b64925919",
-    "customerReference": "4555r4554",// would be included if its passed at the point where payout was initiated
-    "reason": "Wrong beneficiary bank details",
-    "traceId": null,
-    "valuedAt": null
-  }
+    "event": "payout.failed",
+    "data": {
+        "id": 14382,
+        "amountCharged": 500000,
+        "amountReceived": 2451.57,
+        "recipient": {
+            "name": "上海创意设计服务有限公司",
+            "accountNumber": "6217003820011223344",
+            "type": "corporate",
+            "email": "billing@chuangyi-design.cn"
+        },
+        "fee": 150,
+        "rate": 0.0049,
+        "paymentScheme": "cnaps",
+        "paymentDestination": "bank_account",
+        "sourceCurrency": "NGN",
+        "destinationCurrency": "CNY",
+        "status": "failed",
+        "createdAt": "2026-07-13T03:51:53.000Z",
+        "updatedAt": "2026-07-13T03:54:10.000Z",
+        "reference": "9fd3f916-3b03-4bb2-af69-f42b64925919",
+        "customerReference": "PAYOUT-2026-07-14-0001",
+        "reason": "Wrong beneficiary bank details",
+        "traceId": null,
+        "valuedAt": null
+    }
 }
 ```
 ```javascript Webhook validation
