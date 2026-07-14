@@ -1,5 +1,5 @@
 ---
-title: Copy of Verify Transfer Status by Customer Reference
+title: Verify Transfer Status by Customer Reference
 deprecated: false
 hidden: true
 link:
