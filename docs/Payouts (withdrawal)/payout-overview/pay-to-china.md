@@ -289,15 +289,15 @@ It is **mandatory** to perform a transaction status query to verify that the pay
 
 The `bankSwiftCode` field carries a different identifier depending on your `paymentScheme`:
 
-| paymentScheme | Pass in `bankSwiftCode`                                          | Format                           | Example        |
-| ------------- | ---------------------------------------------------------------- | -------------------------------- | -------------- |
-| `cnaps`       | The beneficiary branch's CNAPS code — the interbank number (联行号) | 12 digits, numeric only          | `102584000021` |
-| `swift`       | The beneficiary bank's SWIFT/BIC                                 | 8 or 11 characters, alphanumeric | `ICBKCNBJSZN`  |
+| paymentScheme | Use when                                                                                                                  | Pass in `bankSwiftCode`                                          | Format                           | Example        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------- | -------------- |
+| `cnaps`       | Onshore (mainland China) payouts in **CNY** — the faster, domestic rail                                                   | The beneficiary branch's CNAPS code — the interbank number (联行号) | 12 digits, numeric only          | `102584000021` |
+| `swift`       | Offshore payouts in **CNH** (e.g. Hong Kong, Singapore), or CNY where the beneficiary bank requires international routing | The beneficiary bank's SWIFT/BIC                                 | 8 or 11 characters, alphanumeric | `ICBKCNBJSZN`  |
 
 <Callout icon="❗️" theme="error">
   ### **The CNAPS code is branch-specific, not bank-wide.**
 
-  Ask your beneficiary for the interbank number (联行号) of the exact branch holding the account — they can find it in their mobile banking app or bank statement. Passing a head-office code, a SWIFT/BIC under the `cnaps` scheme, or a code that isn't exactly 12 digits will cause the payout to fail or be returned.
+  Ask your beneficiary for the interbank number (联行号) of the exact branch holding the account — they can find it in their mobile banking app or bank statement. Passing a head-office code, a SWIFT/BIC under the `cnaps` scheme, or a code that isn't exactly 12 digits will cause the payout to fail or be returned. Note that `cnaps` does not support CNH. CNH payouts must use `swift`.
 </Callout>
 
 ### Address object
