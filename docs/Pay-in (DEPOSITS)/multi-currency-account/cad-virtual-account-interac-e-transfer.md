@@ -48,7 +48,7 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 
 CAD accounts are requested the same way as other FCY virtual accounts, with `currency` set to `CAD`. Follow the request guide for your merchant type:
 
-- [Request FCY Account \[Individual\]](request-fcy-virtual-account)
+- [Request FCY Account \[Individual\]](https://docs.fincra.com/update/docs/request-fcy-virtual-account)
 - [Request FCY Account \[Corporate\]](request-fcy-corporate-virtual-account)
 
 Endpoint:
@@ -77,6 +77,6 @@ Your Interac email is also displayed in your Merchant Portal.
 
 3 - Get notified of collections
 
-When a payer sends an Interac e-Transfer to your Interac email, Fincra credits your CAD balance and sends a webhook notification to your configured webhook URL. See Virtual Account Webhook for how to receive and validate webhook notifications.
+When a payer sends an Interac e-Transfer to your Interac email, Fincra credits your CAD balance and sends a webhook notification to your configured webhook URL. See <Anchor target="_blank" href="doc:virtual-account-webhook">Virtual Account Webhook</Anchor> for how to receive and validate webhook notifications.
 
 Each collection is recorded with a unique transaction reference. Your balance, incoming collection history, and conversion history are all visible in your Merchant Portal and retrievable via API.
