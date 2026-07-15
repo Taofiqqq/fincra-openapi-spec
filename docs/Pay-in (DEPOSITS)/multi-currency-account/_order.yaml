@@ -2,6 +2,7 @@
 - usd-virtual-account
 - request-fcy-virtual-account
 - request-fcy-corporate-virtual-account
+- cad-virtual-account-interac-e-transfer
 - by
 - funding-an-fcy-account
 - fcy-accounts-faqs
@@ -9,4 +10,3 @@
 - fcy-required-information-and-documents
 - mcy-account-verification-errors
 - enum-values-for-fcy-virtual-account
-- cad-virtual-account-interac-e-transfer
