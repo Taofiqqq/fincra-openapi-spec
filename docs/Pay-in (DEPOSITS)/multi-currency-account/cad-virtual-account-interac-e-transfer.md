@@ -59,7 +59,7 @@ Endpoint:
 
 Once your request is approved, Fincra generates your Interac email and notifies you when it is active.
 
-2 - Retrieve your Interac email
+## 2. Retrieve your Interac email
 
 Fetch your CAD account details, including your Interac email:
 
@@ -75,7 +75,7 @@ You can also fetch a single account by its ID:
 
 Your Interac email is also displayed in your Merchant Portal.
 
-3 - Get notified of collections
+## 3. Get notified of collections
 
 When a payer sends an Interac e-Transfer to your Interac email, Fincra credits your CAD balance and sends a webhook notification to your configured webhook URL. See <Anchor target="_blank" href="doc:virtual-account-webhook">Virtual Account Webhook</Anchor> for how to receive and validate webhook notifications.
 
