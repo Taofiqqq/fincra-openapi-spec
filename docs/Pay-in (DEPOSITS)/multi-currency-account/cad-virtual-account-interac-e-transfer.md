@@ -36,7 +36,7 @@ API Reference: [create virtual account endpoint](/reference/create-fcy-virtual-a
 
 ### Receiving a payment
 
-1. Share your Interac email (`merchantname@fincra.ca`) with your Canadian payer.
+1. Share your Interac email (`youralias@fincra.ca`) with your Canadian payer.
 2. The payer logs into their Canadian bank's online banking or app and sends an Interac e-Transfer to your Interac email.
 3. Funds are deposited automatically. The payer is not asked a security question, and you do not need to accept the transfer.
 4. Your CAD balance is credited, and a webhook notification is sent to you.
