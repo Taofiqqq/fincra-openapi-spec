@@ -234,7 +234,7 @@ The response returns the details of the virtual account, including your Interac 
 
 Important Notes:
 
-- `accountInformation.otherInfo.interacEmail` : Your Interac email. This is the idenn payers.
+- `accountInformation.otherInfo.interacEmail` : Your Interac email. This is the identifier you share with Canadian payers.
 - `accountInformation.otherInfo.addressableIn` : `INTERAC_ETRANSFER` — the account receives funds through the Interac e-Transfer rail.
 - `_id` : The unique identifier of the virtual account. Use it to fetch the account by ID.
 - `status` / `isActive` : Your Interac email is ready to receive CAD once the accoun
