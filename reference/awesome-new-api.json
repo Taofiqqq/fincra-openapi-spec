@@ -4663,44 +4663,15 @@
         "deprecated": false
       },
       "get": {
-        "summary": "List virtual account requests",
-        "description": "This endpoint is used for getting all account requests belonging to a merchant",
-        "operationId": "get-virtual-account-requests",
         "responses": {
           "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "deprecated": false
+        "parameters": [],
+        "operationId": "get_profile-virtual-accounts-requests",
+        "summary": "CAD (Interac e-Transfer)",
+        "description": "Create a CAD virtual account and receive your Interac email for collecting Canadian Dollars through Interac e-Transfer."
       }
     },
     "/profile/virtual-accounts/{virtualAccountId}": {
