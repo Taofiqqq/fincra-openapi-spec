@@ -1,7 +1,6 @@
 - checkout
 - ngn-virtual-account-api
 - multi-currency-account-api
-- cad-interac-e-transfer-1
 - direct-debit-api
 - refunds-api
 - chargeback
