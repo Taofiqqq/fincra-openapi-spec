@@ -6,4 +6,13 @@ hidden: false
 metadata:
   robots: index
 ---
-Fincra's CAD collection product lets merchants receive Canadian Dollars through Interac e-Transfer. Instead of an account number, each merchant is issued a unique Interac collection alias (e.g., \`[merchantname@fincra.ca\`](mailto:merchantname@fincra.ca)) registered for Autodeposit. Canadian payers send an e-Transfer to this email from their bank, and funds are automatically credited to the merchant's Fincra CAD wallet.
+The **CAD Collection API** enables merchants to receive Canadian Dollars via Interac e-Transfer, Canada's real-time payment network. Each merchant is issued a unique Interac collection alias (e.g. `merchantname@fincra.ca`) registered for Autodeposit. Payers send an e-Transfer to this email, and funds are automatically credited to the merchant's Fincra CAD wallet.
+
+Use the endpoints in this section to:
+
+- Create a CAD collection account by submitting KYC/KYB information and receive an Interac alias
+- Retrieve account details to fetch the assigned alias by account ID or currency
+
+The Interac alias is returned in `accountInformation.otherInfo.interacEmail` with `addressableIn: "INTERAC_ETRANSFER"`.
+
+For more details on how the product works, see the [CAD (Interac e-Transfer) Guide](https://docs.fincra.com/docs/cad-interac-e-transfer).
