@@ -4,7 +4,7 @@ excerpt: >-
   Receive Canadian Dollars from Canadian payers through Interac e-Transfer using
   your Fincra-issued Interac email.
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   robots: index
 ---
