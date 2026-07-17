@@ -4074,17 +4074,6 @@
         "summary": "CAD (Interac e-Transfer)",
         "operationId": "post_profile-virtual-accounts-requests",
         "description": "Create a CAD virtual account and receive your Interac email for collecting Canadian Dollars through Interac e-Transfer."
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "parameters": [],
-        "operationId": "get_profile-virtual-accounts-requests",
-        "summary": "CAD (Interac e-Transfer)",
-        "description": "Create a CAD virtual account and receive your Interac email for collecting Canadian Dollars through Interac e-Transfer."
       }
     },
     "/profile/virtual-accounts/{virtualAccountId}": {
