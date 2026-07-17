@@ -11769,6 +11769,19 @@
           }
         }
       }
+    },
+    "/profile/virtual-accounts/requests": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "summary": "Create CAD Collection Account",
+        "description": "Request a CAD collection account and receive a unique Interac collection alias.",
+        "operationId": "post_profile-virtual-accounts-requests"
+      }
     }
   },
   "x-readme": {
