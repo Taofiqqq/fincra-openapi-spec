@@ -11607,6 +11607,30 @@
         "description": "Request a CAD collection account and receive a unique Interac collection alias.",
         "operationId": "post_profile-virtual-accounts-requests"
       }
+    },
+    "/profile/virtual-accounts/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "currency",
+            "schema": {
+              "type": "string",
+              "default": "CAD"
+            },
+            "required": true,
+            "description": "The currency of the accounts to retrieve. Set to cad for Interac collection accounts"
+          }
+        ],
+        "summary": "Get Accounts by Currency",
+        "operationId": "get_profile-virtual-accounts",
+        "description": "Fetch all collection accounts for a currency. Use CAD to retrieve accounts with their assigned Interac emails."
+      }
     }
   },
   "x-readme": {
