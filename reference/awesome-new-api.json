@@ -11757,7 +11757,20 @@
                       },
                       " incomeBand": {
                         "type": "object",
-                        "properties": {}
+                        "properties": {
+                          "lower": {
+                            "type": "string",
+                            "description": "positive number"
+                          },
+                          "upper": {
+                            "type": "string",
+                            "description": " positive number, must be > lower"
+                          }
+                        },
+                        "required": [
+                          "upper",
+                          "lower"
+                        ]
                       },
                       "annualIncome": {
                         "type": "string"
