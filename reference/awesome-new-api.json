@@ -4065,200 +4065,25 @@
     },
     "/profile/virtual-accounts/{virtualAccountId}": {
       "get": {
-        "summary": "Fetch Multicurrency Account Information",
-        "description": "This endpoint is used for retrieving the details of a Multicurrency account request.",
-        "operationId": "fetch-multicurrency-account-information-by-id",
-        "parameters": [
-          {
-            "name": "virtualAccountId",
-            "in": "path",
-            "description": "The ID of the virtual account.",
-            "schema": {
-              "type": "string",
-              "default": "8923jn9s829hn2"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n  \"success\": true,\n  \"message\": \"Virtual account fetched successfully\",\n  \"data\": {\n    \"status\": \"approved\",\n    \"isActive\": true,\n    \"accountNumber\": \"4231139906\",\n    \"KYCInformation\": {\n      \"businessName\": \"james ventures\"\n    },\n    \"accountInformation\": {\n      \"accountNumber\": \"4231139906\",\n      \"accountName\": \"james ventures\",\n      \"bankName\": \"WEMA BANK\",\n      \"reference\": \"4c9eeacb-ce44-4916-a81f-b2969473ccd4\"\n    },\n    \"accountOpeningFee\": 0,\n    \"pendingAdditionalInfoCount\": 0,\n    \"isPermanent\": true,\n    \"expiresAt\": null,\n    \"reason\": null,\n    \"monthlyVolume\": null,\n    \"entityName\": null,\n    \"paymentFlowDescription\": null,\n    \"attachments\": [],\n    \"meansOfId\": [],\n    \"utilityBill\": [],\n    \"virtualAccountType\": \"additional\",\n    \"_id\": \"622676f2a944153ee9b2fc38\",\n    \"business\": {\n      \"name\": \"Lokey Inc\",\n      \"email\": \"tega@fincra.com\"\n    },\n    \"currency\": \"NGN\",\n    \"accountType\": \"corporate\",\n    \"entityType\": \"main_account\",\n    \"currencyType\": \"fiat\",\n    \"createdAt\": \"2022-03-07T21:19:46.588Z\",\n    \"updatedAt\": \"2022-03-07T21:19:46.588Z\"\n  }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Virtual account fetched successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "status": {
-                          "type": "string",
-                          "example": "approved"
-                        },
-                        "isActive": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "accountNumber": {
-                          "type": "string",
-                          "example": "4231139906"
-                        },
-                        "KYCInformation": {
-                          "type": "object",
-                          "properties": {
-                            "businessName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            }
-                          }
-                        },
-                        "accountInformation": {
-                          "type": "object",
-                          "properties": {
-                            "accountNumber": {
-                              "type": "string",
-                              "example": "4231139906"
-                            },
-                            "accountName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            },
-                            "bankName": {
-                              "type": "string",
-                              "example": "WEMA BANK"
-                            },
-                            "reference": {
-                              "type": "string",
-                              "example": "4c9eeacb-ce44-4916-a81f-b2969473ccd4"
-                            }
-                          }
-                        },
-                        "accountOpeningFee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "pendingAdditionalInfoCount": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "isPermanent": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "expiresAt": {},
-                        "reason": {},
-                        "monthlyVolume": {},
-                        "entityName": {},
-                        "paymentFlowDescription": {},
-                        "attachments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "meansOfId": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "utilityBill": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "virtualAccountType": {
-                          "type": "string",
-                          "example": "additional"
-                        },
-                        "_id": {
-                          "type": "string",
-                          "example": "622676f2a944153ee9b2fc38"
-                        },
-                        "business": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string",
-                              "example": "Lokey Inc"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "tega@fincra.com"
-                            }
-                          }
-                        },
-                        "currency": {
-                          "type": "string",
-                          "example": "NGN"
-                        },
-                        "accountType": {
-                          "type": "string",
-                          "example": "corporate"
-                        },
-                        "entityType": {
-                          "type": "string",
-                          "example": "main_account"
-                        },
-                        "currencyType": {
-                          "type": "string",
-                          "example": "fiat"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "deprecated": false
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtualAccountId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique ID of the virtual account, returned as `_id` when the account is created"
+          }
+        ],
+        "description": "Fetch a CAD collection account, including the assigned Interac email, by its account ID.",
+        "summary": "Get CAD Collection Account by ID",
+        "operationId": "get_profile-virtual-accounts-virtualaccountid"
       }
     },
     "/profile/virtual-accounts/{virtualAccountId} (COPY)": {
