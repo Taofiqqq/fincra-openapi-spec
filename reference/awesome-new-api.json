@@ -11719,7 +11719,35 @@
                         "type": "string"
                       },
                       "address": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                          "countryOfResidence": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "string"
+                          },
+                          "street": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "zip",
+                          "state",
+                          "city",
+                          "street",
+                          "number",
+                          "countryOfResidence"
+                        ]
                       },
                       "document": {
                         "type": "object",
