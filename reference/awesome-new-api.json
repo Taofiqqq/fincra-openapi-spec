@@ -11615,6 +11615,62 @@
         }
       }
     },
+    "/profile/virtual-accounts/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "properties": {},
+                            "type": "object"
+                          },
+                          "description": "List of collection accounts for the specified currency"
+                        },
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of accounts"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "currency",
+            "schema": {
+              "type": "string",
+              "default": "CAD"
+            },
+            "required": true,
+            "description": "The currency of the accounts to retrieve. Set to cad for Interac collection accounts"
+          }
+        ],
+        "summary": "Get Accounts by Currency",
+        "operationId": "get_profile-virtual-accounts",
+        "description": "Fetch all collection accounts for a currency. Use CAD to retrieve accounts with their assigned Interac emails."
+      }
+    },
     "/profile/virtual-accounts/requests": {
       "post": {
         "responses": {
@@ -11646,7 +11702,84 @@
                   },
                   "KYCInformation": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "otherName": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "document": {
+                        "type": "object",
+                        "properties": {}
+                      },
+                      "birthDate": {
+                        "type": "string"
+                      },
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "occupation": {
+                        "type": "string"
+                      },
+                      "accountDestination": {
+                        "type": "string"
+                      },
+                      "taxCountry": {
+                        "type": "string"
+                      },
+                      "taxNumber": {
+                        "type": "string"
+                      },
+                      " monthlyTransactionVolume": {
+                        "type": "string"
+                      },
+                      "monthlyTransactionCount": {
+                        "type": "string"
+                      },
+                      "sourceOfIncome": {
+                        "type": "string"
+                      },
+                      "employmentStatus": {
+                        "type": "string"
+                      },
+                      " incomeBand": {
+                        "type": "object",
+                        "properties": {}
+                      },
+                      "annualIncome": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "firstName",
+                      "lastName",
+                      "address",
+                      "document",
+                      "nationality",
+                      "birthDate",
+                      "occupation",
+                      "accountDestination",
+                      "taxCountry",
+                      " monthlyTransactionVolume",
+                      "sourceOfIncome",
+                      "monthlyTransactionCount",
+                      "taxNumber",
+                      "employmentStatus",
+                      " incomeBand"
+                    ]
                   },
                   "meansOfId": {
                     "type": "string",
@@ -11714,62 +11847,6 @@
             }
           }
         }
-      }
-    },
-    "/profile/virtual-accounts/": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "results": {
-                          "type": "array",
-                          "items": {
-                            "properties": {},
-                            "type": "object"
-                          },
-                          "description": "List of collection accounts for the specified currency"
-                        },
-                        "total": {
-                          "type": "number",
-                          "description": "Total number of accounts"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "in": "query",
-            "name": "currency",
-            "schema": {
-              "type": "string",
-              "default": "CAD"
-            },
-            "required": true,
-            "description": "The currency of the accounts to retrieve. Set to cad for Interac collection accounts"
-          }
-        ],
-        "summary": "Get Accounts by Currency",
-        "operationId": "get_profile-virtual-accounts",
-        "description": "Fetch all collection accounts for a currency. Use CAD to retrieve accounts with their assigned Interac emails."
       }
     }
   },
