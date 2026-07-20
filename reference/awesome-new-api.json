@@ -4068,43 +4068,7 @@
         "responses": {
           "200": {
             "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "results": {
-                          "type": "array",
-                          "items": {
-                            "properties": {},
-                            "type": "object"
-                          },
-                          "description": "List of collection accounts for the specified currency"
-                        },
-                        "total": {
-                          "type": "number",
-                          "description": "Total number of accounts"
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "data",
-                    "message"
-                  ]
-                }
-              }
-            }
+            "content": {}
           }
         },
         "parameters": [
