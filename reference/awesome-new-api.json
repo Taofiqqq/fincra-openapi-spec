@@ -11751,7 +11751,32 @@
                       },
                       "document": {
                         "type": "object",
-                        "properties": {}
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "string"
+                          },
+                          " issuedCountryCode": {
+                            "type": "string"
+                          },
+                          "issuedBy": {
+                            "type": "string"
+                          },
+                          "issuedDate": {
+                            "type": "string"
+                          },
+                          "expirationDate": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "number",
+                          " issuedCountryCode",
+                          "issuedBy"
+                        ]
                       },
                       "birthDate": {
                         "type": "string"
