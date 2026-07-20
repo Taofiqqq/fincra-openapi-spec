@@ -11625,7 +11625,95 @@
         "parameters": [],
         "summary": "Create CAD Collection Account",
         "description": "Request a CAD collection account and receive a unique Interac collection alias.",
-        "operationId": "post_profile-virtual-accounts-requests"
+        "operationId": "post_profile-virtual-accounts-requests",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountType": {
+                    "type": "string",
+                    "default": "individual",
+                    "enum": [
+                      "individual",
+                      "corporate"
+                    ]
+                  },
+                  "currency": {
+                    "type": "string",
+                    "default": "CAD"
+                  },
+                  "KYCInformation": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "meansOfId": {
+                    "type": "string",
+                    "description": "string (URL) or file object or array of those. Passport: exactly 1 item. Other doc types: minimum 2 items."
+                  },
+                  "utilityBill": {
+                    "type": "string",
+                    "description": "string (URL)"
+                  },
+                  "bankStatement": {
+                    "type": "string",
+                    "description": "string (URL)"
+                  },
+                  "purpose": {
+                    "type": "string",
+                    "description": "Optional (default \"\")"
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "merchantReferencemerchantReference": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "string",
+                    "description": "any"
+                  },
+                  "files": {
+                    "type": "string",
+                    "description": "any (multipart uploads)"
+                  },
+                  "accountOpeningDate": {
+                    "type": "string",
+                    "description": "ISO date"
+                  },
+                  "isTermsAccepted": {
+                    "type": "boolean"
+                  },
+                  " termsAndConditionAcceptance": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "description": "ISO date"
+                      },
+                      "ipAddress": {
+                        "type": "string",
+                        "description": "Valid IPv4/IPv6"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "ipAddress"
+                    ]
+                  }
+                },
+                "required": [
+                  "accountType",
+                  "currency",
+                  "KYCInformation",
+                  "meansOfId",
+                  "utilityBill"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/profile/virtual-accounts/": {
