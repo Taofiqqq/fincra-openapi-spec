@@ -11667,7 +11667,7 @@
                   "note": {
                     "type": "string"
                   },
-                  "merchantReferencemerchantReference": {
+                  "emerchantReference": {
                     "type": "string"
                   },
                   "metadata": {
