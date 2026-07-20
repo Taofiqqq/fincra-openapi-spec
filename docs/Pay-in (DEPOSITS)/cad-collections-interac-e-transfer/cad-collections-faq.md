@@ -16,11 +16,11 @@ Both Individual and Corporate merchants registered on Fincra and approved throug
 
 ## What is an Interac email?
 
-This is a unique email address that we assign to you in the format `merchantname@fincra.ca`. Share this address with anyone who needs to pay you in CAD. They send an Interac e-Transfer to that email, and the funds land in your Fincra CAD wallet automatically. Think of it as your CAD account number, in email form.
+This is a unique email address that we assign to you in the format `merchantname@fincra.ca`. Share this address with anyone who needs to pay you in CAD. They send an Interac e-Transfer to that email, and the funds are automatically credited to your Fincra CAD wallet.
 
 ## Do I need a Canadian bank account to receive CAD?
 
-No. Your Interac email handles inbound CAD payments. Funds are held in your Fincra CAD wallet, which you can then convert to other supported currencies at an available rate.
+No. Your Interac email handles inbound CAD payments. Funds are held in your Fincra CAD wallet, which you can then convert to other supported currencies.
 
 ## How do I get started?
 
@@ -30,15 +30,15 @@ No. Your Interac email handles inbound CAD payments. Funds are held in your Finc
 
 ## How does a payer send me money?
 
-They log into their Canadian bank's online banking or app, initiate an Interac e-Transfer, and enter your Interac email as the recipient. That is it. No additional steps on your end.
+They log into their Canadian bank's online banking or app, initiate an Interac e-Transfer, and enter your Interac email as the recipient.
 
 ## Does the payer need to answer a security question?
 
-No. Your Interac email is registered for Autodeposit. Funds land in your CAD wallet automatically, with no security question for the payer to set and no manual acceptance required from you. The experience for your payer is identical to any other Interac e-Transfer they send.
+No. Your Interac email is registered for Autodeposit. Funds are credited to your CAD wallet automatically, with no security question for the payer to set and no manual acceptance required from you.
 
 ## How quickly does the money arrive?
 
-Interac e-Transfer is near real-time for most Canadian banks. In practice, most transfers credit to your CAD wallet within minutes.
+Interac e-Transfer is near real-time for most Canadian banks. Most transfers are credited to your CAD wallet within minutes.
 
 ## What currencies can payers send?
 
@@ -50,8 +50,8 @@ Collected CAD is credited to your Fincra CAD wallet. It does not auto-convert to
 
 ## Can I hold CAD indefinitely?
 
-Yes. There is no forced conversion timeline. Your CAD balance remains in your wallet until you choose to convert it.
+Yes. Your CAD balance remains in your wallet until you choose to convert it.
 
 ## Can I see my CAD balance and transaction history?
 
-Yes. Your CAD wallet balance, incoming collection history, and FX conversion history are all visible in your Merchant Portal and retrievable via API.
+Yes. Your CAD wallet balance and incoming collection history are all visible in your Merchant Portal and retrievable via API.
