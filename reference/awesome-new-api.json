@@ -4068,7 +4068,26 @@
         "responses": {
           "200": {
             "description": "",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "The virtual account object. Includes the Interac email under `accountInformation.otherInfo.interacEmail` once the account is approved; `accountInformation` is null while the account is pending"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "parameters": [
