@@ -4082,7 +4082,7 @@
           }
         ],
         "description": "Fetch a CAD collection account, including the assigned Interac email, by its account ID.",
-        "summary": "Get CAD Collection Account by ID",
+        "summary": "Get Account by ID",
         "operationId": "get_profile-virtual-accounts-virtualaccountid"
       }
     },
