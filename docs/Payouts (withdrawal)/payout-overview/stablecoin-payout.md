@@ -19,7 +19,7 @@ The payout process generally follows these steps:
 
 <br />
 
-Note: Stablecoin Payouts are available to approved merchants only.
+Note: Stablecoin APIs are available in Sandbox for integration and testing. Production access is not enabled by default and must be requested for Go live.
 
 To request access, email **[getstablecoins@fincra.com](mailto:getstablecoins@fincra.com)** with the following information
 
