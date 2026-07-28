@@ -1,5 +1,5 @@
 ---
-title: '# Handling Requests for Additional Information for Collections'
+title: Handling Requests for Additional Information for Collections
 deprecated: false
 hidden: false
 metadata:
