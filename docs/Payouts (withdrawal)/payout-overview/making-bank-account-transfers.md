@@ -1341,17 +1341,17 @@ The payload should look like this :
 
 In addition to the [common details ](/docs/bank-account-transfers#common-details)needed to process successful payments, the following fields are also required when sending money to a bank account in UEMOA/WAEMU regions. 
 
-| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                   |
-| :---------------------------- | :-------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                |
-| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                           |
-| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                              |
-| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.accountNumber     | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                          |
-| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
-| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
-| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                            |
+| Field                         | Mandatory | Type   | Description                                                                                                                                                                                                                                          |
+| :---------------------------- | :-------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| beneficiary                   | Yes       | Object | The recipient of the funds. Depending on the currency and beneficiary type, the properties of the beneficiaries are different.                                                                                                                       |
+| beneficiary.firstName         | Yes       | String | The first name of the beneficiary .                                                                                                                                                                                                                  |
+| beneficiary.lastName          | Yes       | String | The last name of the beneficiary                                                                                                                                                                                                                     |
+| beneficiary.accountHolderName | Yes       | String | This field is required by all type of beneficiaries.                                                                                                                                                                                                 |
+| beneficiary.accountNumber     | Yes       | String | Required for all beneficiary types. For XOF bank transfers, this must be a 24-character IBAN in the format: 5-character Bank Code (e.g. CIXXX) + 5-digit Branch Code + 12-digit Account Number + 2-digit RIB Key. Example: CIXXX0101012345678901288. |
+| beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                                                           |
+| beneficiary.country           | Yes       | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB                                        |
+| beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                                                              |
+| beneficiary.bankCode          | Yes       | String | The beneficiary bank code. To get the bank code please see the [list banks endpoint](/reference/get-banks) codes for more details.                                                                                                                   |
 
 The payload should look like this :
 
@@ -1366,7 +1366,7 @@ The payload should look like this :
   "beneficiary": {
     "firstName": "Demo Business Ltd",
     "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "1234567890",
+    "accountNumber": "CIXXX0101012345678901288",
     "type": "corporate",
     "country": "CI",
     "bankCode": "13505183",
