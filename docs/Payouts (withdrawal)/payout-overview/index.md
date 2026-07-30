@@ -29,8 +29,8 @@ Your Fincra account can be used to send money across different countries and cur
 | UGX      | Mobile Money, Bank Account              |
 | ZMW      | Mobile Money, Bank Account              |
 | TZS      | Mobile Money, Bank Account              |
-| XAF      | Mobile Money                            |
-| XOF      | Mobile Money                            |
+| XAF      | Mobile Money, Bank Account              |
+| XOF      | Mobile Money, Bank Account              |
 | ZAR      | Bank Account                            |
 | EGP      | Cash Pickup, Mobile Money, Bank Account |
 | USD      | Bank Account                            |
@@ -78,13 +78,13 @@ If you are technically savvy and can code in any programming language, all you h
 
 This is the type of account you want to send your payments to. Find the payment destinations we currently support at Fincra below
 
-| Payment destination | API value             |
-| :------------------ | :-------------------- |
-| Bank accounts       | bank\_account         |
-| Mobile money wallet | mobile\_money\_wallet |
-| Fincra Account      | wallet                |
-| Cash PickUp         | cash\_pick\_up        |
-| Crypto Wallet       | crypto\_wallet        |
+| Payment destination | API value           |
+| :------------------ | :------------------ |
+| Bank accounts       | bank_account        |
+| Mobile money wallet | mobile_money_wallet |
+| Fincra Account      | wallet              |
+| Cash PickUp         | cash_pick_up        |
+| Crypto Wallet       | crypto_wallet       |
 
 ## List Of Currencies Supported For Payouts
 
@@ -110,23 +110,23 @@ A Payout request can have any of the statuses we support on Fincra. Please see t
 
 Below are lists of errors that can be encountered on calling payout endpoints.
 
-| Error Type                     | Message                                                                                                                                 | Action to take                                                                                                                          |
-| :----------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| NO\_ENOUGH\_MONEY\_IN\_WALLET  | You don't have enough money in your wallet to make this payout                                                                          | Please ensure your balance is funded and retry the payout                                                                               |
-| INVALID\_QUOTE                 | Invalid quote supplied                                                                                                                  | Please generate a new quote and retry the payout                                                                                        |
-| RESOURCE\_NOT\_FOUND           | Payout not found                                                                                                                        | Please requery the transaction until you get a definitive response status(processing, failed, successful) from Fincra                   |
-| QUOTE\_NOT\_GENERATED          | Error occurred while generating a quote                                                                                                 | Please retry the request                                                                                                                |
-| DUPLICATE\_CUSTOMER\_REFERENCE | Cannot continue, Duplicate Customer Reference Passed                                                                                    | Please retry the request with a unique customer reference                                                                               |
-| UNPROCESSABLE\_ENTITY          | Quote Reference not specified, Kindly generate a quote first to continue.                                                               | Happens when you initiate a cross currency payout. Please generate a quote first and supply the reference when re-initiating the payout |
-| UNPROCESSABLE\_ENTITY          | Destination currency (${destinationCurrency}) not supported                                                                             | please check the API documentation for supported currencies you can payout to                                                           |
-| UNPROCESSABLE\_ENTITY          | Payment destination ${paymentDestination} not supported for currency ${destinationCurrency}, kindly supply a valid payment destination. | please check the API documentation for supported payment destinations                                                                   |
-| UNPROCESSABLE\_ENTITY          | ${currency} currency not supported                                                                                                      | please check the API documentation for supported currencies                                                                             |
-| UNPROCESSABLE\_ENTITY          | Beneficiary country is required                                                                                                         | Happens when you initiate an international payout. Please supply the beneficiary country in the payload                                 |
-| SERVICE\_UNAVAILABLE           | Error occurred during operation. Please try again later.                                                                                | Please requery the transaction until you get a definitive response status(processing, failed and successful) from Fincra                |
-| INTERNAL\_SERVER\_ERROR        | Error occured during operation. We're currently checking why this is happening.                                                         | Please requery the transaction until you get a definitive response status(processing, failed and successful) from Fincra                |
-| VALIDATION\_FAILED             | Validation failed                                                                                                                       | please re-check the request payload sent for validation error and try again                                                             |
-| ACCESS\_DENIED                 | Access denied to requested resource                                                                                                     | Please contact Fincra support team                                                                                                      |
-| OPERATION\_FORBIDDEN           | Operation forbidden                                                                                                                     | Please contact Fincra support team                                                                                                      |
+| Error Type                   | Message                                                                                                                                 | Action to take                                                                                                                          |
+| :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| NO_ENOUGH_MONEY_IN_WALLET    | You don't have enough money in your wallet to make this payout                                                                          | Please ensure your balance is funded and retry the payout                                                                               |
+| INVALID_QUOTE                | Invalid quote supplied                                                                                                                  | Please generate a new quote and retry the payout                                                                                        |
+| RESOURCE_NOT_FOUND           | Payout not found                                                                                                                        | Please requery the transaction until you get a definitive response status(processing, failed, successful) from Fincra                   |
+| QUOTE_NOT_GENERATED          | Error occurred while generating a quote                                                                                                 | Please retry the request                                                                                                                |
+| DUPLICATE_CUSTOMER_REFERENCE | Cannot continue, Duplicate Customer Reference Passed                                                                                    | Please retry the request with a unique customer reference                                                                               |
+| UNPROCESSABLE_ENTITY         | Quote Reference not specified, Kindly generate a quote first to continue.                                                               | Happens when you initiate a cross currency payout. Please generate a quote first and supply the reference when re-initiating the payout |
+| UNPROCESSABLE_ENTITY         | Destination currency (${destinationCurrency}) not supported                                                                             | please check the API documentation for supported currencies you can payout to                                                           |
+| UNPROCESSABLE_ENTITY         | Payment destination ${paymentDestination} not supported for currency ${destinationCurrency}, kindly supply a valid payment destination. | please check the API documentation for supported payment destinations                                                                   |
+| UNPROCESSABLE_ENTITY         | ${currency} currency not supported                                                                                                      | please check the API documentation for supported currencies                                                                             |
+| UNPROCESSABLE_ENTITY         | Beneficiary country is required                                                                                                         | Happens when you initiate an international payout. Please supply the beneficiary country in the payload                                 |
+| SERVICE_UNAVAILABLE          | Error occurred during operation. Please try again later.                                                                                | Please requery the transaction until you get a definitive response status(processing, failed and successful) from Fincra                |
+| INTERNAL_SERVER_ERROR        | Error occured during operation. We're currently checking why this is happening.                                                         | Please requery the transaction until you get a definitive response status(processing, failed and successful) from Fincra                |
+| VALIDATION_FAILED            | Validation failed                                                                                                                       | please re-check the request payload sent for validation error and try again                                                             |
+| ACCESS_DENIED                | Access denied to requested resource                                                                                                     | Please contact Fincra support team                                                                                                      |
+| OPERATION_FORBIDDEN          | Operation forbidden                                                                                                                     | Please contact Fincra support team                                                                                                      |
 
 ## Beneficiary Types
 
