@@ -1314,7 +1314,7 @@ The payload should look like this :
   "beneficiary": {
     "firstName": "Demo Business Ltd",
     "accountHolderName": "Demo Business Ltd",
-    "accountNumber": "1234567890",
+    "accountNumber": "12345678901234567890199",
     "type": "corporate",
     "country": "CM",
     "bankCode": "80007125",
