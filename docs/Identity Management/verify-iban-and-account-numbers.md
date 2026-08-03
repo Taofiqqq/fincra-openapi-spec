@@ -16,12 +16,12 @@ Learn how to use Fincra to verify your customer's identity.
 
 Merchants can use our account [verification API](/reference/verify-account-number) to verify the authenticity of a customer’s account number before paying money to them. This is to ensure that your payment is routed to the right beneficiary. To learn more about the type of accounts we can verify, please see the table below:
 
-| Type         | API Value     | Availability                                                                           | Description                                                          |
-| :----------- | :------------ | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------- |
-| Bank Account | bank\_account | Nigeria, Ghana                                                                         | Used to verify and return the names attached to bank accounts.       |
-| Mobile Money | mobile\_money | Ghana                                                                                  | Used to verify and return the names attached to mobile money wallets |
-| IBAN         | iban          | European Union, Africa, Asia, North and South America, Oceania, and the United Kingdom | International Bank Account Number                                    |
-| NUBAN        | nuban         | Nigeria                                                                                | Nigeria Uniform Bank Account Number                                  |
+| Type         | API Value    | Availability                                                                           | Description                                                          |
+| :----------- | :----------- | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| Bank Account | bank_account | Nigeria, Ghana, South Africa                                                           | Used to verify and return the names attached to bank accounts.       |
+| Mobile Money | mobile_money | Ghana                                                                                  | Used to verify and return the names attached to mobile money wallets |
+| IBAN         | iban         | European Union, Africa, Asia, North and South America, Oceania, and the United Kingdom | International Bank Account Number                                    |
+| NUBAN        | nuban        | Nigeria                                                                                | Nigeria Uniform Bank Account Number                                  |
 
 ## Implementation
 
@@ -32,6 +32,7 @@ Endpoint:
 ```json POST
 {{base_url}}/core/accounts/resolve
 ```
+
 ```json cURL
 curl --location 'https://api.fincra.com/core/accounts/resolve' \
 --header 'accept: application/json' \
@@ -39,11 +40,14 @@ curl --location 'https://api.fincra.com/core/accounts/resolve' \
 --header 'Content-Type: application/json' \
 ```
 
-> ⚠️ Note
->
-> * Please note that when validating an IBAN(iban) or NUBAN(nuban) there should be no spaces between the values, as this would return an error response.
+<Callout icon="⚠️" theme="warn">
+  ### Note
 
-Below are the payload structures for each account type. It denotes the fields to be sent to the [verify account endpoint](/reference/verify-account-number)
+  - Please note that when validating an IBAN (`iban`) or NUBAN (`nuban`) there should be no spaces between the values, as this would return an error response.
+  - For `ZAR` bank account verification using PayShap, send the full PayShap ID (including everything after the `@`) as the `accountNumber`, and use `PAYSHAP_ID` as the `bankCode`.
+</Callout>
+
+Below are the payload structures for each account type. It denotes the fields to be sent to the [verify account endpoint](/reference/verify-account-number).
 
 ### Bank Account Number Verification
 
@@ -60,6 +64,14 @@ Below are the payload structures for each account type. It denotes the fields to
     "accountNumber": "1020820171412",
     "bankSwiftCode": "ADNTGHAC",
     "currency": "GHS",
+    "type": "bank_account"
+}
+```
+```json ZAR Sample
+{
+    "accountNumber": "0713058274@nedbank",
+    "bankCode": "PAYSHAP_ID",
+    "currency": "ZAR",
     "type": "bank_account"
 }
 ```
@@ -85,6 +97,17 @@ If the API call is successful, Fincra returns the following response:
         "accountNumber": "1020820171412",
         "accountName": "John Doe",
         "bankSwiftCode": "ADNTGHAC"
+    }
+}
+```
+```json ZAR Response
+{
+    "success": true,
+    "message": "Account resolve successful",
+    "data": {
+        "accountNumber": "0713058274@nedbank",
+        "accountName": "Khanya Fresh Produce",
+        "bankCode": "PAYSHAP_ID"
     }
 }
 ```
