@@ -1617,7 +1617,7 @@
                   },
                   "currency": {
                     "type": "string",
-                    "description": "The currency, i.e NGN, GHS. Note, this is only required for bank_account and mobile_money"
+                    "description": "The currency, i.e NGN, GHS, ZAR. Note, this is only required for bank_account and mobile_money"
                   }
                 }
               }
