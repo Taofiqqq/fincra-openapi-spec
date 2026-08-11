@@ -39,6 +39,9 @@ POST https://sandboxapi.fincra.com/disbursements/payouts
 | Field            | Type   | Required | Description                                                                                                                           |
 | ---------------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `walletAddress`  | string | Yes      | The recipient's crypto wallet address. Must correspond to the selected `paymentScheme` and blockchain network.                        |
+| `firstName`      | string | Yes      | The recipient's first name                                                                                                            |
+| `lastName`       | string | Yes      | The recipient's last name                                                                                                             |
+| `email`          | string | No       | The recipient's email address                                                                                                         |
 | `destinationTag` | string | No       | Extra identifier required by some wallet providers/exchanges (e.g. memo/tag). Provide only when the destination platform requires it. |
 
 ## Example request
