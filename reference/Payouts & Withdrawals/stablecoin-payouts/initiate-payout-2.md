@@ -36,13 +36,12 @@ POST https://sandboxapi.fincra.com/disbursements/payouts
 
 ### `beneficiary` (stablecoin / crypto)
 
-| Field            | Type   | Required | Description                                                                                                                           |
-| ---------------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `walletAddress`  | string | Yes      | The recipient's crypto wallet address. Must correspond to the selected `paymentScheme` and blockchain network.                        |
-| `firstName`      | string | Yes      | The recipient's first name                                                                                                            |
-| `lastName`       | string | Yes      | The recipient's last name                                                                                                             |
-| `email`          | string | No       | The recipient's email address                                                                                                         |
-| `destinationTag` | string | No       | Extra identifier required by some wallet providers/exchanges (e.g. memo/tag). Provide only when the destination platform requires it. |
+| Field               | Type   | Required | Description                                                                                                                           |
+| ------------------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `walletAddress`     | string | Yes      | The recipient's crypto wallet address. Must correspond to the selected `paymentScheme` and blockchain network.                        |
+| `accountHolderName` | string | Yes      | The recipient's full legal name                                                                                                       |
+| `email`             | string | No       | The recipient's email address                                                                                                         |
+| `destinationTag`    | string | No       | Extra identifier required by some wallet providers/exchanges (e.g. memo/tag). Provide only when the destination platform requires it. |
 
 ## Example request
 
@@ -57,8 +56,7 @@ POST https://sandboxapi.fincra.com/disbursements/payouts
   "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "paymentScheme": "usdt_trc20",
   "beneficiary": {
-    "firstName": "Adeolu",
-    "lastName": "Adekemi",
+    "accountHolderName": "Adeolu Adekemi",
     "email": "user@example.com",
     "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "destinationTag": "test-memo"
@@ -82,8 +80,7 @@ curl --request POST \
     "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "paymentScheme": "usdt_trc20",
     "beneficiary": {
-      "firstName": "Adeolu",
-      "lastName": "Adekemi",
+      "accountHolderName": "Adeolu Adekemi",
       "email": "user@example.com",
       "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "destinationTag": "test-memo"
