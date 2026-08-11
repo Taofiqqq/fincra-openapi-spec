@@ -54,6 +54,9 @@ POST https://sandboxapi.fincra.com/disbursements/payouts
   "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "paymentScheme": "usdt_trc20",
   "beneficiary": {
+    "firstName": "Adeolu",
+    "lastName": "Adekemi",
+    "email": "user@example.com",
     "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "destinationTag": "test-memo"
   }
@@ -76,6 +79,9 @@ curl --request POST \
     "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "paymentScheme": "usdt_trc20",
     "beneficiary": {
+      "firstName": "Adeolu",
+      "lastName": "Adekemi",
+      "email": "user@example.com",
       "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "destinationTag": "test-memo"
     }
@@ -107,5 +113,3 @@ curl --request POST \
   "errorType": "DUPLICATE_CUSTOMER_REFERENCE"
 }
 ```
-
-<br />
