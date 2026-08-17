@@ -4,7 +4,7 @@ excerpt: >-
   Make the party that receives the money, with the Chinese name, identity and
   bank details that CNAPS need
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
