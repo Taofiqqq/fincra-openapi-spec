@@ -211,4 +211,4 @@ Fincra sends the `sender.updated` event once, when the verification completes.
 
 Read the sender with `GET /v1/senders/{id}` before you act on the event. Do not trust the body alone.
 
-Next: [Create a China counterparty](doc:china-payouts-create-a-counterparty).
+Next: [Create a China counterparty](doc:china-payouts-create-a-counterpart).
