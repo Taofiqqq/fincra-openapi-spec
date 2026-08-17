@@ -4,7 +4,7 @@ excerpt: >-
   The purpose of fund decides the trade details you send and the documents
   Fincra needs
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
