@@ -81,8 +81,20 @@ curl -X POST https://sandboxapi.fincra.com/collections/transfer/simulate \
 | `payee.name`         | string | Yes      | Your business name.                                                                                                                                       |
 | `payee.interacEmail` | string | Yes      | The Interac email alias on your CAD virtual account, retrieved in step 1.                                                                                 |
 
-<Callout icon="🚧" theme="warn">
-  ### Do not pass `payee.accountNumber`
+## 3 - Test success, failure and RFI
 
-  CAD Interac collections are addressed by email alias. Passing `payee.accountNumber`, or omitting `payee.interacEmail`, causes the request to fail validation.
-</Callout>
+Control the outcome of the simulation with the `amount` field:
+
+| Scenario                              | Amount                                          | Result                                                                                                                      | Webhook event                          |
+| ------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| Successful collection                 | Below `1000`, except `999` (for example, `500`) | Your Sandbox CAD wallet is credited with the collected amount.                                                              | `collection.successful`                |
+| Failed collection                     | `999`                                           | The collection fails. Your wallet balance is unchanged.                                                                     | `collection.failed`                    |
+| Collection requiring more information | Above `1000`                                    | A Request for Information (RFI) is raised. The collection holds at `pending` and is not credited until the RFI is resolved. | `collection.additional-info-requested` |
+
+### Testing the RFI path
+
+Collections above the threshold require additional information before Fincra can process them. Simulating this path lets you confirm your integration handles a collection that neither succeeds nor fails immediately.
+
+When you simulate an amount above `1000`, your server receives `collection.additional-info-requested`. From there the flow is the same as any other collection RFI: read the collection ID from `data._id`, retrieve the outstanding requests, and submit your responses. See [Handling Requests for Additional Information for Collections](doc:handling-collection-rfi-request) for the full procedure and the Additional Information API endpoints.
+
+<br />
