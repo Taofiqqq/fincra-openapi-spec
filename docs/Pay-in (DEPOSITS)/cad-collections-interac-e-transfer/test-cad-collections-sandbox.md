@@ -46,7 +46,7 @@ CAD collections are sent to an Interac email alias assigned to your virtual acco
 }
 ```
 
-CAD virtual accounts do not return an `accountNumber`. The Interac email alias is the only addressing detail your payers need, and it is the value you pass as `payee.interacEmail` when you simulate a collection.:
+CAD virtual accounts do not return an `accountNumber`. The Interac email alias is the only addressing detail your payers need, and it is the value you pass as `payee.interacEmail` when you simulate a collection.
 
 ## 2 - Simulate a collection
 
