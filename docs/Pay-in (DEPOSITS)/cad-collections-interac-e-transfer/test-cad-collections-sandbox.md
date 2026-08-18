@@ -81,20 +81,32 @@ curl -X POST https://sandboxapi.fincra.com/collections/transfer/simulate \
 | `payee.name`         | string | Yes      | Your business name.                                                                                                                                       |
 | `payee.interacEmail` | string | Yes      | The Interac email alias on your CAD virtual account, retrieved in step 1.                                                                                 |
 
-## 3 - Test success, failure and RFI
+## 3 - Simulate a standard collection
 
-Control the outcome of the simulation with the `amount` field:
+A standard collection settles immediately. Use these amounts to test the two outcomes your integration will see most often:
 
-| Scenario                              | Amount                                          | Result                                                                                                                      | Webhook event                          |
-| ------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| Successful collection                 | Below `1000`, except `999` (for example, `500`) | Your Sandbox CAD wallet is credited with the collected amount.                                                              | `collection.successful`                |
-| Failed collection                     | `999`                                           | The collection fails. Your wallet balance is unchanged.                                                                     | `collection.failed`                    |
-| Collection requiring more information | Above `1000`                                    | A Request for Information (RFI) is raised. The collection holds at `pending` and is not credited until the RFI is resolved. | `collection.additional-info-requested` |
+| Scenario              | Amount                                          | Result                                                         | Webhook event           |
+| --------------------- | ----------------------------------------------- | -------------------------------------------------------------- | ----------------------- |
+| Successful collection | Below `1000`, except `999` (for example, `500`) | Your Sandbox CAD wallet is credited with the collected amount. | `collection.successful` |
+| Failed collection     | `999`                                           | The collection fails. Your wallet balance is unchanged.        | `collection.failed`     |
 
-### Testing the RFI path
+In both cases the collection reaches a final state as soon as the simulation completes. No further action is required from you.
 
-Collections above the threshold require additional information before Fincra can process them. Simulating this path lets you confirm your integration handles a collection that neither succeeds nor fails immediately.
+## 4 - Simulate a collection that requires an RFI
 
-When you simulate an amount above `1000`, your server receives `collection.additional-info-requested`. From there the flow is the same as any other collection RFI: read the collection ID from `data._id`, retrieve the outstanding requests, and submit your responses. See [Handling Requests for Additional Information for Collections](doc:handling-collection-rfi-request) for the full procedure and the Additional Information API endpoints.
+Collections above `1000` require additional information before they can be processed. We raise a Request for Information (RFI), and the collection holds until the request is answered.
+
+| Scenario                              | Amount                             | Result                                                                               | Webhook event                          |
+| ------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------- |
+| Collection requiring more information | Above `1000` (for example, `5000`) | An RFI is raised. The collection holds at `pending` and your wallet is not credited. | `collection.additional-info-requested` |
+
+Simulate this path to confirm your integration handles a collection that has neither succeeded nor failed. When the webhook arrives:
+
+1. Read the collection ID from `data._id`.
+2. Retrieve the outstanding requests for that collection.
+3. Submit a response to each one, with supporting documents where required.
+4. Wait for Fincra to review the collection and update its status.
+
+See [Handling Requests for Additional Information for Collections](doc:handling-collection-rfi-request) for the full procedure and the Additional Information API endpoints.
 
 <br />
