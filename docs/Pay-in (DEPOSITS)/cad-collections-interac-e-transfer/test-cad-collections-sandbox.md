@@ -48,38 +48,72 @@ CAD collections are sent to an Interac email alias assigned to your virtual acco
 
 CAD virtual accounts do not return an `accountNumber`. The Interac email alias is the only addressing detail your payers need, and it is the value you pass as `payee.interacEmail` when you simulate a collection.
 
-## 2 - Simulate a collection
+##
 
-Send a `POST` request to the simulation endpoint with your Sandbox API key:
+## 2 - Make the simulation request
+
+Send a `POST` request to the simulation endpoint with your Sandbox API key.
 
 **Endpoint:** `POST https://sandboxapi.fincra.com/collections/transfer/simulate`
 
-```curl Request
+```bash
 curl -X POST https://sandboxapi.fincra.com/collections/transfer/simulate \
   -H "api-key: YOUR_SANDBOX_SECRET_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "amount": 1000,
+    "amount": 500,
     "currency": "CAD",
     "payer": {
-      "name": "John Doe"
+      "name": "John Doe",
+      "accountNumber": "1234567890"
     },
     "payee": {
       "name": "Your Business Name",
-      "interacEmail": "merchantname@fincra.ca"
-    }
+      "accountNumber": "123456789"
+    },
+    "narration": "Interac e-Transfer test"
   }'
 ```
 
 ### Request fields
 
-| Field                | Type   | Required | Description                                                                                                                                               |
-| -------------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `amount`             | number | Yes      | The amount to collect. This field also controls whether the simulation succeeds or fails — see [Test success and failure](#3---test-success-and-failure). |
-| `currency`           | string | Yes      | Always `CAD` for Interac collections.                                                                                                                     |
-| `payer.name`         | string | Yes      | The name of the simulated sender. This value appears in the webhook payload.                                                                              |
-| `payee.name`         | string | Yes      | Your business name.                                                                                                                                       |
-| `payee.interacEmail` | string | Yes      | The Interac email alias on your CAD virtual account, retrieved in step 1.                                                                                 |
+| Field                 | Type   | Required | Description                                                                                                    |
+| --------------------- | ------ | -------- | -------------------------------------------------------------------------------------------------------------- |
+| `amount`              | number | Yes      | The amount to collect, in CAD. The value determines which outcome the simulation produces — see steps 3 and 4. |
+| `currency`            | string | Yes      | Always `CAD` for Interac collections.                                                                          |
+| `payer.name`          | string | Yes      | The name of the simulated sender. This value appears in the webhook payload.                                   |
+| `payer.accountNumber` | string | Yes      | Any account number for the simulated sender. It is ed back in the payload.                                     |
+| `payer.bankName`      | string | No       | The simulated sender's bank name.                                                                              |
+| `payer.bankCode`      | string | No       | The simulated sender's bank code.                                                                              |
+| `payee.name`          | string | Yes      | Your business name.                                                                                            |
+| `payee.accountNumber` | string | Yes      | The account number of your CAD virtual account, ret                                                            |
+| `reference`           | string | No       | Your own identifier for the collection. Returned in the payload as `metadata.customerId`.                      |
+| `narration`           | string | No       | A free-text description. Returned in the payload as \`descripti                                                |
+
+### Response
+
+The endpoint returns the collection payload — the same object your webhook receives:
+
+```json
+{
+  "success": true,
+  "message": "Collection processed successfully",
+  "data": {
+    "_id": "6512f3a1c8d4e90012ab34cd",
+    "sourceCurrency": "CAD",
+    "destinationCurrency": "CAD",
+    "sourceAmount": 500,
+    "destinationAmount": 500,
+    "status": "successful",
+    "customerName": "John Doe",
+    "description": "Interac e-Transfer test",
+    "reference": "FNC-CAD-8241097"
+  }
+}
+```
+
+Steps 3 and 4 describe the outcomes you can trigger from here, and the webhook
+each one dispatches.
 
 ## 3 - Simulate a standard collection
 
@@ -109,4 +143,10 @@ Simulate this path to confirm your integration handles a collection that has nei
 
 See [Handling Requests for Additional Information for Collections](doc:handling-collection-rfi-request) for the full procedure and the Additional Information API endpoints.
 
-<br />
+### Errors
+
+| Status | Condition                                                                           |
+| ------ | ----------------------------------------------------------------------------------- |
+| `403`  | The endpoint was called outside Sandbox. It exists only in the Sandbox environment. |
+| `404`  | `payee.accountNumber` does not match a virtual account in the given currency.       |
+| `422`  | A required field is missing, or an unrecognised field was sent.                     |
