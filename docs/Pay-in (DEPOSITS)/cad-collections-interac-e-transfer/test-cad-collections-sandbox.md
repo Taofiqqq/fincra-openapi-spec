@@ -4,7 +4,7 @@ excerpt: >-
   Simulate a CAD Interac e-Transfer collection in the Sandbox environment to
   test your integration and verify your webhook listeners before going live.
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
@@ -78,18 +78,16 @@ curl -X POST https://sandboxapi.fincra.com/collections/transfer/simulate \
 
 ### Request fields
 
-| Field                 | Type   | Required | Description                                                                                                    |
-| --------------------- | ------ | -------- | -------------------------------------------------------------------------------------------------------------- |
-| `amount`              | number | Yes      | The amount to collect, in CAD. The value determines which outcome the simulation produces — see steps 3 and 4. |
-| `currency`            | string | Yes      | Always `CAD` for Interac collections.                                                                          |
-| `payer.name`          | string | Yes      | The name of the simulated sender. This value appears in the webhook payload.                                   |
-| `payer.accountNumber` | string | Yes      | Any account number for the simulated sender. It is ed back in the payload.                                     |
-| `payer.bankName`      | string | No       | The simulated sender's bank name.                                                                              |
-| `payer.bankCode`      | string | No       | The simulated sender's bank code.                                                                              |
-| `payee.name`          | string | Yes      | Your business name.                                                                                            |
-| `payee.accountNumber` | string | Yes      | The account number of your CAD virtual account, ret                                                            |
-| `reference`           | string | No       | Your own identifier for the collection. Returned in the payload as `metadata.customerId`.                      |
-| `narration`           | string | No       | A free-text description. Returned in the payload as \`descripti                                                |
+| Field                | Type   | Required | Description                                                                                                    |
+| -------------------- | ------ | -------- | -------------------------------------------------------------------------------------------------------------- |
+| `amount`             | number | Yes      | The amount to collect, in CAD. The value determines which outcome the simulation produces — see steps 3 and 4. |
+| `currency`           | string | Yes      | Always `CAD` for Interac collections.                                                                          |
+| `payer.name`         | string | Yes      | The name of the simulated sender. This value appears in the webhook payload.                                   |
+| `payer.interacEmail` | string | Yes      | The Interac email alias of the simulated sender. Any valid address works — it is not a real account.           |
+| `payee.name`         | string | Yes      | Your business name.                                                                                            |
+| `payee.interacEmail` | string | Yes      | The Interac email alias on your CAD virtual account, retrieved in step 1.                                      |
+| `reference`          | string | No       | Your own identifier for the collection.                                                                        |
+| `narration`          | string | No       | A free-text description.                                                                                       |
 
 ### Response
 
