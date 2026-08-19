@@ -61,18 +61,19 @@ curl -X POST https://sandboxapi.fincra.com/collections/transfer/simulate \
   -H "api-key: YOUR_SANDBOX_SECRET_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "amount": 500,
+    "amount": 999,
     "currency": "CAD",
     "payer": {
-      "name": "John Doe",
-      "accountNumber": "1234567890"
+        "name": "John Payer",
+        "interacEmail": "test.test10075@test.fincra.ca"
     },
     "payee": {
-      "name": "Your Business Name",
-      "accountNumber": "123456789"
+        "name": "Virtual Account name",
+        "interacEmail": "<Your interact email>"
     },
-    "narration": "Interac e-Transfer test"
-  }'
+    "reference": "{{$randomUUID}}",
+    "narration": "sandbox CAD collection test"
+}'
 ```
 
 ### Request fields
