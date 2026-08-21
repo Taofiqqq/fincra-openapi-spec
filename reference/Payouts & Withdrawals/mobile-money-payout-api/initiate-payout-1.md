@@ -1,111 +1,75 @@
 ---
-title: Initiate Payout
+title: Create a mobile-money payout
+excerpt: Create a payout to a beneficiary’s mobile-money wallet.
 deprecated: false
 hidden: false
 metadata:
   robots: index
 ---
-This page shows how to send a **mobile money payout** using the Initiate Payout endpoint. To run it interactively, use the **[Initiate Payout](../reference/initiate-mobile-money-payout-1)** endpoint and select the **"Mobile Money Payout"** example.
+Creates a payout to a mobile-money wallet.
 
-```
-POST https://sandboxapi.fincra.com/disbursements/payouts
-```
+POST [https://sandboxapi.fincra.com/disbursements/payouts](https://sandboxapi.fincra.com/disbursements/payouts)
 
-## Headers
+Set paymentDestination to mobile_money_wallet. Use beneficiary.accountNumber for the wallet’s phone number; do not send a phone field.
 
-| Header         | Required | Description                 |
-| -------------- | -------- | --------------------------- |
-| `api-key`      | Yes      | Your Fincra secret API key. |
-| `accept`       | Yes      | `application/json`          |
-| `content-type` | Yes      | `application/json`          |
+## Request body
 
-## Body params
-
-| Field                 | Type          | Required    | Description                                                                                                                                          |
-| --------------------- | ------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sourceCurrency`      | string (enum) | Yes         | Currency used to fund the payout. One of `USDT`, `GHS`, `KES`, `UGX`, `TZS`, `USD`, `EUR`, `GBP`, `ZMW`, `ZAR`, `USDC`, `CNGN`, `NGN`, `XAF`, `XOF`. |
-| `destinationCurrency` | string (enum) | Yes         | Currency the recipient receives. Same enum as `sourceCurrency`.                                                                                      |
-| `amount`              | string        | Yes         | The value to transfer from the source wallet.                                                                                                        |
-| `business`            | string        | Yes         | The unique identifier of the parent business.                                                                                                        |
-| `description`         | string        | Yes         | The description of the payout.                                                                                                                       |
-| `customerReference`   | string        | Yes         | Your unique reference for this transaction. Prevents duplicate transactions.                                                                         |
-| `paymentDestination`  | string (enum) | Yes         | Use `mobile_money_wallet` for mobile money payouts.                                                                                                  |
-| `paymentScheme`       | string (enum) | No          | Not required for mobile money payouts.                                                                                                               |
-| `quoteReference`      | string        | Conditional | Required only for **cross-currency** payouts (e.g. `NGN` → `KES`). Generate it via Generate Quote.                                                   |
-| `beneficiary`         | object        | Yes         | The recipient details (see below).                                                                                                                   |
-
-### `beneficiary` (mobile money)
-
-| Field             | Type          | Required | Description                                                       |
-| ----------------- | ------------- | -------- | ----------------------------------------------------------------- |
-| `firstName`       | string        | Yes      | The recipient's first name.                                       |
-| `lastName`        | string        | Yes      | The recipient's last name.                                        |
-| `type`            | string (enum) | Yes      | `individual` or `corporate`.                                      |
-| `phone`           | string        | Yes      | The recipient's phone number (mobile money wallet).               |
-| `mobileMoneyCode` | string        | Yes      | The mobile money operator code (see List Mobile Money Operators). |
+- business: Your Fincra business ID. Required.
+- sourceCurrency: Uppercase three-letter source currency. Required.
+- destinationCurrency: Uppercase three-letter destination currency. Required.
+- amount: Numeric payout amount. Required. Some same-currency mobile-money routes require a whole-number amount.
+- customerReference: Your unique reference for this payout. Required.
+- description: Payout description. Optional.
+- paymentDestination: Use mobile_money_wallet. Required.
+- quoteReference: Required for cross-currency payouts.
+- beneficiary.accountNumber: Mobile-money phone/account number. Required.
+- beneficiary.country: Two-letter country code. Required.
+- beneficiary.mobileMoneyCode: Provider code returned by the provider-list endpoint. Required.
+- beneficiary.firstName and beneficiary.lastName: Required for an individual.
+- beneficiary.accountHolderName: Required for a corporate beneficiary.
 
 ## Example request
 
 ```json
 {
-  "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
+  "business": "64f000000000000000000001",
   "sourceCurrency": "KES",
   "destinationCurrency": "KES",
-  "amount": "1000",
-  "description": "Payment for services",
+  "amount": 1000,
+  "description": "Wallet payout",
   "paymentDestination": "mobile_money_wallet",
-  "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "customerReference": "momo-20260821-001",
   "beneficiary": {
-    "firstName": "John",
+    "firstName": "Jane",
     "lastName": "Doe",
     "type": "individual",
-    "phone": "+254700000000",
+    "country": "KE",
+    "accountNumber": "+254700000000",
     "mobileMoneyCode": "MPESA"
   }
 }
 ```
 
-```bash
-curl --request POST \
-  --url https://sandboxapi.fincra.com/disbursements/payouts \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --header 'api-key: YOUR_API_KEY' \
-  --data '{
-    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-    "sourceCurrency": "KES",
-    "destinationCurrency": "KES",
-    "amount": "1000",
-    "description": "Payment for services",
-    "paymentDestination": "mobile_money_wallet",
-    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "beneficiary": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "type": "individual",
-      "phone": "+254700000000",
-      "mobileMoneyCode": "MPESA"
-    }
-  }'
-```
-
-## Success response (200)
+## Example response
 
 ```json
 {
   "success": true,
-  "message": "Payout processed successfully",
+  "message": "Payout initiated successfully.",
   "data": {
     "id": 1254,
     "reference": "5dcf24700a9a4f67",
-    "customerReference": "TXT-001",
+    "customerReference": "momo-20260821-001",
     "status": "processing",
+    "isDocumentRequired": false,
     "documentsRequired": []
   }
 }
 ```
 
-## Error response (422)
+Important: success: true confirms that Fincra handled the API request; it does not guarantee that the payout settled successfully. Always inspect data.status and continue tracking the payout through webhooks or a status endpoint.
+
+## Duplicate customer reference (422)
 
 ```json
 {
@@ -114,5 +78,3 @@ curl --request POST \
   "errorType": "DUPLICATE_CUSTOMER_REFERENCE"
 }
 ```
-
-<br />
