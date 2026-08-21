@@ -10,200 +10,45 @@ metadata:
 next:
   description: ''
 ---
-This API lets you view a list of banks and mobile money wallet providers, together with their details such as code, swiftCode, and Bic.
+Returns enabled banks, mobile-money operators or cash-pickup providers for a country or currency. Provide at least one of country or currency. Use paymentDestination to return providers for the intended payout route.
 
-Please read the descriptions below to find out what kind of response you can expect after making the API call.
+## Query parameters
 
-<Table>
-  <thead>
-    <tr>
-      <th>
-        Field
-      </th>
+- country: Two-letter country code, for example NG or KE. Optional when currency is provided.
+- currency: Three-letter currency code, for example NGN or KES. Optional when country is provided.
+- paymentDestination: Optional provider filter. Allowed values are bank_account, mobile_money_wallet, cash_pick_up and settlement_account.
 
-      <th>
-        Type
-      </th>
+## Example request
 
-      <th>
-        Description
-      </th>
-    </tr>
-  </thead>
+GET [https://sandboxapi.fincra.com/core/banks?country=NG\&currency=NGN\&paymentDestination=bank_account](https://sandboxapi.fincra.com/core/banks?country=NG\&currency=NGN\&paymentDestination=bank_account)
 
-  <tbody>
-    <tr>
-      <td>
-        Id
-      </td>
+## Example response
 
-      <td>
-        String
-      </td>
-
-      <td>
-        The unique identifier of the bank on our application
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        code
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The unique identifier assigned by the central bank of the beneficiary's country to the bank. This serves as the `bankCode` and `mobileMoneyCode` in the [Payout API](/reference/payout-1)
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        name
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The name of the bank
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        isMobileVerified
-      </td>
-
-      <td>
-        Boolean
-      </td>
-
-      <td>
-        This is used to identify mobile money operators.\
-        if `isMobileVerified` is true, then the bank is a mobile money operator else if it is false the bank is not a mobile money operator.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches
-      </td>
-
-      <td>
-        Object
-      </td>
-
-      <td>
-        The branches of the bank
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.id
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The unique identifier of the  branch
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.branchCode
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The code of the branch
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.branchName
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The name of the branch
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.swiftCode
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The swift code of the branch , according to [ISO 9362](https://en.wikipedia.org/wiki/ISO_9362)
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.bic
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The Bic code of the branch , according to [ISO 9362](https://en.wikipedia.org/wiki/ISO_9362)
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        branches.BankId
-      </td>
-
-      <td>
-        String
-      </td>
-
-      <td>
-        The bank Id
-      </td>
-    </tr>
-  </tbody>
-</Table>
-
-## Sandbox Test Account
-
-```json GHS [Bank Account]
 {
-    "accountNumber": "1020820171412",
-    "bankSwiftCode": "ADNTGHAC",
-    "currency": "GHS",
-    "type": "bank_account"
+  "success": true,
+  "message": "Banks fetched successfully",
+  "data": [
+    {
+      "id": "1",
+      "code": "044",
+      "name": "Example Bank",
+      "swiftCode": null,
+      "bic": null,
+      "isMobileVerified": null,
+      "isCashPickUp": false,
+      "nibssCode": "044",
+      "branches": []
+    }
+  ]
 }
-```
-```json GHS [Mobile Money]
-{
-    "accountNumber": "233246089019",
-    "currency": "GHS",
-    "type": "mobile_money",
-    "mobileMoneyCode": "MTN"
-}
-```
+
+## Response fields
+
+- id: Provider identifier.
+- code: Provider code. Use this as bankCode or mobileMoneyCode when creating the corresponding payout.
+- name: Provider name.
+- swiftCode and bic: Bank routing identifiers when available.
+- isMobileVerified: true for a mobile-money operator; otherwise null.
+- isCashPickUp: Indicates a cash-pickup provider.
+- nibssCode: NIBSS bank code when available.
+- branches: Array of branches. A branch can include id, bankId, branchName, branchCode, swiftCode and bic.
