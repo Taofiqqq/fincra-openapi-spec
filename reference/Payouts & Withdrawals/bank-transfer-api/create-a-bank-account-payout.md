@@ -26,6 +26,7 @@ Set paymentDestination to bank_account. If sourceCurrency and destinationCurrenc
 
 ## Example request
 
+```json
 {
   "business": "64f000000000000000000001",
   "sourceCurrency": "NGN",
@@ -44,11 +45,13 @@ Set paymentDestination to bank_account. If sourceCurrency and destinationCurrenc
     "bankCode": "044"
   }
 }
+```
 
 Use the provider code returned by List banks and payout providers as the beneficiary bankCode.
 
 ## Example response
 
+```json
 {
   "success": true,
   "message": "Payout initiated successfully.",
@@ -61,6 +64,7 @@ Use the provider code returned by List banks and payout providers as the benefic
     "documentsRequired": []
   }
 }
+```
 
 Important: success: true confirms that Fincra handled the API request; it does not guarantee that the payout settled successfully. Always inspect data.status and continue tracking the payout through webhooks or a status endpoint.
 
