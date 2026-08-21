@@ -2,7 +2,7 @@
 api:
   file: awesome-new-api.json
   operationId: initiate-mobile-money-payout-1
-hidden: false
+hidden: true
 link:
   new_tab: false
 metadata:
