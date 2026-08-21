@@ -1,110 +1,84 @@
 ---
-title: Initiate Payout
+title: Create a stablecoin payout
+excerpt: Create a payout to a supported stablecoin wallet.
 deprecated: false
 hidden: false
 metadata:
   robots: index
 ---
-This page shows how to send a **stablecoin / crypto payout** using the Initiate Payout endpoint. To run it interactively, use the **[Initiate Payout](../reference/initiate-mobile-money-payout-1)** endpoint and select the **"Stablecoin Payout"** example.
+Creates a payout to a supported stablecoin wallet.
 
-```
-POST https://sandboxapi.fincra.com/disbursements/payouts
-```
+POST [https://sandboxapi.fincra.com/disbursements/payouts](https://sandboxapi.fincra.com/disbursements/payouts)
 
-## Headers
+Set paymentDestination to crypto_wallet and choose a paymentScheme that matches destinationCurrency.
 
-| Header         | Required | Description                 |
-| -------------- | -------- | --------------------------- |
-| `api-key`      | Yes      | Your Fincra secret API key. |
-| `accept`       | Yes      | `application/json`          |
-| `content-type` | Yes      | `application/json`          |
+## Supported payment schemes
 
-## Body params
+- USDT: usdt_trc20, usdt_erc20, usdt_solana, usdt_bep20
+- USDC: usdc_erc20, usdc_solana, usdc_bep20
+- CNGN: cngn_bep20
 
-| Field                 | Type          | Required    | Description                                                                                                                                                                                                                         |
-| --------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sourceCurrency`      | string (enum) | Yes         | Currency used to fund the payout. One of `USDT`, `GHS`, `KES`, `UGX`, `TZS`, `USD`, `EUR`, `GBP`, `ZMW`, `ZAR`, `USDC`, `CNGN`, `NGN`, `XAF`, `XOF`.                                                                                |
-| `destinationCurrency` | string (enum) | Yes         | Currency the recipient receives. For stablecoin payouts use `USDT`, `USDC`, or `CNGN`.                                                                                                                                              |
-| `amount`              | string        | Yes         | The value to transfer from the source wallet.                                                                                                                                                                                       |
-| `business`            | string        | Yes         | The unique identifier of the parent business.                                                                                                                                                                                       |
-| `description`         | string        | Yes         | The description of the payout.                                                                                                                                                                                                      |
-| `customerReference`   | string        | Yes         | Your unique reference for this transaction. Prevents duplicate transactions.                                                                                                                                                        |
-| `paymentDestination`  | string (enum) | Yes         | Use `crypto_wallet` for stablecoin/crypto payouts.                                                                                                                                                                                  |
-| `paymentScheme`       | string (enum) | Yes         | The blockchain network/scheme. One of `usdt_trc20`, `usdt_erc20`, `usdt_solana`, `usdt_bep20`, `usdc_erc20`, `usdc_solana`, `usdc_bep20`, `cngn_bep20`, `erc20`, `btc_mainnet`, `eth`. Must match the destination currency network. |
-| `quoteReference`      | string        | Conditional | Required only for **cross-currency** payouts. Generate it via Generate Quote.                                                                                                                                                       |
-| `beneficiary`         | object        | Yes         | The recipient details (see below).                                                                                                                                                                                                  |
+Generic erc20, btc_mainnet and eth are not supported by this payout endpoint.
 
-### `beneficiary` (stablecoin / crypto)
+## Request body
 
-| Field               | Type   | Required | Description                                                                                                                           |
-| ------------------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `walletAddress`     | string | Yes      | The recipient's crypto wallet address. Must correspond to the selected `paymentScheme` and blockchain network.                        |
-| `accountHolderName` | string | Yes      | The recipient's full legal name                                                                                                       |
-| `email`             | string | No       | The recipient's email address                                                                                                         |
-| `destinationTag`    | string | No       | Extra identifier required by some wallet providers/exchanges (e.g. memo/tag). Provide only when the destination platform requires it. |
+- business: Your Fincra business ID. Required.
+- sourceCurrency: Uppercase source currency. Required.
+- destinationCurrency: Use USDT, USDC or CNGN. Required.
+- amount: Numeric payout amount. Required. Do not send it as a string.
+- customerReference: Your unique reference for this payout. Required.
+- description: Payout description. Optional.
+- paymentDestination: Use crypto_wallet. Required.
+- paymentScheme: A supported scheme matching destinationCurrency. Required for this flow.
+- quoteReference: Required when sourceCurrency and destinationCurrency differ.
+- beneficiary.walletAddress: Destination wallet address. Required.
+- beneficiary.accountHolderName: Wallet holder’s name. Required.
+- beneficiary.email: Optional.
+- beneficiary.destinationTag: Optional; provide it when the destination network/account requires a memo or tag.
 
 ## Example request
 
 ```json
 {
-  "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-  "sourceCurrency": "USDT",
+  "business": "64f000000000000000000001",
+  "sourceCurrency": "USD",
   "destinationCurrency": "USDT",
-  "amount": "10",
-  "description": "Payment",
+  "amount": 10,
+  "description": "Stablecoin payout",
   "paymentDestination": "crypto_wallet",
-  "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "paymentScheme": "usdt_trc20",
+  "quoteReference": "quote-reference-from-generate-quote",
+  "customerReference": "crypto-20260821-001",
   "beneficiary": {
-    "accountHolderName": "Adeolu Adekemi",
-    "email": "user@example.com",
-    "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "destinationTag": "test-memo"
+    "walletAddress": "TExampleWalletAddress",
+    "accountHolderName": "Jane Doe",
+    "email": "jane@example.com"
   }
 }
 ```
 
-```bash
-curl --request POST \
-  --url https://sandboxapi.fincra.com/disbursements/payouts \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --header 'api-key: YOUR_API_KEY' \
-  --data '{
-    "business": "xxxxxxxxxxxxxxxxxxxxxxxx",
-    "sourceCurrency": "USDT",
-    "destinationCurrency": "USDT",
-    "amount": "10",
-    "description": "Payment",
-    "paymentDestination": "crypto_wallet",
-    "customerReference": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "paymentScheme": "usdt_trc20",
-    "beneficiary": {
-      "accountHolderName": "Adeolu Adekemi",
-      "email": "user@example.com",
-      "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      "destinationTag": "test-memo"
-    }
-  }'
-```
-
-## Success response (200)
+## Example response
 
 ```json
 {
   "success": true,
-  "message": "Payout processed successfully",
+  "message": "Payout initiated successfully.",
   "data": {
     "id": 1254,
     "reference": "5dcf24700a9a4f67",
-    "customerReference": "TXT-001",
+    "customerReference": "crypto-20260821-001",
     "status": "processing",
+    "isDocumentRequired": false,
     "documentsRequired": []
   }
 }
 ```
 
-## Error response (422)
+Important: success: true confirms that Fincra handled the API request; it does not guarantee that the payout settled successfully. Always inspect data.status and continue tracking the payout through webhooks or a status endpoint.
+
+Live stablecoin payouts must be enabled for your business.
+
+## Duplicate customer reference (422)
 
 ```json
 {
