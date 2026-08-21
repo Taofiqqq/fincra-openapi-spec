@@ -1,7 +1,6 @@
 - list-banks
 - generate-bank-transfer-quote-api
 - verify-account-number-api
-- initiate-payout
 - verify-bank-transfer-by-reference
 - verify-transfer-status-by-customer-reference
 - upload-payout-transaction-document
