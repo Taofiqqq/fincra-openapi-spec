@@ -6292,66 +6292,6 @@
         "deprecated": false
       }
     },
-    "/core/banks?": {
-      "get": {
-        "summary": "List Banks",
-        "description": "This API lets you view a list of banks and mobile money wallet providers, together with their details such as code, swiftCode, and Bic.",
-        "operationId": "list-banks",
-        "parameters": [
-          {
-            "name": "currency",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": "NGN"
-            }
-          },
-          {
-            "name": "country",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": "NG"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/disbursements/payouts": {
       "get": {
         "summary": "Get all Payouts",
@@ -11913,6 +11853,77 @@
             }
           }
         }
+      }
+    },
+    "/core/banks": {
+      "get": {
+        "summary": "List banks and payout providers",
+        "description": "Returns enabled banks, mobile-money operators or cash-pickup providers for a country or currency.",
+        "operationId": "list-banks",
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "NGN"
+            },
+            "description": "Three-letter currency code. Required when country is not provided."
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "NG"
+            },
+            "description": "Two-letter country code. Required when currency is not provided."
+          },
+          {
+            "in": "query",
+            "name": "paymentDestination",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by bank_account, mobile_money_wallet, cash_pick_up or settlement_account."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}",
+                    "summary": "Result"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
       }
     }
   },
