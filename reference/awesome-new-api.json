@@ -4919,7 +4919,10 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "tags": [
+          "Temporary Account"
+        ]
       }
     },
     "/collections/merchant-reference/{merchantReference}": {
@@ -5226,7 +5229,10 @@
             }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "tags": [
+          "Permanent Account"
+        ]
       }
     },
     "/collections?business={business_id}&virtualAccount={virtualAccountID}": {
@@ -11134,6 +11140,9 @@
     },
     "/profile/virtual-accounts/requests": {
       "post": {
+        "tags": [
+          "Permanent Account"
+        ],
         "summary": "Request a permanent virtual account",
         "description": "Request a permanent virtual account in a supported currency. The same endpoint handles local-currency and foreign-currency requests; the required KYC and supporting documents vary by currency and account type. Some accounts are approved immediately, while others remain pending until verification and issuance complete.",
         "operationId": "request-permanent-virtual-account",
@@ -11258,6 +11267,9 @@
         }
       },
       "get": {
+        "tags": [
+          "Permanent Account"
+        ],
         "summary": "List virtual-account request options",
         "description": "Return every supported virtual-account currency and indicate whether the authenticated business has already requested an account in that currency.",
         "operationId": "list-virtual-account-request-options",
@@ -11368,6 +11380,9 @@
     },
     "/profile/virtual-accounts": {
       "get": {
+        "tags": [
+          "Permanent Account"
+        ],
         "summary": "List permanent virtual accounts",
         "description": "Return a paginated list of permanent virtual accounts for the authenticated business. Use query parameters to filter the collection; never place query strings in the OpenAPI path key.",
         "operationId": "list-permanent-virtual-accounts",
@@ -11503,6 +11518,9 @@
     },
     "/profile/virtual-accounts/{id}": {
       "get": {
+        "tags": [
+          "Permanent Account"
+        ],
         "summary": "Retrieve a permanent virtual account",
         "description": "Retrieve one permanent virtual account by its Fincra virtual-account ID, regardless of currency.",
         "operationId": "get-permanent-virtual-account",
@@ -11568,5 +11586,15 @@
     "explorer-enabled": true,
     "proxy-enabled": true
   },
-  "x-readme-fauxas": true
+  "x-readme-fauxas": true,
+  "tags": [
+    {
+      "name": "Temporary Account",
+      "description": "Temporary virtual accounts with an expiry."
+    },
+    {
+      "name": "Permanent Account",
+      "description": "Permanent virtual-account requests and account management."
+    }
+  ]
 }
