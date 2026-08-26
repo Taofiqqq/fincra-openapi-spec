@@ -55,9 +55,7 @@ Both modes pay a business bank account and an individual bank account. The mode 
 
 The fee depends on the mode and on the counterparty type. A business account carries a different fee from an individual account, so there are four fee cases. Fincra sets them per merchant.
 
-## What Fincra does not pay
-
-Fincra pays a Chinese bank account. Fincra does not pay an Alipay wallet, a WeChat Pay wallet or a UnionPay card.
+##
 
 ## How long it takes
 
