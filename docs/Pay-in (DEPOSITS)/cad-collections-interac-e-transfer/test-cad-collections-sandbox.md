@@ -118,10 +118,10 @@ each one dispatches.
 
 A standard collection settles immediately. Use these amounts to test the two outcomes your integration will see most often:
 
-| Scenario              | Amount                                          | Result                                                         | Webhook event           |
-| --------------------- | ----------------------------------------------- | -------------------------------------------------------------- | ----------------------- |
-| Successful collection | Below `1000`, except `999` (for example, `500`) | Your Sandbox CAD wallet is credited with the collected amount. | `collection.successful` |
-| Failed collection     | `999`                                           | The collection fails. Your wallet balance is unchanged.        | `collection.failed`     |
+| Scenario              | Amount                                            | Result                                                         | Webhook event           |
+| --------------------- | ------------------------------------------------- | -------------------------------------------------------------- | ----------------------- |
+| Successful collection | Below `10000`, except `999` (for example, `5000`) | Your Sandbox CAD wallet is credited with the collected amount. | `collection.successful` |
+| Failed collection     | `999`                                             | The collection fails. Your wallet balance is unchanged.        | `collection.failed`     |
 
 In both cases the collection reaches a final state as soon as the simulation completes. No further action is required from you.
 
@@ -129,9 +129,9 @@ In both cases the collection reaches a final state as soon as the simulation com
 
 Collections above `1000` require additional information before they can be processed. We raise a Request for Information (RFI), and the collection holds until the request is answered.
 
-| Scenario                              | Amount                             | Result                                                                               | Webhook event                          |
-| ------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------- |
-| Collection requiring more information | Above `1000` (for example, `5000`) | An RFI is raised. The collection holds at `pending` and your wallet is not credited. | `collection.additional-info-requested` |
+| Scenario                              | Amount                               | Result                                                                               | Webhook event                          |
+| ------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------ | -------------------------------------- |
+| Collection requiring more information | Above `10000` (for example, `11000`) | An RFI is raised. The collection holds at `pending` and your wallet is not credited. | `collection.additional-info-requested` |
 
 Simulate this path to confirm your integration handles a collection that has neither succeeded nor failed. When the webhook arrives:
 
