@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://sandboxapi.fincra.com/"
+      "url": "https://sandboxapi.fincra.com"
     }
   ],
   "components": {
@@ -15,6 +15,919 @@
         "type": "apiKey",
         "name": "api-key",
         "in": "header"
+      }
+    },
+    "schemas": {
+      "VirtualAccountCurrency": {
+        "type": "string",
+        "description": "Three-letter ISO 4217 currency code for the virtual account.",
+        "enum": [
+          "NGN",
+          "GHS",
+          "KES",
+          "TZS",
+          "RWF",
+          "UGX",
+          "XAF",
+          "USD",
+          "EUR",
+          "GBP",
+          "CAD"
+        ]
+      },
+      "VirtualAccountType": {
+        "type": "string",
+        "enum": [
+          "individual",
+          "corporate"
+        ]
+      },
+      "VirtualAccountStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "approved",
+          "declined",
+          "expired",
+          "closed",
+          "reviewed"
+        ]
+      },
+      "VirtualAccountAddress": {
+        "type": "object",
+        "required": [
+          "countryOfResidence",
+          "street",
+          "state",
+          "city",
+          "zip"
+        ],
+        "properties": {
+          "countryOfResidence": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "description": "Two-letter ISO 3166-1 alpha-2 country code.",
+            "example": "NG"
+          },
+          "number": {
+            "type": "string",
+            "example": "12"
+          },
+          "street": {
+            "type": "string",
+            "example": "Marina Road"
+          },
+          "street2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string",
+            "example": "Lagos"
+          },
+          "state": {
+            "type": "string",
+            "example": "Lagos"
+          },
+          "zip": {
+            "type": "string",
+            "example": "101001"
+          }
+        }
+      },
+      "VirtualAccountIdentityDocument": {
+        "type": "object",
+        "required": [
+          "type",
+          "number",
+          "issuedCountryCode",
+          "issuedBy"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "passport",
+              "driverLicense",
+              "votersCard",
+              "nationalId",
+              "idCard",
+              "other"
+            ]
+          },
+          "number": {
+            "type": "string",
+            "example": "A00000000"
+          },
+          "issuedCountryCode": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "example": "NG"
+          },
+          "issuedBy": {
+            "type": "string",
+            "example": "Nigeria Immigration Service"
+          },
+          "issuedDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2023-01-15"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2028-01-14"
+          }
+        }
+      },
+      "VirtualAccountIncomeBand": {
+        "type": "object",
+        "required": [
+          "lower",
+          "upper"
+        ],
+        "properties": {
+          "lower": {
+            "type": "string",
+            "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+            "example": "50000"
+          },
+          "upper": {
+            "type": "string",
+            "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+            "example": "100000"
+          }
+        }
+      },
+      "IndividualVirtualAccountKyc": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "Ada"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Okafor"
+          },
+          "otherName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ada.okafor@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+2348012345678"
+          },
+          "bvn": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$",
+            "example": "10000000001"
+          },
+          "address": {
+            "$ref": "#/components/schemas/VirtualAccountAddress"
+          },
+          "document": {
+            "$ref": "#/components/schemas/VirtualAccountIdentityDocument"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "example": "1992-06-18"
+          },
+          "nationality": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "example": "NG"
+          },
+          "occupation": {
+            "type": "string",
+            "example": "Software engineer"
+          },
+          "taxCountry": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "example": "NG"
+          },
+          "taxNumber": {
+            "type": "string"
+          },
+          "monthlyTransactionVolume": {
+            "type": "string",
+            "example": "5000"
+          },
+          "monthlyTransactionCount": {
+            "type": "string",
+            "example": "10"
+          },
+          "sourceOfIncome": {
+            "type": "string",
+            "enum": [
+              "salary",
+              "business_income",
+              "investment",
+              "gift",
+              "inheritance",
+              "real_estate",
+              "loan",
+              "pension",
+              "grant",
+              "trust",
+              "crypto",
+              "other"
+            ]
+          },
+          "accountDesignation": {
+            "type": "string",
+            "example": "personal"
+          },
+          "employmentStatus": {
+            "type": "string",
+            "enum": [
+              "employed",
+              "self_employed",
+              "unemployed",
+              "student",
+              "retired",
+              "homemaker",
+              "freelancer",
+              "other"
+            ]
+          },
+          "incomeBand": {
+            "$ref": "#/components/schemas/VirtualAccountIncomeBand"
+          },
+          "annualIncome": {
+            "type": "string",
+            "example": "60000"
+          }
+        }
+      },
+      "CorporateVirtualAccountKyc": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "businessName": {
+            "type": "string",
+            "example": "Example Trading Limited"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "treasury@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+2348012345678"
+          },
+          "bvn": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$"
+          },
+          "bvnName": {
+            "type": "string"
+          },
+          "rcNumber": {
+            "type": "string"
+          },
+          "businessRegistrationName": {
+            "type": "string"
+          },
+          "businessRegistrationNumber": {
+            "type": "string"
+          },
+          "businessRegistrationCountry": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "incorporationCountryCode": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "incorporationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "taxIdentificationNumber": {
+            "type": "string"
+          },
+          "taxCountry": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "address": {
+            "$ref": "#/components/schemas/VirtualAccountAddress"
+          },
+          "tradingAddress": {
+            "$ref": "#/components/schemas/VirtualAccountAddress"
+          },
+          "primarySourceOfFunds": {
+            "type": "string"
+          },
+          "companyType": {
+            "type": "string"
+          },
+          "businessCategory": {
+            "type": "string"
+          },
+          "businessCategoryDescription": {
+            "type": "string"
+          },
+          "primaryBusiness": {
+            "type": "string"
+          },
+          "primaryBusinessDescription": {
+            "type": "string"
+          },
+          "tradingName": {
+            "type": "string"
+          },
+          "directorsName": {
+            "type": "string"
+          },
+          "estimatedMonthlyTurnover": {
+            "type": "string"
+          },
+          "projectedMonthlyInflow": {
+            "type": "string"
+          },
+          "projectedMonthlyOutflow": {
+            "type": "string"
+          },
+          "projectedTransactionFrequency": {
+            "type": "string"
+          },
+          "projectedMonthlyTransactionCount": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "ultimateBeneficialOwners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "businessPartners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "PermanentVirtualAccountRequest": {
+        "type": "object",
+        "required": [
+          "currency",
+          "accountType",
+          "KYCInformation"
+        ],
+        "additionalProperties": false,
+        "description": "Request a permanent virtual account. KYC and supporting-document requirements vary by currency and account type.",
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/VirtualAccountCurrency"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/VirtualAccountType"
+          },
+          "KYCInformation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IndividualVirtualAccountKyc"
+              },
+              {
+                "$ref": "#/components/schemas/CorporateVirtualAccountKyc"
+              }
+            ]
+          },
+          "merchantReference": {
+            "type": "string",
+            "description": "A unique, idempotency-friendly reference generated by your system.",
+            "example": "va_req_01J9P8J8Y8B4Q6K9R6M5N4P3T2"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "third_party",
+              "self"
+            ]
+          },
+          "entityName": {
+            "type": "string"
+          },
+          "paymentFlowDescription": {
+            "type": "string"
+          },
+          "meansOfId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "utilityBill": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "bankStatement": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "leaseAgreement": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "sourceOfFunds": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "beneficialOwnershipCertificate": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "articleOfIncorporation": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "incorporationDocuments": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "accountAgreement": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "regulatoryEvidence": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ],
+            "description": "A document URL or an array of document URLs."
+          },
+          "requestedCurrencies": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "USD",
+                "EUR",
+                "GBP",
+                "CAD"
+              ]
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "accountOpeningDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isTermsAccepted": {
+            "type": "boolean"
+          },
+          "termsAndConditionAcceptance": {
+            "type": "object",
+            "required": [
+              "date",
+              "ipAddress"
+            ],
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "ipAddress": {
+                "type": "string",
+                "format": "ipv4"
+              }
+            }
+          }
+        }
+      },
+      "VirtualAccountBankDetails": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "accountNumber": {
+            "type": "string",
+            "example": "0123456789"
+          },
+          "accountName": {
+            "type": "string",
+            "example": "Ada Okafor"
+          },
+          "bankName": {
+            "type": "string",
+            "example": "Example Bank"
+          },
+          "bankCode": {
+            "type": "string",
+            "example": "000"
+          },
+          "iban": {
+            "type": "string"
+          },
+          "swiftCode": {
+            "type": "string"
+          },
+          "routingNumber": {
+            "type": "string"
+          },
+          "paymentScheme": {
+            "type": "string"
+          },
+          "alternateAccountDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "VirtualAccount": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1c9ef838af8cda0211d9d"
+          },
+          "business": {
+            "type": [
+              "string",
+              "object"
+            ]
+          },
+          "parentBusiness": {
+            "type": [
+              "string",
+              "object",
+              "null"
+            ]
+          },
+          "currency": {
+            "$ref": "#/components/schemas/VirtualAccountCurrency"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/VirtualAccountType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/VirtualAccountStatus"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "isPermanent": {
+            "type": "boolean",
+            "const": true
+          },
+          "accountNumber": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "accountInformation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VirtualAccountBankDetails"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "merchantReference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "KYCInformation": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "entityType": {
+            "type": "string",
+            "enum": [
+              "main_account",
+              "sub_account"
+            ]
+          },
+          "virtualAccountType": {
+            "type": "string"
+          },
+          "accountOpeningFee": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VirtualAccountResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": true
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/VirtualAccount"
+          }
+        }
+      },
+      "VirtualAccountListResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Merchant virtual accounts fetched successfully"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "results",
+              "total"
+            ],
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/VirtualAccount"
+                }
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      },
+      "VirtualAccountRequestOption": {
+        "type": "object",
+        "required": [
+          "currency",
+          "type",
+          "requested"
+        ],
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/VirtualAccountCurrency"
+          },
+          "type": {
+            "type": "string",
+            "const": "fiat"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VirtualAccountStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "accountOpeningFee": {
+            "type": "number",
+            "minimum": 0
+          },
+          "requested": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VirtualAccountRequestOptionsResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Virtual account requests fetched successfully"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VirtualAccountRequestOption"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": false
+          },
+          "message": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "type": [
+              "object",
+              "array",
+              "null"
+            ],
+            "additionalProperties": true
+          }
+        }
       }
     }
   },
@@ -392,12 +1305,12 @@
                           },
                           "ledgerBalance": {
                             "type": "number",
-                            "example": 1999965363.990817,
+                            "example": 1999965363.99082,
                             "default": 0
                           },
                           "availableBalance": {
                             "type": "number",
-                            "example": 1999792413.990817,
+                            "example": 1999792413.99082,
                             "default": 0
                           },
                           "lockedBalance": {
@@ -4063,445 +4976,6 @@
         "deprecated": false
       }
     },
-    "/profile/virtual-accounts/{virtualAccountId}": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {},
-                      "description": "The virtual account object. Includes the Interac email under `accountInformation.otherInfo.interacEmail` once the account is approved; `accountInformation` is null while the account is pending"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "virtualAccountId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "The unique ID of the virtual account, returned as `_id` when the account is created"
-          }
-        ],
-        "description": "Fetch a CAD collection account, including the assigned Interac email, by its account ID.",
-        "summary": "Get Account by ID",
-        "operationId": "get_profile-virtual-accounts-virtualaccountid"
-      }
-    },
-    "/profile/virtual-accounts/{virtualAccountId} (COPY)": {
-      "get": {
-        "summary": "Fetch Account Information by ID (COPY)",
-        "description": "This endpoint is used for retrieving a virtual account",
-        "operationId": "fetch-account-information-by-id-copy",
-        "parameters": [
-          {
-            "name": "virtualAccountId",
-            "in": "path",
-            "description": "The ID of the virtual account.",
-            "schema": {
-              "type": "string",
-              "default": "8923jn9s829hn2"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n  \"success\": true,\n  \"message\": \"Virtual account fetched successfully\",\n  \"data\": {\n    \"status\": \"approved\",\n    \"isActive\": true,\n    \"accountNumber\": \"4231139906\",\n    \"KYCInformation\": {\n      \"businessName\": \"james ventures\"\n    },\n    \"accountInformation\": {\n      \"accountNumber\": \"4231139906\",\n      \"accountName\": \"james ventures\",\n      \"bankName\": \"WEMA BANK\",\n      \"reference\": \"4c9eeacb-ce44-4916-a81f-b2969473ccd4\"\n    },\n    \"accountOpeningFee\": 0,\n    \"pendingAdditionalInfoCount\": 0,\n    \"isPermanent\": true,\n    \"expiresAt\": null,\n    \"reason\": null,\n    \"monthlyVolume\": null,\n    \"entityName\": null,\n    \"paymentFlowDescription\": null,\n    \"attachments\": [],\n    \"meansOfId\": [],\n    \"utilityBill\": [],\n    \"virtualAccountType\": \"additional\",\n    \"_id\": \"622676f2a944153ee9b2fc38\",\n    \"business\": {\n      \"name\": \"Lokey Inc\",\n      \"email\": \"tega@fincra.com\"\n    },\n    \"currency\": \"NGN\",\n    \"accountType\": \"corporate\",\n    \"entityType\": \"main_account\",\n    \"currencyType\": \"fiat\",\n    \"createdAt\": \"2022-03-07T21:19:46.588Z\",\n    \"updatedAt\": \"2022-03-07T21:19:46.588Z\"\n  }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Virtual account fetched successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "status": {
-                          "type": "string",
-                          "example": "approved"
-                        },
-                        "isActive": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "accountNumber": {
-                          "type": "string",
-                          "example": "4231139906"
-                        },
-                        "KYCInformation": {
-                          "type": "object",
-                          "properties": {
-                            "businessName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            }
-                          }
-                        },
-                        "accountInformation": {
-                          "type": "object",
-                          "properties": {
-                            "accountNumber": {
-                              "type": "string",
-                              "example": "4231139906"
-                            },
-                            "accountName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            },
-                            "bankName": {
-                              "type": "string",
-                              "example": "WEMA BANK"
-                            },
-                            "reference": {
-                              "type": "string",
-                              "example": "4c9eeacb-ce44-4916-a81f-b2969473ccd4"
-                            }
-                          }
-                        },
-                        "accountOpeningFee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "pendingAdditionalInfoCount": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "isPermanent": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "expiresAt": {},
-                        "reason": {},
-                        "monthlyVolume": {},
-                        "entityName": {},
-                        "paymentFlowDescription": {},
-                        "attachments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "meansOfId": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "utilityBill": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "virtualAccountType": {
-                          "type": "string",
-                          "example": "additional"
-                        },
-                        "_id": {
-                          "type": "string",
-                          "example": "622676f2a944153ee9b2fc38"
-                        },
-                        "business": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string",
-                              "example": "Lokey Inc"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "tega@fincra.com"
-                            }
-                          }
-                        },
-                        "currency": {
-                          "type": "string",
-                          "example": "NGN"
-                        },
-                        "accountType": {
-                          "type": "string",
-                          "example": "corporate"
-                        },
-                        "entityType": {
-                          "type": "string",
-                          "example": "main_account"
-                        },
-                        "currencyType": {
-                          "type": "string",
-                          "example": "fiat"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/profile/virtual-accounts/{virtualAccountId} (COPY-1)": {
-      "get": {
-        "summary": "Fetch Account Information by ID (COPY)",
-        "description": "This endpoint is used for retrieving a virtual account",
-        "operationId": "fetch-account-information-by-id-copy-1",
-        "parameters": [
-          {
-            "name": "virtualAccountId",
-            "in": "path",
-            "description": "The ID of the virtual account.",
-            "schema": {
-              "type": "string",
-              "default": "8923jn9s829hn2"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n  \"success\": true,\n  \"message\": \"Virtual account fetched successfully\",\n  \"data\": {\n    \"status\": \"approved\",\n    \"isActive\": true,\n    \"accountNumber\": \"4231139906\",\n    \"KYCInformation\": {\n      \"businessName\": \"james ventures\"\n    },\n    \"accountInformation\": {\n      \"accountNumber\": \"4231139906\",\n      \"accountName\": \"james ventures\",\n      \"bankName\": \"WEMA BANK\",\n      \"reference\": \"4c9eeacb-ce44-4916-a81f-b2969473ccd4\"\n    },\n    \"accountOpeningFee\": 0,\n    \"pendingAdditionalInfoCount\": 0,\n    \"isPermanent\": true,\n    \"expiresAt\": null,\n    \"reason\": null,\n    \"monthlyVolume\": null,\n    \"entityName\": null,\n    \"paymentFlowDescription\": null,\n    \"attachments\": [],\n    \"meansOfId\": [],\n    \"utilityBill\": [],\n    \"virtualAccountType\": \"additional\",\n    \"_id\": \"622676f2a944153ee9b2fc38\",\n    \"business\": {\n      \"name\": \"Lokey Inc\",\n      \"email\": \"tega@fincra.com\"\n    },\n    \"currency\": \"NGN\",\n    \"accountType\": \"corporate\",\n    \"entityType\": \"main_account\",\n    \"currencyType\": \"fiat\",\n    \"createdAt\": \"2022-03-07T21:19:46.588Z\",\n    \"updatedAt\": \"2022-03-07T21:19:46.588Z\"\n  }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Virtual account fetched successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "status": {
-                          "type": "string",
-                          "example": "approved"
-                        },
-                        "isActive": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "accountNumber": {
-                          "type": "string",
-                          "example": "4231139906"
-                        },
-                        "KYCInformation": {
-                          "type": "object",
-                          "properties": {
-                            "businessName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            }
-                          }
-                        },
-                        "accountInformation": {
-                          "type": "object",
-                          "properties": {
-                            "accountNumber": {
-                              "type": "string",
-                              "example": "4231139906"
-                            },
-                            "accountName": {
-                              "type": "string",
-                              "example": "james ventures"
-                            },
-                            "bankName": {
-                              "type": "string",
-                              "example": "WEMA BANK"
-                            },
-                            "reference": {
-                              "type": "string",
-                              "example": "4c9eeacb-ce44-4916-a81f-b2969473ccd4"
-                            }
-                          }
-                        },
-                        "accountOpeningFee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "pendingAdditionalInfoCount": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "isPermanent": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "expiresAt": {},
-                        "reason": {},
-                        "monthlyVolume": {},
-                        "entityName": {},
-                        "paymentFlowDescription": {},
-                        "attachments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "meansOfId": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "utilityBill": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "virtualAccountType": {
-                          "type": "string",
-                          "example": "additional"
-                        },
-                        "_id": {
-                          "type": "string",
-                          "example": "622676f2a944153ee9b2fc38"
-                        },
-                        "business": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string",
-                              "example": "Lokey Inc"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "tega@fincra.com"
-                            }
-                          }
-                        },
-                        "currency": {
-                          "type": "string",
-                          "example": "NGN"
-                        },
-                        "accountType": {
-                          "type": "string",
-                          "example": "corporate"
-                        },
-                        "entityType": {
-                          "type": "string",
-                          "example": "main_account"
-                        },
-                        "currencyType": {
-                          "type": "string",
-                          "example": "fiat"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2022-03-07T21:19:46.588Z"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/profile/virtual-accounts/bvn": {
       "get": {
         "summary": "Fetch Account Information by BVN",
@@ -4780,63 +5254,6 @@
               "default": "90j29e0j0a"
             },
             "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/profile/virtual-accounts?": {
-      "get": {
-        "summary": "List all Multicurrency Accounts",
-        "description": "This endpoint is used for retrieving an account that is belongs to a merchant by currency",
-        "operationId": "list-all-multicurrency-accounts",
-        "parameters": [
-          {
-            "name": "currency",
-            "in": "query",
-            "description": "The multicurrency account currency. Eg. EUR, USD",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "EUR",
-                "USD"
-              ],
-              "default": "EUR"
-            }
           }
         ],
         "responses": {
@@ -9806,275 +10223,6 @@
         "deprecated": false
       }
     },
-    "/profile/virtual-accounts?currency={currency}&virtualAccountType={type}": {
-      "get": {
-        "summary": "Get Account by Currency",
-        "description": "This endpoint is used to fetch account linked to a business by the specified currency.",
-        "operationId": "get-account-by-currency",
-        "parameters": [
-          {
-            "name": "currency",
-            "in": "path",
-            "description": "The currency you require account details for",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "KES"
-            }
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "The account type. Default to main for pool account collections",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "main"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Merchant virtual accounts fetched successfully\",\n    \"data\": {\n        \"results\": [\n            {\n                \"status\": \"approved\",\n                \"isActive\": true,\n                \"accountNumber\": \"1677802751011\",\n                \"merchantReference\": null,\n                \"KYCInformation\": {\n                    \"businessName\": \"Fincra Checkout\",\n                    \"email\": \"\",\n                    \"bvn\": \"XoJQWaBgvgD99R9AF5GCl/QDOn6A9QRMMLaq8h/fGDCnGNr5zoN1Rc/Mu+NrOLPVvcW4KouylAKuocpPi32KV6dTEy+SWZ+2iuSps3ykkQqw1eTMYQOUE3N2sf23tHD+mvXKPCe83Q9MmYUala8u4gYcldWsIECu5MqPG8WkIwQ=\",\n                    \"bvnName\": \"Joy Awili\"\n                },\n                \"accountInformation\": {\n                    \"accountNumber\": \"1677802751011\",\n                    \"accountName\": \"FINCRA TECHNOLOGIES LTD (XT)\",\n                    \"bankName\": \"First Atlantic Bank\",\n                    \"bankCode\": \"170100\"\n                },\n                \"verifiedKYCData\": null,\n                \"note\": null,\n                \"accountOpeningFee\": 0,\n                \"pendingAdditionalInfoCount\": 0,\n                \"isPermanent\": true,\n                \"expiresAt\": null,\n                \"isCheckoutVa\": false,\n                \"isBankTransferVa\": false,\n                \"isSuspended\": false,\n                \"isPoolAccount\": true,\n                \"reason\": null,\n                \"monthlyVolume\": null,\n                \"entityName\": null,\n                \"paymentFlowDescription\": null,\n                \"attachments\": [],\n                \"meansOfId\": [],\n                \"bankStatement\": [],\n                \"utilityBill\": [],\n                \"virtualAccountType\": \"main\",\n                \"riskRating\": null,\n                \"checklist\": null,\n                \"riskScreening\": null,\n                \"channelKycUpdateStatus\": null,\n                \"channelKycUpdateResponse\": null,\n                \"metadata\": null,\n                \"_id\": \"6706b9056f8e7084abbe90bc\",\n                \"business\": {\n                    \"name\": \"Quail Fowler\",\n                    \"email\": \"joy@fincra.com\"\n                },\n                \"currency\": \"GHS\",\n                \"accountType\": \"corporate\",\n                \"entityType\": \"main_account\",\n                \"currencyType\": \"fiat\",\n                \"createdAt\": \"2023-10-24T15:04:28.587Z\",\n                \"updatedAt\": \"2023-10-24T15:04:28.587Z\"\n            }\n        ],\n        \"total\": 1\n    }\n}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Merchant virtual accounts fetched successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "results": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "status": {
-                                "type": "string",
-                                "example": "approved"
-                              },
-                              "isActive": {
-                                "type": "boolean",
-                                "example": true,
-                                "default": true
-                              },
-                              "accountNumber": {
-                                "type": "string",
-                                "example": "1677802751011"
-                              },
-                              "merchantReference": {},
-                              "KYCInformation": {
-                                "type": "object",
-                                "properties": {
-                                  "businessName": {
-                                    "type": "string",
-                                    "example": "Fincra Checkout"
-                                  },
-                                  "email": {
-                                    "type": "string",
-                                    "example": ""
-                                  },
-                                  "bvn": {
-                                    "type": "string",
-                                    "example": "XoJQWaBgvgD99R9AF5GCl/QDOn6A9QRMMLaq8h/fGDCnGNr5zoN1Rc/Mu+NrOLPVvcW4KouylAKuocpPi32KV6dTEy+SWZ+2iuSps3ykkQqw1eTMYQOUE3N2sf23tHD+mvXKPCe83Q9MmYUala8u4gYcldWsIECu5MqPG8WkIwQ="
-                                  },
-                                  "bvnName": {
-                                    "type": "string",
-                                    "example": "Joy Awili"
-                                  }
-                                }
-                              },
-                              "accountInformation": {
-                                "type": "object",
-                                "properties": {
-                                  "accountNumber": {
-                                    "type": "string",
-                                    "example": "1677802751011"
-                                  },
-                                  "accountName": {
-                                    "type": "string",
-                                    "example": "FINCRA TECHNOLOGIES LTD (XT)"
-                                  },
-                                  "bankName": {
-                                    "type": "string",
-                                    "example": "First Atlantic Bank"
-                                  },
-                                  "bankCode": {
-                                    "type": "string",
-                                    "example": "170100"
-                                  }
-                                }
-                              },
-                              "verifiedKYCData": {},
-                              "note": {},
-                              "accountOpeningFee": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "pendingAdditionalInfoCount": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "isPermanent": {
-                                "type": "boolean",
-                                "example": true,
-                                "default": true
-                              },
-                              "expiresAt": {},
-                              "isCheckoutVa": {
-                                "type": "boolean",
-                                "example": false,
-                                "default": true
-                              },
-                              "isBankTransferVa": {
-                                "type": "boolean",
-                                "example": false,
-                                "default": true
-                              },
-                              "isSuspended": {
-                                "type": "boolean",
-                                "example": false,
-                                "default": true
-                              },
-                              "isPoolAccount": {
-                                "type": "boolean",
-                                "example": true,
-                                "default": true
-                              },
-                              "reason": {},
-                              "monthlyVolume": {},
-                              "entityName": {},
-                              "paymentFlowDescription": {},
-                              "attachments": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              },
-                              "meansOfId": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              },
-                              "bankStatement": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              },
-                              "utilityBill": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              },
-                              "virtualAccountType": {
-                                "type": "string",
-                                "example": "main"
-                              },
-                              "riskRating": {},
-                              "checklist": {},
-                              "riskScreening": {},
-                              "channelKycUpdateStatus": {},
-                              "channelKycUpdateResponse": {},
-                              "metadata": {},
-                              "_id": {
-                                "type": "string",
-                                "example": "6706b9056f8e7084abbe90bc"
-                              },
-                              "business": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string",
-                                    "example": "Quail Fowler"
-                                  },
-                                  "email": {
-                                    "type": "string",
-                                    "example": "joy@fincra.com"
-                                  }
-                                }
-                              },
-                              "currency": {
-                                "type": "string",
-                                "example": "GHS"
-                              },
-                              "accountType": {
-                                "type": "string",
-                                "example": "corporate"
-                              },
-                              "entityType": {
-                                "type": "string",
-                                "example": "main_account"
-                              },
-                              "currencyType": {
-                                "type": "string",
-                                "example": "fiat"
-                              },
-                              "createdAt": {
-                                "type": "string",
-                                "example": "2023-10-24T15:04:28.587Z"
-                              },
-                              "updatedAt": {
-                                "type": "string",
-                                "example": "2023-10-24T15:04:28.587Z"
-                              }
-                            }
-                          }
-                        },
-                        "total": {
-                          "type": "integer",
-                          "example": 1,
-                          "default": 0
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "400",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/collections/transfer/simulate": {
       "post": {
         "summary": "Simulate Collection",
@@ -10825,7 +10973,7 @@
                             },
                             "destinationAmount": {
                               "type": "number",
-                              "example": 92.99999999999999,
+                              "example": 93,
                               "default": 0
                             },
                             "action": {
@@ -10848,7 +10996,7 @@
                             },
                             "quotedAmount": {
                               "type": "number",
-                              "example": 92.99999999999999,
+                              "example": 93,
                               "default": 0
                             },
                             "rate": {
@@ -10913,7 +11061,7 @@
                             },
                             "destinationAmount": {
                               "type": "number",
-                              "example": 92.99999999999999,
+                              "example": 93,
                               "default": 0
                             },
                             "action": {
@@ -10936,7 +11084,7 @@
                             },
                             "quotedAmount": {
                               "type": "number",
-                              "example": 92.99999999999999,
+                              "example": 93,
                               "default": 0
                             },
                             "rate": {
@@ -10984,185 +11132,82 @@
         "deprecated": false
       }
     },
-    "/profile/virtual-accounts/requests-1": {
+    "/profile/virtual-accounts/requests": {
       "post": {
-        "summary": "Create Virtual Account",
-        "description": "This API lets you create local currency virtual accounts.",
-        "operationId": "create-fcy-virtual-account-1",
+        "summary": "Request a permanent virtual account",
+        "description": "Request a permanent virtual account in a supported currency. The same endpoint handles local-currency and foreign-currency requests; the required KYC and supporting documents vary by currency and account type. Some accounts are approved immediately, while others remain pending until verification and issuance complete.",
+        "operationId": "request-permanent-virtual-account",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "currency",
-                  "accountType",
-                  "KYCInformation"
-                ],
-                "properties": {
-                  "currency": {
-                    "type": "string",
-                    "description": "The virtual account currency.",
-                    "default": "GHS",
-                    "enum": [
-                      "NGN",
-                      "GHS",
-                      "KES",
-                      "TZS"
-                    ]
-                  },
-                  "accountType": {
-                    "type": "string",
-                    "description": "The Virtual account type",
-                    "enum": [
-                      "individual",
-                      "corporate"
-                    ]
-                  },
-                  "KYCInformation": {
-                    "type": "object",
-                    "description": "Know your customer information",
-                    "required": [
-                      "email"
-                    ],
-                    "properties": {
-                      "firstName": {
-                        "type": "string",
-                        "description": "The first name of the customer. This is required when requesting an individual virtual account."
-                      },
-                      "lastName": {
-                        "type": "string",
-                        "description": "The last name of the customer. This is required when requesting an individual virtual account."
-                      },
-                      "businessName": {
-                        "type": "object",
-                        "description": "The name of the business the account is being created for. This is the name that would be assigned to the virtual account. This is required when account type is corporate",
-                        "required": [
-                          "countryOfResidence",
-                          "zip",
-                          "street",
-                          "number",
-                          "state",
-                          "city"
-                        ],
-                        "properties": {
-                          "countryOfResidence": {
-                            "type": "string",
-                            "description": "The code of country according to ISO 3166-1 Alpha 2"
-                          },
-                          "zip": {
-                            "type": "string",
-                            "description": "Zip Code."
-                          },
-                          "street": {
-                            "type": "string",
-                            "description": "Street Name."
-                          },
-                          "number": {
-                            "type": "string",
-                            "description": "The house number."
-                          },
-                          "state": {
-                            "type": "string",
-                            "description": "The state."
-                          },
-                          "city": {
-                            "type": "string",
-                            "description": "The city name."
-                          }
-                        }
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "The email of the customer."
-                      },
-                      "bvn": {
-                        "type": "string",
-                        "description": "The bank verification number of the customer. This is required for NGN account requests"
-                      },
-                      "bvnName": {
-                        "type": "string",
-                        "description": "Customer's full name that matches the BVN record. This is required for NGN corporate account request",
-                        "enum": [
-                          "salary",
-                          "business_income",
-                          "investment",
-                          "gift",
-                          "inheritance",
-                          "real_estate",
-                          "loan",
-                          "pension",
-                          "grant",
-                          "trust",
-                          "crypto",
-                          "other"
-                        ]
-                      }
-                    }
-                  },
-                  "merchantReference": {
-                    "type": "string",
-                    "description": "A unique ID/reference of the virtual account on your system."
-                  },
-                  "phoneNumber": {
-                    "type": "string",
-                    "description": "The customer's phone number"
-                  }
-                }
+                "$ref": "#/components/schemas/PermanentVirtualAccountRequest"
               },
               "examples": {
-                "GHS - Individual": {
-                  "value": {
-                    "accountType": "individual",
-                    "currency": "GHS",
-                    "KYCInformation": {
-                      "firstName": "Hi",
-                      "lastName": "Corporation",
-                      "email": "textme@gmail.com"
-                    },
-                    "merchantReference": "merchant-6d78f9j00",
-                    "phoneNumber": "+233209876543"
-                  },
-                  "summary": "GHS - Individual"
-                },
-                "NGN - Individual": {
-                  "summary": "NGN - Individual",
+                "ngnIndividual": {
+                  "summary": "NGN individual account",
                   "value": {
                     "currency": "NGN",
                     "accountType": "individual",
                     "KYCInformation": {
-                      "firstName": "John",
-                      "lastName": "Doe",
-                      "email": "customer@theiremail.com",
-                      "bvn": "12345678901"
+                      "firstName": "Ada",
+                      "lastName": "Okafor",
+                      "email": "ada.okafor@example.com",
+                      "bvn": "10000000001"
                     },
-                    "merchantReference": "001"
+                    "merchantReference": "va_req_01J9P8J8Y8B4Q6K9R6M5N4P3T2"
                   }
                 },
-                "NGN - Corporate": {
-                  "summary": "NGN - Corporate",
+                "ghsCorporate": {
+                  "summary": "GHS corporate account",
                   "value": {
-                    "dateOfBirth": "10-12-1993",
-                    "accountType": "corporate",
-                    "currency": "NGN",
-                    "KYCInformation": {
-                      "bvn": "90909090909",
-                      "bvnName": "jane foster",
-                      "businessName": "jane"
-                    }
-                  }
-                },
-                "GHS - Corporate": {
-                  "summary": "GHS - Corporate",
-                  "value": {
-                    "accountType": "corporate",
                     "currency": "GHS",
+                    "accountType": "corporate",
                     "KYCInformation": {
-                      "businessName": "Oma's Empire",
-                      "email": "Empire@gmail.com"
+                      "businessName": "Example Trading Limited",
+                      "email": "treasury@example.com"
                     },
-                    "merchantReference": "merchant-8jdf9j00",
-                    "phoneNumber": "+233206786543"
+                    "phoneNumber": "+233201234567",
+                    "merchantReference": "va_req_01J9P8M1DP6T3R0B4V1K9A7Q2X"
+                  }
+                },
+                "eurIndividual": {
+                  "summary": "EUR individual account",
+                  "value": {
+                    "currency": "EUR",
+                    "accountType": "individual",
+                    "KYCInformation": {
+                      "firstName": "Ada",
+                      "lastName": "Okafor",
+                      "email": "ada.okafor@example.com",
+                      "phone": "+2348012345678",
+                      "birthDate": "1992-06-18",
+                      "nationality": "NG",
+                      "occupation": "Software engineer",
+                      "accountDesignation": "personal",
+                      "address": {
+                        "countryOfResidence": "NG",
+                        "number": "12",
+                        "street": "Marina Road",
+                        "city": "Lagos",
+                        "state": "Lagos",
+                        "zip": "101001"
+                      },
+                      "document": {
+                        "type": "passport",
+                        "number": "A00000000",
+                        "issuedCountryCode": "NG",
+                        "issuedBy": "Nigeria Immigration Service",
+                        "issuedDate": "2023-01-15",
+                        "expirationDate": "2028-01-14"
+                      }
+                    },
+                    "meansOfId": [
+                      "https://files.example.com/identity/passport.pdf"
+                    ],
+                    "utilityBill": "https://files.example.com/address/utility-bill.pdf",
+                    "merchantReference": "va_req_01J9P8N6FY4V2D8K5C3W7T0H1M"
                   }
                 }
               }
@@ -11171,684 +11216,79 @@
         },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "The virtual-account request was accepted.",
             "content": {
               "application/json": {
-                "examples": {
-                  "NGN": {
-                    "summary": "NGN",
-                    "value": {
-                      "success": true,
-                      "message": "We use this to communicate information to you.",
-                      "data": {
-                        "status": "approved",
-                        "isActive": true,
-                        "accountNumber": "3992219528",
-                        "merchantReference": null,
-                        "KYCInformation": {
-                          "firstName": "John",
-                          "lastName": "Doe",
-                          "email": "customer@theiremail.com"
-                        },
-                        "accountInformation": {
-                          "accountNumber": "3992219528",
-                          "accountName": "Customer's full name",
-                          "bankName": "GLOBUS BANK",
-                          "bankCode": "103"
-                        },
-                        "verifiedKYCData": null,
-                        "note": null,
-                        "accountOpeningFee": 0,
-                        "pendingAdditionalInfoCount": 0,
-                        "isPermanent": true,
-                        "expiresAt": null,
-                        "isCheckoutVa": false,
-                        "isBankTransferVa": false,
-                        "isSuspended": false,
-                        "reason": null,
-                        "monthlyVolume": null,
-                        "entityName": null,
-                        "paymentFlowDescription": null,
-                        "attachments": [],
-                        "meansOfId": [],
-                        "bankStatement": [],
-                        "utilityBill": [],
-                        "virtualAccountType": "additional",
-                        "riskRating": null,
-                        "checklist": null,
-                        "riskScreening": null,
-                        "channelKycUpdateStatus": null,
-                        "channelKycUpdateResponse": null,
-                        "_id": "************************",
-                        "business": "*******************",
-                        "currency": "NGN",
-                        "accountType": "individual",
-                        "entityType": "main_account",
-                        "currencyType": "fiat",
-                        "createdAt": "@timestamp",
-                        "updatedAt": "@timestamp"
-                      }
-                    }
-                  },
-                  "GHS": {
-                    "value": {
-                      "success": true,
-                      "message": "A GHS virtual account has been created for you",
-                      "data": {
-                        "status": "approved",
-                        "isActive": true,
-                        "accountNumber": "7003000100286",
-                        "merchantReference": "merchant-8j9j00",
-                        "KYCInformation": {
-                          "businessName": "Oma's Empire",
-                          "email": "email@gmail.com"
-                        },
-                        "accountInformation": {
-                          "accountNumber": "7003000100286",
-                          "accountName": "Oma's Empire",
-                          "reference": "2bd48a28-0199-4de8-bac0-ae998efaad9e",
-                          "bankName": "First Bank"
-                        },
-                        "_id": "6865acbe26869a007121d7f5b",
-                        "business": "64493f61864cdb7aab9bb4576",
-                        "currency": "GHS",
-                        "accountType": "corporate",
-                        "entityType": "main_account",
-                        "currencyType": "fiat",
-                        "createdAt": "2025-07-02T22:03:42.724Z",
-                        "updatedAt": "2025-07-02T22:03:42.724Z"
-                      }
-                    },
-                    "summary": "GHS"
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Thank you, Omobola Ibrahim. We are now processing your GBP account request"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "status": {
-                          "type": "string",
-                          "example": "pending"
-                        },
-                        "isActive": {
-                          "type": "boolean",
-                          "example": false,
-                          "default": true
-                        },
-                        "accountNumber": {},
-                        "merchantReference": {},
-                        "KYCInformation": {
-                          "type": "object",
-                          "properties": {
-                            "address": {
-                              "type": "object",
-                              "properties": {
-                                "countryOfResidence": {
-                                  "type": "string",
-                                  "example": "NG"
-                                },
-                                "zip": {
-                                  "type": "string",
-                                  "example": "23401"
-                                },
-                                "street": {
-                                  "type": "string",
-                                  "example": "Ikereku"
-                                },
-                                "number": {
-                                  "type": "string",
-                                  "example": "2"
-                                },
-                                "state": {
-                                  "type": "string",
-                                  "example": "Lagos"
-                                },
-                                "city": {
-                                  "type": "string",
-                                  "example": "Alimosho"
-                                }
-                              }
-                            },
-                            "document": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "example": "passport"
-                                },
-                                "number": {
-                                  "type": "string",
-                                  "example": "B23455"
-                                },
-                                "issuedCountryCode": {
-                                  "type": "string",
-                                  "example": "NG"
-                                },
-                                "issuedBy": {
-                                  "type": "string",
-                                  "example": "government"
-                                },
-                                "issuedDate": {
-                                  "type": "string",
-                                  "example": "2020-01-01"
-                                },
-                                "expirationDate": {
-                                  "type": "string",
-                                  "example": "2025-02-02T00:00:00.000Z"
-                                }
-                              }
-                            },
-                            "firstName": {
-                              "type": "string",
-                              "example": "Ayomide"
-                            },
-                            "lastName": {
-                              "type": "string",
-                              "example": "Omotolani"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "omotola@gmail.com"
-                            },
-                            "birthDate": {
-                              "type": "string",
-                              "example": "1223-02-02"
-                            },
-                            "nationality": {
-                              "type": "string",
-                              "example": "NG"
-                            },
-                            "incomeBand": {
-                              "type": "string",
-                              "example": "0-90000"
-                            },
-                            "phone": {
-                              "type": "string",
-                              "example": "09098765432"
-                            },
-                            "occupation": {
-                              "type": "string",
-                              "example": "Dev Rel"
-                            },
-                            "sourceOfIncome": {
-                              "type": "string",
-                              "example": "Dev rel"
-                            },
-                            "accountDesignation": {
-                              "type": "string",
-                              "example": "personal"
-                            },
-                            "employmentStatus": {
-                              "type": "string",
-                              "example": "Employed"
-                            }
-                          }
-                        },
-                        "accountInformation": {},
-                        "verifiedKYCData": {},
-                        "note": {},
-                        "accountOpeningFee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "pendingAdditionalInfoCount": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "isPermanent": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "expiresAt": {},
-                        "isCheckoutVa": {
-                          "type": "boolean",
-                          "example": false,
-                          "default": true
-                        },
-                        "isBankTransferVa": {
-                          "type": "boolean",
-                          "example": false,
-                          "default": true
-                        },
-                        "isSuspended": {
-                          "type": "boolean",
-                          "example": false,
-                          "default": true
-                        },
-                        "reason": {},
-                        "monthlyVolume": {},
-                        "entityName": {},
-                        "paymentFlowDescription": {},
-                        "attachments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "meansOfId": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string",
-                                "example": "france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
-                              },
-                              "url": {
-                                "type": "string",
-                                "example": "https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_033abdf0-2adc-499c-af6d-086b315d5cdc.jpg"
-                              }
-                            }
-                          }
-                        },
-                        "bankStatement": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string",
-                                "example": "france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
-                              },
-                              "url": {
-                                "type": "string",
-                                "example": "https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_85379bd3-8cf6-444f-848b-97b03e8f7a1c.jpg"
-                              }
-                            }
-                          }
-                        },
-                        "utilityBill": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string",
-                                "example": "france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
-                              },
-                              "url": {
-                                "type": "string",
-                                "example": "https://reviewtestbucket.s3.amazonaws.com/va_documents/france-in-pictures-beautiful-places-to-photograph-eiffel-tower_347b4c39-ccd0-4298-a5d4-c8b11e113e90.jpg"
-                              }
-                            }
-                          }
-                        },
-                        "virtualAccountType": {
-                          "type": "string",
-                          "example": "additional"
-                        },
-                        "riskRating": {},
-                        "checklist": {},
-                        "riskScreening": {},
-                        "channelKycUpdateStatus": {},
-                        "channelKycUpdateResponse": {},
-                        "_id": {
-                          "type": "string",
-                          "example": "64ad8a2748165924f46d6ad0"
-                        },
-                        "business": {
-                          "type": "string",
-                          "example": "63da866cb938c4e0b871f514"
-                        },
-                        "currency": {
-                          "type": "string",
-                          "example": "GBP"
-                        },
-                        "accountType": {
-                          "type": "string",
-                          "example": "individual"
-                        },
-                        "entityType": {
-                          "type": "string",
-                          "example": "main_account"
-                        },
-                        "currencyType": {
-                          "type": "string",
-                          "example": "fiat"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2023-07-11T16:58:15.641Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2023-07-11T16:58:15.641Z"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "400",
+            "description": "The request is invalid for the selected currency or account type.",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication credentials are missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The virtual-account product or selected currency is not enabled for the merchant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
         }
-      }
-    },
-    "/profile/virtual-accounts/": {
+      },
       "get": {
+        "summary": "List virtual-account request options",
+        "description": "Return every supported virtual-account currency and indicate whether the authenticated business has already requested an account in that currency.",
+        "operationId": "list-virtual-account-request-options",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Virtual-account request options returned successfully.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "results": {
-                          "type": "array",
-                          "items": {
-                            "properties": {},
-                            "type": "object"
-                          },
-                          "description": "List of collection accounts for the specified currency"
-                        },
-                        "total": {
-                          "type": "number",
-                          "description": "Total number of accounts"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/VirtualAccountRequestOptionsResponse"
                 }
               }
             }
-          }
-        },
-        "parameters": [
-          {
-            "in": "query",
-            "name": "currency",
-            "schema": {
-              "type": "string",
-              "default": "CAD"
-            },
-            "required": true,
-            "description": "The currency of the accounts to retrieve. Set to cad for Interac collection accounts"
-          }
-        ],
-        "summary": "Get Accounts by Currency",
-        "operationId": "get_profile-virtual-accounts",
-        "description": "Fetch all collection accounts for a currency. Use CAD to retrieve accounts with their assigned Interac emails."
-      }
-    },
-    "/profile/virtual-accounts/requests": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "parameters": [],
-        "summary": "Create CAD Collection Account",
-        "description": "Request a CAD collection account and receive a unique Interac collection alias.",
-        "operationId": "post_profile-virtual-accounts-requests",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accountType": {
-                    "type": "string",
-                    "default": "individual",
-                    "enum": [
-                      "individual",
-                      "corporate"
-                    ]
-                  },
-                  "currency": {
-                    "type": "string",
-                    "default": "CAD"
-                  },
-                  "KYCInformation": {
-                    "type": "object",
-                    "properties": {
-                      "firstName": {
-                        "type": "string"
-                      },
-                      "lastName": {
-                        "type": "string"
-                      },
-                      "otherName": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "phone": {
-                        "type": "string"
-                      },
-                      "address": {
-                        "type": "object",
-                        "properties": {
-                          "countryOfResidence": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "string"
-                          },
-                          "street": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "state": {
-                            "type": "string"
-                          },
-                          "zip": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "zip",
-                          "state",
-                          "city",
-                          "street",
-                          "number",
-                          "countryOfResidence"
-                        ]
-                      },
-                      "document": {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "string"
-                          },
-                          " issuedCountryCode": {
-                            "type": "string"
-                          },
-                          "issuedBy": {
-                            "type": "string"
-                          },
-                          "issuedDate": {
-                            "type": "string"
-                          },
-                          "expirationDate": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "type",
-                          "number",
-                          " issuedCountryCode",
-                          "issuedBy"
-                        ]
-                      },
-                      "birthDate": {
-                        "type": "string"
-                      },
-                      "nationality": {
-                        "type": "string"
-                      },
-                      "occupation": {
-                        "type": "string"
-                      },
-                      "accountDestination": {
-                        "type": "string"
-                      },
-                      "taxCountry": {
-                        "type": "string"
-                      },
-                      "taxNumber": {
-                        "type": "string"
-                      },
-                      " monthlyTransactionVolume": {
-                        "type": "string"
-                      },
-                      "monthlyTransactionCount": {
-                        "type": "string"
-                      },
-                      "sourceOfIncome": {
-                        "type": "string"
-                      },
-                      "employmentStatus": {
-                        "type": "string"
-                      },
-                      " incomeBand": {
-                        "type": "object",
-                        "properties": {
-                          "lower": {
-                            "type": "string",
-                            "description": "positive number"
-                          },
-                          "upper": {
-                            "type": "string",
-                            "description": " positive number, must be > lower"
-                          }
-                        },
-                        "required": [
-                          "upper",
-                          "lower"
-                        ]
-                      },
-                      "annualIncome": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "firstName",
-                      "lastName",
-                      "address",
-                      "document",
-                      "nationality",
-                      "birthDate",
-                      "occupation",
-                      "accountDestination",
-                      "taxCountry",
-                      " monthlyTransactionVolume",
-                      "sourceOfIncome",
-                      "monthlyTransactionCount",
-                      "taxNumber",
-                      "employmentStatus",
-                      " incomeBand"
-                    ]
-                  },
-                  "meansOfId": {
-                    "type": "string",
-                    "description": "string (URL) or file object or array of those. Passport: exactly 1 item. Other doc types: minimum 2 items."
-                  },
-                  "utilityBill": {
-                    "type": "string",
-                    "description": "string (URL)"
-                  },
-                  "bankStatement": {
-                    "type": "string",
-                    "description": "string (URL)"
-                  },
-                  "purpose": {
-                    "type": "string",
-                    "description": "Optional (default \"\")"
-                  },
-                  "note": {
-                    "type": "string"
-                  },
-                  "emerchantReference": {
-                    "type": "string"
-                  },
-                  "metadata": {
-                    "type": "string",
-                    "description": "any"
-                  },
-                  "files": {
-                    "type": "string",
-                    "description": "any (multipart uploads)"
-                  },
-                  "accountOpeningDate": {
-                    "type": "string",
-                    "description": "ISO date"
-                  },
-                  "isTermsAccepted": {
-                    "type": "boolean"
-                  },
-                  " termsAndConditionAcceptance": {
-                    "type": "object",
-                    "properties": {
-                      "date": {
-                        "type": "string",
-                        "description": "ISO date"
-                      },
-                      "ipAddress": {
-                        "type": "string",
-                        "description": "Valid IPv4/IPv6"
-                      }
-                    },
-                    "required": [
-                      "date",
-                      "ipAddress"
-                    ]
-                  }
-                },
-                "required": [
-                  "accountType",
-                  "currency",
-                  "KYCInformation",
-                  "meansOfId",
-                  "utilityBill"
-                ]
+          },
+          "400": {
+            "description": "The request is invalid for the selected currency or account type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication credentials are missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -11924,6 +11364,202 @@
           }
         },
         "deprecated": false
+      }
+    },
+    "/profile/virtual-accounts": {
+      "get": {
+        "summary": "List permanent virtual accounts",
+        "description": "Return a paginated list of permanent virtual accounts for the authenticated business. Use query parameters to filter the collection; never place query strings in the OpenAPI path key.",
+        "operationId": "list-permanent-virtual-accounts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VirtualAccountStatus"
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VirtualAccountCurrency"
+            }
+          },
+          {
+            "name": "accountType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VirtualAccountType"
+            }
+          },
+          {
+            "name": "entityType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "main_account",
+                "sub_account"
+              ]
+            }
+          },
+          {
+            "name": "requestedDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "issuedDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "businessName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "virtualAccountType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "merchantReference",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permanent virtual accounts returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is invalid for the selected currency or account type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication credentials are missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/virtual-accounts/{id}": {
+      "get": {
+        "summary": "Retrieve a permanent virtual account",
+        "description": "Retrieve one permanent virtual account by its Fincra virtual-account ID, regardless of currency.",
+        "operationId": "get-permanent-virtual-account",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The virtual-account ID returned when the request was accepted.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{24}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The permanent virtual account was returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is invalid for the selected currency or account type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication credentials are missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No virtual account exists for the supplied ID and authenticated business.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
