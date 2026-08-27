@@ -2,7 +2,7 @@
 title: Errors
 excerpt: Every error a China payout returns, what causes it, and the fix.
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   robots: index
 ---

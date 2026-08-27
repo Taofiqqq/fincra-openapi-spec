@@ -2,7 +2,7 @@
 title: Test your integration
 excerpt: What the sandbox does, the ten cases to run, and the data you need for each.
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   robots: index
 ---

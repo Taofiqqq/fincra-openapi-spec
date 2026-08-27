@@ -2,7 +2,7 @@
 title: Create a sender
 excerpt: Make the party that sends the money, and get it approved
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   robots: index
 ---
