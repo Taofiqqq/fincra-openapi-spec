@@ -37,11 +37,17 @@ All that is needed is for the request to be made by calling the [create virtual 
 
 ## 🏦 Supported Bank
 
-| Bank Name      | GHIPSS Code | Notes                       |
-| -------------- | ----------- | --------------------------- |
-| **First Bank** | `200100`    | Default issuing institution |
+| Bank Name            | GHIPSS Code | Notes                       |
+| -------------------- | ----------- | --------------------------- |
+| **First Bank&#x20;** | `200100`    | Default issuing institution |
 
-<br />
+### Note:&#x20;
+
+#### Access to the GHS Virtual Account may be restricted. If you receive an `ACCESS_DENIED` error when attempting to create a GHS Virtual Account, this means the request requires a review or approval.
+
+In this case, please send a request to **[compliance@fincra.com](mailto:compliance@fincra.com)** and copy **[globalpaymentsystems@fincra.com.](mailto:globalpaymentsystems@fincra.com)&#x20;**
+
+The request should include merchant name, email and business ID. Once the review is completed and access is approved, you may proceed with the virtual account creation.
 
 ***
 
@@ -225,5 +231,3 @@ Refer to: **[Funding a Virtual Account →](https://docs.fincra.com/docs/funding
 <Callout icon="📌" theme="default">
   ### For updates on changes to the Virtual Account endpoint, watch your email.
 </Callout>
-
-<br />
