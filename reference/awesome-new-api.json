@@ -928,6 +928,393 @@
             "additionalProperties": true
           }
         }
+      },
+      "CollectionSimulationCurrency": {
+        "type": "string",
+        "description": "Three-letter currency code for the collection being simulated.",
+        "enum": [
+          "NGN",
+          "KES",
+          "GHS",
+          "GBP",
+          "EUR",
+          "USD",
+          "UGX",
+          "TZS",
+          "ZAR",
+          "ZMW",
+          "CAD"
+        ],
+        "example": "NGN"
+      },
+      "CollectionSimulationParty": {
+        "type": "object",
+        "description": "A participant in the simulated collection. Provide exactly one of `accountNumber` or `interacEmail`.",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the account holder or sender.",
+            "example": "Kora Tumaini"
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "Account number used for bank-account collection rails.",
+            "example": "0123456789"
+          },
+          "interacEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Interac email alias used for CAD Interac collections.",
+            "example": "kora.tumaini@example.com"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Bank code, where applicable to the collection rail.",
+            "example": "058"
+          },
+          "bankName": {
+            "type": "string",
+            "description": "Bank name, where applicable to the collection rail.",
+            "example": "Guaranty Trust Bank"
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "accountNumber"
+            ]
+          },
+          {
+            "required": [
+              "interacEmail"
+            ]
+          }
+        ]
+      },
+      "CollectionSimulationRequest": {
+        "type": "object",
+        "required": [
+          "amount",
+          "currency",
+          "payer",
+          "payee"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Amount to simulate. Use `999` to simulate a failed collection. For eligible additional virtual accounts, amounts of `10000` or more simulate an RFI flow.",
+            "example": 1000
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CollectionSimulationCurrency"
+          },
+          "payer": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSimulationParty"
+              }
+            ],
+            "description": "The customer or sender making the simulated payment. Use bank-account details for local bank rails or an Interac email for CAD."
+          },
+          "payee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSimulationParty"
+              }
+            ],
+            "description": "An existing virtual account belonging to your authenticated business in the same currency as the simulation. Identify it by account number or Interac email."
+          },
+          "reference": {
+            "type": "string",
+            "description": "Your identifier for the simulated customer or transaction. It is returned as `data.metadata.customerId`; Fincra generates `data.reference` separately.",
+            "example": "kora-ngn-success-20260829"
+          },
+          "narration": {
+            "type": "string",
+            "description": "Description of the simulated collection. It is returned in `data.description`.",
+            "example": "NGN collection simulation"
+          }
+        }
+      },
+      "CollectionSimulationBankDetails": {
+        "type": "object",
+        "required": [
+          "bankName",
+          "bankCode",
+          "swiftCode",
+          "bic"
+        ],
+        "properties": {
+          "bankName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Sender bank name."
+          },
+          "bankCode": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Sender bank code."
+          },
+          "swiftCode": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Sender bank SWIFT code, when available."
+          },
+          "bic": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Sender bank BIC, when available."
+          }
+        }
+      },
+      "CollectionSimulationData": {
+        "type": "object",
+        "required": [
+          "_id",
+          "business",
+          "sessionId",
+          "senderAccountName",
+          "senderAccountNumber",
+          "senderBankName",
+          "senderBankDetails",
+          "recipientAccountName",
+          "recipientAccountNumber",
+          "recipientBankName",
+          "sourceCurrency",
+          "destinationCurrency",
+          "sourceAmount",
+          "destinationAmount",
+          "description",
+          "amountReceived",
+          "fee",
+          "customerName",
+          "settlementDestination",
+          "status",
+          "initiatedAt",
+          "createdAt",
+          "updatedAt",
+          "reference"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Internal collection identifier. Sandbox simulations may return an empty string.",
+            "example": ""
+          },
+          "business": {
+            "type": "string",
+            "description": "Fincra business ID associated with the virtual account.",
+            "example": "65f1c9ef838af8cda0211d9d"
+          },
+          "virtualAccount": {
+            "type": "string",
+            "description": "Fincra ID of the virtual account receiving the simulated collection.",
+            "example": "65f1ca2e838af8cda0211e02"
+          },
+          "virtualAccountType": {
+            "type": "string",
+            "description": "Type of virtual account receiving the simulated collection.",
+            "example": "additional"
+          },
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Session identifier generated for the simulation.",
+            "example": "0124cf97-143b-4354-a7a1-3d00887f7ba7"
+          },
+          "senderAccountName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Kora Tumaini"
+          },
+          "senderAccountNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Sender account number or Interac email, depending on the rail.",
+            "example": "0123456789"
+          },
+          "senderBankName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Guaranty Trust Bank"
+          },
+          "senderBankDetails": {
+            "$ref": "#/components/schemas/CollectionSimulationBankDetails"
+          },
+          "recipientAccountName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Example Trading Limited"
+          },
+          "recipientAccountNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Recipient account number or Interac email, depending on the rail.",
+            "example": "0001234567"
+          },
+          "recipientBankName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Example Bank"
+          },
+          "sourceCurrency": {
+            "$ref": "#/components/schemas/CollectionSimulationCurrency"
+          },
+          "destinationCurrency": {
+            "$ref": "#/components/schemas/CollectionSimulationCurrency"
+          },
+          "sourceAmount": {
+            "type": "number",
+            "example": 1000
+          },
+          "destinationAmount": {
+            "type": "number",
+            "example": 1000
+          },
+          "description": {
+            "type": "string",
+            "example": "NGN collection simulation"
+          },
+          "amountReceived": {
+            "type": "number",
+            "description": "Net amount received after applicable fees.",
+            "example": 986
+          },
+          "fee": {
+            "type": "number",
+            "description": "Fee calculated for the simulated collection.",
+            "example": 13.999999999999998
+          },
+          "customerName": {
+            "type": "string",
+            "example": "Kora Tumaini"
+          },
+          "settlementDestination": {
+            "type": "string",
+            "example": "wallet"
+          },
+          "status": {
+            "type": "string",
+            "description": "Simulated transaction outcome. This is independent of the top-level `success` field.",
+            "enum": [
+              "successful",
+              "failed",
+              "pending"
+            ],
+            "example": "successful"
+          },
+          "initiatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-08-29T17:35:00.698Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-08-29T17:35:00.725Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-08-29T17:35:00.725Z"
+          },
+          "reference": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Collection reference generated by Fincra.",
+            "example": "0c05c977-2fd6-46f4-9272-5f4a60ef1e1b"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata attached to the simulated collection.",
+            "additionalProperties": true,
+            "properties": {
+              "customerId": {
+                "type": "string",
+                "description": "The value supplied in the request `reference` field.",
+                "example": "kora-ngn-success-20260829"
+              }
+            }
+          }
+        }
+      },
+      "CollectionSimulationResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": true,
+            "description": "Indicates that Fincra processed the simulation request, not that the simulated collection succeeded."
+          },
+          "message": {
+            "type": "string",
+            "const": "Collection processed successfully"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CollectionSimulationData"
+          }
+        }
+      },
+      "CollectionSimulationErrorResponse": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "const": false
+          },
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "errors": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
       }
     }
   },
@@ -10231,108 +10618,95 @@
     },
     "/collections/transfer/simulate": {
       "post": {
-        "summary": "Simulate Collection",
-        "description": "Call this endpoint to simulate a transfer into your account",
+        "tags": [
+          "Simulation (Sandbox only)"
+        ],
+        "summary": "Simulate a collection",
+        "description": "Simulate an incoming collection to one of your existing Fincra virtual accounts.\n\n> **Sandbox only:** This operation is available through `https://sandboxapi.fincra.com`. It does not create a real transfer or move real funds.\n\nThe `payee` must identify an existing virtual account belonging to your authenticated business in the same currency as the simulation. Use `accountNumber` for bank-account rails or `interacEmail` for CAD Interac collections. Replace the placeholder payee details in the examples before using **Try It**.\n\nThe simulator always processes the collection as a virtual-account payment. You do not need to send a payment-method field.\n\n### Simulation outcomes\n\n| Outcome | Request value | Response status | Webhook event |\n| --- | --- | --- | --- |\n| Successful | Any amount other than `999`, unless the RFI rule below applies | `successful` | `collection.successful` |\n| Failed | `amount: 999` | `failed` | `collection.failed` |\n| Request for information (RFI) | `amount` of `10000` or more for an additional virtual account in CAD, GBP, EUR, USD, ZAR or ZMW | `pending` | `collection.additional-info-requested` |\n\n> A `200` response with top-level `success: true` means the simulation request was processed. Always inspect `data.status` for the simulated transaction outcome.\n\nIf you supply `reference`, Fincra returns it as `data.metadata.customerId`. The value in `data.reference` is the collection reference generated by Fincra.",
         "operationId": "simulate-collection",
+        "security": [
+          {
+            "sec0": []
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "currency"
-                ],
-                "properties": {
-                  "currency": {
-                    "type": "string",
-                    "description": "the currency you are simulating a payment in"
-                  },
-                  "amount": {
-                    "type": "integer",
-                    "description": "Amount to simulate payment inflow for",
-                    "format": "int32"
-                  },
-                  "payer": {
-                    "type": "object",
-                    "description": "The customer making payment",
-                    "required": [
-                      "name",
-                      "accountNumber",
-                      "bankCode",
-                      "bankName"
-                    ],
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "name of the sender"
-                      },
-                      "accountNumber": {
-                        "type": "string",
-                        "description": "account number of the sender"
-                      },
-                      "bankCode": {
-                        "type": "string",
-                        "description": "sender bank code"
-                      },
-                      "bankName": {
-                        "type": "string",
-                        "description": "Name of the bank"
-                      }
-                    }
-                  },
-                  "payee": {
-                    "type": "object",
-                    "description": "The account information that your customer will use to make payment into",
-                    "required": [
-                      "name",
-                      "accountNumber",
-                      "bankCode",
-                      "bankName"
-                    ],
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "name of the sender"
-                      },
-                      "accountNumber": {
-                        "type": "string",
-                        "description": "account number of the sender"
-                      },
-                      "bankCode": {
-                        "type": "string",
-                        "description": "sender bank code"
-                      },
-                      "bankName": {
-                        "type": "string",
-                        "description": "Name of the bank"
-                      }
-                    }
-                  },
-                  "reference": {
-                    "type": "string",
-                    "description": "Use this to pass your unique identifier for your customer to simulate the webhook response with customerId"
-                  }
-                }
+                "$ref": "#/components/schemas/CollectionSimulationRequest"
               },
               "examples": {
-                "Request Example": {
+                "ngnSuccessful": {
+                  "summary": "NGN — successful",
                   "value": {
-                    "currency": "KES",
-                    "amount": 52000,
+                    "amount": 1000,
+                    "currency": "NGN",
                     "payer": {
-                      "name": "STEPHEN DAMILOLA IBIDUN",
-                      "accountNumber": "2280495927",
-                      "bankCode": "000004",
-                      "bankName": "UNITED BANK FOR AFRICA"
+                      "name": "Kora Tumaini",
+                      "accountNumber": "0123456789",
+                      "bankCode": "058",
+                      "bankName": "Guaranty Trust Bank"
                     },
                     "payee": {
-                      "accountNumber": "55010160017435",
-                      "name": "FINCRA TECHNOLOGIES LTD (XT)",
-                      "bankName": "United Bank for Africa Kenya",
-                      "bankCode": "76001"
+                      "name": "Your business name",
+                      "accountNumber": "YOUR_NGN_VIRTUAL_ACCOUNT_NUMBER"
                     },
-                    "reference": "mycustomer01a",
-                    "narration": "NIP:STEPHEN DAMILOLA IBIDUN-1291189564/FINCRA TECHNOLOGIES (Pty) LTD (XT)"
+                    "reference": "kora-ngn-success-20260829",
+                    "narration": "NGN collection simulation"
+                  }
+                },
+                "ngnFailed": {
+                  "summary": "NGN — failed",
+                  "value": {
+                    "amount": 999,
+                    "currency": "NGN",
+                    "payer": {
+                      "name": "Kora Tumaini",
+                      "accountNumber": "0123456789",
+                      "bankCode": "058",
+                      "bankName": "Guaranty Trust Bank"
+                    },
+                    "payee": {
+                      "name": "Your business name",
+                      "accountNumber": "YOUR_NGN_VIRTUAL_ACCOUNT_NUMBER"
+                    },
+                    "reference": "kora-ngn-failed-20260829",
+                    "narration": "Failed NGN collection simulation"
+                  }
+                },
+                "cadSuccessful": {
+                  "summary": "CAD Interac — successful",
+                  "value": {
+                    "amount": 1000,
+                    "currency": "CAD",
+                    "payer": {
+                      "name": "Kora Tumaini",
+                      "interacEmail": "kora.tumaini@example.com"
+                    },
+                    "payee": {
+                      "name": "Your business name",
+                      "interacEmail": "your-cad-alias@example.com"
+                    },
+                    "reference": "kora-cad-success-20260829",
+                    "narration": "CAD Interac collection simulation"
+                  }
+                },
+                "cadRfi": {
+                  "summary": "CAD Interac — RFI",
+                  "value": {
+                    "amount": 10000,
+                    "currency": "CAD",
+                    "payer": {
+                      "name": "Kora Tumaini",
+                      "interacEmail": "kora.tumaini@example.com"
+                    },
+                    "payee": {
+                      "name": "Your business name",
+                      "interacEmail": "your-cad-alias@example.com"
+                    },
+                    "reference": "kora-cad-rfi-20260829",
+                    "narration": "CAD Interac collection RFI simulation"
                   }
                 }
               }
@@ -10341,133 +10715,95 @@
         },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "The simulation was processed. Inspect `data.status` to determine the simulated transaction outcome.",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{\n    \"success\": true,\n    \"message\": \"Collection processed successfully\",\n    \"data\": {\n        \"business\": \"6321e754fd67117e4466f306\",\n        \"virtualAccount\": \"6706b9056f8e7084abbe90bb\",\n        \"sessionId\": \"3beadd46-c6d5-4e77-b505-85b0951b18d1\",\n        \"senderAccountName\": \"STEPHEN DAMILOLA IBIDUN\",\n        \"senderAccountNumber\": \"2280495927\",\n        \"senderBankName\": \"UNITED BANK FOR AFRICA\",\n        \"recipientAccountName\": \"FINCRA TECHNOLOGIES LTD (XT)\",\n        \"recipientAccountNumber\": \"55010160017435\",\n        \"recipientBankName\": \"United Bank for Africa Kenya\",\n        \"sourceCurrency\": \"KES\",\n        \"destinationCurrency\": \"KES\",\n        \"sourceAmount\": 1000,\n        \"destinationAmount\": 1000,\n        \"description\": \"NIP:STEPHEN DAMILOLA IBIDUN-1291189564/FINCRA TECHNOLOGIES (Pty) LTD (XT)\",\n        \"amountReceived\": 990,\n        \"fee\": 10,\n        \"customerName\": \"STEPHEN DAMILOLA IBIDUN\",\n        \"settlementDestination\": \"wallet\",\n        \"status\": \"successful\",\n        \"initiatedAt\": \"2024-10-11T07:17:21.952Z\",\n        \"createdAt\": \"2024-10-11T07:17:21.955Z\",\n        \"updatedAt\": \"2024-10-11T07:17:21.955Z\",\n        \"reference\": \"fcd6d5db-aa5d-4de3-b695-6762e625d5b3\",\n        \"metadata\": {\n            \"customerId\": \"mycustomer01a\"\n        }\n    }\n}"
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true,
-                      "default": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Collection processed successfully"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "business": {
-                          "type": "string",
-                          "example": "6321e754fd67117e4466f306"
+                  "$ref": "#/components/schemas/CollectionSimulationResponse"
+                },
+                "examples": {
+                  "successful": {
+                    "summary": "Successful collection",
+                    "value": {
+                      "success": true,
+                      "message": "Collection processed successfully",
+                      "data": {
+                        "_id": "",
+                        "business": "65f1c9ef838af8cda0211d9d",
+                        "virtualAccount": "65f1ca2e838af8cda0211e02",
+                        "virtualAccountType": "additional",
+                        "sessionId": "0124cf97-143b-4354-a7a1-3d00887f7ba7",
+                        "senderAccountName": "Kora Tumaini",
+                        "senderAccountNumber": "0123456789",
+                        "senderBankName": "Guaranty Trust Bank",
+                        "senderBankDetails": {
+                          "bankName": "Guaranty Trust Bank",
+                          "bankCode": "058",
+                          "swiftCode": null,
+                          "bic": null
                         },
-                        "virtualAccount": {
-                          "type": "string",
-                          "example": "6706b9056f8e7084abbe90bb"
-                        },
-                        "sessionId": {
-                          "type": "string",
-                          "example": "3beadd46-c6d5-4e77-b505-85b0951b18d1"
-                        },
-                        "senderAccountName": {
-                          "type": "string",
-                          "example": "STEPHEN DAMILOLA IBIDUN"
-                        },
-                        "senderAccountNumber": {
-                          "type": "string",
-                          "example": "2280495927"
-                        },
-                        "senderBankName": {
-                          "type": "string",
-                          "example": "UNITED BANK FOR AFRICA"
-                        },
-                        "recipientAccountName": {
-                          "type": "string",
-                          "example": "FINCRA TECHNOLOGIES LTD (XT)"
-                        },
-                        "recipientAccountNumber": {
-                          "type": "string",
-                          "example": "55010160017435"
-                        },
-                        "recipientBankName": {
-                          "type": "string",
-                          "example": "United Bank for Africa Kenya"
-                        },
-                        "sourceCurrency": {
-                          "type": "string",
-                          "example": "KES"
-                        },
-                        "destinationCurrency": {
-                          "type": "string",
-                          "example": "KES"
-                        },
-                        "sourceAmount": {
-                          "type": "integer",
-                          "example": 1000,
-                          "default": 0
-                        },
-                        "destinationAmount": {
-                          "type": "integer",
-                          "example": 1000,
-                          "default": 0
-                        },
-                        "description": {
-                          "type": "string",
-                          "example": "NIP:STEPHEN DAMILOLA IBIDUN-1291189564/FINCRA TECHNOLOGIES (Pty) LTD (XT)"
-                        },
-                        "amountReceived": {
-                          "type": "integer",
-                          "example": 990,
-                          "default": 0
-                        },
-                        "fee": {
-                          "type": "integer",
-                          "example": 10,
-                          "default": 0
-                        },
-                        "customerName": {
-                          "type": "string",
-                          "example": "STEPHEN DAMILOLA IBIDUN"
-                        },
-                        "settlementDestination": {
-                          "type": "string",
-                          "example": "wallet"
-                        },
-                        "status": {
-                          "type": "string",
-                          "example": "successful"
-                        },
-                        "initiatedAt": {
-                          "type": "string",
-                          "example": "2024-10-11T07:17:21.952Z"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-10-11T07:17:21.955Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-10-11T07:17:21.955Z"
-                        },
-                        "reference": {
-                          "type": "string",
-                          "example": "fcd6d5db-aa5d-4de3-b695-6762e625d5b3"
-                        },
+                        "recipientAccountName": "Example Trading Limited",
+                        "recipientAccountNumber": "0001234567",
+                        "recipientBankName": "Example Bank",
+                        "sourceCurrency": "NGN",
+                        "destinationCurrency": "NGN",
+                        "sourceAmount": 1000,
+                        "destinationAmount": 1000,
+                        "description": "NGN collection simulation",
+                        "amountReceived": 986,
+                        "fee": 13.999999999999998,
+                        "customerName": "Kora Tumaini",
+                        "settlementDestination": "wallet",
+                        "status": "successful",
+                        "initiatedAt": "2026-08-29T17:35:00.698Z",
+                        "createdAt": "2026-08-29T17:35:00.725Z",
+                        "updatedAt": "2026-08-29T17:35:00.725Z",
+                        "reference": "0c05c977-2fd6-46f4-9272-5f4a60ef1e1b",
                         "metadata": {
-                          "type": "object",
-                          "properties": {
-                            "customerId": {
-                              "type": "string",
-                              "example": "mycustomer01a"
-                            }
-                          }
+                          "customerId": "kora-ngn-success-20260829"
+                        }
+                      }
+                    }
+                  },
+                  "failed": {
+                    "summary": "Failed collection",
+                    "value": {
+                      "success": true,
+                      "message": "Collection processed successfully",
+                      "data": {
+                        "_id": "",
+                        "business": "65f1c9ef838af8cda0211d9d",
+                        "virtualAccount": "65f1ca2e838af8cda0211e02",
+                        "virtualAccountType": "additional",
+                        "sessionId": "144c504b-90f7-497a-ac82-ab06aa79a182",
+                        "senderAccountName": "Kora Tumaini",
+                        "senderAccountNumber": "0123456789",
+                        "senderBankName": "Guaranty Trust Bank",
+                        "senderBankDetails": {
+                          "bankName": "Guaranty Trust Bank",
+                          "bankCode": "058",
+                          "swiftCode": null,
+                          "bic": null
+                        },
+                        "recipientAccountName": "Example Trading Limited",
+                        "recipientAccountNumber": "0001234567",
+                        "recipientBankName": "Example Bank",
+                        "sourceCurrency": "NGN",
+                        "destinationCurrency": "NGN",
+                        "sourceAmount": 999,
+                        "destinationAmount": 999,
+                        "description": "Failed NGN collection simulation",
+                        "amountReceived": 985.01,
+                        "fee": 13.985999999999999,
+                        "customerName": "Kora Tumaini",
+                        "settlementDestination": "wallet",
+                        "status": "failed",
+                        "initiatedAt": "2026-08-29T17:40:26.701Z",
+                        "createdAt": "2026-08-29T17:40:26.703Z",
+                        "updatedAt": "2026-08-29T17:40:26.703Z",
+                        "reference": "faab6721-5f55-4015-b8c6-70228adaacd2",
+                        "metadata": {
+                          "customerId": "kora-ngn-failed-20260829"
                         }
                       }
                     }
@@ -10477,17 +10813,46 @@
             }
           },
           "400": {
-            "description": "400",
+            "description": "The request payload is invalid.",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "$ref": "#/components/schemas/CollectionSimulationErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The sandbox API key is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionSimulationErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The operation is unavailable outside the sandbox environment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionSimulationErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No virtual account belonging to the authenticated business matches the supplied payee and currency.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionSimulationErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Virtual account not found",
+                  "errorType": "RESOURCE_NOT_FOUND"
                 }
               }
             }
@@ -11595,6 +11960,10 @@
     {
       "name": "Permanent Account",
       "description": "Permanent virtual-account requests and account management."
+    },
+    {
+      "name": "Simulation (Sandbox only)",
+      "description": "Sandbox-only operations for simulating API and webhook outcomes without moving real funds."
     }
   ]
 }
