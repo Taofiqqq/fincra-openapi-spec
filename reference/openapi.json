@@ -30,7 +30,7 @@
       "get": {
         "operationId": "getBusinessProfile",
         "summary": "Get business profile",
-        "description": "Retrieves the profile associated with your API key, including business details, verification status, notification preferences, Checkout settings, settlement settings, and webhook configuration. Use the `_id` returned in the response as your `business ID` when an endpoint requires `businessID` or `x-business-id`.",
+        "description": "Retrieves the authenticated business's profile.",
         "tags": [
           "Business"
         ],
@@ -104,7 +104,7 @@
       "patch": {
         "operationId": "updateBusinessSettings",
         "summary": "Update business settings",
-        "description": " Updates one or more settings for the specified business. Only the fields included in the request are changed. The request must contain at least one supported setting.",
+        "description": "Updates settings on your business, including your webhook configuration (`callbackURL`, `enableWebhook`, `enableWebhookRetry`), fee handling, and settlement preferences. All fields are optional — send only the fields you want to change. At least one field is required.",
         "tags": [
           "Business"
         ],
