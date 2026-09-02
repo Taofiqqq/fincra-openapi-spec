@@ -15,12 +15,153 @@ servers:
   - url: https://api.fincra.com
     description: Production
 
-tags: []
+tags:
+  - name: Business
+    description: Your business profile — the entity your Fincra integration acts on behalf of.
 
-paths: {}
+paths:
+  /profile/business/me:
+    get:
+      operationId: getBusinessProfile
+      summary: Get business profile
+      description: Retrieves the authenticated business's profile.
+      tags:
+        - Business
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Business profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Parent business fetched successfully
+                  data:
+                    $ref: "#/components/schemas/BusinessProfile"
+        "401":
+          description: Missing or invalid api-key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+        "403":
+          description: Authenticated merchant has no business profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: Merchant account does not have a business tied to it
+                  errorType:
+                    type: string
+                    example: BUSINESS_PROFILE_REQUIRED
 
 components:
-  securitySchemes: {}
-  schemas: {}
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: api-key
+      description: Your Sandbox or Production API key, generated from your dashboard.
 
-security: []
+  schemas:
+    GatewayAuthError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: No API key found in request
+        request_id:
+          type: string
+          example: 9fd0487056e1d44df9c855231b519b1
+
+    BusinessProfile:
+      type: object
+      description: >-
+        Field set is the real API response projection (PUBLIC_BUSINESS_FIELDS),
+        not the full internal business document — several internal-only fields
+        are intentionally excluded.
+      properties:
+        _id:
+          type: string
+          description: Your business ID.
+        name:
+          type: string
+        email:
+          type: string
+        mobile:
+          type: string
+        status:
+          type: string
+          enum: [enabled, disabled]
+        logo:
+          type: string
+          nullable: true
+        businessKey:
+          type: string
+        businessType:
+          type: string
+        website:
+          type: string
+        countryCallingCode:
+          type: string
+          nullable: true
+        businessTag:
+          type: integer
+          nullable: true
+        country:
+          type: string
+        isKYCApproved:
+          type: boolean
+        isBlocked:
+          type: boolean
+        isPrincipalBVNWatchlisted:
+          type: boolean
+        emailSettings:
+          type: object
+        checkoutSettings:
+          type: object
+        settlementSettings:
+          type: object
+        settings:
+          type: object
+          properties:
+            enableWebhook:
+              type: boolean
+            enableWebhookRetry:
+              type: boolean
+            callbackURL:
+              type: string
+              nullable: true
+            feeBearer:
+              type: string
+              enum: [customer, business]
+            settlementDestination:
+              type: string
+              enum: [wallet, bank_account]
+            acceptMispayments:
+              type: boolean
+            overrideBusinessEmail:
+              type: string
+              nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+security:
+  - apiKey: []
