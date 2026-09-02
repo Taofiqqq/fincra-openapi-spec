@@ -131,10 +131,43 @@ components:
           type: boolean
         emailSettings:
           type: object
+          properties:
+            disbursementNotification:
+              type: boolean
+            collectionNotification:
+              type: boolean
+            topupNotification:
+              type: boolean
+            settlementNotification:
+              type: boolean
+            paymentReceiptNotification:
+              type: boolean
         checkoutSettings:
           type: object
+          properties:
+            useBrandLogo:
+              type: boolean
+            buttonTextColor:
+              type: string
+              nullable: true
+            buttonColor:
+              type: string
+              nullable: true
+            fontColor:
+              type: string
+              nullable: true
+            fontFamily:
+              type: string
+              nullable: true
+            backgroundColor:
+              type: string
+              nullable: true
+            backgroundTextColor:
+              type: string
+              nullable: true
         settlementSettings:
           type: object
+          nullable: true
         settings:
           type: object
           properties:
