@@ -100,6 +100,59 @@
         }
       }
     },
+    "/profile/business": {
+      "get": {
+        "operationId": "getBusinessesByMerchant",
+        "summary": "List businesses",
+        "description": "Lists all top-level businesses the authenticated merchant administers. Sub-businesses are excluded. Returns an empty array, not an error, if the merchant has no businesses.",
+        "tags": [
+          "Business"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Businesses retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Merchant businesses fetched successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BusinessProfile"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid api-key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayAuthError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/profile/business/{businessID}/settings": {
       "patch": {
         "operationId": "updateBusinessSettings",
