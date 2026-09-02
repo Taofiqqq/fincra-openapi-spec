@@ -45,8 +45,22 @@ See [Errors](/v4.0/reference/errors) for error-handling guidance.
 
 ## Sandbox behavior
 
-Sandbox uses simulated data and test scenarios. Some product behaviour may differ from Production, so use the test values documented for each product and complete final validation with your live configuration before going live.
+Sandbox uses simulated data and test scenarios, so some features may behave differently from Production. Use the test values documented for each product, and validate your Production setup before processing live transactions.
 
 ## Pagination
 
-Paginated endpoints commonly accept `page` and `perPage` query parameters. Supported parameters, defaults, and limits are documented on each endpoint.
+Most paginated endpoints accept page and perPage query parameters. Endpoint-specific defaults and limits are documented with each endpoint.
+
+## Rate limits
+
+Fincra applies the following limits across its APIs:
+
+| Window     | Limit            |
+| ---------- | ---------------- |
+| Per second | 100 requests     |
+| Per minute | 4,200 requests   |
+| Per hour   | 200,000 requests |
+
+Requests that exceed any of these limits return an HTTP 429 Too Many Requests response. Reduce your request rate and retry using exponential backoff.
+
+If your integration requires higher limits, contact our Support team.
