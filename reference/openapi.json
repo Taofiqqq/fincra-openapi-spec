@@ -104,7 +104,7 @@
       "patch": {
         "operationId": "updateBusinessSettings",
         "summary": "Update business settings",
-        "description": "Updates one or more settings for the specified business. Only fields included in the request are changed; omitted fields retain their existing values. The request must contain at least one supported setting.",
+        "description": "Updates settings on your business, including your webhook configuration (`callbackURL`, `enableWebhook`, `enableWebhookRetry`), fee handling, and settlement preferences. All fields are optional — send only the fields you want to change. At least one field is required.",
         "tags": [
           "Business"
         ],
@@ -119,12 +119,9 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "minLength": 24,
-              "maxLength": 24,
-              "example": "64f1c2a4b7d9e30012ab4567"
+              "type": "string"
             },
-            "description": "The 24-character `_id` returned by Get business profile. The authenticated merchant must have access to this business."
+            "description": "Your business ID (the `_id` field from Get business profile)."
           }
         ],
         "requestBody": {
@@ -132,15 +129,75 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBusinessSettingsRequest"
+                "type": "object",
+                "minProperties": 1,
+                "properties": {
+                  "feeBearer": {
+                    "type": "string",
+                    "description": "Who bears the transaction fee."
+                  },
+                  "payoutPreference": {
+                    "type": "string"
+                  },
+                  "termsAccepted": {
+                    "type": "boolean"
+                  },
+                  "transactionEmails": {
+                    "type": "boolean"
+                  },
+                  "settlementCurrency": {
+                    "type": "string"
+                  },
+                  "settlementDestination": {
+                    "type": "string",
+                    "description": "Where settlements are sent, e.g. wallet or bank_account."
+                  },
+                  "useDefaultCurrenciesInAdminSettings": {
+                    "type": "boolean"
+                  },
+                  "acceptedCurrencies": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "walletAddressesForPayout": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "bankOptions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "defaultBankId": {
+                    "type": "string"
+                  },
+                  "enableWebhook": {
+                    "type": "boolean"
+                  },
+                  "enableWebhookRetry": {
+                    "type": "boolean"
+                  },
+                  "callbackURL": {
+                    "type": "string",
+                    "description": "Your webhook URL. Fincra sends event notifications here."
+                  },
+                  "acceptMispayments": {
+                    "type": "boolean"
+                  },
+                  "overrideBusinessEmail": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                }
               },
               "example": {
                 "callbackURL": "https://example.com/webhooks/fincra",
-                "enableWebhook": true,
-                "enableWebhookRetry": true,
-                "feeBearer": "business",
-                "settlementDestination": "wallet",
-                "acceptMispayments": true
+                "enableWebhook": true
               }
             }
           }
@@ -151,31 +208,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateBusinessSettingsResponse"
-                },
-                "example": {
-                  "success": true,
-                  "message": "You have successfully updated your business settings",
-                  "data": {
-                    "_id": "64f1c2a4b7d9e30012ab4567",
-                    "name": "Example Business",
-                    "email": "operations@example.com",
-                    "mobile": "+2348012345678",
-                    "status": "enabled",
-                    "country": "NG",
-                    "isKYCApproved": true,
-                    "isBlocked": false,
-                    "settings": {
-                      "enableWebhook": true,
-                      "enableWebhookRetry": true,
-                      "callbackURL": "https://example.com/webhooks/fincra",
-                      "feeBearer": "business",
-                      "settlementDestination": "wallet",
-                      "acceptMispayments": true,
-                      "overrideBusinessEmail": null
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
                     },
-                    "createdAt": "2025-01-15T09:30:00.000Z",
-                    "updatedAt": "2026-09-02T20:15:00.000Z"
+                    "message": {
+                      "type": "string",
+                      "example": "You have successfully updated your business settings"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/BusinessProfile"
+                    }
                   }
                 }
               }
@@ -191,91 +236,50 @@
               }
             }
           },
-          "403": {
-            "description": "The business is blocked or has not completed KYC approval",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApplicationError"
-                },
-                "examples": {
-                  "businessBlocked": {
-                    "summary": "Business is blocked",
-                    "value": {
-                      "success": false,
-                      "error": "Business has been blocked. Kindly contact support",
-                      "errorType": "ACCESS_DENIED"
-                    }
-                  },
-                  "kycNotApproved": {
-                    "summary": "Business KYC is not approved",
-                    "value": {
-                      "success": false,
-                      "error": "Business KYC has not been approved. Kindly contact support",
-                      "errorType": "ACCESS_DENIED"
-                    }
-                  }
-                }
-              }
-            }
-          },
           "404": {
             "description": "Business not found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApplicationError"
-                },
-                "example": {
-                  "success": false,
-                  "error": "Cannot update setting. Business not found",
-                  "errorType": "RESOURCE_NOT_FOUND"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "The request body is empty or contains an invalid setting",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApplicationError"
-                },
-                "examples": {
-                  "emptyBody": {
-                    "summary": "No setting supplied",
-                    "value": {
-                      "success": false,
-                      "error": "Cannot continue. No setting provided for update",
-                      "errorType": "UNPROCESSABLE_ENTITY"
-                    }
-                  },
-                  "validationFailed": {
-                    "summary": "Invalid setting value",
-                    "value": {
-                      "success": false,
-                      "error": "Error occurred during payload validation. overrideBusinessEmail must be a valid email",
-                      "errorType": "VALIDATION_FAILED",
-                      "errors": [
-                        "Error occurred during payload validation. overrideBusinessEmail must be a valid email"
-                      ]
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Cannot update setting. Business not found"
+                    },
+                    "errorType": {
+                      "type": "string",
+                      "example": "RESOURCE_NOT_FOUND"
                     }
                   }
                 }
               }
             }
           },
-          "500": {
-            "description": "An unexpected error occurred",
+          "422": {
+            "description": "No setting provided to update",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApplicationError"
-                },
-                "example": {
-                  "success": false,
-                  "error": "Error occured during operation. We're currently checking why this is happening.",
-                  "errorType": "INTERNAL_SERVER_ERROR"
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Cannot continue. No setting provided for update"
+                    },
+                    "errorType": {
+                      "type": "string",
+                      "example": "UNPROCESSABLE_ENTITY"
+                    }
+                  }
                 }
               }
             }
@@ -296,10 +300,6 @@
     "schemas": {
       "GatewayAuthError": {
         "type": "object",
-        "required": [
-          "message",
-          "request_id"
-        ],
         "properties": {
           "message": {
             "type": "string",
@@ -308,138 +308,6 @@
           "request_id": {
             "type": "string",
             "example": "9fd0487056e1d44df9c855231b519b1"
-          }
-        }
-      },
-      "ApplicationError": {
-        "type": "object",
-        "required": [
-          "success",
-          "error",
-          "errorType"
-        ],
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "enum": [
-              false
-            ],
-            "description": "Indicates that the request failed."
-          },
-          "error": {
-            "type": "string",
-            "description": "A human-readable description of the error."
-          },
-          "errorType": {
-            "type": "string",
-            "description": "A stable category that identifies the type of error."
-          },
-          "errors": {
-            "description": "Additional validation details, when available.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "object",
-                "additionalProperties": true
-              }
-            ]
-          }
-        }
-      },
-      "UpdateBusinessSettingsRequest": {
-        "type": "object",
-        "description": "Settings to update. Include at least one property. Omitted properties retain their current values.",
-        "minProperties": 1,
-        "additionalProperties": false,
-        "properties": {
-          "feeBearer": {
-            "type": "string",
-            "enum": [
-              "customer",
-              "business"
-            ],
-            "description": "Determines who pays applicable transaction fees. `customer` adds the fee to the customer's charge; `business` deducts the fee from the business's proceeds.",
-            "example": "business"
-          },
-          "settlementDestination": {
-            "type": "string",
-            "enum": [
-              "wallet",
-              "bank_account"
-            ],
-            "description": "The default destination for supported settlements. A bank account must be configured before using `bank_account`.",
-            "example": "wallet"
-          },
-          "enableWebhook": {
-            "type": "boolean",
-            "description": "Whether Fincra sends webhook events to `callbackURL`.",
-            "example": true
-          },
-          "enableWebhookRetry": {
-            "type": "boolean",
-            "description": "Whether Fincra automatically retries failed webhook deliveries. This setting is disabled by default for new businesses.",
-            "example": true
-          },
-          "callbackURL": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The endpoint that receives webhook events. Supply a non-empty HTTP or HTTPS URL.",
-            "example": "https://example.com/webhooks/fincra"
-          },
-          "acceptMispayments": {
-            "type": "boolean",
-            "description": "Whether supported Checkout flows accept overpayments and underpayments instead of initiating a reversal.",
-            "example": true
-          },
-          "overrideBusinessEmail": {
-            "type": "string",
-            "format": "email",
-            "description": "An email address to use instead of the business's primary email where this override is supported. The value is stored in lowercase.",
-            "example": "finance@example.com"
-          },
-          "acceptedCurrencies": {
-            "type": "array",
-            "description": "Requests wallet creation for the supplied currencies. This field is not stored in business settings; verify the resulting wallets separately.",
-            "items": {
-              "type": "string",
-              "example": "NGN"
-            },
-            "example": [
-              "NGN",
-              "USD"
-            ]
-          }
-        }
-      },
-      "UpdateBusinessSettingsResponse": {
-        "type": "object",
-        "required": [
-          "success",
-          "message",
-          "data"
-        ],
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "enum": [
-              true
-            ],
-            "description": "Indicates that the settings update completed successfully."
-          },
-          "message": {
-            "type": "string",
-            "example": "You have successfully updated your business settings"
-          },
-          "data": {
-            "$ref": "#/components/schemas/BusinessProfile"
           }
         }
       },
