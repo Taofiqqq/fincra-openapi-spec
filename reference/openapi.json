@@ -30,7 +30,7 @@
       "get": {
         "operationId": "getBusinessProfile",
         "summary": "Get business profile",
-        "description": "Retrieves the profile associated with your API key, including business details, verification status, notification preferences, Checkout settings, settlement settings, and webhook   > configuration. Use the _id returned in the response as your business ID when an endpoint requires businessID or x-business-id.",
+        "description": "Retrieves the profile associated with your API key, including business details, verification status, notification preferences, Checkout settings, settlement settings, and webhook configuration. Use the `_id` returned in the response as your `business ID` when an endpoint requires `businessID` or `x-business-id`.",
         "tags": [
           "Business"
         ],
