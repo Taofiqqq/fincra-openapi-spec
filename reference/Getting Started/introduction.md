@@ -5,16 +5,16 @@ hidden: true
 metadata:
   robots: index
 ---
-The Fincra API lets businesses collect payments, make payouts, manage virtual accounts and multi-currency wallets, and convert between supported currencies through a single REST API.
+The Fincra API lets businesses collect payments, make payouts, manage virtual accounts and multi-currency wallets, and convert between supported currencies through a single **REST API**.
 
-Requests use HTTPS, and request and response bodies use JSON. Standard HTTP status codes indicate whether a request succeeded or failed.
+Requests use **HTTPS**, and request and response bodies use **JSON**. Standard **HTTP** status codes indicate whether a request succeeded or failed.
 
 ## Base URLs
 
-| Environment | Base URL |
-| --- | --- |
-| Sandbox | `https://sandboxapi.fincra.com` |
-| Production | `https://api.fincra.com` |
+| Environment | Base URL                        |
+| ----------- | ------------------------------- |
+| Sandbox     | `https://sandboxapi.fincra.com` |
+| Production  | `https://api.fincra.com`        |
 
 Use Sandbox to build and test your integration without moving real funds. Sandbox and Production are isolated environments with separate business IDs and API keys. Complete onboarding before using Production. See [Authentication](/v4.0/reference/api-authentication) to learn how to obtain and use your credentials.
 
