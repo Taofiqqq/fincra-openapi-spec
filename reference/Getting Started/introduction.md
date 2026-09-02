@@ -16,7 +16,7 @@ Requests use **HTTPS**, and request and response bodies use **JSON**. Standard *
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
 
-Use Sandbox to build and test your integration without moving real funds. **Sandbox&#x20;**&#x61;nd **Production** are separate environments, each with its own business ID and API keys. Before processing live transactions, complete your onboarding and use your Production credentials. See [Authentication](/v4.0/reference/authentication) to learn how to obtain and use your credentials.
+Use Sandbox to build and test your integration without moving real funds. **Sandbox&#x20;**&#x61;nd **Production** are separate environments, each with its own business ID and API keys. Before processing live transactions, complete your onboarding and use your Production credentials. See [Authentication](/v4.0/reference/api-authentication) to learn how to obtain and use your credentials.
 
 ## Response format
 
