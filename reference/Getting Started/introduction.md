@@ -5,9 +5,9 @@ hidden: true
 metadata:
   robots: index
 ---
-The Fincra API lets businesses collect payments, make payouts, manage virtual accounts and multi-currency wallets, and convert between supported currencies through a single **REST API**.
+The Fincra API lets businesses collect payments, make payouts, manage virtual accounts and multi-currency wallets, and convert between supported currencies through a single REST API.
 
-Requests use **HTTPS**, and request and response bodies use **JSON**. Standard **HTTP** status codes indicate whether a request succeeded or failed.
+Requests use HTTPS, and request and response bodies use JSON. Standard HTTP status codes indicate whether a request succeeded or failed.
 
 ## Base URLs
 
@@ -16,11 +16,13 @@ Requests use **HTTPS**, and request and response bodies use **JSON**. Standard *
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
 
-Use Sandbox to build and test your integration without moving real funds. **Sandbox&#x20;**&#x61;nd **Production** are separate environments, each with its own business ID and API keys. Before processing live transactions, complete your onboarding and use your Production credentials. See [Authentication](/v4.0/reference/api-authentication) to learn how to obtain and use your credentials.
+Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
 
 ## Response format
 
-Most successful responses contain `success`, `message`, and `data`:
+Successful responses generally include `success`, `message`, and `data`. Response fields may vary by endpoint.
+
+A successful response may look like this:
 
 ```json
 {
@@ -30,7 +32,9 @@ Most successful responses contain `success`, `message`, and `data`:
 }
 ```
 
-Error responses contain `success`, `error`, and `errorType`. Some validation errors also include an `errors` object:
+Error responses may include `message`, `error`, `errorType`, `errors`, and `request_id`, depending on the error.
+
+A validation error may look like this:
 
 ```json
 {
@@ -41,7 +45,7 @@ Error responses contain `success`, `error`, and `errorType`. Some validation err
 }
 ```
 
-See [Errors](/v4.0/reference/errors) for error-handling guidance.
+See Errors for error-handling guidance and response examples.
 
 ## Sandbox behavior
 
@@ -49,11 +53,11 @@ Sandbox uses simulated data and test scenarios, so some features may behave diff
 
 ## Pagination
 
-Most paginated endpoints accept page and perPage query parameters. Endpoint-specific defaults and limits are documented with each endpoint.
+Most paginated endpoints accept `page` and `perPage` query parameters. Endpoint-specific defaults and limits are documented with each endpoint.
 
 ## Rate limits
 
-Fincra applies the following limits across its APIs:
+The following rate limits apply to all customers using the Fincra APIs:
 
 | Window     | Limit            |
 | ---------- | ---------------- |
