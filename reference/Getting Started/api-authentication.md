@@ -5,132 +5,71 @@ hidden: true
 metadata:
   robots: index
 ---
-Fincra uses **API key authentication** — there is no token exchange or OAuth flow. Every authenticated request includes your `api-key` in the request header.
+Fincra uses API keys to authenticate server-to-server requests. Include your API key in the `api-key` header. Checkout payment initiation uses a public key instead. Include it in the `x-pub-key` header when required.
 
 ## Environments
 
-Fincra has two environments, each with its own base URL and its own set of credentials. A key generated in one environment does not work in the other.
+Sandbox and Production use separate base URLs and credentials. Credentials generated in one environment cannot be used in the other.
 
 | Environment | Base URL                        |
 | ----------- | ------------------------------- |
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
 
-You get access to Sandbox immediately on signup. Production access is unlocked after completing onboarding, at which point you generate a separate set of Production credentials the same way.
+You can access Sandbox after signing up. Production access becomes available after you complete onboarding. Generate credentials for each environment from your Fincra dashboard.
 
 ## Credentials
 
-All credentials are generated per environment, from your dashboard.
+| Credential | Header      | Used for                      | Format                                              |
+| ---------- | ----------- | ----------------------------- | --------------------------------------------------- |
+| API key    | `api-key`   | Server-to-server API requests | Opaque string                                       |
+| Public key | `x-pub-key` | Checkout payment initiation   | `pk_test_...` in Sandbox and `pk_...` in Production |
 
-| Credential         | Header                   | Used for                                                            | Format                                           |
-| ------------------ | ------------------------ | ------------------------------------------------------------------- | ------------------------------------------------ |
-| API key            | `api-key`                | Authenticating all API requests                                     | opaque string, no prefix                         |
-| Public key         | `x-pub-key`              | Checkout and other core payment endpoints, client-side integrations | `pk_test_...` (Sandbox), `pk_...` (Production)   |
-| Webhook secret key | — (not sent in requests) | Verifying inbound webhook payloads                                  | opaque string, generated automatically at signup |
+Your full API key is shown only once when it is generated. Copy it and store it securely. Afterward, only a masked version is visible in your dashboard.
 
-**Your API key is shown once**, at generation time — Fincra does not store it in retrievable form. If you lose it, rotate to a new one. Public keys and the webhook secret key remain viewable in your dashboard.
+Unlike your API key, your public key can be used in client-side applications. Only send it to endpoints that explicitly require the `x-pub-key` header.
 
-### Making an authenticated request
+## Business-scoped requests
+
+Some endpoints require an `x-business-id` header in addition to your API key. The documentation for each endpoint indicates when this header is required.
+
+You can retrieve your business ID using the Get Business Information endpoint.
+
+## Making an authenticated request
+
+Include your API key in the `api-key` request header:
 
 ```shell Shell
 curl --request GET \
   --url https://sandboxapi.fincra.com/profile/business/me \
   --header 'api-key: <your_api_key>'
 ```
-```javascript Node
-const response = await fetch('https://sandboxapi.fincra.com/profile/business/me', {
-  method: 'GET',
-  headers: { 'api-key': '<your_api_key>' },
-});
-const data = await response.json();
-```
-```python Python
-import requests
 
-response = requests.get(
-    "https://sandboxapi.fincra.com/profile/business/me",
-    headers={"api-key": "<your_api_key>"},
-)
-data = response.json()
-```
-```go Go
-package main
+## Protecting your API key
 
-import (
-	"fmt"
-	"io"
-	"net/http"
-)
+Your API key grants access to your Fincra account. Store it securely on your server and never expose it in client-side code, public repositories, application logs, or unsecured communication channels.
 
-func main() {
-	req, _ := http.NewRequest("GET", "https://sandboxapi.fincra.com/profile/business/me", nil)
-	req.Header.Set("api-key", "<your_api_key>")
-	resp, _ := http.DefaultClient.Do(req)
-	defer resp.Body.Close()
-	body, _ := io.ReadAll(resp.Body)
-	fmt.Println(string(body))
-}
-```
-```csharp .NET
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("api-key", "<your_api_key>");
-var response = await client.GetAsync("https://sandboxapi.fincra.com/profile/business/me");
-var data = await response.Content.ReadAsStringAsync();
-```
-```java Java
-HttpClient client = HttpClient.newHttpClient();
-HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("https://sandboxapi.fincra.com/profile/business/me"))
-    .header("api-key", "<your_api_key>")
-    .GET()
-    .build();
-HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-```
-```php PHP
-$ch = curl_init('https://sandboxapi.fincra.com/profile/business/me');
-curl_setopt($ch, CURLOPT_HTTPHEADER, ['api-key: <your_api_key>']);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
-```
+Use separate credentials for Sandbox and Production. If you believe an API key has been exposed, rotate it immediately.
 
 ## Rotating your API key
 
-Generate a new key from your dashboard at any time. The old key is invalidated immediately — there is no overlap window, so update your integration before rotating in production.
+You can rotate your API key from your dashboard.
+
+Rotating your API key invalidates the existing key immediately. There is no overlap period, so plan the rotation carefully and update your integration with the new key as soon as it is generated.
+
+The new API key is shown only once. Copy and store it securely before leaving the page.
 
 ## Authentication errors
 
-A missing or invalid `api-key` returns `401 Unauthorized`:
+Requests made without a valid API key return `401 Unauthorized`.
+
+A request without the `api-key` header returns:
 
 ```json
 {
   "message": "No API key found in request",
-  "request_id": "9fd0487056e1d44df9c855231b519b1"
+  "request_id": "f4a7e94660f6ef5d30650f25ff11ac1b"
 }
 ```
 
-## Verifying webhooks
-
-Every merchant is issued a webhook secret key automatically at signup, used to sign outbound webhook payloads with HMAC-SHA512.
-
-Each webhook delivery includes a `signature` header — an HMAC-SHA512 hex digest, computed over `{ event, data }` (JSON-stringified) using your webhook secret key. Recompute the same HMAC on your end and compare it against the `signature` header using a constant-time comparison before trusting the payload.
-
-```javascript Node
-const crypto = require('crypto');
-
-function isValidSignature(payload, signature, secret) {
-  const expected = crypto
-    .createHmac('SHA512', secret)
-    .update(JSON.stringify({ event: payload.event, data: payload.data }))
-    .digest('hex');
-
-  const expectedBuffer = Buffer.from(expected, 'hex');
-  const signatureBuffer = Buffer.from(signature, 'hex');
-
-  if (expectedBuffer.length !== signatureBuffer.length) {
-    return false;
-  }
-
-  return crypto.timingSafeEqual(expectedBuffer, signatureBuffer);
-}
-```
+The `request_id` identifies the request. Include it when contacting Fincra Support about an authentication error.
