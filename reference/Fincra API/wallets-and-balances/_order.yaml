@@ -1,1 +1,5 @@
 - getwallets
+- createwallets
+- getwallet
+- getwalletbywalletnumber
+- fundwallet
