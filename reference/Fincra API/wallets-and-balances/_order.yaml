@@ -3,3 +3,7 @@
 - getwallet
 - getwalletbywalletnumber
 - fundwallet
+- getwalletlogs
+- getwalletlogstatement
+- getwalletlog
+- exportwalletlogs
