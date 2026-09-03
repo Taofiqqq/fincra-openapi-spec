@@ -119,9 +119,9 @@ paths:
       operationId: getBusinessesByMerchant
       summary: List businesses
       description: >-
-        Lists all top-level businesses the authenticated merchant
-        administers. Sub-businesses are excluded. Returns an empty array,
-        not an error, if the merchant has no businesses.
+        Lists the top-level businesses associated with your API key.
+        Subaccounts are excluded. If no businesses are found, `data` is
+        returned as an empty array.
       tags:
         - Business
       security:
