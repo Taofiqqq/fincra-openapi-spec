@@ -23,9 +23,163 @@
     {
       "name": "Business",
       "description": "Your business profile — the entity your Fincra integration acts on behalf of."
+    },
+    {
+      "name": "Wallets and Balances",
+      "description": "Your business's currency wallets and their balances."
     }
   ],
   "paths": {
+    "/wallets": {
+      "get": {
+        "operationId": "getWallets",
+        "summary": "Get wallets",
+        "description": "Retrieves the active wallets for a business, including each wallet's ledger, available, locked, and rolling reserve balances. If the business has no active wallets yet, Fincra creates its default wallets and returns those instead of an empty list. Supplying `currency` returns a single matching wallet instead of the full list. Supplying both `dateFrom` and `dateTo` adds opening and closing balances for that period to each wallet.",
+        "tags": [
+          "Wallets and Balances"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 24,
+              "maxLength": 24,
+              "example": "64f1c2a4b7d9e30012ab4567"
+            },
+            "description": "The `_id` returned by Get business profile."
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NGN"
+            },
+            "description": "Return only the wallet for this currency, instead of the full list."
+          },
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Start of the period to compute opening/closing balances for. Requires `dateTo`."
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "End of the period to compute opening/closing balances for. Requires `dateFrom`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetWalletsResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Wallets fetched successfully Stablecoin balances shown are Sandbox balances. Production access is not enabled by default and must be requested for Go live.",
+                  "data": [
+                    {
+                      "id": 207151,
+                      "_id": "207151",
+                      "business": "67d8360649685a0012574974",
+                      "businessId": 14424,
+                      "ledgerBalance": 1173410.83,
+                      "availableBalance": 640179.275,
+                      "lockedBalance": 533231.555,
+                      "rollingReserveBalance": 0,
+                      "walletNumber": 100000114424001,
+                      "currency": "NGN",
+                      "status": "enabled",
+                      "overdraftEnabled": 0,
+                      "overdraftLimit": null,
+                      "createdAt": "2025-03-17T14:47:35.000Z",
+                      "updatedAt": "2026-09-02T06:06:35.000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid api-key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Business not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Cannot fetch wallets. Business not found",
+                  "errorType": "RESOURCE_NOT_FOUND"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "businessID is missing, or fails validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "examples": {
+                  "noBusinessID": {
+                    "summary": "businessID not supplied",
+                    "value": {
+                      "success": false,
+                      "error": "No payload sent",
+                      "errorType": "UNPROCESSABLE_ENTITY"
+                    }
+                  },
+                  "invalidBusinessID": {
+                    "summary": "businessID is not 24 characters",
+                    "value": {
+                      "success": false,
+                      "error": "Error occurred during payload validation. businessID length must be 24 characters long",
+                      "errorType": "VALIDATION_FAILED",
+                      "errors": [
+                        "Error occurred during payload validation. businessID length must be 24 characters long"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/profile/business/me": {
       "get": {
         "operationId": "getBusinessProfile",
@@ -535,6 +689,105 @@
           },
           "data": {
             "$ref": "#/components/schemas/BusinessProfile"
+          }
+        }
+      },
+      "GetWalletsResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "\"Wallets fetched successfully\" in Sandbox, or Production. In Sandbox, if any returned wallet is a stablecoin/crypto currency, a notice about Sandbox-only balances is appended.",
+            "example": "Wallets fetched successfully"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Wallet"
+            }
+          }
+        }
+      },
+      "Wallet": {
+        "type": "object",
+        "description": "Field set reflects the wallets service's `defaultSelects` projection (Postgres-backed), not the legacy Mongo wallet document.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Internal numeric wallet ID."
+          },
+          "_id": {
+            "type": "string",
+            "description": "Wallet ID. Falls back to `id` if no Mongo-era ID exists."
+          },
+          "business": {
+            "type": "string",
+            "description": "Your business ID."
+          },
+          "businessId": {
+            "type": "integer",
+            "description": "Internal numeric business ID."
+          },
+          "ledgerBalance": {
+            "type": "number"
+          },
+          "availableBalance": {
+            "type": "number"
+          },
+          "lockedBalance": {
+            "type": "number"
+          },
+          "rollingReserveBalance": {
+            "type": "number"
+          },
+          "walletNumber": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "overdraftEnabled": {
+            "type": "boolean"
+          },
+          "overdraftLimit": {
+            "type": "number",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "openingBalances": {
+            "type": "object",
+            "nullable": true,
+            "description": "Present only when `dateFrom` and `dateTo` are both supplied."
+          },
+          "closingBalances": {
+            "type": "object",
+            "nullable": true,
+            "description": "Present only when `dateFrom` and `dateTo` are both supplied."
           }
         }
       },
