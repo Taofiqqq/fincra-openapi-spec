@@ -137,6 +137,316 @@ paths:
                       - >-
                         Error occurred during payload validation. businessID
                         length must be 24 characters long
+
+    post:
+      operationId: createWallets
+      summary: Create wallets
+      description: >-
+        Creates wallets for a business. Pass `currencies` to create wallets
+        for specific currencies, or omit it to create wallets for every
+        currency the business has access to. Currencies that already have a
+        wallet are skipped, so this is safe to call more than once. Returns
+        every wallet the business now has, not only the ones just created.
+      tags:
+        - Wallets and Balances
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - businessID
+              properties:
+                businessID:
+                  type: string
+                  minLength: 24
+                  maxLength: 24
+                  example: 64f1c2a4b7d9e30012ab4567
+                  description: The `_id` returned by Get business profile.
+                currencies:
+                  type: array
+                  items:
+                    type: string
+                  example: [NGN, USD]
+                  description: >-
+                    Currency codes to create wallets for. Omit to create
+                    wallets for every currency the business can access.
+            example:
+              businessID: 64f1c2a4b7d9e30012ab4567
+              currencies: [NGN, USD]
+      responses:
+        "200":
+          description: Wallets created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetWalletsResponse"
+              example:
+                success: true
+                message: You have successfully created wallets for your business
+                data:
+                  - id: 207151
+                    _id: "207151"
+                    business: "67d8360649685a0012574974"
+                    businessId: 14424
+                    ledgerBalance: 0
+                    availableBalance: 0
+                    lockedBalance: 0
+                    rollingReserveBalance: 0
+                    walletNumber: 100000114424001
+                    currency: NGN
+                    status: enabled
+                    overdraftEnabled: false
+                    overdraftLimit: null
+                    createdAt: "2026-09-03T09:00:00.000Z"
+                    updatedAt: "2026-09-03T09:00:00.000Z"
+        "401":
+          description: Missing or invalid api-key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+        "404":
+          description: Business not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Cannot create wallets. Business not found
+                errorType: RESOURCE_NOT_FOUND
+        "422":
+          description: One or more requested currencies are not supported for this business
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: "Supplied currencies not supported. Supported currencies include [NGN,USD,GBP,EUR]"
+                errorType: UNPROCESSABLE_ENTITY
+
+  /wallets/{walletID}:
+    get:
+      operationId: getWallet
+      summary: Get wallet
+      description: >-
+        Retrieves a single wallet by its ID, including its ledger,
+        available, locked, and rolling reserve balances. Pass both
+        `dateFrom` and `dateTo` to add opening and closing balances for
+        that period.
+      tags:
+        - Wallets and Balances
+      security:
+        - apiKey: []
+      parameters:
+        - name: walletID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The `_id` (or numeric `id`) of the wallet, from Get wallets.
+        - name: dateFrom
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Start of the period to compute opening/closing balances for. Requires `dateTo`.
+        - name: dateTo
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: End of the period to compute opening/closing balances for. Requires `dateFrom`.
+      responses:
+        "200":
+          description: Wallet retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum: [true]
+                  message:
+                    type: string
+                    example: Wallet fetched successfully
+                  data:
+                    $ref: "#/components/schemas/Wallet"
+        "401":
+          description: Missing or invalid api-key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+        "404":
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Wallet not found
+                errorType: RESOURCE_NOT_FOUND
+
+  /wallets/{walletNumber}/get-by-wallet-number:
+    get:
+      operationId: getWalletByWalletNumber
+      summary: Get wallet by wallet number
+      description: >-
+        Looks up a wallet by its `walletNumber`. Returns wallet and business
+        identifiers only — no balances. Use Get wallet for balances.
+      tags:
+        - Wallets and Balances
+      security:
+        - apiKey: []
+      parameters:
+        - name: walletNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The wallet's `walletNumber`, from Get wallets.
+      responses:
+        "200":
+          description: Wallet retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum: [true]
+                  message:
+                    type: string
+                    example: Wallet fetched successfully
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      businessId:
+                        type: integer
+                      walletNumber:
+                        type: integer
+                      businessName:
+                        type: string
+                      currency:
+                        type: string
+                      currencyId:
+                        type: integer
+        "401":
+          description: Missing or invalid api-key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+        "404":
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Wallet not found
+                errorType: RESOURCE_NOT_FOUND
+
+  /wallets/fund:
+    post:
+      operationId: fundWallet
+      summary: Fund wallet
+      description: >-
+        Credits a wallet with a test amount. **Sandbox only** — this
+        endpoint does not exist in Production. The wallet must already
+        exist; create it first with Create wallets.
+      tags:
+        - Wallets and Balances
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - business
+                - currency
+                - amount
+              properties:
+                business:
+                  type: string
+                  minLength: 24
+                  maxLength: 24
+                  example: 64f1c2a4b7d9e30012ab4567
+                  description: The `_id` returned by Get business profile.
+                currency:
+                  type: string
+                  example: NGN
+                amount:
+                  type: number
+                  minimum: 1
+                  example: 50000
+            example:
+              business: 64f1c2a4b7d9e30012ab4567
+              currency: NGN
+              amount: 50000
+      responses:
+        "200":
+          description: Wallet funded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum: [true]
+                  message:
+                    type: string
+                    example: NGN Wallet funded successfully
+                  data:
+                    type: object
+                    description: The resulting credit record for this top-up.
+        "401":
+          description: Missing or invalid api-key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+        "404":
+          description: No wallet exists for this business and currency
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Wallet not found
+                errorType: RESOURCE_NOT_FOUND
+
   /profile/business/me:
     get:
       operationId: getBusinessProfile
