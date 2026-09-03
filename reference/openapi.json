@@ -30,7 +30,7 @@
       "get": {
         "operationId": "getBusinessProfile",
         "summary": "Get business profile",
-        "description": "Retrieves the authenticated business's profile.",
+        "description": "Retrieves the business profile associated with your API key, including business details, verification status, notification preferences, Checkout settings, settlement settings, and webhook configuration. Use the `_id` returned in the response as your business ID when an endpoint requires `businessID` or `x-business-id`.",
         "tags": [
           "Business"
         ],
@@ -45,19 +45,55 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
+                  "$ref": "#/components/schemas/GetBusinessProfileResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Parent business fetched successfully",
+                  "data": {
+                    "_id": "64f1c2a4b7d9e30012ab4567",
+                    "name": "Example Business",
+                    "email": "operations@example.com",
+                    "mobile": "+2348012345678",
+                    "status": "enabled",
+                    "logo": null,
+                    "businessKey": "B-1725318000000-example",
+                    "businessType": "corporate",
+                    "website": "https://example.com",
+                    "countryCallingCode": "+234",
+                    "businessTag": 123456,
+                    "country": "NG",
+                    "isKYCApproved": true,
+                    "isBlocked": false,
+                    "isPrincipalBVNWatchlisted": false,
+                    "emailSettings": {
+                      "disbursementNotification": true,
+                      "collectionNotification": true,
+                      "topupNotification": true,
+                      "settlementNotification": true,
+                      "paymentReceiptNotification": true
                     },
-                    "message": {
-                      "type": "string",
-                      "example": "Parent business fetched successfully"
+                    "checkoutSettings": {
+                      "useBrandLogo": true,
+                      "buttonTextColor": "#FFFFFF",
+                      "buttonColor": "#6D28D9",
+                      "fontColor": "#111827",
+                      "fontFamily": "Inter",
+                      "backgroundColor": "#FFFFFF",
+                      "backgroundTextColor": "#111827"
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/BusinessProfile"
-                    }
+                    "settlementSettings": null,
+                    "settings": {
+                      "enableWebhook": true,
+                      "enableWebhookRetry": true,
+                      "callbackURL": "https://example.com/webhooks/fincra",
+                      "feeBearer": "business",
+                      "settlementDestination": "wallet",
+                      "acceptMispayments": true,
+                      "overrideBusinessEmail": null
+                    },
+                    "createdAt": "2025-01-15T09:30:00.000Z",
+                    "updatedAt": "2026-09-02T20:15:00.000Z"
                   }
                 }
               }
@@ -78,21 +114,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Merchant account does not have a business tied to it"
-                    },
-                    "errorType": {
-                      "type": "string",
-                      "example": "BUSINESS_PROFILE_REQUIRED"
-                    }
-                  }
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Merchant account does not have a business tied to it",
+                  "errorType": "BUSINESS_PROFILE_REQUIRED"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Error occured during operation. We're currently checking why this is happening.",
+                  "errorType": "INTERNAL_SERVER_ERROR"
                 }
               }
             }
@@ -490,6 +532,30 @@
           "message": {
             "type": "string",
             "example": "You have successfully updated your business settings"
+          },
+          "data": {
+            "$ref": "#/components/schemas/BusinessProfile"
+          }
+        }
+      },
+      "GetBusinessProfileResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "description": "Indicates that the business profile was retrieved successfully."
+          },
+          "message": {
+            "type": "string",
+            "example": "Parent business fetched successfully"
           },
           "data": {
             "$ref": "#/components/schemas/BusinessProfile"
