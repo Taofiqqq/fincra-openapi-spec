@@ -34,7 +34,7 @@
       "get": {
         "operationId": "getWallets",
         "summary": "Get wallets",
-        "description": "Retrieves the active wallets for a business, including each wallet's ledger, available, locked, and rolling reserve balances. If the business has no active wallets yet, Fincra creates its default wallets and returns those instead of an empty list. Supplying `currency` returns a single matching wallet instead of the full list. Supplying both `dateFrom` and `dateTo` adds opening and closing balances for that period to each wallet.",
+        "description": "Retrieves the active wallets for a business, including each wallet's ledger, available, locked, and rolling reserve balances. Pass `currency` to return a single matching wallet instead of the full list. Pass both `dateFrom` and `dateTo` to add opening and closing balances for that period to each wallet.",
         "tags": [
           "Wallets and Balances"
         ],
