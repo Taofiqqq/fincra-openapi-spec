@@ -1,8 +1,8 @@
 ---
 title: Introduction
 excerpt: >-
-  Base URLs, response format, sandbox behavior, pagination, and rate limits for
-  the Fincra REST API.
+  Everything you need to make your first request — base URLs, response format,
+  and limits.
 deprecated: false
 hidden: true
 metadata:
