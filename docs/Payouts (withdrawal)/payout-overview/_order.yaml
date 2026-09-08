@@ -1,5 +1,6 @@
 - same-currency-payouts
 - cross-border-payouts
+- copy-of-cross-currency-payouts
 - making-bank-account-transfers
 - pay-to-china
 - cash-pickup
@@ -8,4 +9,3 @@
 - stablecoin-payout
 - account-to-account-transfer-api-1
 - china-payouts
-- copy-of-cross-currency-payouts
