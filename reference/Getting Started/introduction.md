@@ -19,36 +19,76 @@ Requests use HTTPS, and request and response bodies use JSON. Standard HTTP stat
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
 
-Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
+Try it with your Sandbox key:
 
-## Response format
-
-Successful responses generally include `success`, `message`, and `data`. Response fields may vary by endpoint.
-
-A successful response may look like this:
+```bash
+curl https://sandboxapi.fincra.com/profile/business/me \
+  -H "api-key: YOUR_SECRET_KEY"
+```
 
 ```json
 {
   "success": true,
-  "message": "Request completed successfully",
-  "data": {}
+  "message": "Parent business fetched successfully",
+  "data": {
+    "_id": "64f1c2a4b7d9e30012ab4567",
+    "name": "Example Trading Limited",
+    "status": "enabled",
+  }
 }
 ```
 
-Error responses may include `message`, `error`, `errorType`, `errors`, and `request_id`, depending on the error.
+The `_id` is your business ID. Most endpoints require it.
 
-A validation error may look like this:
+Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
+
+## Response format
+
+Every response is JSON and tells you whether it succeeded in its first field.
+
+### Successful responses
+
+```json
+{
+  "success": true,
+  "message": "Parent business fetched successfully",
+  "data": {
+    "_id": "64f1c2a4b7d9e30012ab4567",
+    "name": "Example Trading Limited",
+    "status": "enabled"
+  }
+}
+```
+
+`success` and `message` are always present. `data` holds the endpoint's payload, and its shape is documented on each endpoint. Endpoints with nothing to return send an empty array.
+
+### Errors
+
+Errors come in two shapes, depending on where the request failed.
+
+**Rejected at the gateway** — an authentication failure, before the request reaches a service:
+
+```json
+{
+  "message": "No API key found in request",
+  "request_id": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+}
+```
+
+Quote `request_id` when contacting support about a specific request.
+
+**Rejected by the service** — everything else:
 
 ```json
 {
   "success": false,
-  "error": "Invalid request",
-  "errorType": "VALIDATION_ERROR",
-  "errors": {}
+  "error": "Error occurred during payload validation. businessID length must be 24 characters long",
+  "errorType": "VALIDATION_FAILED",
+  "errors": [
+    "Error occurred during payload validation. businessID length must be 24 characters long"
+  ]
 }
 ```
-
-See Errors for error-handling guidance and response examples.
 
 ## Sandbox behavior
 
