@@ -20,6 +20,17 @@ Money can be transferred from one currency to another, through cross-currency tr
   - [Payout Overview ](/docs/payout-overview)
 </Callout>
 
+🔄 **How cross-currency payouts work&#x20;**
+
+> Cross-currency payouts convert first. We buys the destination currency and credits your destination wallet **before** it attempts the bank transfer. The conversion is a completed, standalone step and is not reversed if the transfer later fails.
+>
+> This changes what happens on a failed payout:
+>
+> - If the conversion **succeeded** and the payout then failed, the funds stay in your **destination-currency wallet** at the rate you were quoted. You complete the payment with a same-currency payout (see Step 7). A failed payout in this case is **not** refunded to your source currency.
+> - If the **conversion failed**, your source wallet is reversed automatically and nothing is held. You can retry the cross-currency payout.
+
+<br />
+
 **Note**
 
 - All transfers have a timeframe by which they settle in the receiver's account; please review the [payment scheme](payment-scheme) section to ascertain the settlement time.
