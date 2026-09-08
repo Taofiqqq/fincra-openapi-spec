@@ -1,5 +1,8 @@
 ---
 title: Introduction
+excerpt: >-
+  Base URLs, response format, sandbox behavior, pagination, and rate limits for
+  the Fincra REST API.
 deprecated: false
 hidden: true
 metadata:
@@ -67,4 +70,4 @@ The following rate limits apply to all customers using the Fincra APIs:
 
 Requests that exceed any of these limits return an HTTP 429 Too Many Requests response. Reduce your request rate and retry using exponential backoff.
 
-If your integration requires higher limits, contact our Support team.
+If your integration requires higher limits, contact [support@fincra.com](mailto:support@fincra.com).
