@@ -27,13 +27,11 @@ You can access Sandbox after signing up. Production access becomes available aft
 
 Your full API key is shown only once when it is generated. Copy it and store it securely. Afterward, only a masked version is visible in your dashboard.
 
-Unlike your API key, your public key can be used in client-side applications. Only send it to endpoints that explicitly require the `x-pub-key` header.
-
 ## Business-scoped requests
 
-Some endpoints require an `x-business-id` header in addition to your API key. The documentation for each endpoint indicates when this header is required.
+Some endpoints require an `x-business-id` header in addition to your API key. The documentation for each endpoint indicates when this header is required. Elsewhere in the API, the business is identified by a `businessID` path or query parameter rather than a header. Each endpoint documents which it expects.
 
-You can retrieve your business ID using the Get Business Information endpoint.
+Retrieve your business ID from Get business profile. It is the \_id field in the response.
 
 ## Making an authenticated request
 
