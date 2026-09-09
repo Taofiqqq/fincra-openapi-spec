@@ -1,8 +1,6 @@
 ---
 title: Introduction
-excerpt: >-
-  Everything you need to make your first request — base URLs, response format,
-  and limits.
+excerpt: Everything you need to make your first request, from base URLs to rate limits.
 deprecated: false
 hidden: true
 metadata:
@@ -18,6 +16,8 @@ Requests use HTTPS, and request and response bodies use JSON. Standard HTTP stat
 | ----------- | ------------------------------- |
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
+
+Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
 
 Try it with your Sandbox key:
 
@@ -39,8 +39,6 @@ curl https://sandboxapi.fincra.com/profile/business/me \
 ```
 
 The `_id` is your business ID. Most endpoints require it.
-
-Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
 
 ## Response format
 
