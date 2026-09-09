@@ -58,11 +58,11 @@ Every response is JSON and tells you whether it succeeded in its first field.
 }
 ```
 
-`success` and `message` are always present. `data` holds the endpoint's payload, and its shape is documented on each endpoint. Endpoints with nothing to return send an empty array.
+`success` and `message` are always present. `data` holds the endpoint's payload and its shape is documented on each endpoint. Endpoints with nothing to return send an empty array.
 
 ### Errors
 
-Errors come in two shapes, depending on where the request failed.
+Errors come in three shapes, depending on where the request failed.
 
 **Rejected at the gateway** — an authentication failure, before the request reaches a service:
 
@@ -75,7 +75,7 @@ Errors come in two shapes, depending on where the request failed.
 
 Quote `request_id` when contacting support about a specific request.
 
-**Rejected by the service** — everything else:
+**Rejected by the service** — the shape used across most of the API:
 
 ```json
 {
@@ -88,9 +88,19 @@ Quote `request_id` when contacting support about a specific request.
 }
 ```
 
+**Rejected by Checkout** — endpoints under /checkout-core return a different shape
+
+```json
+{
+  "message": "x-business-id must be provided in the header",
+  "error": "Unauthorized",
+  "statusCode": 401
+}
+```
+
 ## Sandbox behavior
 
-Sandbox uses simulated data and test scenarios, so some features may behave differently from Production. Use the test values documented for each product, and validate your Production setup before processing live transactions.
+Sandbox uses simulated data and test scenarios. Use the test values documented for each product, and validate your Production setup before processing live transactions.
 
 ## Pagination
 
@@ -106,6 +116,8 @@ The following rate limits apply to all customers using the Fincra APIs:
 | Per minute | 4,200 requests   |
 | Per hour   | 200,000 requests |
 
-Requests that exceed any of these limits return an HTTP 429 Too Many Requests response. Reduce your request rate and retry using exponential backoff.
+All three windows apply at once, the tightest one you reach is the one that stops you.
 
-If your integration requires higher limits, contact [support@fincra.com](mailto:support@fincra.com).
+Requests beyond a limit return 429 Too Many Requests. Retry with exponential backoff rather than immediately, which consumes the next window too.
+
+Need higher limits? Email [support@fincra.com](mailto:support@fincra.com).
