@@ -31,7 +31,7 @@ Your full API key is shown only once when it is generated. Copy it and store it 
 
 Some endpoints require an `x-business-id` header in addition to your API key. The documentation for each endpoint indicates when this header is required. Elsewhere in the API, the business is identified by a `businessID` path or query parameter rather than a header. Each endpoint documents which it expects.
 
-Retrieve your business ID from [Get business profile](/getbusinessprofile). It is the `_id` field in the response.
+Retrieve your business ID from Get business profile endpoint. It is the `_id` field in the response.
 
 ## Making an authenticated request
 
