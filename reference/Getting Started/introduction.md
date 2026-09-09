@@ -17,7 +17,7 @@ Requests use HTTPS, and request and response bodies use JSON. Standard HTTP stat
 | Sandbox     | `https://sandboxapi.fincra.com` |
 | Production  | `https://api.fincra.com`        |
 
-Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See Authentication to learn how to obtain and use your credentials.
+Sandbox and Production are separate environments, each with its own business ID and API keys. Complete onboarding before using Production. See [Authentication]() to learn how to obtain and use your credentials.
 
 Try it with your Sandbox key:
 
