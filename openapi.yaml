@@ -857,18 +857,18 @@ paths:
       operationId: getBusinessProfile
       summary: Get business profile
       description: >-
-        Retrieves the business profile associated with your API key, including
-        business details, verification status, notification preferences,
-        Checkout settings, settlement settings, and webhook configuration. Use
-        the `_id` returned in the response as your business ID when an endpoint
-        requires `businessID` or `x-business-id`.
+        Returns the top-level business you administer, including its
+        verification status, notification preferences, Checkout settings and
+        webhook configuration. Subaccounts are never returned by this
+        endpoint. Use the `_id` in the response as your business ID wherever
+        an endpoint requires `businessID` or the `x-business-id` header.
       tags:
         - Business
       security:
         - apiKey: []
       responses:
         "200":
-          description: Business profile retrieved successfully
+          description: Returns a Business object.
           content:
             application/json:
               schema:
@@ -878,53 +878,54 @@ paths:
                 message: Parent business fetched successfully
                 data:
                   _id: 64f1c2a4b7d9e30012ab4567
-                  name: Example Business
+                  name: Example Trading Limited
                   email: operations@example.com
-                  mobile: "+2348012345678"
-                  status: enabled
-                  logo: null
-                  businessKey: B-1725318000000-example
-                  businessType: corporate
-                  website: "https://example.com"
+                  mobile: "8012345678"
                   countryCallingCode: "+234"
-                  businessTag: 123456
                   country: NG
+                  status: enabled
+                  businessType: Fintech
+                  businessKey: B-Kq7Rm2XnPvTd
+                  businessTag: 135147
                   isKYCApproved: true
                   isBlocked: false
                   isPrincipalBVNWatchlisted: false
-                  emailSettings:
-                    disbursementNotification: true
-                    collectionNotification: true
-                    topupNotification: true
-                    settlementNotification: true
-                    paymentReceiptNotification: true
-                  checkoutSettings:
-                    useBrandLogo: true
-                    buttonTextColor: "#FFFFFF"
-                    buttonColor: "#6D28D9"
-                    fontColor: "#111827"
-                    fontFamily: Inter
-                    backgroundColor: "#FFFFFF"
-                    backgroundTextColor: "#111827"
-                  settlementSettings: null
                   settings:
-                    enableWebhook: true
-                    enableWebhookRetry: true
-                    callbackURL: "https://example.com/webhooks/fincra"
                     feeBearer: business
                     settlementDestination: wallet
-                    acceptMispayments: true
+                    enableWebhook: true
+                    enableWebhookRetry: false
+                    callbackURL: "https://example.com/webhooks/fincra"
+                    acceptMispayments: false
                     overrideBusinessEmail: null
-                  createdAt: "2025-01-15T09:30:00.000Z"
-                  updatedAt: "2026-09-02T20:15:00.000Z"
+                  emailSettings:
+                    disbursementNotification: false
+                    collectionNotification: false
+                    topupNotification: false
+                    settlementNotification: false
+                    paymentReceiptNotification: false
+                  checkoutSettings:
+                    useBrandLogo: false
+                    buttonTextColor: null
+                    buttonColor: null
+                    fontColor: null
+                    fontFamily: null
+                    backgroundColor: null
+                    backgroundTextColor: null
+                  settlementSettings: null
+                  createdAt: "2025-03-17T14:47:34.633Z"
+                  updatedAt: "2026-09-03T05:33:37.509Z"
         "401":
-          description: Missing or invalid api-key
+          description: The request carried no valid API key.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GatewayAuthError"
+              example:
+                message: No API key found in request
+                request_id: 209eaf17b5281e175d5c4b6ed0c28e09
         "403":
-          description: Authenticated merchant has no business profile
+          description: The API key is valid but the merchant has no business.
           content:
             application/json:
               schema:
@@ -934,7 +935,7 @@ paths:
                 error: Merchant account does not have a business tied to it
                 errorType: BUSINESS_PROFILE_REQUIRED
         "500":
-          description: An unexpected error occurred
+          description: The request failed inside Fincra.
           content:
             application/json:
               schema:
@@ -1388,9 +1389,10 @@ components:
         success:
           type: boolean
           enum: [true]
-          description: Indicates that the business profile was retrieved successfully.
+          description: Indicates that the request succeeded.
         message:
           type: string
+          description: A human-readable summary of the result.
           example: Parent business fetched successfully
         data:
           $ref: "#/components/schemas/BusinessProfile"
@@ -1398,111 +1400,218 @@ components:
     BusinessProfile:
       type: object
       description: >-
-        Field set is the real API response projection (PUBLIC_BUSINESS_FIELDS),
-        not the full internal business document — several internal-only fields
-        are intentionally excluded.
+        A business on your Fincra account. Fields that have never been set are
+        absent from the response rather than returned as null.
       properties:
         _id:
           type: string
-          description: Your business ID.
+          minLength: 24
+          maxLength: 24
+          description: >-
+            The business ID. Pass this wherever an endpoint requires
+            `businessID` or the `x-business-id` header.
+          example: 64f1c2a4b7d9e30012ab4567
         name:
           type: string
+          description: The registered name of the business.
+          example: Example Trading Limited
         email:
           type: string
+          format: email
+          description: >-
+            The primary email address for the business. Fincra sends
+            notifications here unless `settings.overrideBusinessEmail` is set.
+          example: operations@example.com
         mobile:
           type: string
-        status:
-          type: string
-          enum: [enabled, disabled]
-        logo:
-          type: string
-          nullable: true
-        businessKey:
-          type: string
-        businessType:
-          type: string
-        website:
-          type: string
+          description: >-
+            The business phone number, without the country calling code. Combine
+            with `countryCallingCode` to form the full number.
+          example: "8012345678"
         countryCallingCode:
           type: string
           nullable: true
+          description: >-
+            The international dialling prefix for `mobile`, including the
+            leading plus sign. `null` when it has not been set.
+          example: "+234"
+        country:
+          type: string
+          description: The two-letter code for the country the business operates in.
+          example: NG
+        status:
+          type: string
+          enum: [enabled, disabled]
+          description: >-
+            Whether the business can transact. A `disabled` business cannot
+            collect payments or make payouts.
+          example: enabled
+        businessType:
+          type: string
+          description: >-
+            The industry the business operates in, as supplied during
+            onboarding. Free text, not a fixed set of values.
+          example: Fintech
+        businessKey:
+          type: string
+          description: >-
+            A stable identifier for the business, shown in your Fincra
+            dashboard. Not accepted in place of `_id` by any endpoint.
+          example: B-Kq7Rm2XnPvTd
         businessTag:
           type: integer
           nullable: true
-        country:
+          description: >-
+            A sequential number assigned when the business is created, used for
+            display and support reference. Not accepted as an identifier by any
+            endpoint. Use `_id`.
+          example: 135147
+        logo:
           type: string
+          description: >-
+            URL of the business logo. Absent when no logo has been uploaded.
+            Displayed on Checkout when `checkoutSettings.useBrandLogo` is true.
+        website:
+          type: string
+          description: The business website. Absent when it has not been set.
+          example: "https://example.com"
         isKYCApproved:
           type: boolean
+          description: >-
+            Whether the business has completed KYC. Some endpoints reject
+            requests from a business that has not.
+          example: true
         isBlocked:
           type: boolean
+          description: >-
+            Whether Fincra has blocked the business. A blocked business is
+            rejected on transacting endpoints regardless of `status`.
+          example: false
         isPrincipalBVNWatchlisted:
           type: boolean
-        emailSettings:
-          type: object
-          properties:
-            disbursementNotification:
-              type: boolean
-            collectionNotification:
-              type: boolean
-            topupNotification:
-              type: boolean
-            settlementNotification:
-              type: boolean
-            paymentReceiptNotification:
-              type: boolean
-        checkoutSettings:
-          type: object
-          properties:
-            useBrandLogo:
-              type: boolean
-            buttonTextColor:
-              type: string
-              nullable: true
-            buttonColor:
-              type: string
-              nullable: true
-            fontColor:
-              type: string
-              nullable: true
-            fontFamily:
-              type: string
-              nullable: true
-            backgroundColor:
-              type: string
-              nullable: true
-            backgroundTextColor:
-              type: string
-              nullable: true
-        settlementSettings:
-          type: object
-          nullable: true
+          description: >-
+            Whether the principal's BVN appears on a monitored watchlist. Set by
+            Fincra's compliance screening.
+          example: false
         settings:
           type: object
+          description: Operational settings. Change these with Update business settings.
           properties:
-            enableWebhook:
-              type: boolean
-            enableWebhookRetry:
-              type: boolean
-            callbackURL:
-              type: string
-              nullable: true
             feeBearer:
               type: string
               enum: [customer, business]
+              description: >-
+                Who pays transaction fees. `customer` adds the fee to the
+                customer's charge; `business` deducts it from your proceeds.
+                Defaults to `customer`.
+              example: business
             settlementDestination:
               type: string
               enum: [wallet, bank_account]
-            acceptMispayments:
+              description: >-
+                Where supported settlements are paid. `bank_account` requires a
+                configured settlement account. Defaults to `wallet`.
+              example: wallet
+            enableWebhook:
               type: boolean
-            overrideBusinessEmail:
+              description: >-
+                Whether Fincra sends webhook events to `callbackURL`. Disabled
+                by default.
+              example: true
+            enableWebhookRetry:
+              type: boolean
+              description: >-
+                Whether Fincra retries webhook deliveries that fail. Disabled by
+                default.
+              example: false
+            callbackURL:
               type: string
               nullable: true
+              description: >-
+                The endpoint that receives webhook events. `null` when no URL
+                has been set.
+              example: "https://example.com/webhooks/fincra"
+            acceptMispayments:
+              type: boolean
+              description: >-
+                Whether Checkout accepts overpayments and underpayments instead
+                of reversing them. Enabled by default.
+              example: false
+            overrideBusinessEmail:
+              type: string
+              format: email
+              nullable: true
+              description: >-
+                An address that receives notifications instead of `email`.
+                `null` when not set.
+        emailSettings:
+          type: object
+          description: >-
+            Which transaction emails Fincra sends. All are disabled by default.
+          properties:
+            disbursementNotification:
+              type: boolean
+              description: Send an email when a payout is processed.
+            collectionNotification:
+              type: boolean
+              description: Send an email when a payment is collected.
+            topupNotification:
+              type: boolean
+              description: Send an email when a wallet is topped up.
+            settlementNotification:
+              type: boolean
+              description: Send an email when a settlement is paid out.
+            paymentReceiptNotification:
+              type: boolean
+              description: Send a receipt to the payer after a successful payment.
+        checkoutSettings:
+          type: object
+          description: >-
+            Appearance of the Fincra Checkout page. Colour fields accept CSS
+            colour values and are `null` until set, in which case Checkout uses
+            its defaults.
+          properties:
+            useBrandLogo:
+              type: boolean
+              description: >-
+                Show the business `logo` on Checkout instead of the Fincra logo.
+            buttonTextColor:
+              type: string
+              nullable: true
+              description: Colour of the text on the Checkout button.
+            buttonColor:
+              type: string
+              nullable: true
+              description: Background colour of the Checkout button.
+            fontColor:
+              type: string
+              nullable: true
+              description: Colour of body text on Checkout.
+            fontFamily:
+              type: string
+              nullable: true
+              description: Font family used on Checkout.
+            backgroundColor:
+              type: string
+              nullable: true
+              description: Background colour of the Checkout page.
+            backgroundTextColor:
+              type: string
+              nullable: true
+              description: Colour of text placed on the page background.
+        settlementSettings:
+          type: object
+          nullable: true
+          description: >-
+            Settlement configuration for the business. `null` when none has been
+            applied.
         createdAt:
           type: string
           format: date-time
+          description: When the business was created.
+          example: "2025-03-17T14:47:34.633Z"
         updatedAt:
           type: string
           format: date-time
-
-security:
-  - apiKey: []
+          description: When the business was last modified.
+          example: "2026-09-03T05:33:37.509Z"
