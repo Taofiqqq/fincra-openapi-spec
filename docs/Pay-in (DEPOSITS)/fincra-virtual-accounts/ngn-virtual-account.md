@@ -328,7 +328,7 @@ If successful, you will receive a JSON snippet with the details of all virtual a
 ```json
 {
     "success": true,
-    "message": "[Notice: Virtual Account endpoint changing soon. Date to be communicated soon] Merchant virtual accounts fetched successfully",
+    "message": "Thank you. A NGN virtual account has been created for you",
     "data": {
         "results": [
             {
@@ -440,5 +440,3 @@ If successful, you will receive a JSON snippet with the details of all virtual a
     }
 }
 ```
-
-<br />
