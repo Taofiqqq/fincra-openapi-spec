@@ -21,12 +21,10 @@ This guide explains how to:
 
 ```mermaid
 flowchart TD
-  A["Collect recipient's Interac email"] --> B["Verify email and Autodeposit status"]
-  B --> C{"Autodeposit enabled?"}
-  C -->|No| D["Stop and ask the recipient to enable Autodeposit"]
-  C -->|Yes| E{"Source and destination currencies differ?"}
-  E -->|Yes| F["Generate a quote"]
-  E -->|No| G["Create the payout"]
-  F --> G
-  G --> H["Track the payout using webhooks"]
+  A["Collect recipient's<br/>Interac email"] --> B["Verify email and<br/>Autodeposit status"]
+  B --> C{"Autodeposit<br/>enabled?"}
+  C -->|Enabled| D["Generate a quote<br/>if currencies differ"]
+  C -->|Disabled| E["Stop and ask the recipient<br/>to enable Autodeposit"]
+  D --> F["Create the payout"]
+  F --> G["Track the payout<br/>using webhooks"]
 ```
