@@ -60,7 +60,6 @@ This checks whether the email is registered for Interac Autodeposit and returns 
 
 ### Request
 
-
 ```json
  {
     "currency": "CAD",
@@ -86,7 +85,7 @@ A successful response with autoDepositEnabled: true means the recipient can rece
 }
 ```
 
-
+<br />
 
 For example, if you send CAD 100 to `johnbarret@example.com`, the money will be deposited into the Canadian bank account linked to that email.
 
@@ -247,17 +246,128 @@ Here, amount is KES 10,000 because KES is the source currency. It must match the
 
 ### Important fields
 
-| Field                                                                                            | Description                                                       |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| `business`                                                                                       | Your 24-character Fincra business ID.                             |
-| `sourceCurrency`                                                                                 | Currency of the wallet funding the payout.                        |
-| `destinationCurrency`                                                                            | Must be `CAD`.                                                    |
-| `amount`                                                                                         | Amount in the source currency, supplied as a JSON number.         |
-| `quoteReference`                                                                                 | Required when the source currency is not `CAD`.                   |
-| `description`                                                                                    | A non-empty description of the payout.                            |
-| `customerReference`                                                                              | Your unique reference for identifying and reconciling the payout. |
-| `paymentDestination`                                                                             | Must be `bank_account`.                                           |
-| `paymentScheme`                                                                                  | Must be `interac`.                                                |
-| [`beneficiary.country`](beneficiary.country "beneficiary.country")                               | Must be `CA`.                                                     |
-| [`beneficiary.interacEmail`](beneficiary.interacEmail "beneficiary.interacEmail")                | Recipient’s verified Interac email.                               |
-| [`beneficiary.accountHolderName`](beneficiary.accountHolderName "beneficiary.accountHolderName") | Name returned or confirmed during account resolution.             |
+| Field                           | Description                                                       |
+| ------------------------------- | ----------------------------------------------------------------- |
+| `business`                      | Your 24-character Fincra business ID.                             |
+| `sourceCurrency`                | Currency of the wallet funding the payout.                        |
+| `destinationCurrency`           | Must be `CAD`.                                                    |
+| `amount`                        | Amount in the source currency, supplied as a JSON number.         |
+| `quoteReference`                | Required when the source currency is not `CAD`.                   |
+| `description`                   | A non-empty description of the payout.                            |
+| `customerReference`             | Your unique reference for identifying and reconciling the payout. |
+| `paymentDestination`            | Must be `bank_account`.                                           |
+| `paymentScheme`                 | Must be `interac`.                                                |
+| `beneficiary.country`           | Must be `CA`.                                                     |
+| `beneficiary.interacEmail`      | Recipient’s verified Interac email.                               |
+| `beneficiary.accountHolderName` | Name returned or confirmed during account resolution.             |
+
+## Step 4: Handle the payout response
+
+A successful request means Fincra has accepted the payout for processing. It does not necessarily mean the recipient has already received the money.
+
+A response can look like this:
+
+```json
+{
+  "data": {
+    "id": 12345,
+    "reference": "FPY-8E74262E",
+    "customerReference": "cad-interac-001",
+    "status": "processing",
+    "message": null,
+    "isDocumentRequired": false,
+    "documentsRequired": []
+  },
+  "message": "Payout initiated successfully."
+}
+```
+
+Store both references:
+
+- reference is the Fincra-generated payout reference.
+- customerReference is the reference supplied by your application.
+
+Use these references when reconciling the payout, investigating an issue or matching webhook events to your internal transaction.
+
+## Step 5: Track the final payout status
+
+Payout processing is asynchronous. Use payout webhooks to determine whether the transfer eventually succeeds or fails.
+
+A successful payout produces:
+
+`payout.successful`
+
+A failed payout produces:
+
+`payout.failed`
+
+A webhook contains the Fincra reference, your customer reference, the recipient, currencies, amounts, payment scheme and final status.
+
+Example successful webhook excerpt:
+
+```json
+{
+  "event": "payout.successful",
+  "data": {
+    "id": 12345,
+    "reference": "FPY-8E74262E",
+    "customerReference": "cad-interac-001",
+    "sourceCurrency": "CAD",
+    "destinationCurrency": "CAD",
+    "status": "successful",
+    "amountCharged": 100,
+    "amountReceived": 100,
+    "paymentScheme": "interac",
+    "paymentDestination": "bank_account",
+    "recipient": {
+      "name": "John Barret",
+      "type": "individual",
+      "interacEmail": "johnbarret@example.com"
+    }
+  }
+}
+```
+
+## Common integration errors
+
+### Autodeposit is disabled
+
+The resolution request succeeds, but autoDepositEnabled is false.
+
+Stop the flow and ask the recipient to enable Autodeposit before trying again.
+
+### The quote reference is missing
+
+This happens when you create a cross-currency payout without first generating a quote.
+
+Generate a new quote and include its reference as quoteReference.
+
+### The quote amount does not match the payout amount
+
+The payout amount must equal the quote’s sourceAmount.
+
+Generate a new quote if the source amount changes.
+
+### The quote has expired
+
+Generate another quote and use its new reference.
+
+### The beneficiary country is missing or incorrect
+
+Use:
+
+"country": "CA"
+
+### The Interac email is missing or invalid
+
+Supply the same valid email address that passed the account-resolution check.
+
+## Next steps
+
+For complete request fields, response schemas and error definitions, see:
+
+- Resolve an Interac recipient
+- Generate a quote
+- Create a payout
+- Retrieve a payout
+- Payout webhook events
