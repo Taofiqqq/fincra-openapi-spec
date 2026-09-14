@@ -2908,7 +2908,8 @@
                       "bank_account",
                       "mobile_money",
                       "nuban",
-                      "iban"
+                      "iban",
+                      "interac_etransfer"
                     ]
                   },
                   "iban": {
@@ -2917,7 +2918,21 @@
                   },
                   "currency": {
                     "type": "string",
-                    "description": "The currency, i.e NGN, GHS, ZAR. Note, this is only required for bank_account and mobile_money"
+                    "description": "The currency, i.e NGN, GHS, ZAR. Note, this is only required for bank_account and mobile_money. For interac_etransfer, the value must be CAD when provided, and it defaults to CAD"
+                  },
+                  "interacEmail": {
+                    "type": "string",
+                    "description": "The recipient's valid Interac email address. This is required for type=interac_etransfer"
+                  }
+                }
+              },
+              "examples": {
+                "Interac recipient": {
+                  "summary": "Interac recipient",
+                  "value": {
+                    "currency": "CAD",
+                    "type": "interac_etransfer",
+                    "interacEmail": "aminat@example.com"
                   }
                 }
               }
@@ -2932,6 +2947,28 @@
                 "examples": {
                   "Result": {
                     "value": "{\n    \"success\": true,\n    \"message\": \"Account resolve successful\",\n    \"data\": {\n        \"accountNumber\": \"4038373314\",\n        \"accountName\": \"Mart Olumide\"\n    }\n}"
+                  },
+                  "Autodeposit enabled": {
+                    "summary": "Autodeposit enabled",
+                    "value": {
+                      "data": {
+                        "email": "aminat@example.com",
+                        "accountName": "Aminat Bello",
+                        "autoDepositEnabled": true
+                      },
+                      "message": "Account resolve successful"
+                    }
+                  },
+                  "Autodeposit disabled": {
+                    "summary": "Autodeposit disabled",
+                    "value": {
+                      "data": {
+                        "email": "aminat@example.com",
+                        "accountName": null,
+                        "autoDepositEnabled": false
+                      },
+                      "message": "Account resolve successful"
+                    }
                   }
                 },
                 "schema": {
@@ -2955,7 +2992,16 @@
                         },
                         "accountName": {
                           "type": "string",
-                          "example": "Mart Olumide"
+                          "example": "Mart Olumide",
+                          "description": "The name registered to the account. For type=interac_etransfer, this is null when Autodeposit is unavailable"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "The Interac email that was verified. Returned for type=interac_etransfer"
+                        },
+                        "autoDepositEnabled": {
+                          "type": "boolean",
+                          "description": "Indicates whether the recipient can automatically receive the Interac payout. Returned for type=interac_etransfer"
                         }
                       }
                     }
