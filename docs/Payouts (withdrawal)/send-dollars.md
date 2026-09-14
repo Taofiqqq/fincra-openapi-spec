@@ -33,3 +33,5 @@ You need your API credentials, business ID, a funded source wallet, and the reci
 - Create a CAD Interac Payout
 - Verify Payout Status
 - Payout Webhooks
+
+New to CAD Interac payouts? Follow the Send CAD payouts via Interac e-Transfer (/link-to-guide) guide for the complete integration flow.
