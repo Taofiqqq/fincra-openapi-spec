@@ -1,5 +1,8 @@
 ---
 title: CAD Payout (Interac e-Transfer)
+excerpt: >-
+  Send Canadian dollar payouts directly to recipients' Canadian bank accounts
+  using their verified Interac Autodeposit email.
 deprecated: false
 hidden: false
 metadata:
