@@ -1,5 +1,5 @@
 ---
-title: Send CAD payouts via Interac e-Transfer
+title: CAD Payouts via Interac e-Transfer
 excerpt: >-
   Verify a recipient’s Interac Autodeposit status and send CAD payouts from your
   CAD balance or another supported currency.
