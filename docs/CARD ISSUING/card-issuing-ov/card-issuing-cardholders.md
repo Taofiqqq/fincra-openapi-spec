@@ -40,16 +40,16 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cardholders \
     "type": "individual",
     "reference": "cust_0001",
     "individual": {
-      "email": "umar@example.com",
-      "phoneNumber": "+2348061234567",
+      "email": "joe@example.com",
+      "phoneNumber": "+2342011234548",
       "kycProfile": {
-        "firstName": "Umar",
-        "lastName": "Abdullahi",
-        "dob": "1990-07-06",
+        "firstName": "Joe",
+        "lastName": "Sue",
+        "dob": "1985-07-06",
         "countryCode": "NG",
         "gender": "male",
         "address": {
-          "line1": "Ochacho Real Homes 1",
+          "line1": "ABC Estate Homes 1",
           "city": "AMAC",
           "state": "Abuja",
           "country": "NG",
@@ -67,8 +67,8 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cardholders \
 ```json
 {
   "id": "ch_k7iwb55alvazwckwykc4erlm11ijcyn9",
-  "name": "Umar Abdullahi",
-  "email": "umar@example.com",
+  "name": "Joe Sue",
+  "email": "joe@example.com",
   "reference": "cust_0001",
   "type": "individual",
   "countryCode": "NG",
@@ -93,14 +93,14 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cardholders \
     "business": {
       "email": "ops@example.com",
       "phoneNumber": "+2348061234500",
-      "address": { "line1": "Ochacho Real Homes 1", "city": "AMAC", "state": "Abuja", "country": "NG", "postalCode": "900001" },
+      "address": { "line1": "ABC Estates Homes 1", "city": "AMAC", "state": "Abuja", "country": "NG", "postalCode": "900001" },
       "kybProfile": {
         "legalName": "Example Business Limited",
         "companyRegistrationNumber": "RC1234567",
         "countryOfIncorporation": "NG",
         "associatedPersons": [
           {
-            "firstName": "Umar", "lastName": "Abdullahi", "dob": "1990-07-06",
+            "firstName": "Joe", "lastName": "Sue", "dob": "1985-07-06",
             "countryCode": "NG", "shareholderPercentage": 100, "isDirector": true,
             "identityNumbers": [
               { "type": "bvn", "number": "23332240000" },
@@ -117,7 +117,7 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cardholders \
 
 `GET /cardholders/{id}`
 
-When `verificationStatus` is `rejected`, the cardholder carries a `verificationFailures` array. Each failure names the `requirement` that failed and a `reason`, so you know exactly what to fix. Reasons include `document_unreadable`, `document_expired`, `document_invalid`, `invalid_identity_number` and `address_mismatch`.
+When `verificationStatus` is `rejected`, the cardholder carries a `verificationFailures` array. Each failure names the `requirement` that failed and a`reason`, so you know exactly what to fix. Reasons include `document_unreadable`, `document_expired`, `document_invalid`, `invalid_identity_number` and `address_mismatch`.
 
 ```json
 {
@@ -150,7 +150,7 @@ curl -X PATCH https://sandboxapi.fincra.com/issuing/cardholders/ch_k7iwb55alvazw
   -d '{
     "type": "individual",
     "individual": {
-      "firstName": "Umar", "lastName": "Abdullahi", "dob": "1990-07-06", "countryCode": "NG",
+      "firstName": "Joe", "lastName": "Sue", "dob": "1985-07-06", "countryCode": "NG",
       "identityNumbers": [
         { "type": "bvn", "number": "22222222222" },
         { "type": "nin", "number": "55555555558" }
@@ -175,7 +175,7 @@ Change the email or phone. Identity evidence is not editable here, because the v
 curl -X PATCH https://sandboxapi.fincra.com/issuing/cardholders/ch_k7iwb55alvazwckwykc4erlm11ijcyn9 \
   -H "api-key: $FINCRA_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{ "email": "umar.new@example.com", "phoneNumber": "+2348061234567" }'
+  -d '{ "email": "joe.new@example.com", "phoneNumber": "+2348261234678" }'
 ```
 
 ## Offboard a cardholder
