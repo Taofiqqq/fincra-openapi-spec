@@ -58,7 +58,7 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cards \
     "cardholderId": "ch_k7iwb55alvazwckwykc4erlm11ijcyn9",
     "reference": "card_0001",
     "cardType": "virtual_debit_card",
-    "cardDisplayName": "Umar spend card"
+    "cardDisplayName": "Joe spend card"
   }'
 ```
 
@@ -76,7 +76,7 @@ curl -X POST https://sandboxapi.fincra.com/issuing/cards \
   "cardProductId": "cprod_ff0c3z37zi40pvc82g74bgsm4q7fubbw",
   "cardholderId": "ch_k7iwb55alvazwckwykc4erlm11ijcyn9",
   "reference": "card_0001",
-  "name": "Umar spend card"
+  "name": "Joe spend card"
 }
 ```
 
