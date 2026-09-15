@@ -111,7 +111,7 @@ Check three things before you send the request.
 
 The zip code format guide is linked from this page. Use it to write the zip code in the format the destination country expects. A zip code in the wrong format causes an address check to fail.
 
-_\[Editor: restore the existing link to the ZIP Code Format Guide here.]_
+Refer to the [ZIP Code Format Guide](https://74353748992479739.s3.amazonaws.com/files/zip_code_format.html).
 
 ### Why will an inflow be reversed to sender?
 
