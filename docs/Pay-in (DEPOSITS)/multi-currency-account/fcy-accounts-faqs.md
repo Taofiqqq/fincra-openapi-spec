@@ -147,4 +147,4 @@ Visit us [here](https://fincra.com/multicurrency-account/?utm_source=News+letter
 
 Email the Fincra support team, or use the contact form on the Fincra website. Include the account identifier and the request identifier where you have them.
 
-_\[Editor: restore the existing support email address and contact link here.]_
+_\[_&#x46;or questions and support, contact us at [fincra.com/contact-us](mailto:fincra.com/contact-us) or send an email to [support@fincra.com](mailto:support@fincra.com).
