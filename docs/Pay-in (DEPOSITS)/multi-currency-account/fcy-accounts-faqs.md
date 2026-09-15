@@ -10,77 +10,141 @@ metadata:
 next:
   description: ''
 ---
+# FAQs
+
 ### What is the Fincra Multicurrency Account?
 
-The Fincra Multicurrency Account is a product that simplifies international payments and expands opportunities for the gig economy, remote work, freelancing, payroll, fintech, eCommerce, and more. It supports issuing named EUR and USD accounts to individuals via API.
+The Multicurrency Account is an account in a foreign currency that your business uses to collect money from customers in other countries.
+
+Your business can hold an account in its own name. Your business can also issue accounts that carry the names of your own customers, such as freelancers, contractors, marketplace sellers and payroll recipients.
+
+Money that arrives settles to your Fincra wallet.
 
 ### Who can use the Fincra Multicurrency Account?
 
-The product is designed for individuals such as freelancers, remote workers, payroll companies, contractors, and more who need to receive payments for their services easily and transparently.
+A registered business. Fincra onboards businesses, not individuals.
+
+Your business can hold accounts in its own name. Your business can also issue accounts in the names of its own customers, once Fincra has approved it to do so.
+
+A person who holds one of these accounts is a customer of your business. They are not a customer of Fincra.
 
 ### How do businesses leverage the Fincra Multicurrency Account API?
 
-Businesses such as fintech companies, payroll companies, and eCommerce companies can integrate with Fincra's API to issue named foreign currency accounts to their individual users.
+A business uses the API to request an account in its own name, or an account in the name of one of its customers. The API returns the account details, reports the outcome by webhook, and lists the money that arrives.
+
+Freelancers, contractors, marketplace sellers and payroll recipients get their accounts through the business that serves them.
 
 ### What currencies are supported by the Fincra Multicurrency Account?
 
- Currently, the supported currencies include USD and EUR, with more currencies to be added in the future.
+Fincra issues accounts in the US dollar, the euro, the British pound and the Canadian dollar.
+
+An account in the name of an individual is available in the euro and the Canadian dollar. For the US dollar and the British pound, request a corporate account.
+
+Fincra sends money out in the US dollar, the euro, the British pound and the Chinese yuan.
 
 ### What transaction types are supported?
 
- For USD accounts, the supported transaction is ACH only. 
+The account receives money by bank transfer, on the payment schemes listed for that currency.
 
- For EUR accounts, the supported transaction is SEPA.
+Money that arrives settles to your Fincra wallet. It does not stay in the virtual account. Read the funding guide.
 
 ### What are first-party and third-party inflows?
 
-* **First-party inflow:** Transactions from an account with the same name as the receiver account.
-* **Third-party inflow:** Transactions from an account with a different name from the receiver account.
+- **A first-party inflow** is a payment where the sender's name matches the name on the account. The account holder is paying themselves.
+- **A third-party inflow** is a payment where the sender's name does not match the name on the account. Somebody else is paying the account holder.
 
 ### Are there any special considerations for third-party transactions?
 
- Third-party transactions above 2000 EUR would be subjected to further review to ensure compliance with regulatory and security standards. Recipients of such transactions may be required to provide additional information within 48 hours. If not provided, the transaction will be returned to the sender with a 15% return fee charged.
+Yes. Fincra checks a third-party payment automatically.
+
+1. A payment arrives from a sender whose name does not match the account name.
+2. Fincra raises a request for information by itself.
+3. The money settles when the answer arrives inside 48 hours.
+4. Fincra adds that sender to the approved list. A later payment from the same sender settles by itself.
+
+Treat 48 hours as the absolute maximum. Answer sooner. A payment that nobody answers in time is returned to the sender.
+
+An account held by a licensed financial institution cannot receive a third-party payment at all. The payment is returned to the sender.
 
 ### What information is required for verification to get a named MCY Account?
 
-* **Personal Information:** First Name, Last Name, Address, Zip Code, Email, Date of Birth, and country of residence.
-* **ID Information:** International Passport, Residence Permit, National ID (both front and back).
-* **Proof of Address:** Bank statement with address, utility bill with address.
+**Personal Information**
+
+- First name and last name
+- Date of birth
+- Residential address and zip code
+- Country of residence
+- Email address
+
+**ID Information**
+
+- A valid government identity document
+- The document must match the country given in the request
+
+**Proof of Address**
+
+- A bank statement or a utility bill
+- **The document must carry the applicant's own name.** A bill in a landlord's name or a family member's name is refused. Where a utility bill is not in the applicant's name, send a bank statement.
+- The document must be less than 3 months old, counted from the day it is provided.
 
 ### Can I use an expired ID?
 
- No, only valid means ID are acceptable and validity of ID must not be less than 1month
+No. The identity document must be valid on the day you send the request.
+
+A document that expired less than one month ago can be accepted. A document that expired earlier than that is refused. Send a current document.
 
 ### Can I use ID Document and 2 Different Countries?
 
-The country passed in payload will be checked against all provided document. Hence, you are required to provide documents with same country.
+No. Every document must match the country you give in the request.
+
+An identity document issued by one country and a proof of address from another country is refused. Send the request with the country that matches the documents.
 
 ### How do I ensure my documents are accepted?
 
-* Provide clear, scanned copies of your ID and address documents.
-* Ensure all details in the documents match the information provided in the payload.
+Check three things before you send the request.
+
+- **The typed values match the document.** The name, the address, the date of birth and the document number must be the same in the form and on the file. A value that does not match is the most frequent single cause of a decline.
+- **The proof of address carries the applicant's own name and is less than 3 months old.**
+- **The file is an original image of the whole document.** Fincra refuses a screenshot, a photograph of another screen, an expired document, an altered image, and an image where the text is not clear.
 
 ### Where can I find the zip code format guide?
 
- Refer to the [ZIP Code Format Guide](https://74353748992479739.s3.amazonaws.com/files/zip_code_format.html).
+The zip code format guide is linked from this page. Use it to write the zip code in the format the destination country expects. A zip code in the wrong format causes an address check to fail.
+
+_\[Editor: restore the existing link to the ZIP Code Format Guide here.]_
 
 ### Why will an inflow be reversed to sender?
 
-An inflow will be returned to the sender if the receiver account name inputed for the transaction is incorrect.\
-Always ensure that first and last name of the receiver account is correct for all transactions to prevent fund reversal to sender.
+An inflow is returned to the sender in these cases.
+
+- The payer entered a name that does not match the account holder's registered name, and the account is held by a licensed financial institution.
+- Fincra asked for information about the payment and nobody answered inside 48 hours.
+- The payment breaks a rule on the prohibited activities and countries page.
 
 ### When will a transaction be flagged?
 
-When a single transaction is above 2,000 EUR or 2,000 USD respectively and/or the third transaction within a day. These transactions would trigger a request for more information.
+Fincra reviews a payment in these cases.
+
+- A single payment above 2,000 in the account currency.
+- The third payment into the account in one day.
+- A payment from a sender whose name does not match the account name.
+
+A review holds the money until the question is answered. It does not on its own mean the payment is refused.
 
 ### What is the monthly transaction limit?
 
-Monthly transaction limit is 10,000 EUR and 10,000 USD respectively. Transactions above this limit would require more information before they are settled.
+The monthly figure of 10,000 applies to an account issued in the name of an individual.
+
+**A business account does not use that figure.** Fincra confirms the limit on a business account when it issues the account.
 
 ### How can I get started with the Fincra Multicurrency Account?
 
- Visit us [here](https://fincra.com/multicurrency-account/?utm_source=News+letter\&utm_medium=email\&utm_campaign=Multicurrency+Campaign\&utm_id=MCY) to get started.
+Contact Fincra to have your business onboarded and approved for account issuing. Once you are approved, follow the request guides in this section.
+
+_\[Editor: restore the existing link to the Multicurrency Account product page here.]_
 
 ### Who can I contact for questions and support?
 
- For questions and support, contact us at [fincra.com/contact-us](mailto:fincra.com/contact-us) or send an email to [support@fincra.com](mailto:support@fincra.com).
+Email the Fincra support team, or use the contact form on the Fincra website. Include the account identifier and the request identifier where you have them.
+
+_\[Editor: restore the existing support email address and contact link here.]_
