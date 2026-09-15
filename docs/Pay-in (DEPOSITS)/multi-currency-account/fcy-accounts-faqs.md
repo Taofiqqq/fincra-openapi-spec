@@ -141,7 +141,7 @@ The monthly figure of 10,000 applies to an account issued in the name of an indi
 
 Contact Fincra to have your business onboarded and approved for account issuing. Once you are approved, follow the request guides in this section.
 
-_\[Editor: restore the existing link to the Multicurrency Account product page here.]_
+Visit us [here](https://fincra.com/multicurrency-account/?utm_source=News+letter\&utm_medium=email\&utm_campaign=Multicurrency+Campaign\&utm_id=MCY) to get started.
 
 ### Who can I contact for questions and support?
 
