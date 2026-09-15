@@ -2,7 +2,7 @@
 title: Cards
 excerpt: Activate a card product, issue a card, and manage it across its life.
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
