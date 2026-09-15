@@ -12,7 +12,7 @@ Activate a card product once, then issue cards against it. A new card is `inacti
 
 A card product sets the scheme and terms of the cards under it. Activate it once for your business.
 
-`GET /card_products` lists the products for your business. `GET /card_products/{id}` Retrieves one. `POST /card_products/{id}/activate` Activates it and takes no body.
+`GET /card_products` Lists the products for your business. `GET /card_products/{id}` Retrieves one. `POST /card_products/{id}/activate` Activates it and takes no body.
 
 ```bash
 # List, then activate the one you want
