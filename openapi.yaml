@@ -23,6 +23,8 @@ tags:
   - name: Verification
     description: >-
       Confirm who you are paying, before you pay them.
+  - name: Payouts
+    description: Send money out to bank accounts and mobile money wallets.
 
 paths:
   /wallets:
