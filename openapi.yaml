@@ -1685,10 +1685,17 @@ paths:
         currency does not need one.
 
 
-        Every corridor uses one of the three shapes below. To pay a different
-        currency, keep the shape and change `destinationCurrency`, the
+        African corridors use one of the first three shapes below. To pay a
+        different currency, keep the shape and change `destinationCurrency`, the
         beneficiary's `accountNumber` and `country`, and either `mobileMoneyCode`
         or `bankCode`.
+
+
+        EUR, GBP, USD, CAD, CNY and CNH use the fourth shape and ask for more.
+        `paymentScheme`, `description` and the beneficiary's `country` and
+        `address` all become required, USD also needs `files` and
+        `customerName`, and **USD and GBP will only pay a corporate
+        beneficiary**.
 
 
         In Sandbox a fixed set of account numbers stands in for real ones, and
@@ -1708,11 +1715,7 @@ paths:
               oneOf:
                 - $ref: "#/components/schemas/BankAccountPayoutRequest"
                 - $ref: "#/components/schemas/MobileMoneyPayoutRequest"
-              discriminator:
-                propertyName: paymentDestination
-                mapping:
-                  bank_account: "#/components/schemas/BankAccountPayoutRequest"
-                  mobile_money_wallet: "#/components/schemas/MobileMoneyPayoutRequest"
+                - $ref: "#/components/schemas/ForeignCurrencyPayoutRequest"
             examples:
               sameCurrency:
                 summary: Same currency, bank account
@@ -1767,6 +1770,40 @@ paths:
                     accountNumber: "4005006007"
                     bankCode: GH130100
                     country: GH
+              foreignCurrency:
+                summary: Foreign currency, USD
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: USD
+                  amount: 500000
+                  business: 64f1c2a4b7d9e30012ab4567
+                  customerReference: payout-usd-001
+                  paymentDestination: bank_account
+                  description: Invoice 2026-114, software licence
+                  paymentScheme: swift
+                  quoteReference: 84141587-9caf-45f6-971b-bd654361d086
+                  customerName: Bluewater Trading Ltd
+                  purposeOfFund: software_purchase
+                  relationshipWithBeneficiary: supplier
+                  files:
+                    - file: doc_8f21c47a9e
+                      documentType: invoice
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Bluewater Trading Ltd
+                    accountNumber: "123456789"
+                    bankName: Chase Bank
+                    bankSwiftCode: CHASUS33
+                    bankCode: "021000021"
+                    country: US
+                    registrationNumber: "1823061"
+                    incorporationCountry: US
+                    address:
+                      country: US
+                      city: New York
+                      state: NY
+                      zip: "10005"
+                      street: 123 Wall Street
       responses:
         "200":
           description: The payout was accepted. Poll or wait for the webhook for the outcome.
@@ -1838,13 +1875,62 @@ paths:
     post:
       operationId: uploadPayoutDocument
       summary: Upload a payout document
+      description: >-
+        Attaches a supporting document to a payout. USD payouts require at least
+        one, so upload the document first and pass what comes back in `files` on
+        [Create a payout](/reference/createpayout).
       tags:
         - Payouts
       security:
         - apiKey: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+                - reference
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document itself.
+                name:
+                  type: string
+                  description: A name for the document.
+                  example: invoice-2026-114.pdf
+                type:
+                  type: string
+                  description: >-
+                    What the document is, such as `invoice`, `service_contract`,
+                    `purchase_agreement` or `bill_of_lading`.
+                  example: invoice
+                reference:
+                  type: string
+                  description: The payout reference the document belongs to.
+                  example: 9d08a998-b545-4070-a165-985e5129bbe7
       responses:
         "200":
-          description: Not yet documented.
+          description: The document was attached.
+          content:
+            application/json: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "422":
+          description: The request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Error occurred during payload validation. "reference" is required
+                errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /disbursements/payouts/export:
     post:
@@ -5432,3 +5518,259 @@ components:
               type: string
               description: The currency the beneficiary is paid in.
               example: GHS
+
+    ForeignCurrencyPayoutRequest:
+      type: object
+      title: Foreign currency bank account
+      description: >-
+        A payout in EUR, GBP, USD, CAD, CNY or CNH. These carry compliance
+        requirements the African corridors do not: `paymentScheme`,
+        `description` and the beneficiary's `country` are all required, and USD
+        and GBP will only pay a corporate beneficiary.
+      required:
+        - paymentDestination
+        - sourceCurrency
+        - destinationCurrency
+        - amount
+        - business
+        - customerReference
+        - description
+        - paymentScheme
+        - beneficiary
+      properties:
+        paymentDestination:
+          type: string
+          enum: [bank_account]
+          description: Pays a bank account.
+          example: bank_account
+        sourceCurrency:
+          type: string
+          description: The wallet the money leaves.
+          example: NGN
+        destinationCurrency:
+          type: string
+          enum: [USD, EUR, GBP, CAD, CNY, CNH]
+          description: The currency the beneficiary is paid in.
+          example: USD
+        amount:
+          type: number
+          description: The amount to send, in `sourceCurrency`.
+          example: 500000
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        customerReference:
+          type: string
+          description: Your own reference for this payout.
+          example: payout-usd-001
+        description:
+          type: string
+          description: >-
+            What the payout is for. Required for these currencies, unlike the
+            African corridors where it is optional.
+          example: Invoice 2026-114, software licence
+        paymentScheme:
+          type: string
+          enum: [swift, ach, fed_wire, sepa, sepa_instant, chaps, fps, eft, cnaps]
+          description: >-
+            The rail the payout travels on, and required for these currencies.
+            USD uses `ach`, `fed_wire` or `swift`. EUR uses `sepa`,
+            `sepa_instant` or `swift`. GBP uses `fps`, `chaps` or `swift`. CAD
+            uses `eft`. CNY and CNH use `cnaps`.
+          example: swift
+        quoteReference:
+          type: string
+          description: >-
+            The `reference` from Generate a quote. Required when
+            `destinationCurrency` differs from `sourceCurrency`.
+          example: 84141587-9caf-45f6-971b-bd654361d086
+        customerName:
+          type: string
+          description: >-
+            The name of the customer the payout is made on behalf of. Required
+            for USD.
+          example: Bluewater Trading Ltd
+        purposeOfFund:
+          type: string
+          description: >-
+            Why the money is being sent, such as `payment_for_services`,
+            `goods_purchase` or `employee_payroll`. Required for CNY and CNH,
+            which accept a narrower set than the other currencies.
+          example: payment_for_services
+        relationshipWithBeneficiary:
+          type: string
+          description: >-
+            Your relationship to the beneficiary, such as `supplier`, `vendor`,
+            `employee` or `business_partner`.
+          example: supplier
+        files:
+          type: array
+          description: >-
+            Supporting documents. Required for USD. Upload each one with
+            [Upload a payout document](/reference/uploadpayoutdocument) first.
+          items:
+            type: object
+            properties:
+              file:
+                type: string
+                description: The uploaded file's reference.
+                example: doc_8f21c47a9e
+              documentType:
+                type: string
+                description: >-
+                  What the document is, such as `invoice`, `service_contract`,
+                  `purchase_agreement` or `bill_of_lading`.
+                example: invoice
+        correspondent:
+          type: object
+          description: The correspondent bank, where the rail needs one. USD only.
+          properties:
+            bankName:
+              type: string
+              description: The correspondent bank's name.
+              example: Citibank NA
+            bankSwiftCode:
+              type: string
+              description: The correspondent bank's SWIFT/BIC code.
+              example: CITIUS33
+        intermediary:
+          type: object
+          description: The intermediary bank, where the rail needs one. USD only.
+          properties:
+            bankName:
+              type: string
+              description: The intermediary bank's name.
+              example: JPMorgan Chase Bank NA
+            bankAddress:
+              type: string
+              description: The intermediary bank's address.
+              example: 383 Madison Avenue, New York, NY 10179
+        feeBearer:
+          type: string
+          description: Who pays the fee.
+          example: business
+        beneficiary:
+          $ref: "#/components/schemas/ForeignCurrencyBeneficiary"
+
+    ForeignCurrencyBeneficiary:
+      type: object
+      description: >-
+        The bank account being paid. Stricter than the African corridors: the
+        address needs a country, city, zip and street, and USD and GBP will not
+        accept an individual.
+      required:
+        - type
+        - accountHolderName
+        - accountNumber
+        - country
+        - address
+      properties:
+        type:
+          type: string
+          enum: [individual, corporate]
+          description: >-
+            Whether you are paying a person or a company. **USD and GBP accept
+            `corporate` only.** An individual beneficiary is rejected outright
+            for those two currencies.
+          example: corporate
+        accountHolderName:
+          type: string
+          description: The name the account is held in.
+          example: Bluewater Trading Ltd
+        accountNumber:
+          type: string
+          description: >-
+            The account number, or the IBAN for EUR and GBP.
+          example: "123456789"
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: >-
+            The two-letter code for the beneficiary's country. Required for
+            these currencies.
+          example: US
+        bankName:
+          type: string
+          description: The bank's name. Required for CNY and CNH.
+          example: Chase Bank
+        bankSwiftCode:
+          type: string
+          description: >-
+            The bank's SWIFT/BIC code. Required for CNY and CNH, and used by
+            `swift` on every currency.
+          example: CHASUS33
+        bankCode:
+          type: string
+          description: The bank's routing number, for USD `ach` and `fed_wire`.
+          example: "021000021"
+        sortCode:
+          type: string
+          description: The bank's sort code, for GBP `fps` and `chaps`.
+          example: "601613"
+        address:
+          $ref: "#/components/schemas/ForeignCurrencyAddress"
+        bankAddress:
+          $ref: "#/components/schemas/ForeignCurrencyAddress"
+        firstName:
+          type: string
+          description: >-
+            The beneficiary's first name. Required when `type` is `individual`,
+            which USD and GBP do not accept.
+          example: Marie
+        lastName:
+          type: string
+          description: The beneficiary's last name.
+          example: Dubois
+        email:
+          type: string
+          format: email
+          description: The beneficiary's email address.
+          example: ap@bluewatertrading.example.com
+        registrationNumber:
+          type: string
+          description: The company's registration number. For a corporate beneficiary.
+          example: "1823061"
+        incorporationCountry:
+          type: string
+          description: >-
+            The two-letter code for where the company was incorporated. For a
+            corporate beneficiary.
+          example: US
+
+    ForeignCurrencyAddress:
+      type: object
+      description: >-
+        An address for a foreign currency payout. Stricter than the African
+        corridors, which only need whatever the channel asks for.
+      required:
+        - country
+        - city
+        - zip
+        - street
+      properties:
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: The two-letter code for the country.
+          example: US
+        city:
+          type: string
+          description: The city.
+          example: New York
+        zip:
+          type: string
+          description: The postal or ZIP code.
+          example: "10005"
+        street:
+          type: string
+          description: The street address.
+          example: 123 Wall Street
+        state:
+          type: string
+          description: The state, province or region.
+          example: NY
