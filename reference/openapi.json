@@ -2312,7 +2312,7 @@
       "post": {
         "operationId": "createPayout",
         "summary": "Create a payout",
-        "description": "Sends money from one of your wallets to a beneficiary. The body changes with `paymentDestination`, which decides whether you are paying a bank account or a mobile money wallet.\n\nPaying out in a currency other than the one leaving your wallet needs a quote. Generate one first and pass its `reference` as [`quoteReference`](/reference/generatequote). A payout in the same currency does not need one.\n\nAfrican corridors use one of the first three shapes below. To pay a different currency, keep the shape and change `destinationCurrency`, the beneficiary's `accountNumber` and `country`, and either `mobileMoneyCode` or `bankCode`.\n\nCAD goes over Interac and uses the last shape, where the recipient is an email rather than an account number.\n\nUSD, EUR and GBP use the fourth shape and ask for more. `paymentScheme`, `description` and the beneficiary's `country` and `address` all become required, USD also needs `files` and `customerName`, and **USD and GBP will only pay a corporate beneficiary**.\n\nIn Sandbox a fixed set of account numbers stands in for real ones, and some are built to fail. A failing account still returns `200`. The payout is accepted and then resolves to `failed`, so poll [Retrieve a payout by reference](/reference/getpayoutbyreference) or wait for the webhook to see the outcome.",
+        "description": "Sends money from one of your wallets to a beneficiary. Pick the shape below that matches where the money is going; each one lists what it needs.\n\nA payout in a currency other than the one leaving your wallet needs a quote. Run [Generate a quote](/reference/generatequote) first and pass its `reference` as `quoteReference`. A payout in the same currency does not need one.\n\nThe African currencies share two shapes. To pay a different one, keep the shape and change `destinationCurrency`, the beneficiary's `accountNumber` and `country`, and either `mobileMoneyCode` or `bankCode`.\n\nIn Sandbox a fixed set of accounts stands in for real ones, and some are built to fail. A failing account still returns `200`: the payout is accepted and then resolves to `failed`, so poll [Retrieve a payout by reference](/reference/getpayoutbyreference) or wait for the webhook.",
         "tags": [
           "Payouts"
         ],
@@ -6462,7 +6462,7 @@
           },
           "quoteReference": {
             "type": "string",
-            "description": "The `reference` from Generate a quote. The amounts on that quote are the amounts you are charged.",
+            "description": "The `reference` from [Generate a quote](/reference/generatequote). The amounts on that quote are the amounts you are charged.",
             "example": "84141587-9caf-45f6-971b-bd654361d086"
           },
           "customerReference": {
@@ -6875,7 +6875,7 @@
           },
           "quoteReference": {
             "type": "string",
-            "description": "The `reference` from Generate a quote. Required when `destinationCurrency` differs from `sourceCurrency`.",
+            "description": "The `reference` from [Generate a quote](/reference/generatequote). Required when `destinationCurrency` differs from `sourceCurrency`.",
             "example": "84141587-9caf-45f6-971b-bd654361d086"
           },
           "description": {
@@ -6944,7 +6944,7 @@
           },
           "quoteReference": {
             "type": "string",
-            "description": "The `reference` from Generate a quote. Required when `destinationCurrency` differs from `sourceCurrency`.",
+            "description": "The `reference` from [Generate a quote](/reference/generatequote). Required when `destinationCurrency` differs from `sourceCurrency`.",
             "example": "84141587-9caf-45f6-971b-bd654361d086"
           },
           "description": {
@@ -7219,7 +7219,7 @@
           },
           "quoteReference": {
             "type": "string",
-            "description": "The `reference` from Generate a quote. Required when `destinationCurrency` differs from `sourceCurrency`.",
+            "description": "The `reference` from [Generate a quote](/reference/generatequote). Required when `destinationCurrency` differs from `sourceCurrency`.",
             "example": "84141587-9caf-45f6-971b-bd654361d086"
           },
           "customerName": {
@@ -7497,7 +7497,7 @@
           },
           "quoteReference": {
             "type": "string",
-            "description": "The `reference` from Generate a quote. Required when `destinationCurrency` differs from `sourceCurrency`.",
+            "description": "The `reference` from [Generate a quote](/reference/generatequote). Required when `destinationCurrency` differs from `sourceCurrency`.",
             "example": "84141587-9caf-45f6-971b-bd654361d086"
           },
           "purposeOfFund": {
