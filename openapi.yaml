@@ -1673,13 +1673,529 @@ paths:
     post:
       operationId: createPayout
       summary: Create a payout
+      description: >-
+        Sends money from one of your wallets to a beneficiary. The body changes
+        with `paymentDestination`, which decides whether you are paying a bank
+        account or a mobile money wallet.
+
+
+        Paying out in a currency other than the one leaving your wallet needs a
+        quote. Generate one first and pass its `reference` as `quoteReference`.
+        A payout in the same currency does not need one.
+
+
+        In Sandbox, a fixed set of account numbers stands in for real ones. Some
+        are built to fail, and a failing account still returns `200` here. The
+        payout is accepted and then resolves to `failed`, so poll
+        [Retrieve a payout by reference](/reference/getpayoutbyreference) or wait
+        for the webhook to see the outcome. Every example below uses one of those
+        accounts, and the ones marked `fails` are the accounts built to fail.
       tags:
         - Payouts
       security:
         - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/BankAccountPayoutRequest"
+                - $ref: "#/components/schemas/MobileMoneyPayoutRequest"
+              discriminator:
+                propertyName: paymentDestination
+                mapping:
+                  bank_account: "#/components/schemas/BankAccountPayoutRequest"
+                  mobile_money_wallet: "#/components/schemas/MobileMoneyPayoutRequest"
+            examples:
+              ngnBank:
+                summary: NGN to NGN, bank, OPay
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: NGN
+                  amount: 5000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ngn-001
+                  paymentDestination: bank_account
+                  description: Payout to OPay
+                  beneficiary:
+                    type: individual
+                    firstName: Grace
+                    lastName: Okoro
+                    accountHolderName: Grace Okoro
+                    accountNumber: "0987654321"
+                    bankCode: "305"
+                    country: NG
+              ngnBank2:
+                summary: NGN to NGN, bank, GTBank
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: NGN
+                  amount: 5000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ngn-001
+                  paymentDestination: bank_account
+                  description: Payout to GTBank
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Chinwe Eze Test Account
+                    accountNumber: "2345678901"
+                    bankCode: "058"
+                    country: NG
+              ngnBankFails:
+                summary: NGN to NGN, bank, Access Bank Plc, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: NGN
+                  amount: 5000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ngn-fail
+                  paymentDestination: bank_account
+                  description: Payout to Access Bank Plc
+                  beneficiary:
+                    type: individual
+                    firstName: John
+                    lastName: Doe
+                    accountHolderName: John Doe
+                    accountNumber: "0123456789"
+                    bankCode: "044"
+                    country: NG
+              ghsMomo:
+                summary: NGN to GHS, mobile money, Airtel (Tigo) Money Ghana
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: GHS
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ghs-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Airtel (Tigo) Money Ghana
+                  beneficiary:
+                    type: individual
+                    firstName: Ama
+                    lastName: Boateng
+                    accountNumber: "233541234567"
+                    mobileMoneyCode: AIRTEL
+                    country: GH
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ghsMomoFails:
+                summary: NGN to GHS, mobile money, MTN Mobile Money Ghana, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: GHS
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ghs-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to MTN Mobile Money Ghana
+                  beneficiary:
+                    type: individual
+                    firstName: Kwame
+                    lastName: Mensah
+                    accountNumber: "233201234567"
+                    mobileMoneyCode: MTN
+                    country: GH
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ghsBank:
+                summary: NGN to GHS, bank, Ecobank Ghana
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: GHS
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ghs-001
+                  paymentDestination: bank_account
+                  description: Payout to Ecobank Ghana
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Ecobank Ghana Test
+                    accountNumber: "4005006007"
+                    bankCode: GH130100
+                    country: GH
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              kesMomo:
+                summary: NGN to KES, mobile money, Airtel Money Kenya
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: KES
+                  amount: 500
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-kes-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Airtel Money Kenya
+                  beneficiary:
+                    type: individual
+                    firstName: Mary
+                    lastName: Atieno
+                    accountNumber: "254731234567"
+                    mobileMoneyCode: AIRTEL
+                    country: KE
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              kesMomoFails:
+                summary: NGN to KES, mobile money, Safaricom(MPESA), fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: KES
+                  amount: 500
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-kes-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Safaricom(MPESA)
+                  beneficiary:
+                    type: individual
+                    firstName: Peter
+                    lastName: Mwangi
+                    accountNumber: "254712345678"
+                    mobileMoneyCode: SAFARICOM
+                    country: KE
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              kesBank:
+                summary: NGN to KES, bank, Kenya Commercial Bank Limited
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: KES
+                  amount: 500
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-kes-001
+                  paymentDestination: bank_account
+                  description: Payout to Kenya Commercial Bank Limited
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: KCB Test Account
+                    accountNumber: "1000012345"
+                    bankCode: "01"
+                    country: KE
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ugxMomo:
+                summary: NGN to UGX, mobile money, Airtel Money Uganda
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: UGX
+                  amount: 20000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ugx-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Airtel Money Uganda
+                  beneficiary:
+                    type: individual
+                    firstName: David
+                    lastName: Owor
+                    accountNumber: "256701234567"
+                    mobileMoneyCode: AIRTEL
+                    country: UG
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ugxMomoFails:
+                summary: NGN to UGX, mobile money, MTN Mobile, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: UGX
+                  amount: 20000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ugx-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to MTN Mobile
+                  beneficiary:
+                    type: individual
+                    firstName: Jane
+                    lastName: Doe
+                    accountNumber: "256772123456"
+                    mobileMoneyCode: MTN
+                    country: UG
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ugxBank:
+                summary: NGN to UGX, bank, Stanbic Bank Uganda
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: UGX
+                  amount: 20000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ugx-001
+                  paymentDestination: bank_account
+                  description: Payout to Stanbic Bank Uganda
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Finance Bank Uganda Test
+                    accountNumber: "1002003004"
+                    bankCode: UG04000
+                    country: UG
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              ugxBankFails:
+                summary: NGN to UGX, bank, Standard Chartered Bank Uganda Limited, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: UGX
+                  amount: 20000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-ugx-fail
+                  paymentDestination: bank_account
+                  description: Payout to Standard Chartered Bank Uganda Limited
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Finance Bank Uganda Test
+                    accountNumber: "1002003014"
+                    bankCode: STAN
+                    country: UG
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              tzsMomo:
+                summary: NGN to TZS, mobile money, Vodacom (M-Pesa) Tanzania
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: TZS
+                  amount: 10000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-tzs-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Vodacom (M-Pesa) Tanzania
+                  beneficiary:
+                    type: individual
+                    firstName: Neema
+                    lastName: Said
+                    accountNumber: "255751234567"
+                    mobileMoneyCode: MPESA
+                    country: TZ
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              tzsMomoFails:
+                summary: NGN to TZS, mobile money, TIGO Money, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: TZS
+                  amount: 10000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-tzs-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to TIGO Money
+                  beneficiary:
+                    type: individual
+                    firstName: Asha
+                    lastName: Juma
+                    accountNumber: "255671234567"
+                    mobileMoneyCode: TIGO
+                    country: TZ
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              tzsBank:
+                summary: NGN to TZS, bank, CRDB Bank Tanzania
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: TZS
+                  amount: 10000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-tzs-001
+                  paymentDestination: bank_account
+                  description: Payout to CRDB Bank Tanzania
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: CRDB Bank Test
+                    accountNumber: "7008009001"
+                    bankCode: "21009678"
+                    country: TZ
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              zmwMomo:
+                summary: NGN to ZMW, mobile money, MTN Mobile Money Zambia
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: ZMW
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-zmw-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to MTN Mobile Money Zambia
+                  beneficiary:
+                    type: individual
+                    firstName: Mutinta
+                    lastName: Phiri
+                    accountNumber: "260951234567"
+                    mobileMoneyCode: MTN
+                    country: ZM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              zmwMomoFails:
+                summary: NGN to ZMW, mobile money, Airtel Money Zambia, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: ZMW
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-zmw-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Airtel Money Zambia
+                  beneficiary:
+                    type: individual
+                    firstName: Chanda
+                    lastName: Mwape
+                    accountNumber: "260971234567"
+                    mobileMoneyCode: AIRTEL
+                    country: ZM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              zmwBank:
+                summary: NGN to ZMW, bank, Zanaco Bank
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: ZMW
+                  amount: 100
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-zmw-001
+                  paymentDestination: bank_account
+                  description: Payout to Zanaco Bank
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Zanaco Test Account
+                    accountNumber: "3004005006"
+                    bankCode: ZNCOZMLU
+                    country: ZM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xofMomo:
+                summary: NGN to XOF, mobile money, MTN Mobile
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XOF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xof-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to MTN Mobile
+                  beneficiary:
+                    type: individual
+                    firstName: Marie
+                    lastName: Kone
+                    accountNumber: "2250509876543"
+                    mobileMoneyCode: MTN
+                    country: CI
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xofMomoFails:
+                summary: NGN to XOF, mobile money, Orange Money Cote d'Ivoire, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XOF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xof-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Orange Money Cote d'Ivoire
+                  beneficiary:
+                    type: individual
+                    firstName: Kouassi
+                    lastName: Jean
+                    accountNumber: "2250701234567"
+                    mobileMoneyCode: ORANGE
+                    country: CI
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xafMomo:
+                summary: NGN to XAF, mobile money, Orange Money Cameroon
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XAF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xaf-001
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to Orange Money Cameroon
+                  beneficiary:
+                    type: individual
+                    firstName: Ngassa
+                    lastName: Clarisse
+                    accountNumber: "237651234567"
+                    mobileMoneyCode: ORANGE
+                    country: CM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xafMomoFails:
+                summary: NGN to XAF, mobile money, MTN Mobile, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XAF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xaf-fail
+                  paymentDestination: mobile_money_wallet
+                  description: Payout to MTN Mobile
+                  beneficiary:
+                    type: individual
+                    firstName: Mbappe
+                    lastName: Simon
+                    accountNumber: "237671234567"
+                    mobileMoneyCode: MTN
+                    country: CM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xafBank:
+                summary: NGN to XAF, bank, ECOBANK CAMEROUN
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XAF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xaf-001
+                  paymentDestination: bank_account
+                  description: Payout to ECOBANK CAMEROUN
+                  beneficiary:
+                    type: individual
+                    firstName: Tchamba
+                    lastName: Pierre
+                    accountHolderName: Tchamba Pierre
+                    accountNumber: "5001002003"
+                    bankCode: "85526075"
+                    country: CM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
+              xafBankFails:
+                summary: NGN to XAF, bank, AFRILAND FIRST BANK, fails
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: XAF
+                  amount: 3000
+                  business: "64f1c2a4b7d9e30012ab4567"
+                  customerReference: payout-xaf-fail
+                  paymentDestination: bank_account
+                  description: Payout to AFRILAND FIRST BANK
+                  beneficiary:
+                    type: individual
+                    firstName: Fotso
+                    lastName: Marie
+                    accountHolderName: Fotso Marie
+                    accountNumber: "5001002004"
+                    bankCode: "97957771"
+                    country: CM
+                  quoteReference: "84141587-9caf-45f6-971b-bd654361d086"
       responses:
         "200":
-          description: Not yet documented.
+          description: The payout was accepted. Poll or wait for the webhook for the outcome.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Your account does not have the `payout` product enabled.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Access Denied. You're not authorized to access payout product
+                errorType: ACCESS_DENIED
+        "422":
+          description: The request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              examples:
+                quoteMissing:
+                  summary: A cross currency payout with no quote
+                  value:
+                    success: false
+                    error: >-
+                      Quote Reference not specified, Kindly generate a quote
+                      first to continue.
+                    errorType: UNPROCESSABLE_ENTITY
+                beneficiaryMissing:
+                  summary: A required beneficiary field was not sent
+                  value:
+                    success: false
+                    error: >-
+                      Error occurred during payload validation.
+                      "beneficiary.accountNumber" is required
+                    errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
     get:
       operationId: listPayouts
       summary: List payouts
@@ -5025,3 +5541,279 @@ components:
               type: integer
               description: How many conversions match your filters in total.
               example: 42
+
+    BankAccountPayoutRequest:
+      type: object
+      title: Bank account
+      description: A payout to a bank account.
+      required:
+        - paymentDestination
+        - sourceCurrency
+        - destinationCurrency
+        - amount
+        - business
+        - customerReference
+        - beneficiary
+      properties:
+        paymentDestination:
+          type: string
+          enum: [bank_account]
+          description: Pays a bank account.
+          example: bank_account
+        sourceCurrency:
+          type: string
+          description: The wallet the money leaves.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the beneficiary is paid in.
+          example: GHS
+        amount:
+          type: number
+          description: >-
+            The amount to send, in `sourceCurrency`. Currencies without decimals
+            must be whole numbers.
+          example: 5000
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        customerReference:
+          type: string
+          description: >-
+            Your own reference for this payout. Use it later to look the payout
+            up.
+          example: payout-ghs-001
+        quoteReference:
+          type: string
+          description: >-
+            The `reference` from Generate a quote. Required when
+            `destinationCurrency` differs from `sourceCurrency`.
+          example: 84141587-9caf-45f6-971b-bd654361d086
+        description:
+          type: string
+          description: What the payout is for.
+          example: Payout to Ecobank Ghana
+        feeBearer:
+          type: string
+          description: Who pays the fee.
+          example: business
+        beneficiary:
+          $ref: "#/components/schemas/BankAccountBeneficiary"
+
+    MobileMoneyPayoutRequest:
+      type: object
+      title: Mobile money wallet
+      description: A payout to a mobile money wallet.
+      required:
+        - paymentDestination
+        - sourceCurrency
+        - destinationCurrency
+        - amount
+        - business
+        - customerReference
+        - beneficiary
+      properties:
+        paymentDestination:
+          type: string
+          enum: [mobile_money_wallet]
+          description: Pays a mobile money wallet.
+          example: mobile_money_wallet
+        sourceCurrency:
+          type: string
+          description: The wallet the money leaves.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the beneficiary is paid in.
+          example: GHS
+        amount:
+          type: number
+          description: >-
+            The amount to send, in `sourceCurrency`. Currencies without decimals
+            must be whole numbers.
+          example: 100
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        customerReference:
+          type: string
+          description: Your own reference for this payout.
+          example: payout-ghs-001
+        quoteReference:
+          type: string
+          description: >-
+            The `reference` from Generate a quote. Required when
+            `destinationCurrency` differs from `sourceCurrency`.
+          example: 84141587-9caf-45f6-971b-bd654361d086
+        description:
+          type: string
+          description: What the payout is for.
+          example: Payout to Airtel Money Ghana
+        feeBearer:
+          type: string
+          description: Who pays the fee.
+          example: business
+        beneficiary:
+          $ref: "#/components/schemas/MobileMoneyBeneficiary"
+
+    BankAccountBeneficiary:
+      type: object
+      description: The bank account being paid.
+      required:
+        - type
+        - accountNumber
+        - accountHolderName
+      properties:
+        type:
+          type: string
+          enum: [individual, corporate]
+          description: >-
+            Whether you are paying a person or a company. `firstName` is
+            required for an individual.
+          example: individual
+        accountHolderName:
+          type: string
+          description: >-
+            The name the account is held in. Required for a bank account, and it
+            must match the name the account resolves to.
+          example: Ecobank Ghana Test
+        accountNumber:
+          type: string
+          description: The account number to pay.
+          example: "4005006007"
+        bankCode:
+          type: string
+          description: The bank's code, as returned by the banks list.
+          example: GH130100
+        firstName:
+          type: string
+          description: The beneficiary's first name. Required when `type` is `individual`.
+          example: Tchamba
+        lastName:
+          type: string
+          description: The beneficiary's last name.
+          example: Pierre
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: >-
+            The two-letter code for the beneficiary's country. For XOF this is
+            CI, NE or SN. For XAF it is CM, CG, CF, TD or GA.
+          example: GH
+        email:
+          type: string
+          format: email
+          description: The beneficiary's email address.
+          example: ama.boateng@example.com
+        phone:
+          type: string
+          description: The beneficiary's phone number.
+          example: "+233541234567"
+
+    MobileMoneyBeneficiary:
+      type: object
+      description: The mobile money wallet being paid.
+      required:
+        - type
+        - accountNumber
+        - mobileMoneyCode
+      properties:
+        type:
+          type: string
+          enum: [individual, corporate]
+          description: >-
+            Whether you are paying a person or a company. `firstName` is
+            required for an individual.
+          example: individual
+        accountNumber:
+          type: string
+          description: >-
+            The wallet's phone number in full international form, digits only.
+          example: "233541234567"
+        mobileMoneyCode:
+          type: string
+          description: >-
+            The network operator, such as `MTN`, `AIRTEL`, `ORANGE`, `MPESA`,
+            `TIGO` or `SAFARICOM`. Only accepted for a mobile money wallet.
+          example: AIRTEL
+        firstName:
+          type: string
+          description: The beneficiary's first name. Required when `type` is `individual`.
+          example: Ama
+        lastName:
+          type: string
+          description: The beneficiary's last name.
+          example: Boateng
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: >-
+            The two-letter code for the beneficiary's country. For XOF this is
+            CI, NE or SN. For XAF it is CM, CG, CF, TD or GA.
+          example: GH
+        email:
+          type: string
+          format: email
+          description: The beneficiary's email address.
+          example: ama.boateng@example.com
+        phone:
+          type: string
+          description: The beneficiary's phone number.
+          example: "+233541234567"
+
+    PayoutResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+          example: true
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Payout initiated successfully
+        data:
+          type: object
+          description: The payout as it was accepted.
+          properties:
+            reference:
+              type: string
+              description: >-
+                Fincra's reference for this payout. Use it with Retrieve a
+                payout by reference.
+              example: 9d08a998-b545-4070-a165-985e5129bbe7
+            customerReference:
+              type: string
+              description: Your own reference, as sent.
+              example: payout-ghs-001
+            status:
+              type: string
+              description: >-
+                Where the payout has got to. A payout is accepted before it
+                settles, so this is not the final outcome.
+              example: processing
+            amount:
+              type: number
+              description: The amount sent.
+              example: 100
+            sourceCurrency:
+              type: string
+              description: The currency the money left.
+              example: NGN
+            destinationCurrency:
+              type: string
+              description: The currency the beneficiary is paid in.
+              example: GHS
