@@ -843,9 +843,7 @@ paths:
               dateTo: "2026-09-01"
       responses:
         "200":
-          description: >-
-            The exported file (CSV or PDF, per `exportType`). Response is
-            not the standard JSON success envelope.
+          description: The exported file (CSV or PDF, per `exportType`).
           content:
             application/json: {}
         "401":
@@ -1342,9 +1340,7 @@ paths:
                   iban: DE44500105175407324931
       responses:
         "200":
-          description: >-
-            The account was resolved. The shape of `data` follows the `type` that
-            was sent.
+          description: The account was resolved.
           content:
             application/json:
               schema:
@@ -1444,8 +1440,6 @@ paths:
         "422":
           description: >-
             The account could not be resolved, or the request failed validation.
-            A resolve failure never says which part was wrong, the account or
-            the code, because the underlying channel does not tell us either.
           content:
             application/json:
               schema:
@@ -1513,9 +1507,7 @@ paths:
               business: 64f1c2a4b7d9e30012ab4567
       responses:
         "200":
-          description: >-
-            The BVN was verified. Returns the identity record the provider holds
-            against it.
+          description: The BVN was verified.
           content:
             application/json:
               schema:
@@ -1641,9 +1633,7 @@ paths:
                     - 16
         "400":
           description: >-
-            The BIN is not a number, or is shorter than six digits. This endpoint
-            returns errors in a different shape to the rest of the API. There is
-            no `success` or `errorType` field.
+            The BIN is not a number, or is shorter than six digits.
           content:
             application/json:
               schema:
