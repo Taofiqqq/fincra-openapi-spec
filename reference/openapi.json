@@ -2005,7 +2005,7 @@
       "post": {
         "operationId": "verifyBvn",
         "summary": "Verify a BVN",
-        "description": "Verifies a Nigerian Bank Verification Number and returns the identity record held against it.\n\n**Nigeria only.** The BVN is an NGN-market identifier; this endpoint accepts no other market.\n\nUse this to confirm a person's identity. To confirm a bank account and get its account holder's name before a payout, use [Resolve an account](/reference/resolveaccount) instead.\n\n### Access\n\nThis endpoint is gated on the `bvn_verification` product. If your account does not have it enabled, every request returns `403` regardless of the BVN sent. Contact your account manager to have it turned on. The gate is not applied in Sandbox, so a Sandbox key reaches the endpoint whether or not the product is enabled on your live account.\n\n### Sandbox behaviour\n\nSandbox passes BVN lookups through to the live identity provider, so any genuine BVN resolves successfully and **a failed verification cannot be simulated**. The `422` below was captured against Production.\n\n### Handling the response\n\nThe response carries personal data, including `pixBase64`, a base64-encoded photograph of the BVN holder, truncated in the example below. Store and handle it in line with your data-protection obligations.",
+        "description": "Verifies a Nigerian Bank Verification Number and returns the identity record held against it. To confirm a bank account and get its account holder's name, use [Resolve an account](/reference/resolveaccount).",
         "tags": [
           "Verification"
         ],
