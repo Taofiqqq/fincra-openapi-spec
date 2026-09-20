@@ -2312,7 +2312,7 @@
       "post": {
         "operationId": "createPayout",
         "summary": "Create a payout",
-        "description": "Sends money from one of your wallets to a beneficiary. The body changes with `paymentDestination`, which decides whether you are paying a bank account or a mobile money wallet.\n\nPaying out in a currency other than the one leaving your wallet needs a quote. Generate one first and pass its `reference` as [`quoteReference`](/reference/generatequote). A payout in the same currency does not need one.\n\nAfrican corridors use one of the first three shapes below. To pay a different currency, keep the shape and change `destinationCurrency`, the beneficiary's `accountNumber` and `country`, and either `mobileMoneyCode` or `bankCode`.\n\nUSD, EUR and GBP use the fourth shape and ask for more. `paymentScheme`, `description` and the beneficiary's `country` and `address` all become required, USD also needs `files` and `customerName`, and **USD and GBP will only pay a corporate beneficiary**.\n\nIn Sandbox a fixed set of account numbers stands in for real ones, and some are built to fail. A failing account still returns `200`. The payout is accepted and then resolves to `failed`, so poll [Retrieve a payout by reference](/reference/getpayoutbyreference) or wait for the webhook to see the outcome.",
+        "description": "Sends money from one of your wallets to a beneficiary. The body changes with `paymentDestination`, which decides whether you are paying a bank account or a mobile money wallet.\n\nPaying out in a currency other than the one leaving your wallet needs a quote. Generate one first and pass its `reference` as [`quoteReference`](/reference/generatequote). A payout in the same currency does not need one.\n\nAfrican corridors use one of the first three shapes below. To pay a different currency, keep the shape and change `destinationCurrency`, the beneficiary's `accountNumber` and `country`, and either `mobileMoneyCode` or `bankCode`.\n\nCAD goes over Interac and uses the last shape, where the recipient is an email rather than an account number.\n\nUSD, EUR and GBP use the fourth shape and ask for more. `paymentScheme`, `description` and the beneficiary's `country` and `address` all become required, USD also needs `files` and `customerName`, and **USD and GBP will only pay a corporate beneficiary**.\n\nIn Sandbox a fixed set of account numbers stands in for real ones, and some are built to fail. A failing account still returns `200`. The payout is accepted and then resolves to `failed`, so poll [Retrieve a payout by reference](/reference/getpayoutbyreference) or wait for the webhook to see the outcome.",
         "tags": [
           "Payouts"
         ],
@@ -2335,6 +2335,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/ForeignCurrencyPayoutRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CadInteracPayoutRequest"
                   }
                 ]
               },
@@ -2505,6 +2508,70 @@
                         "state": "England",
                         "zip": "E14 5AB",
                         "street": "123 Canary Wharf"
+                      }
+                    }
+                  }
+                },
+                "cadInteracEnrolled": {
+                  "summary": "CAD Interac, auto-deposit enrolled",
+                  "value": {
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "CAD",
+                    "amount": 200000,
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "customerReference": "payout-cad-001",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "description": "Contractor invoice, September",
+                    "quoteReference": "84141587-9caf-45f6-971b-bd654361d086",
+                    "purposeOfFund": "payment_for_services",
+                    "relationshipWithBeneficiary": "vendor",
+                    "beneficiary": {
+                      "type": "individual",
+                      "firstName": "John",
+                      "lastName": "Barret",
+                      "accountHolderName": "John Barret",
+                      "interacEmail": "john.barret@example.com",
+                      "country": "CA",
+                      "address": {
+                        "street": "88 Queen Street West",
+                        "city": "Toronto",
+                        "state": "ON",
+                        "zip": "M5H 2N2",
+                        "country": "CA"
+                      }
+                    }
+                  }
+                },
+                "cadInteracNotEnrolled": {
+                  "summary": "CAD Interac, not enrolled, with a security question",
+                  "value": {
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "CAD",
+                    "amount": 200000,
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "customerReference": "payout-cad-002",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "description": "Contractor invoice, September",
+                    "quoteReference": "84141587-9caf-45f6-971b-bd654361d086",
+                    "purposeOfFund": "payment_for_services",
+                    "relationshipWithBeneficiary": "vendor",
+                    "beneficiary": {
+                      "type": "individual",
+                      "firstName": "John",
+                      "lastName": "Barret",
+                      "accountHolderName": "John Barret",
+                      "interacEmail": "john.barret+noautodeposit@example.com",
+                      "country": "CA",
+                      "securityQuestion": "What city were we in last June",
+                      "securityAnswer": "Toronto",
+                      "address": {
+                        "street": "88 Queen Street West",
+                        "city": "Toronto",
+                        "state": "ON",
+                        "zip": "M5H 2N2",
+                        "country": "CA"
                       }
                     }
                   }
@@ -7358,6 +7425,204 @@
             "type": "string",
             "description": "The state, province or region.",
             "example": "NY"
+          }
+        }
+      },
+      "CadInteracPayoutRequest": {
+        "type": "object",
+        "title": "CAD Interac",
+        "description": "A CAD payout over Interac e-Transfer. The recipient is identified by their email rather than an account number, and whether you need a security question depends on whether that email is enrolled for auto-deposit. Check first with [Resolve an account](/reference/resolveaccount), which returns `autoDepositEnabled`.",
+        "required": [
+          "paymentDestination",
+          "sourceCurrency",
+          "destinationCurrency",
+          "amount",
+          "business",
+          "customerReference",
+          "description",
+          "paymentScheme",
+          "beneficiary"
+        ],
+        "properties": {
+          "paymentDestination": {
+            "type": "string",
+            "enum": [
+              "bank_account"
+            ],
+            "description": "Interac payouts use `bank_account`.",
+            "example": "bank_account"
+          },
+          "sourceCurrency": {
+            "type": "string",
+            "description": "The wallet the money leaves.",
+            "example": "NGN"
+          },
+          "destinationCurrency": {
+            "type": "string",
+            "enum": [
+              "CAD"
+            ],
+            "description": "Interac is CAD only.",
+            "example": "CAD"
+          },
+          "paymentScheme": {
+            "type": "string",
+            "enum": [
+              "interac"
+            ],
+            "description": "The Interac e-Transfer rail.",
+            "example": "interac"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount to send, in `sourceCurrency`.",
+            "example": 200000
+          },
+          "business": {
+            "type": "string",
+            "minLength": 24,
+            "maxLength": 24,
+            "description": "Your business ID, as returned by Get business profile.",
+            "example": "64f1c2a4b7d9e30012ab4567"
+          },
+          "customerReference": {
+            "type": "string",
+            "description": "Your own reference for this payout.",
+            "example": "payout-cad-001"
+          },
+          "description": {
+            "type": "string",
+            "description": "What the payout is for. Required for CAD.",
+            "example": "Contractor invoice, September"
+          },
+          "quoteReference": {
+            "type": "string",
+            "description": "The `reference` from Generate a quote. Required when `destinationCurrency` differs from `sourceCurrency`.",
+            "example": "84141587-9caf-45f6-971b-bd654361d086"
+          },
+          "purposeOfFund": {
+            "type": "string",
+            "description": "Why the money is being sent.",
+            "example": "payment_for_services"
+          },
+          "relationshipWithBeneficiary": {
+            "type": "string",
+            "description": "Your relationship to the recipient.",
+            "example": "vendor"
+          },
+          "feeBearer": {
+            "type": "string",
+            "description": "Who pays the fee.",
+            "example": "business"
+          },
+          "beneficiary": {
+            "$ref": "#/components/schemas/CadInteracBeneficiary"
+          }
+        }
+      },
+      "CadInteracBeneficiary": {
+        "type": "object",
+        "description": "The Interac recipient. `accountNumber` is not required here, unlike every other destination.",
+        "required": [
+          "type",
+          "interacEmail",
+          "country"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "corporate"
+            ],
+            "description": "Whether you are paying a person or a company.",
+            "example": "individual"
+          },
+          "interacEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "The recipient's Interac email address.",
+            "example": "john.barret@example.com"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "description": "The two-letter code for the recipient's country.",
+            "example": "CA"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The recipient's first name. Required when `type` is `individual`.",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The recipient's last name.",
+            "example": "Barret"
+          },
+          "accountHolderName": {
+            "type": "string",
+            "description": "The recipient's name as registered with Interac.",
+            "example": "John Barret"
+          },
+          "securityQuestion": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "A question the recipient must answer to claim the transfer. Send it only when the email is not enrolled for auto-deposit. Up to 40 characters, standard letters, numbers and punctuation.",
+            "example": "What city were we in last June"
+          },
+          "securityAnswer": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 25,
+            "description": "The answer to `securityQuestion`, and required whenever you send one. 3 to 25 characters, no spaces. Sending an answer without a question is rejected on the Interac rail.",
+            "example": "Toronto"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The recipient's contact email, if different from `interacEmail`.",
+            "example": "john.barret@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The recipient's phone number.",
+            "example": "+14165550142"
+          },
+          "address": {
+            "type": "object",
+            "description": "The recipient's address. Only `street` is required.",
+            "required": [
+              "street"
+            ],
+            "properties": {
+              "street": {
+                "type": "string",
+                "description": "The street address.",
+                "example": "88 Queen Street West"
+              },
+              "city": {
+                "type": "string",
+                "description": "The city.",
+                "example": "Toronto"
+              },
+              "state": {
+                "type": "string",
+                "description": "The province.",
+                "example": "ON"
+              },
+              "zip": {
+                "type": "string",
+                "description": "The postal code.",
+                "example": "M5H 2N2"
+              },
+              "country": {
+                "type": "string",
+                "description": "The two-letter code for the country.",
+                "example": "CA"
+              }
+            }
           }
         }
       }
