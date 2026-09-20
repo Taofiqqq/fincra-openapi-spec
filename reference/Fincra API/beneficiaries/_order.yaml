@@ -1,0 +1,5 @@
+- createbeneficiary
+- listbeneficiaries
+- getbeneficiary
+- updatebeneficiary
+- deletebeneficiary
