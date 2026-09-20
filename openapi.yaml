@@ -939,8 +939,8 @@ paths:
                 errorType: BUSINESS_PROFILE_REQUIRED
         "500":
           description: >-
-            Something went wrong on our end. These are rare. Retry the request,
-            and contact support if it keeps happening.
+            Something went wrong on our end. Retry the request, and contact
+            support if it keeps happening.
           content:
             application/json:
               schema:
@@ -1025,8 +1025,8 @@ paths:
                     errorType: RESOURCE_NOT_FOUND
         "500":
           description: >-
-            Something went wrong on our end. These are rare. Retry the request,
-            and contact support if it keeps happening.
+            Something went wrong on our end. Retry the request, and contact
+            support if it keeps happening.
           content:
             application/json:
               schema:
@@ -1485,8 +1485,8 @@ paths:
                     errorType: UNPROCESSABLE_ENTITY
         "500":
           description: >-
-            Something went wrong on our end. These are rare. Retry the request,
-            and contact support if it keeps happening.
+            Something went wrong on our end. Retry the request, and contact
+            support if it keeps happening.
           content:
             application/json:
               schema:
@@ -1587,8 +1587,8 @@ paths:
                     errorType: UNPROCESSABLE_ENTITY
         "500":
           description: >-
-            Something went wrong on our end. These are rare. Retry the request,
-            and contact support if it keeps happening.
+            Something went wrong on our end. Retry the request, and contact
+            support if it keeps happening.
           content:
             application/json:
               schema:
