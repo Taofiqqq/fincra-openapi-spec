@@ -4677,7 +4677,30 @@
           },
           "paymentScheme": {
             "type": "string",
-            "description": "The rail the payout will travel on.",
+            "enum": [
+              "local",
+              "chaps",
+              "swift",
+              "sepa",
+              "sepa_instant",
+              "fps",
+              "bacs",
+              "ach",
+              "fed",
+              "eft",
+              "cnaps",
+              "interac",
+              "interac_etransfer",
+              "usdt_trc20",
+              "usdt_erc20",
+              "usdt_solana",
+              "usdt_bep20",
+              "usdc_erc20",
+              "usdc_solana",
+              "usdc_bep20",
+              "cngn_bep20"
+            ],
+            "description": "The rail the payout will travel on. Leave it out for a domestic payout.",
             "example": "swift"
           },
           "bank": {
