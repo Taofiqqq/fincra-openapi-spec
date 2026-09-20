@@ -1222,62 +1222,8 @@ paths:
       description: >-
         Looks up the name attached to a bank account, mobile money wallet, IBAN
         or Interac email, so you can confirm who you are paying before the money
-        moves.
-
-
-        The request shape is decided by `type`. Each type identifies the
-        destination differently, by a bank code, a mobile money operator, a
-        SWIFT code, an email, or the IBAN itself, and the response shape follows the
-        type in turn. `type` defaults to `nuban`, so a request that omits it is
-        read as an NGN bank account.
-
-
-        | `type` | Currency | Identified by |
-        | --- | --- | --- |
-        | `nuban` | NGN | `bankCode` |
-        | `mobile_money` | GHS, KES | `mobileMoneyCode` |
-        | `bank_account` | GHS | `bankSwiftCode` |
-        | `bank_account` | KES | `bankCode` |
-        | `interac_etransfer` | CAD | `interacEmail` |
-        | `iban` | EUR, GBP | `iban` |
-
-
-        Two types do not behave like the rest. **Interac** has no failure state:
-        an email that is not registered for auto-deposit is a real answer, not an
-        error, so the result is carried by `autoDepositEnabled` rather than by
-        success or failure. **IBAN** resolves against a bank directory rather
-        than a named account, so it returns the bank and branch, and no
-        `accountName`.
-
-
-        ### Sandbox test values
-
-
-        Sandbox recognises these identifiers and no others. A valid account
-        number paired with the wrong code also fails. Both must match.
-
-
-        | Currency | Type | Account | Code | Result |
-        | --- | --- | --- | --- | --- |
-        | NGN | `nuban` | `0987654321` | `305` | Grace Okoro |
-        | NGN | `nuban` | `2345678901` | `058` | Chinwe Eze |
-        | NGN | `nuban` | `0123456789` | `044` | Always fails |
-        | GHS | `mobile_money` | `233541234567` | `AIRTEL` | Ama Boateng |
-        | GHS | `mobile_money` | `233201234567` | `MTN` | Always fails |
-        | GHS | `bank_account` | `4005006007` | `ECOCGHAC` | Ecobank Ghana Test |
-        | GHS | `bank_account` | `5006007008` | `STBGGHAC` | Always fails |
-        | KES | `mobile_money` | `254722345678` | `MPESA` | James Kariuki |
-        | KES | `mobile_money` | `254712345678` | `MPESA` | Always fails |
-        | KES | `bank_account` | `1000012345` | `76` | UBA Kenya Test Account |
-        | KES | `bank_account` | `2000012345` | `03` | Always fails |
-        | CAD | `interac_etransfer` | `john.barret@example.com` | n/a | Auto-deposit enabled |
-        | CAD | `interac_etransfer` | `john.barret+noautodeposit@example.com` | n/a | Auto-deposit not enabled |
-        | EUR/GBP | `iban` | `GB29NWBK60161331926819` | n/a | NatWest Bank, London |
-        | EUR/GBP | `iban` | `DE44500105175407324931` | n/a | Always fails |
-
-
-        For Interac in sandbox, any email containing `noautodeposit` returns
-        `autoDepositEnabled: false`; every other email resolves as registered.
+        moves. The request shape is decided by `type`, which defaults to
+        `nuban`.
       tags:
         - Verification
       security:
