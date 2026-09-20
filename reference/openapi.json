@@ -2507,6 +2507,7 @@
       "post": {
         "operationId": "createBeneficiary",
         "summary": "Create a beneficiary",
+        "description": "Saves someone you pay, so you can reuse their details instead of sending them on every payout.",
         "tags": [
           "Beneficiaries"
         ],
@@ -2517,23 +2518,203 @@
         ],
         "parameters": [
           {
-            "name": "businessID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BusinessID"
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBeneficiaryRequest"
+              },
+              "examples": {
+                "bankAccount": {
+                  "summary": "NGN bank account",
+                  "value": {
+                    "type": "individual",
+                    "firstName": "Chinwe",
+                    "lastName": "Eze",
+                    "accountHolderName": "Chinwe Eze",
+                    "currency": "NGN",
+                    "paymentDestination": "bank_account",
+                    "destinationAddress": "2345678901",
+                    "bank": {
+                      "name": "GTBank",
+                      "code": "058"
+                    }
+                  }
+                },
+                "mobileMoney": {
+                  "summary": "GHS mobile money wallet",
+                  "value": {
+                    "type": "individual",
+                    "firstName": "Ama",
+                    "lastName": "Boateng",
+                    "accountHolderName": "Ama Boateng",
+                    "currency": "GHS",
+                    "paymentDestination": "mobile_money_wallet",
+                    "destinationAddress": "233541234567",
+                    "bank": {
+                      "name": "AirtelTigo",
+                      "code": "AIRTEL"
+                    }
+                  }
+                },
+                "corporate": {
+                  "summary": "Corporate beneficiary",
+                  "value": {
+                    "type": "corporate",
+                    "accountHolderName": "Bluewater Trading Ltd",
+                    "currency": "USD",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "swift",
+                    "destinationAddress": "000123456789",
+                    "bank": {
+                      "name": "Bank of America",
+                      "swiftCode": "BOFAUS3N"
+                    },
+                    "address": {
+                      "country": "US",
+                      "state": "NY",
+                      "city": "New York",
+                      "street": "42 Wall Street",
+                      "zip": "10005"
+                    }
+                  }
+                },
+                "interac": {
+                  "summary": "CAD Interac recipient",
+                  "value": {
+                    "type": "individual",
+                    "firstName": "John",
+                    "lastName": "Barret",
+                    "accountHolderName": "John Barret",
+                    "currency": "CAD",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "interacEmail": "john.barret@example.com"
+                  }
+                },
+                "cryptoWallet": {
+                  "summary": "Crypto wallet",
+                  "value": {
+                    "type": "individual",
+                    "firstName": "Tumaini",
+                    "lastName": "Moyo",
+                    "accountHolderName": "Tumaini Moyo",
+                    "currency": "USDT",
+                    "paymentDestination": "crypto_wallet",
+                    "paymentScheme": "usdt_trc20",
+                    "walletAddress": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Not yet documented."
+            "description": "The beneficiary was saved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiaryResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "You have successfully created a beneficiary",
+                  "data": {
+                    "_id": "69e1e7c95fd5d52a356eda5b",
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "type": "individual",
+                    "firstName": "Chinwe",
+                    "lastName": "Eze",
+                    "email": null,
+                    "phoneNumber": null,
+                    "accountHolderName": "Chinwe Eze",
+                    "bank": {
+                      "name": "GTBank",
+                      "code": "058",
+                      "swiftCode": null,
+                      "branch": null,
+                      "sortCode": null,
+                      "address": null,
+                      "correspondentBank": null
+                    },
+                    "address": null,
+                    "currency": "NGN",
+                    "destinationAddress": "2345678901",
+                    "interacEmail": null,
+                    "walletAddress": null,
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": null,
+                    "uniqueIdentifier": null,
+                    "isResolved": false,
+                    "createdAt": "2026-09-20T09:14:02.881Z",
+                    "updatedAt": "2026-09-20T09:14:02.881Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "description": "The business could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Business not found",
+                  "errorType": "RESOURCE_NOT_FOUND"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "You have already saved this beneficiary.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "This beneficiary already exists",
+                  "errorType": "RESOURCE_EXIST"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Error occurred during payload validation. \"destinationAddress\" is required",
+                  "errorType": "UNPROCESSABLE_ENTITY"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
           }
         }
       },
       "get": {
         "operationId": "listBeneficiaries",
         "summary": "List beneficiaries",
+        "description": "Returns the beneficiaries saved against your business, newest last.",
         "tags": [
           "Beneficiaries"
         ],
@@ -2544,17 +2725,101 @@
         ],
         "parameters": [
           {
-            "name": "businessID",
-            "in": "path",
-            "required": true,
+            "$ref": "#/components/parameters/BusinessID"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "The page to return.",
             "schema": {
-              "type": "string"
-            }
+              "type": "integer",
+              "default": 1
+            },
+            "example": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "description": "How many beneficiaries to return per page.",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "example": 10
           }
         ],
         "responses": {
           "200": {
-            "description": "Not yet documented."
+            "description": "Returns a page of beneficiaries.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListBeneficiariesResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Beneficiaries fetched successfully",
+                  "data": {
+                    "results": [
+                      {
+                        "_id": "69e1e7c95fd5d52a356eda5b",
+                        "business": "64f1c2a4b7d9e30012ab4567",
+                        "type": "individual",
+                        "firstName": "Chinwe",
+                        "lastName": "Eze",
+                        "email": null,
+                        "phoneNumber": null,
+                        "accountHolderName": "Chinwe Eze",
+                        "bank": {
+                          "name": "GTBank",
+                          "code": "058",
+                          "swiftCode": null,
+                          "branch": null,
+                          "sortCode": null,
+                          "address": null,
+                          "correspondentBank": null
+                        },
+                        "address": null,
+                        "currency": "NGN",
+                        "destinationAddress": "2345678901",
+                        "interacEmail": null,
+                        "walletAddress": null,
+                        "paymentDestination": "bank_account",
+                        "paymentScheme": null,
+                        "uniqueIdentifier": null,
+                        "isResolved": false,
+                        "createdAt": "2026-09-20T09:14:02.881Z",
+                        "updatedAt": "2026-09-20T09:14:02.881Z"
+                      }
+                    ],
+                    "total": 1
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "422": {
+            "description": "The request failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Error occurred during payload validation. businessID length must be 24 characters long",
+                  "errorType": "UNPROCESSABLE_ENTITY"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
           }
         }
       }
@@ -2563,6 +2828,7 @@
       "get": {
         "operationId": "getBeneficiary",
         "summary": "Retrieve a beneficiary",
+        "description": "Returns a single saved beneficiary.",
         "tags": [
           "Beneficiaries"
         ],
@@ -2573,31 +2839,72 @@
         ],
         "parameters": [
           {
-            "name": "businessID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BusinessID"
           },
           {
-            "name": "beneficiaryID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BeneficiaryID"
           }
         ],
         "responses": {
           "200": {
-            "description": "Not yet documented."
+            "description": "Returns a Beneficiary object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiaryResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Beneficiary fetched successfully",
+                  "data": {
+                    "_id": "69e1e7c95fd5d52a356eda5b",
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "type": "individual",
+                    "firstName": "Chinwe",
+                    "lastName": "Eze",
+                    "email": null,
+                    "phoneNumber": null,
+                    "accountHolderName": "Chinwe Eze",
+                    "bank": {
+                      "name": "GTBank",
+                      "code": "058",
+                      "swiftCode": null,
+                      "branch": null,
+                      "sortCode": null,
+                      "address": null,
+                      "correspondentBank": null
+                    },
+                    "address": null,
+                    "currency": "NGN",
+                    "destinationAddress": "2345678901",
+                    "interacEmail": null,
+                    "walletAddress": null,
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": null,
+                    "uniqueIdentifier": null,
+                    "isResolved": false,
+                    "createdAt": "2026-09-20T09:14:02.881Z",
+                    "updatedAt": "2026-09-20T09:14:02.881Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/BeneficiaryNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
           }
         }
       },
       "patch": {
         "operationId": "updateBeneficiary",
         "summary": "Update a beneficiary",
+        "description": "Replaces the details on a saved beneficiary. This is a full update despite the method, so send every field you want to keep.",
         "tags": [
           "Beneficiaries"
         ],
@@ -2608,31 +2915,122 @@
         ],
         "parameters": [
           {
-            "name": "businessID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BusinessID"
           },
           {
-            "name": "beneficiaryID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BeneficiaryID"
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBeneficiaryRequest"
+              },
+              "example": {
+                "type": "individual",
+                "firstName": "Chinwe",
+                "lastName": "Eze-Okafor",
+                "accountHolderName": "Chinwe Eze-Okafor",
+                "currency": "NGN",
+                "paymentDestination": "bank_account",
+                "destinationAddress": "2345678901",
+                "bank": {
+                  "name": "GTBank",
+                  "code": "058"
+                },
+                "address": {
+                  "country": "NG",
+                  "state": "Lagos",
+                  "city": "Ikeja",
+                  "street": "12 Allen Avenue"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Not yet documented."
+            "description": "The beneficiary was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiaryResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "You have successfully updated your beneficiary data",
+                  "data": {
+                    "_id": "69e1e7c95fd5d52a356eda5b",
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "type": "individual",
+                    "firstName": "Chinwe",
+                    "lastName": "Eze-Okafor",
+                    "email": null,
+                    "phoneNumber": null,
+                    "accountHolderName": "Chinwe Eze-Okafor",
+                    "bank": {
+                      "name": "GTBank",
+                      "code": "058",
+                      "swiftCode": null,
+                      "branch": null,
+                      "sortCode": null,
+                      "address": null,
+                      "correspondentBank": null
+                    },
+                    "address": {
+                      "country": "NG",
+                      "state": "Lagos",
+                      "zip": null,
+                      "city": "Ikeja",
+                      "street": "12 Allen Avenue"
+                    },
+                    "currency": "NGN",
+                    "destinationAddress": "2345678901",
+                    "interacEmail": null,
+                    "walletAddress": null,
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": null,
+                    "uniqueIdentifier": null,
+                    "isResolved": false,
+                    "createdAt": "2026-09-20T09:14:02.881Z",
+                    "updatedAt": "2026-09-20T11:02:47.310Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/BeneficiaryNotFound"
+          },
+          "422": {
+            "description": "The request failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationError"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Error occurred during payload validation. \"firstName\" is required",
+                  "errorType": "UNPROCESSABLE_ENTITY"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
           }
         }
       },
       "delete": {
         "operationId": "deleteBeneficiary",
         "summary": "Delete a beneficiary",
+        "description": "Removes a saved beneficiary. Payouts already sent to them are not affected.",
         "tags": [
           "Beneficiaries"
         ],
@@ -2643,25 +3041,65 @@
         ],
         "parameters": [
           {
-            "name": "businessID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BusinessID"
           },
           {
-            "name": "beneficiaryID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/BeneficiaryID"
           }
         ],
         "responses": {
           "200": {
-            "description": "Not yet documented."
+            "description": "The beneficiary was deleted. Returns the record as it was.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiaryResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "You have successfully deleted this beneficiary",
+                  "data": {
+                    "_id": "69e1e7c95fd5d52a356eda5b",
+                    "business": "64f1c2a4b7d9e30012ab4567",
+                    "type": "individual",
+                    "firstName": "Chinwe",
+                    "lastName": "Eze",
+                    "email": null,
+                    "phoneNumber": null,
+                    "accountHolderName": "Chinwe Eze",
+                    "bank": {
+                      "name": "GTBank",
+                      "code": "058",
+                      "swiftCode": null,
+                      "branch": null,
+                      "sortCode": null,
+                      "address": null,
+                      "correspondentBank": null
+                    },
+                    "address": null,
+                    "currency": "NGN",
+                    "destinationAddress": "2345678901",
+                    "interacEmail": null,
+                    "walletAddress": null,
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": null,
+                    "uniqueIdentifier": null,
+                    "isResolved": false,
+                    "createdAt": "2026-09-20T09:14:02.881Z",
+                    "updatedAt": "2026-09-20T09:14:02.881Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/BeneficiaryNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
           }
         }
       }
@@ -2674,6 +3112,78 @@
         "in": "header",
         "name": "api-key",
         "description": "Your Sandbox or Production API key, generated from your dashboard."
+      }
+    },
+    "parameters": {
+      "BusinessID": {
+        "name": "businessID",
+        "in": "path",
+        "required": true,
+        "description": "Your business ID, as returned by Get business profile.",
+        "schema": {
+          "type": "string",
+          "minLength": 24,
+          "maxLength": 24
+        },
+        "example": "64f1c2a4b7d9e30012ab4567"
+      },
+      "BeneficiaryID": {
+        "name": "beneficiaryID",
+        "in": "path",
+        "required": true,
+        "description": "The beneficiary's ID.",
+        "schema": {
+          "type": "string",
+          "minLength": 24,
+          "maxLength": 24
+        },
+        "example": "69e1e7c95fd5d52a356eda5b"
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "The request carried no valid API key.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GatewayAuthError"
+            },
+            "example": {
+              "message": "No API key found in request",
+              "request_id": "209eaf17b5281e175d5c4b6ed0c28e09"
+            }
+          }
+        }
+      },
+      "BeneficiaryNotFound": {
+        "description": "No beneficiary with that ID exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationError"
+            },
+            "example": {
+              "success": false,
+              "error": "Beneficiary not found",
+              "errorType": "RESOURCE_NOT_FOUND"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Something went wrong on our end. Retry the request, and contact support if it keeps happening.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationError"
+            },
+            "example": {
+              "success": false,
+              "error": "Error occured during operation. We're currently checking why this is happening.",
+              "errorType": "INTERNAL_SERVER_ERROR"
+            }
+          }
+        }
       }
     },
     "schemas": {
@@ -3966,6 +4476,557 @@
             "type": "integer",
             "description": "The HTTP status code, repeated in the body.",
             "example": 400
+          }
+        }
+      },
+      "CreateBeneficiaryRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "accountHolderName",
+          "currency",
+          "paymentDestination"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "corporate"
+            ],
+            "description": "Whether you are paying a person or a company. For a corporate beneficiary, `firstName` is set from `accountHolderName`.",
+            "example": "individual"
+          },
+          "accountHolderName": {
+            "type": "string",
+            "description": "The name the destination account is held in.",
+            "example": "Chinwe Eze"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency you will pay this beneficiary in. A beneficiary is saved per currency, so the same person paid in two currencies is two beneficiaries.",
+            "example": "NGN"
+          },
+          "paymentDestination": {
+            "type": "string",
+            "enum": [
+              "bank_account",
+              "mobile_money_wallet",
+              "crypto_wallet"
+            ],
+            "description": "What kind of destination this is. It decides whether you send `destinationAddress` or `walletAddress`.",
+            "example": "bank_account"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The beneficiary's first name. Required when `type` is `individual`.",
+            "example": "Chinwe"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The beneficiary's last name.",
+            "example": "Eze"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The beneficiary's email address.",
+            "example": "chinwe.eze@example.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The beneficiary's phone number.",
+            "example": "+2348012345678"
+          },
+          "destinationAddress": {
+            "type": "string",
+            "description": "The account number or mobile money number to pay. Required unless `paymentDestination` is `crypto_wallet`, or `paymentScheme` is `interac`.",
+            "example": "2345678901"
+          },
+          "walletAddress": {
+            "type": "string",
+            "description": "The crypto wallet address to pay. Required when `paymentDestination` is `crypto_wallet`.",
+            "example": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE"
+          },
+          "interacEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "The recipient's Interac email address. Required when `paymentScheme` is `interac`.",
+            "example": "john.barret@example.com"
+          },
+          "paymentScheme": {
+            "type": "string",
+            "enum": [
+              "local",
+              "chaps",
+              "swift",
+              "sepa",
+              "sepa_instant",
+              "fps",
+              "bacs",
+              "ach",
+              "fed",
+              "eft",
+              "cnaps",
+              "interac",
+              "interac_etransfer",
+              "usdt_trc20",
+              "usdt_erc20",
+              "usdt_solana",
+              "usdt_bep20",
+              "usdc_erc20",
+              "usdc_solana",
+              "usdc_bep20",
+              "cngn_bep20"
+            ],
+            "description": "The rail the payout will travel on. Leave it out for a domestic payout.",
+            "example": "swift"
+          },
+          "bank": {
+            "$ref": "#/components/schemas/BeneficiaryBankInput"
+          },
+          "address": {
+            "$ref": "#/components/schemas/BeneficiaryAddress"
+          },
+          "uniqueIdentifier": {
+            "type": "string",
+            "description": "Your own identifier for this beneficiary.",
+            "example": "supplier-0142"
+          }
+        }
+      },
+      "UpdateBeneficiaryRequest": {
+        "type": "object",
+        "description": "The fields a beneficiary can be updated with. Note that `firstName` and `address` are required here even though they are optional on create, and `accountHolderName` is the other way round.",
+        "required": [
+          "type",
+          "firstName",
+          "address",
+          "currency",
+          "paymentDestination"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "corporate"
+            ],
+            "description": "Whether you are paying a person or a company.",
+            "example": "individual"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The beneficiary's first name. Always required on update.",
+            "example": "Chinwe"
+          },
+          "address": {
+            "$ref": "#/components/schemas/BeneficiaryAddress"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency you pay this beneficiary in.",
+            "example": "NGN"
+          },
+          "paymentDestination": {
+            "type": "string",
+            "enum": [
+              "bank_account",
+              "mobile_money_wallet",
+              "crypto_wallet"
+            ],
+            "description": "What kind of destination this is.",
+            "example": "bank_account"
+          },
+          "accountHolderName": {
+            "type": "string",
+            "description": "The name the destination account is held in.",
+            "example": "Chinwe Eze-Okafor"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The beneficiary's last name.",
+            "example": "Eze-Okafor"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The beneficiary's email address.",
+            "example": "chinwe.eze@example.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The beneficiary's phone number.",
+            "example": "+2348012345678"
+          },
+          "destinationAddress": {
+            "type": "string",
+            "description": "The account number or mobile money number to pay. Required unless `paymentDestination` is `crypto_wallet`, or `paymentScheme` is `interac`.",
+            "example": "2345678901"
+          },
+          "walletAddress": {
+            "type": "string",
+            "description": "The crypto wallet address to pay. Required when `paymentDestination` is `crypto_wallet`.",
+            "example": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE"
+          },
+          "interacEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "The recipient's Interac email address. Required when `paymentScheme` is `interac`.",
+            "example": "john.barret@example.com"
+          },
+          "paymentScheme": {
+            "type": "string",
+            "description": "The rail the payout will travel on.",
+            "example": "swift"
+          },
+          "bank": {
+            "$ref": "#/components/schemas/BeneficiaryBankInput"
+          },
+          "uniqueIdentifier": {
+            "type": "string",
+            "description": "Your own identifier for this beneficiary.",
+            "example": "supplier-0142"
+          }
+        }
+      },
+      "BeneficiaryAddress": {
+        "type": "object",
+        "required": [
+          "country"
+        ],
+        "properties": {
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "description": "The two-letter code for the country. Required.",
+            "example": "NG"
+          },
+          "state": {
+            "type": "string",
+            "description": "The state, province or region.",
+            "example": "Lagos"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city.",
+            "example": "Ikeja"
+          },
+          "street": {
+            "type": "string",
+            "description": "The street address.",
+            "example": "12 Allen Avenue"
+          },
+          "street2": {
+            "type": "string",
+            "description": "A second address line, if there is one.",
+            "example": "Suite 4B"
+          },
+          "zip": {
+            "type": "string",
+            "description": "The postal code.",
+            "example": "100271"
+          }
+        }
+      },
+      "StoredAddress": {
+        "type": "object",
+        "nullable": true,
+        "description": "An address as stored. Every field defaults to `null`, and the object itself is `null` until one is supplied.",
+        "properties": {
+          "country": {
+            "type": "string",
+            "nullable": true,
+            "description": "The two-letter code for the country.",
+            "example": "NG"
+          },
+          "state": {
+            "type": "string",
+            "nullable": true,
+            "description": "The state, province or region.",
+            "example": "Lagos"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true,
+            "description": "The city.",
+            "example": "Ikeja"
+          },
+          "street": {
+            "type": "string",
+            "nullable": true,
+            "description": "The street address.",
+            "example": "12 Allen Avenue"
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true,
+            "description": "The postal code.",
+            "example": null
+          }
+        }
+      },
+      "BeneficiaryBankInput": {
+        "type": "object",
+        "description": "The destination bank. Leave it out for a crypto wallet.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The bank's name.",
+            "example": "GTBank"
+          },
+          "code": {
+            "type": "string",
+            "description": "The bank's code, as returned by the banks list. For a mobile money wallet, this carries the network operator.",
+            "example": "058"
+          },
+          "sortCode": {
+            "type": "string",
+            "description": "The bank's sort code, for GBP payouts.",
+            "example": "601613"
+          },
+          "swiftCode": {
+            "type": "string",
+            "description": "The bank's SWIFT/BIC code, for international payouts.",
+            "example": "BOFAUS3N"
+          },
+          "address": {
+            "$ref": "#/components/schemas/BeneficiaryAddress"
+          }
+        }
+      },
+      "BeneficiaryBank": {
+        "type": "object",
+        "description": "The destination bank as stored. Fields that were never supplied come back as `null`.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The bank's name.",
+            "example": "GTBank"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true,
+            "description": "The bank's code, or the network operator for mobile money.",
+            "example": "058"
+          },
+          "swiftCode": {
+            "type": "string",
+            "nullable": true,
+            "description": "The bank's SWIFT/BIC code.",
+            "example": null
+          },
+          "branch": {
+            "type": "string",
+            "nullable": true,
+            "description": "The branch. Set by Fincra where a channel supplies it, not accepted on create.",
+            "example": null
+          },
+          "sortCode": {
+            "type": "string",
+            "nullable": true,
+            "description": "The bank's sort code.",
+            "example": null
+          },
+          "address": {
+            "$ref": "#/components/schemas/StoredAddress"
+          },
+          "correspondentBank": {
+            "type": "object",
+            "nullable": true,
+            "description": "The correspondent bank, where one is used. Set by Fincra, not accepted on create.",
+            "example": null
+          }
+        }
+      },
+      "Beneficiary": {
+        "type": "object",
+        "description": "Someone you have saved to pay.",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The beneficiary's ID. Pass it to retrieve, update or delete them.",
+            "example": "69e1e7c95fd5d52a356eda5b"
+          },
+          "business": {
+            "type": "string",
+            "description": "The business this beneficiary belongs to.",
+            "example": "64f1c2a4b7d9e30012ab4567"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "corporate"
+            ],
+            "description": "Whether this is a person or a company.",
+            "example": "individual"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The beneficiary's first name. For a corporate beneficiary this is a copy of `accountHolderName`.",
+            "example": "Chinwe"
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true,
+            "description": "The beneficiary's last name.",
+            "example": "Eze"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true,
+            "description": "The beneficiary's email address.",
+            "example": null
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true,
+            "description": "The beneficiary's phone number.",
+            "example": null
+          },
+          "accountHolderName": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name the destination account is held in.",
+            "example": "Chinwe Eze"
+          },
+          "bank": {
+            "$ref": "#/components/schemas/BeneficiaryBank"
+          },
+          "address": {
+            "$ref": "#/components/schemas/StoredAddress"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency this beneficiary is paid in.",
+            "example": "NGN"
+          },
+          "destinationAddress": {
+            "type": "string",
+            "nullable": true,
+            "description": "The account number or mobile money number paid.",
+            "example": "2345678901"
+          },
+          "interacEmail": {
+            "type": "string",
+            "nullable": true,
+            "description": "The Interac email paid, for CAD.",
+            "example": null
+          },
+          "walletAddress": {
+            "type": "string",
+            "nullable": true,
+            "description": "The crypto wallet address paid.",
+            "example": null
+          },
+          "paymentDestination": {
+            "type": "string",
+            "enum": [
+              "bank_account",
+              "mobile_money_wallet",
+              "crypto_wallet"
+            ],
+            "description": "What kind of destination this is.",
+            "example": "bank_account"
+          },
+          "paymentScheme": {
+            "type": "string",
+            "nullable": true,
+            "description": "The rail payouts to this beneficiary travel on.",
+            "example": null
+          },
+          "uniqueIdentifier": {
+            "type": "string",
+            "nullable": true,
+            "description": "Your own identifier for this beneficiary.",
+            "example": null
+          },
+          "isResolved": {
+            "type": "boolean",
+            "description": "Whether Fincra has confirmed the destination account resolves. Set by Fincra, and false until it does.",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the beneficiary was saved.",
+            "example": "2026-09-20T09:14:02.881Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the beneficiary was last changed.",
+            "example": "2026-09-20T09:14:02.881Z"
+          }
+        }
+      },
+      "BeneficiaryResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "description": "Indicates that the request succeeded.",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable summary of the result.",
+            "example": "Beneficiary fetched successfully"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Beneficiary"
+          }
+        }
+      },
+      "ListBeneficiariesResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "description": "Indicates that the request succeeded.",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable summary of the result.",
+            "example": "Beneficiaries fetched successfully"
+          },
+          "data": {
+            "type": "object",
+            "description": "One page of beneficiaries, with the total count.",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                },
+                "description": "The beneficiaries on this page."
+              },
+              "total": {
+                "type": "integer",
+                "description": "How many beneficiaries your business has in total, not just on this page.",
+                "example": 1
+              }
+            }
           }
         }
       }
