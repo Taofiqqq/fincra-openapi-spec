@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Local Postman workspace sync and scratch output — not part of the spec.
+.postman/
+postman/
+Claude outputs/

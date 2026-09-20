@@ -1,0 +1,16 @@
+{
+  "name": "fincra-openapi-spec",
+  "private": true,
+  "type": "module",
+  "description": "Fincra API definition. Authored on `rebuild`, published to ReadMe version branches.",
+  "scripts": {
+    "lint": "redocly lint openapi.yaml",
+    "publish:readme": "node scripts/publish-to-readme.mjs",
+    "publish:readme:dry": "node scripts/publish-to-readme.mjs --dry-run"
+  },
+  "devDependencies": {
+    "@readme/cli": "0.0.30",
+    "@redocly/cli": "2.53.3",
+    "yaml": "2.9.1"
+  }
+}
