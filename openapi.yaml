@@ -1492,6 +1492,141 @@ paths:
                   this is happening.
                 errorType: INTERNAL_SERVER_ERROR
 
+  /core/bvn-verification:
+    post:
+      operationId: verifyBvn
+      summary: Verify a BVN
+      description: >-
+        Verifies a Nigerian Bank Verification Number and returns the identity
+        record held against it.
+
+
+        **Nigeria only.** The BVN is an NGN-market identifier; this endpoint
+        accepts no other market.
+
+
+        Use this to confirm a person's identity. To confirm a bank account and
+        get its account holder's name before a payout, use
+        [Resolve an account](/reference/resolveaccount) instead.
+
+
+        ### Access
+
+
+        This endpoint is gated on the `bvn_verification` product. If your account
+        does not have it enabled, every request returns `403` regardless of the
+        BVN sent — contact your account manager to have it turned on. The gate is
+        not applied in Sandbox, so a Sandbox key reaches the endpoint whether or
+        not the product is enabled on your live account.
+
+
+        ### Sandbox behaviour
+
+
+        Sandbox passes BVN lookups through to the live identity provider, so any
+        genuine BVN resolves successfully and **a failed verification cannot be
+        simulated**. The `422` below was captured against Production.
+
+
+        ### Handling the response
+
+
+        The response carries personal data, including `pixBase64` — a
+        base64-encoded photograph of the BVN holder, truncated in the example
+        below. Store and handle it in line with your data-protection
+        obligations.
+      tags:
+        - Verification
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyBvnRequest"
+            example:
+              bvn: "22222222222"
+              business: 64f1c2a4b7d9e30012ab4567
+      responses:
+        "200":
+          description: >-
+            The BVN was verified. Returns the identity record the provider holds
+            against it.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyBvnResponse"
+              example:
+                success: true
+                message: Bvn verification successful
+                data:
+                  verificationStatus: verified
+                  response:
+                    firstName: JOHN
+                    middleName: ADE
+                    lastName: DOE
+                    gender: Male
+                    dateOfBirth: 12-Mar-1988
+                    phoneNo: "09022222222"
+                    pixBase64: JJJ..
+        "401":
+          description: The request carried no valid API key.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+              example:
+                message: No API key found in request
+                request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+        "403":
+          description: >-
+            Your account does not have the `bvn_verification` product enabled.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: >-
+                  Access Denied. You're not authorized to access bvn_verification
+                  product
+                errorType: ACCESS_DENIED
+        "422":
+          description: >-
+            The BVN does not exist, or the request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              examples:
+                notFound:
+                  summary: The BVN is invalid or does not exist
+                  value:
+                    success: false
+                    error: Invalid BVN or BVN does not exist
+                    errorType: UNPROCESSABLE_ENTITY
+                wrongLength:
+                  summary: The BVN is not 11 characters
+                  value:
+                    success: false
+                    error: >-
+                      Error occurred during payload validation. bvn length must
+                      be 11 characters long
+                    errorType: UNPROCESSABLE_ENTITY
+        "500":
+          description: The request failed inside Fincra.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: >-
+                  Error occured during operation. We're currently checking why
+                  this is happening.
+                errorType: INTERNAL_SERVER_ERROR
+
 components:
   securitySchemes:
     apiKey:
@@ -2426,3 +2561,85 @@ components:
         zip:
           type: string
           example: E14 5AB
+
+    VerifyBvnRequest:
+      type: object
+      required:
+        - bvn
+        - business
+      properties:
+        bvn:
+          type: string
+          minLength: 11
+          maxLength: 11
+          description: The 11-digit Bank Verification Number to verify.
+          example: "22222222222"
+        business:
+          type: string
+          description: >-
+            Your business ID, as returned by Get business profile. Required in
+            the body even though your API key already identifies your business.
+          example: 64f1c2a4b7d9e30012ab4567
+
+    VerifyBvnResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Bvn verification successful
+        data:
+          type: object
+          properties:
+            verificationStatus:
+              type: string
+              description: The outcome of the check.
+              example: verified
+            response:
+              $ref: "#/components/schemas/BvnIdentity"
+
+    BvnIdentity:
+      type: object
+      description: >-
+        The identity record held against the BVN. Every field is personal data.
+      properties:
+        firstName:
+          type: string
+          description: The holder's first name, as registered.
+          example: JOHN
+        middleName:
+          type: string
+          description: The holder's middle name. Absent when they have none registered.
+          example: ADE
+        lastName:
+          type: string
+          description: The holder's last name, as registered.
+          example: DOE
+        gender:
+          type: string
+          description: The holder's gender, as registered.
+          example: Male
+        dateOfBirth:
+          type: string
+          description: >-
+            The holder's date of birth, formatted `DD-Mon-YYYY`. Not an ISO
+            date — parse it accordingly.
+          example: 12-Mar-1988
+        phoneNo:
+          type: string
+          description: The phone number registered against the BVN.
+          example: "09022222222"
+        pixBase64:
+          type: string
+          description: >-
+            A base64-encoded photograph of the holder. Truncated in the example
+            above; the real value is long.
+          example: JJJ..
