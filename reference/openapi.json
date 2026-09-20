@@ -2584,27 +2584,60 @@
                 "schema": {
                   "$ref": "#/components/schemas/GenerateQuoteResponse"
                 },
-                "example": {
-                  "success": true,
-                  "message": "Quote generated successfully",
-                  "data": {
-                    "sourceCurrency": "XAF",
-                    "destinationCurrency": "NGN",
-                    "sourceAmount": 10000,
-                    "destinationAmount": 23323.7167,
-                    "action": "send",
-                    "transactionType": "conversion",
-                    "fee": 0,
-                    "initialAmount": 10000,
-                    "quotedAmount": 23323.7167,
-                    "rate": 2.3323716694,
-                    "amountToCharge": 10000,
-                    "amountToReceive": 23323.72,
-                    "price": 2.33,
-                    "reference": "84141587-9caf-45f6-971b-bd654361d086",
-                    "rounding": null,
-                    "expireAt": "2026-09-20T19:39:11.856Z",
-                    "settlementDate": "2026-09-20T19:38:41.538Z"
+                "examples": {
+                  "disbursement": {
+                    "summary": "Disbursement quote",
+                    "value": {
+                      "success": true,
+                      "message": "Quote generated successfully",
+                      "data": {
+                        "sourceCurrency": "NGN",
+                        "destinationCurrency": "GHS",
+                        "sourceAmount": 100000,
+                        "destinationAmount": 806.4844,
+                        "action": "send",
+                        "transactionType": "disbursement",
+                        "fee": 0,
+                        "initialAmount": 100000,
+                        "quotedAmount": 806.4844,
+                        "rate": 0.0080648441,
+                        "amountToCharge": 100000,
+                        "amountToReceive": 806.48,
+                        "price": 123.99,
+                        "reference": "4d6b8d0e-d2ef-4990-82b3-537522c4978d",
+                        "feeCurrency": "GHS",
+                        "feeRate": 1,
+                        "stampDuty": 0,
+                        "rounding": null,
+                        "expireAt": "2026-09-20T19:55:07.248Z"
+                      }
+                    }
+                  },
+                  "conversion": {
+                    "summary": "Conversion quote",
+                    "value": {
+                      "success": true,
+                      "message": "Quote generated successfully",
+                      "data": {
+                        "sourceCurrency": "XAF",
+                        "destinationCurrency": "NGN",
+                        "sourceAmount": 10000,
+                        "destinationAmount": 23323.7167,
+                        "action": "send",
+                        "transactionType": "conversion",
+                        "fee": 0,
+                        "initialAmount": 10000,
+                        "quotedAmount": 23323.7167,
+                        "rate": 2.3323716694,
+                        "amountToCharge": 10000,
+                        "amountToReceive": 23323.72,
+                        "price": 2.33,
+                        "reference": "84141587-9caf-45f6-971b-bd654361d086",
+                        "rounding": null,
+                        "expireAt": "2026-09-20T19:39:11.856Z",
+                        "settlementDate": "2026-09-20T19:38:41.538Z"
+                      }
+                    }
                   }
                 }
               }
@@ -5431,8 +5464,8 @@
           },
           "price": {
             "type": "number",
-            "description": "The same rate, rounded for display.",
-            "example": 2.33
+            "description": "A display form of the rate, rounded, and sometimes quoted in the inverse direction so the number reads naturally. Use `rate` for any calculation.",
+            "example": 123.99
           },
           "sourceCurrency": {
             "type": "string",
@@ -5467,6 +5500,21 @@
           "fee": {
             "type": "number",
             "description": "The fee for this transaction.",
+            "example": 0
+          },
+          "feeCurrency": {
+            "type": "string",
+            "description": "The currency the fee is charged in. Returned on a disbursement quote.",
+            "example": "GHS"
+          },
+          "feeRate": {
+            "type": "number",
+            "description": "The rate the fee was worked out from.",
+            "example": 1
+          },
+          "stampDuty": {
+            "type": "number",
+            "description": "Stamp duty charged on the transaction, where it applies.",
             "example": 0
           },
           "initialAmount": {
@@ -5538,7 +5586,7 @@
           "settlementDate": {
             "type": "string",
             "format": "date-time",
-            "description": "When the money is expected to settle.",
+            "description": "When the money is expected to settle. Returned on a conversion quote.",
             "example": "2026-09-20T19:38:41.538Z"
           }
         }
