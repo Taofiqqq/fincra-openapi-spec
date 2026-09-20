@@ -1,0 +1,6 @@
+- initiateconversion
+- listconversions
+- getconversion
+- getconversionbyreference
+- getconversionbymerchantreference
+- exportconversions
