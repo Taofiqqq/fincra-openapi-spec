@@ -947,6 +947,90 @@ paths:
                   this is happening.
                 errorType: INTERNAL_SERVER_ERROR
 
+  /profile/merchants/me:
+    get:
+      operationId: getMerchantProfile
+      summary: Get merchant profile
+      description: >-
+        Returns the merchant account your API key belongs to, along with the
+        business attached to it. The merchant is the account that owns your
+        Fincra login and API credentials. The business is what you transact
+        with.
+      tags:
+        - Business
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Returns a Merchant object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMerchantProfileResponse"
+              example:
+                success: true
+                message: Merchant details fetched successfully
+                data:
+                  _id: 64f1c2a4b7d9e30012ab1234
+                  userId: 64f1c2a4b7d9e30012ab5678
+                  name: Tumaini Moyo
+                  email: tumaini.moyo@example.com
+                  country: NG
+                  logo: "https://example.com/logo.png"
+                  incorporationNumber: "1823061"
+                  accessAllFeatures: false
+                  howDidYouHearAboutUs:
+                    - googleKeyword
+                  monthlyTransactionVolume: null
+                  apiKeyRotatedAt: null
+                  apiKeyRotatedBy: null
+                  createdAt: "2025-03-17T14:47:34.456Z"
+                  updatedAt: "2025-03-17T14:47:35.117Z"
+                  business:
+                    id: 64f1c2a4b7d9e30012ab4567
+                    businessKey: B-Kq7Rm2XnPvTd
+                    subBusinessIds: []
+        "401":
+          description: The request carried no valid API key.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+              example:
+                message: No API key found in request
+                request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+        "404":
+          description: The merchant, or its business, could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              examples:
+                merchantNotFound:
+                  summary: The merchant record does not exist
+                  value:
+                    success: false
+                    error: Merchant not found
+                    errorType: RESOURCE_NOT_FOUND
+                noBusinessAttached:
+                  summary: The merchant exists but has no business
+                  value:
+                    success: false
+                    error: Merchant does not have a business attached to it.
+                    errorType: RESOURCE_NOT_FOUND
+        "500":
+          description: The request failed inside Fincra.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: >-
+                  Error occured during operation. We're currently checking why
+                  this is happening.
+                errorType: INTERNAL_SERVER_ERROR
+
   /profile/business:
     get:
       operationId: getBusinessesByMerchant
@@ -1615,3 +1699,149 @@ components:
           format: date-time
           description: When the business was last modified.
           example: "2026-09-03T05:33:37.509Z"
+
+    GetMerchantProfileResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Merchant details fetched successfully
+        data:
+          $ref: "#/components/schemas/Merchant"
+
+    Merchant:
+      type: object
+      description: >-
+        The account that owns your Fincra login and API credentials. Fields
+        that have never been set are absent from the response rather than
+        returned as null.
+      properties:
+        _id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: The merchant ID.
+          example: 64f1c2a4b7d9e30012ab1234
+        userId:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: >-
+            The ID of the user account that signs in to the Fincra dashboard as
+            this merchant.
+          example: 64f1c2a4b7d9e30012ab5678
+        name:
+          type: string
+          description: The name given when the merchant account was created.
+          example: Tumaini Moyo
+        email:
+          type: string
+          format: email
+          description: >-
+            The merchant's email address. Unique across Fincra and used to sign
+            in.
+          example: tumaini.moyo@example.com
+        country:
+          type: string
+          description: The two-letter code for the country the merchant signed up in.
+          example: NG
+        logo:
+          type: string
+          description: >-
+            The merchant logo. Absent when no logo has been set. Stored as plain
+            text with no format enforced.
+          example: "https://example.com/logo.png"
+        mobile:
+          type: string
+          description: >-
+            The merchant's phone number. Absent when it has not been set.
+        incorporationNumber:
+          type: string
+          description: >-
+            The company registration number supplied during onboarding. Absent
+            when it has not been set.
+          example: "1823061"
+        accessAllFeatures:
+          type: boolean
+          description: >-
+            Whether the merchant has been granted access to every Fincra
+            product. False by default.
+          example: false
+        whitelistedIpAddresses:
+          type: array
+          items:
+            type: string
+          description: >-
+            IP addresses allowed to call the API with this merchant's key.
+            Absent when no allowlist has been configured.
+        howDidYouHearAboutUs:
+          type: array
+          items:
+            type: string
+          description: >-
+            The answers given at signup to how the merchant found Fincra. Set
+            once during onboarding.
+          example: [googleKeyword]
+        monthlyTransactionVolume:
+          type: string
+          nullable: true
+          description: >-
+            The expected monthly transaction volume declared at signup. `null`
+            when it was not supplied.
+        apiKeyRotatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            When the API key was last rotated. `null` if it has never been
+            rotated.
+        apiKeyRotatedBy:
+          type: string
+          nullable: true
+          description: >-
+            Who last rotated the API key. `null` if it has never been rotated.
+        createdAt:
+          type: string
+          format: date-time
+          description: When the merchant account was created.
+          example: "2025-03-17T14:47:34.456Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the merchant account was last modified.
+          example: "2025-03-17T14:47:35.117Z"
+        business:
+          type: object
+          description: >-
+            The business attached to this merchant. Pass its `id` wherever an
+            endpoint requires `businessID` or the `x-business-id` header.
+          properties:
+            id:
+              type: string
+              minLength: 24
+              maxLength: 24
+              description: The business ID.
+              example: 64f1c2a4b7d9e30012ab4567
+            businessKey:
+              type: string
+              description: >-
+                A stable identifier for the business, shown in your Fincra
+                dashboard. Not accepted in place of `id` by any endpoint.
+              example: B-Kq7Rm2XnPvTd
+            subBusinessIds:
+              type: array
+              items:
+                type: string
+              description: >-
+                IDs of any subaccounts under this business. Empty when there are
+                none.
+              example: []
