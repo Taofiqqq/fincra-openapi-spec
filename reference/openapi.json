@@ -1220,7 +1220,7 @@
         },
         "responses": {
           "200": {
-            "description": "The exported file (CSV or PDF, per `exportType`). Response is not the standard JSON success envelope.",
+            "description": "The exported file (CSV or PDF, per `exportType`).",
             "content": {
               "application/json": {}
             }
@@ -1876,7 +1876,7 @@
         },
         "responses": {
           "200": {
-            "description": "The account was resolved. The shape of `data` follows the `type` that was sent.",
+            "description": "The account was resolved.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2008,7 +2008,7 @@
             }
           },
           "422": {
-            "description": "The account could not be resolved, or the request failed validation. A resolve failure never says which part was wrong, the account or the code, because the underlying channel does not tell us either.",
+            "description": "The account could not be resolved, or the request failed validation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2090,7 +2090,7 @@
         },
         "responses": {
           "200": {
-            "description": "The BVN was verified. Returns the identity record the provider holds against it.",
+            "description": "The BVN was verified.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2248,7 +2248,7 @@
             }
           },
           "400": {
-            "description": "The BIN is not a number, or is shorter than six digits. This endpoint returns errors in a different shape to the rest of the API. There is no `success` or `errorType` field.",
+            "description": "The BIN is not a number, or is shorter than six digits.",
             "content": {
               "application/json": {
                 "schema": {
