@@ -3,7 +3,7 @@ info:
   title: Fincra API
   description: >-
     Fincra API reference. Rebuilt from scratch against real service
-    behavior — not migrated from the prior spec.
+    behavior, not migrated from the prior spec.
   version: 2.0.0
   contact:
     name: Fincra DevRel
@@ -17,7 +17,7 @@ servers:
 
 tags:
   - name: Business
-    description: Your business profile — the entity your Fincra integration acts on behalf of.
+    description: Your business profile, the entity your Fincra integration acts on behalf of.
   - name: Wallets and Balances
     description: Your business's currency wallets and their balances.
   - name: Verification
@@ -310,7 +310,7 @@ paths:
       summary: Get wallet by wallet number
       description: >-
         Looks up a wallet by its `walletNumber`. Returns wallet and business
-        identifiers only — no balances. Use Get wallet for balances.
+        identifiers only, no balances. Use Get wallet for balances.
       tags:
         - Wallets and Balances
       security:
@@ -377,7 +377,7 @@ paths:
       operationId: fundWallet
       summary: Fund wallet
       description: >-
-        Credits a wallet with a test amount. **Sandbox only** — this
+        Credits a wallet with a test amount. **Sandbox only**. This
         endpoint does not exist in Production. The wallet must already
         exist; create it first with Create wallets.
       tags:
@@ -1222,8 +1222,8 @@ paths:
 
 
         The request shape is decided by `type`. Each type identifies the
-        destination differently — a bank code, a mobile money operator, a SWIFT
-        code, an email, or the IBAN itself — and the response shape follows the
+        destination differently, by a bank code, a mobile money operator, a
+        SWIFT code, an email, or the IBAN itself, and the response shape follows the
         type in turn. `type` defaults to `nuban`, so a request that omits it is
         read as an NGN bank account.
 
@@ -1242,7 +1242,7 @@ paths:
         an email that is not registered for auto-deposit is a real answer, not an
         error, so the result is carried by `autoDepositEnabled` rather than by
         success or failure. **IBAN** resolves against a bank directory rather
-        than a named account, so it returns the bank and branch — and no
+        than a named account, so it returns the bank and branch, and no
         `accountName`.
 
 
@@ -1250,7 +1250,7 @@ paths:
 
 
         Sandbox recognises these identifiers and no others. A valid account
-        number paired with the wrong code also fails — both must match.
+        number paired with the wrong code also fails. Both must match.
 
 
         | Currency | Type | Account | Code | Result |
@@ -1266,10 +1266,10 @@ paths:
         | KES | `mobile_money` | `254712345678` | `MPESA` | Always fails |
         | KES | `bank_account` | `1000012345` | `76` | UBA Kenya Test Account |
         | KES | `bank_account` | `2000012345` | `03` | Always fails |
-        | CAD | `interac_etransfer` | `john.barret@example.com` | — | Auto-deposit enabled |
-        | CAD | `interac_etransfer` | `john.barret+noautodeposit@example.com` | — | Auto-deposit not enabled |
-        | EUR/GBP | `iban` | `GB29NWBK60161331926819` | — | NatWest Bank, London |
-        | EUR/GBP | `iban` | `DE44500105175407324931` | — | Always fails |
+        | CAD | `interac_etransfer` | `john.barret@example.com` | n/a | Auto-deposit enabled |
+        | CAD | `interac_etransfer` | `john.barret+noautodeposit@example.com` | n/a | Auto-deposit not enabled |
+        | EUR/GBP | `iban` | `GB29NWBK60161331926819` | n/a | NatWest Bank, London |
+        | EUR/GBP | `iban` | `DE44500105175407324931` | n/a | Always fails |
 
 
         For Interac in sandbox, any email containing `noautodeposit` returns
@@ -1400,7 +1400,7 @@ paths:
                       accountNumber: "1000012345"
                       bankCode: "76"
                 cadInteracEnabled:
-                  summary: CAD Interac — auto-deposit enabled
+                  summary: CAD Interac, auto-deposit enabled
                   value:
                     success: true
                     message: Account resolve successful
@@ -1409,7 +1409,7 @@ paths:
                       accountName: John Barret
                       autoDepositEnabled: true
                 cadInteracNotEnabled:
-                  summary: CAD Interac — auto-deposit not enabled
+                  summary: CAD Interac, auto-deposit not enabled
                   value:
                     success: true
                     message: Account resolve successful
@@ -1448,8 +1448,8 @@ paths:
         "422":
           description: >-
             The account could not be resolved, or the request failed validation.
-            A resolve failure never says which part was wrong — the account or
-            the code — because the underlying channel does not tell us either.
+            A resolve failure never says which part was wrong, the account or
+            the code, because the underlying channel does not tell us either.
           content:
             application/json:
               schema:
@@ -1515,7 +1515,7 @@ paths:
 
         This endpoint is gated on the `bvn_verification` product. If your account
         does not have it enabled, every request returns `403` regardless of the
-        BVN sent — contact your account manager to have it turned on. The gate is
+        BVN sent. Contact your account manager to have it turned on. The gate is
         not applied in Sandbox, so a Sandbox key reaches the endpoint whether or
         not the product is enabled on your live account.
 
@@ -1531,7 +1531,7 @@ paths:
         ### Handling the response
 
 
-        The response carries personal data, including `pixBase64` — a
+        The response carries personal data, including `pixBase64`, a
         base64-encoded photograph of the BVN holder, truncated in the example
         below. Store and handle it in line with your data-protection
         obligations.
@@ -1633,16 +1633,11 @@ paths:
       summary: Look up BIN details
       description: >-
         Looks up the card scheme, brand, issuing bank and country behind a Bank
-        Identification Number — the first six digits of a card number.
+        Identification Number, the first six digits of a card number.
 
 
         Use it to show a customer which card they are about to pay with, or to
         route a payment by scheme or card type before charging.
-
-
-        Only the first six digits are used. A longer value is accepted and
-        trimmed to six, so you can pass a full card number without splitting it
-        yourself. Fewer than six digits is rejected.
       tags:
         - Verification
       security:
@@ -1684,7 +1679,7 @@ paths:
         "400":
           description: >-
             The BIN is not a number, or is shorter than six digits. This endpoint
-            returns errors in a different shape to the rest of the API — there is
+            returns errors in a different shape to the rest of the API. There is
             no `success` or `errorType` field.
           content:
             application/json:
@@ -2402,7 +2397,7 @@ components:
         currency:
           type: string
           enum: [GHS, KES]
-          description: Required — the operator alone does not imply the country.
+          description: Required. The operator alone does not imply the country.
         accountNumber:
           type: string
           pattern: "^[0-9]+$"
@@ -2415,7 +2410,7 @@ components:
           maxLength: 20
           pattern: "^[a-zA-Z]+$"
           description: >-
-            The network operator, letters only — for example `MTN`, `AIRTEL` or
+            The network operator, letters only, for example `MTN`, `AIRTEL` or
             `MPESA`.
           example: AIRTEL
         bankCode:
@@ -2444,8 +2439,8 @@ components:
           type: string
           pattern: "^[0-9]+$"
           description: >-
-            The account number, digits only. Neither currency fixes a length —
-            it varies by bank.
+            The account number, digits only. Neither currency fixes a length.
+            It varies by bank.
           example: "4005006007"
         bankSwiftCode:
           type: string
@@ -2485,8 +2480,8 @@ components:
           type: string
           format: email
           description: >-
-            The recipient's Interac email address. Only accepted for this type —
-            sending it with any other `type` is rejected.
+            The recipient's Interac email address. Only accepted for this type.
+            Sending it with any other `type` is rejected.
           example: john.barret@example.com
 
     ResolveIbanRequest:
@@ -2504,7 +2499,7 @@ components:
         iban:
           type: string
           description: >-
-            The full IBAN. No `currency` is sent — the country and bank encoded
+            The full IBAN. No `currency` is sent. The country and bank encoded
             in the IBAN determine it.
           example: GB29NWBK60161331926819
 
@@ -2539,7 +2534,7 @@ components:
         - accountNumber
         - bankCode
       description: >-
-        A named account — returned for `nuban`, `mobile_money` and
+        A named account, returned for `nuban`, `mobile_money` and
         `bank_account`. The response never carries the bank or operator's
         display name, only the code used to reach it.
       properties:
@@ -2566,7 +2561,7 @@ components:
         - email
         - autoDepositEnabled
       description: >-
-        An Interac auto-deposit check — returned for `interac_etransfer`. There
+        An Interac auto-deposit check, returned for `interac_etransfer`. There
         is no failure case: an email that is not enrolled is a real answer, so
         read the outcome from `autoDepositEnabled`.
       properties:
@@ -2595,7 +2590,7 @@ components:
         - iban
         - bic
       description: >-
-        A bank directory record — returned for `iban`. There is no `accountName`:
+        A bank directory record, returned for `iban`. There is no `accountName`:
         an IBAN resolves to a bank and branch, not to an account holder.
       properties:
         iban:
@@ -2717,7 +2712,7 @@ components:
           type: string
           description: >-
             The holder's date of birth, formatted `DD-Mon-YYYY`. Not an ISO
-            date — parse it accordingly.
+            date. Parse it accordingly.
           example: 12-Mar-1988
         phoneNo:
           type: string
