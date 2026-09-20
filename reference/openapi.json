@@ -2965,6 +2965,7 @@
       },
       "ResolveNubanRequest": {
         "type": "object",
+        "title": "NGN bank account",
         "description": "An NGN bank account, identified by its NUBAN and bank code.",
         "required": [
           "type",
@@ -3008,6 +3009,7 @@
       },
       "ResolveMobileMoneyRequest": {
         "type": "object",
+        "title": "Mobile money (GHS, KES)",
         "description": "A GHS or KES mobile money wallet, identified by its network operator.",
         "required": [
           "type",
@@ -3052,6 +3054,7 @@
       },
       "ResolveBankAccountRequest": {
         "type": "object",
+        "title": "Bank account (GHS, KES)",
         "description": "A GHS or KES bank account. The identifying field differs by currency: GHS is identified by `bankSwiftCode`, KES by `bankCode`.",
         "required": [
           "type",
@@ -3094,6 +3097,7 @@
       },
       "ResolveInteracRequest": {
         "type": "object",
+        "title": "Interac e-Transfer (CAD)",
         "description": "A CAD Interac e-Transfer recipient, identified by their registered email. This checks whether the email is enrolled for auto-deposit.",
         "required": [
           "type",
@@ -3124,6 +3128,7 @@
       },
       "ResolveIbanRequest": {
         "type": "object",
+        "title": "IBAN (EUR, GBP)",
         "description": "An IBAN, for EUR and GBP. Resolves against a bank directory, so it returns the bank and branch rather than an account holder's name.",
         "required": [
           "type",
@@ -3181,6 +3186,7 @@
       },
       "ResolvedAccount": {
         "type": "object",
+        "title": "Named account",
         "required": [
           "accountName",
           "accountNumber",
@@ -3207,6 +3213,7 @@
       },
       "ResolvedInteracAccount": {
         "type": "object",
+        "title": "Interac auto-deposit check",
         "required": [
           "email",
           "autoDepositEnabled"
@@ -3234,6 +3241,7 @@
       },
       "ResolvedIban": {
         "type": "object",
+        "title": "Bank directory record",
         "required": [
           "iban",
           "bic"
