@@ -1627,6 +1627,92 @@ paths:
                   this is happening.
                 errorType: INTERNAL_SERVER_ERROR
 
+  /checkout/resolve/bin/{bin}:
+    get:
+      operationId: lookUpBin
+      summary: Look up BIN details
+      description: >-
+        Looks up the card scheme, brand, issuing bank and country behind a Bank
+        Identification Number — the first six digits of a card number.
+
+
+        Use it to show a customer which card they are about to pay with, or to
+        route a payment by scheme or card type before charging.
+
+
+        Only the first six digits are used. A longer value is accepted and
+        trimmed to six, so you can pass a full card number without splitting it
+        yourself. Fewer than six digits is rejected.
+      tags:
+        - Verification
+      security:
+        - apiKey: []
+      parameters:
+        - name: bin
+          in: path
+          required: true
+          description: >-
+            The BIN to look up. At least six digits, digits only. Anything beyond
+            the sixth digit is ignored.
+          schema:
+            type: string
+            minLength: 6
+            pattern: "^[0-9]+$"
+          example: "539941"
+      responses:
+        "200":
+          description: The BIN was resolved.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BinLookupResponse"
+              example:
+                status: true
+                message: Bin resolved
+                data:
+                  bin: "539941"
+                  scheme: mastercard
+                  brand: Debit Standard
+                  country:
+                    code: NG
+                    name: Nigeria
+                    emoji: 🇳🇬
+                  bank: Zenith Bank
+                  type: debit
+                  lengths:
+                    - 16
+        "400":
+          description: >-
+            The BIN is not a number, or is shorter than six digits. This endpoint
+            returns errors in a different shape to the rest of the API — there is
+            no `success` or `errorType` field.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+              examples:
+                notANumber:
+                  summary: The BIN contains something other than digits
+                  value:
+                    message: BIN must be a number
+                    error: Bad Request
+                    statusCode: 400
+                tooShort:
+                  summary: The BIN is shorter than six digits
+                  value:
+                    message: BIN length must be 6
+                    error: Bad Request
+                    statusCode: 400
+        "401":
+          description: The request carried no valid API key.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GatewayAuthError"
+              example:
+                message: No API key found in request
+                request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+
 components:
   securitySchemes:
     apiKey:
@@ -2643,3 +2729,95 @@ components:
             A base64-encoded photograph of the holder. Truncated in the example
             above; the real value is long.
           example: JJJ..
+
+    BinLookupResponse:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: boolean
+          enum: [true]
+          description: >-
+            Indicates that the request succeeded. This endpoint uses `status`
+            where the rest of the API uses `success`.
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Bin resolved
+        data:
+          $ref: "#/components/schemas/BinDetails"
+
+    BinDetails:
+      type: object
+      description: What the card's first six digits identify.
+      properties:
+        bin:
+          type: string
+          description: The six digits the lookup was performed against.
+          example: "539941"
+        scheme:
+          type: string
+          description: The card scheme.
+          example: mastercard
+        brand:
+          type: string
+          description: The scheme's product name for this card.
+          example: Debit Standard
+        country:
+          type: object
+          description: The country the card was issued in.
+          properties:
+            code:
+              type: string
+              description: The two-letter code for the country.
+              example: NG
+            name:
+              type: string
+              description: The country's name.
+              example: Nigeria
+            emoji:
+              type: string
+              description: The country's flag, as an emoji.
+              example: 🇳🇬
+        bank:
+          type: string
+          description: The issuing bank's name.
+          example: Zenith Bank
+        type:
+          type: string
+          description: Whether the card draws on a balance or a credit line.
+          example: debit
+        lengths:
+          type: array
+          items:
+            type: integer
+          description: >-
+            The valid full card number lengths for this BIN. Use it to validate
+            a card number before charging.
+          example: [16]
+
+    BadRequestError:
+      type: object
+      description: >-
+        The error shape used by this endpoint. It does not match the rest of the
+        API, which returns `success`, `error` and `errorType`.
+      required:
+        - message
+        - error
+        - statusCode
+      properties:
+        message:
+          type: string
+          description: What was wrong with the request.
+          example: BIN must be a number
+        error:
+          type: string
+          description: The HTTP status name.
+          example: Bad Request
+        statusCode:
+          type: integer
+          description: The HTTP status code, repeated in the body.
+          example: 400
