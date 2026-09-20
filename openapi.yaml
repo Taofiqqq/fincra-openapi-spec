@@ -1646,9 +1646,7 @@ paths:
         - name: bin
           in: path
           required: true
-          description: >-
-            The BIN to look up. At least six digits, digits only. Anything beyond
-            the sixth digit is ignored.
+          description: The first six digits of the card number.
           schema:
             type: string
             minLength: 6
