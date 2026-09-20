@@ -29,6 +29,8 @@ tags:
     description: Lock an exchange rate before a cross-currency payout.
   - name: Beneficiaries
     description: Save the people and businesses you pay, so you can reuse them.
+  - name: Conversions
+    description: Move money between your own currencies at a locked rate.
 
 paths:
   /wallets:
@@ -1785,7 +1787,8 @@ paths:
       summary: Generate a quote
       description: >-
         Locks a rate and returns a `reference`. Pass that as `quoteReference` on
-        Create a payout or when you initiate a conversion, and the amounts
+        [Create a payout](/reference/createpayout) or
+        [Initiate a conversion](/reference/initiateconversion), and the amounts
         quoted here are the amounts you are charged. The rate holds until
         `expireAt`, after which the reference stops working and you generate a
         new quote.
@@ -2404,6 +2407,307 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+  /conversions/initiate:
+    post:
+      operationId: initiateConversion
+      summary: Initiate a conversion
+      description: >-
+        Converts money between two of your own wallets at a rate you locked
+        earlier. Generate a quote first and pass its reference as
+        `quoteReference`. A conversion is cross currency by definition, so it
+        always needs one.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InitiateConversionRequest"
+            example:
+              business: 64f1c2a4b7d9e30012ab4567
+              quoteReference: 84141587-9caf-45f6-971b-bd654361d086
+              customerReference: conv-2026-09-20-001
+      responses:
+        "200":
+          description: The conversion was initiated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConversionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "422":
+          description: The request failed validation, or the quote is no longer usable.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: >-
+                  Error occurred during payload validation. "quoteReference" is
+                  required
+                errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /conversions:
+    get:
+      operationId: listConversions
+      summary: List conversions
+      description: Returns your conversions, filtered by whatever you pass.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      parameters:
+        - name: business
+          in: query
+          required: true
+          description: Your business ID, as returned by Get business profile.
+          schema:
+            type: string
+            minLength: 24
+            maxLength: 24
+          example: 64f1c2a4b7d9e30012ab4567
+        - name: page
+          in: query
+          description: The page to return.
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: perPage
+          in: query
+          description: How many conversions to return per page.
+          schema:
+            type: integer
+            default: 10
+          example: 10
+        - name: sourceCurrency
+          in: query
+          description: Only conversions leaving this currency.
+          schema:
+            type: string
+          example: NGN
+        - name: destinationCurrency
+          in: query
+          description: Only conversions arriving in this currency.
+          schema:
+            type: string
+          example: GHS
+        - name: status
+          in: query
+          description: Only conversions with these statuses.
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [processing, successful, failed]
+          example: [successful]
+        - name: dateFrom
+          in: query
+          description: Only conversions created on or after this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-01"
+        - name: dateTo
+          in: query
+          description: Only conversions created on or before this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-20"
+        - name: settlementDateFrom
+          in: query
+          description: Only conversions settling on or after this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-01"
+        - name: settlementDateTo
+          in: query
+          description: Only conversions settling on or before this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-20"
+        - name: merchantReference
+          in: query
+          description: Only the conversion carrying this `customerReference`.
+          schema:
+            type: string
+          example: conv-2026-09-20-001
+        - name: searchQuery
+          in: query
+          description: Free text search across your conversions.
+          schema:
+            type: string
+          example: NGN
+        - name: includeSubAccounts
+          in: query
+          description: Include conversions belonging to your subaccounts.
+          schema:
+            type: boolean
+            default: false
+          example: false
+      responses:
+        "200":
+          description: Returns a page of conversions.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListConversionsResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /conversions/{id}:
+    get:
+      operationId: getConversion
+      summary: Retrieve a conversion
+      description: >-
+        Returns one conversion by Fincra's numeric id. This returns more detail
+        than the two reference lookups.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Fincra's numeric id for the conversion.
+          schema:
+            type: integer
+            minimum: 1
+          example: 4821
+      responses:
+        "200":
+          description: Returns a Conversion object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConversionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "404":
+          $ref: "#/components/responses/ConversionNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /conversions/reference/{reference}:
+    get:
+      operationId: getConversionByReference
+      summary: Retrieve a conversion by reference
+      description: Returns one conversion by the reference Fincra assigned it.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          description: The reference Fincra returned when the conversion was initiated.
+          schema:
+            type: string
+          example: 9d08a998-b545-4070-a165-985e5129bbe7
+      responses:
+        "200":
+          description: Returns a Conversion object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConversionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "404":
+          $ref: "#/components/responses/ConversionNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /conversions/customer-reference/{merchantReference}:
+    get:
+      operationId: getConversionByMerchantReference
+      summary: Retrieve a conversion by your reference
+      description: >-
+        Returns one conversion by the `customerReference` you sent when you
+        initiated it.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      parameters:
+        - name: merchantReference
+          in: path
+          required: true
+          description: The `customerReference` you sent when you initiated the conversion.
+          schema:
+            type: string
+          example: conv-2026-09-20-001
+      responses:
+        "200":
+          description: Returns a Conversion object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConversionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "404":
+          $ref: "#/components/responses/ConversionNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /conversions/export:
+    post:
+      operationId: exportConversions
+      summary: Export conversions
+      description: >-
+        Exports your conversions as a file, filtered the same way as List
+        conversions.
+      tags:
+        - Conversions
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExportConversionsRequest"
+            example:
+              business: 64f1c2a4b7d9e30012ab4567
+              dateFrom: "2026-09-01"
+              dateTo: "2026-09-20"
+      responses:
+        "200":
+          description: The exported file.
+          content:
+            application/json: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ConversionProductRequired"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
 components:
   securitySchemes:
     apiKey:
@@ -2445,6 +2749,29 @@ components:
           example:
             message: No API key found in request
             request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+
+    ConversionProductRequired:
+      description: Your account does not have the `conversion` product enabled.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationError"
+          example:
+            success: false
+            error: >-
+              Access Denied. You're not authorized to access conversion product
+            errorType: ACCESS_DENIED
+
+    ConversionNotFound:
+      description: No conversion with that identifier exists.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationError"
+          example:
+            success: false
+            error: Conversion not found
+            errorType: RESOURCE_NOT_FOUND
 
     BeneficiaryNotFound:
       description: No beneficiary with that ID exists.
@@ -4378,3 +4705,328 @@ components:
             When the money is expected to settle. Returned on a conversion
             quote.
           example: "2026-09-20T19:38:41.538Z"
+
+    InitiateConversionRequest:
+      type: object
+      required:
+        - business
+        - quoteReference
+        - customerReference
+      properties:
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        quoteReference:
+          type: string
+          description: >-
+            The `reference` from Generate a quote. The amounts on that quote are
+            the amounts you are charged.
+          example: 84141587-9caf-45f6-971b-bd654361d086
+        customerReference:
+          type: string
+          description: >-
+            Your own reference for this conversion. Use it later to look the
+            conversion up.
+          example: conv-2026-09-20-001
+        settlementType:
+          type: string
+          enum: [IMMEDIATE, DEFERRED]
+          default: IMMEDIATE
+          description: >-
+            Whether to settle straight away or hold the conversion until later.
+            Defaults to `IMMEDIATE`.
+          example: IMMEDIATE
+        transactionReference:
+          type: string
+          description: An optional reference tying this conversion to another transaction.
+          example: txn-91natural
+        transactionType:
+          type: string
+          enum: [conversion, collection, disbursement, card_funding]
+          description: What the conversion is for. Defaults to a plain conversion.
+          example: conversion
+
+    ExportConversionsRequest:
+      type: object
+      required:
+        - business
+      properties:
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        sourceCurrency:
+          type: string
+          description: Only conversions leaving this currency.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: Only conversions arriving in this currency.
+          example: GHS
+        status:
+          type: array
+          items:
+            type: string
+            enum: [processing, successful, failed]
+          description: Only conversions with these statuses.
+          example: [successful]
+        dateFrom:
+          type: string
+          format: date
+          description: Only conversions created on or after this date.
+          example: "2026-09-01"
+        dateTo:
+          type: string
+          format: date
+          description: Only conversions created on or before this date.
+          example: "2026-09-20"
+        settlementDateFrom:
+          type: string
+          format: date
+          description: Only conversions settling on or after this date.
+          example: "2026-09-01"
+        settlementDateTo:
+          type: string
+          format: date
+          description: Only conversions settling on or before this date.
+          example: "2026-09-20"
+        merchantReference:
+          type: string
+          description: Only the conversion carrying this `customerReference`.
+          example: conv-2026-09-20-001
+        searchQuery:
+          type: string
+          description: Free text search across your conversions.
+          example: NGN
+        includeSubAccounts:
+          type: boolean
+          default: false
+          description: Include conversions belonging to your subaccounts.
+          example: false
+
+    Conversion:
+      type: object
+      description: >-
+        One conversion. Retrieve a conversion returns the fullest form of this;
+        the reference lookups and List conversions each return a subset.
+      properties:
+        id:
+          type: integer
+          description: Fincra's numeric id for the conversion.
+          example: 4821
+        _id:
+          type: string
+          description: The conversion's string id.
+          example: 66f1c2a4b7d9e30012ab9911
+        reference:
+          type: string
+          description: The reference Fincra assigned this conversion.
+          example: 9d08a998-b545-4070-a165-985e5129bbe7
+        customerReference:
+          type: string
+          description: >-
+            Your own reference, as sent on initiate. Not returned by List
+            conversions.
+          example: conv-2026-09-20-001
+        status:
+          type: string
+          enum: [processing, successful, failed]
+          description: Where the conversion has got to.
+          example: successful
+        sourceCurrency:
+          type: string
+          description: The currency the money left.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the money arrived in.
+          example: GHS
+        amountCharged:
+          type: number
+          description: What was taken from the source wallet.
+          example: 100000
+        amountReceived:
+          type: number
+          description: What was settled into the destination wallet.
+          example: 806.48
+        sourceExchangeRate:
+          type: number
+          description: The rate quoted against the source currency.
+          example: 0.0080648441
+        destinationExchangeRate:
+          type: number
+          description: The rate quoted against the destination currency.
+          example: 123.99
+        price:
+          type: number
+          description: A display form of the rate. Use the exchange rates for calculation.
+          example: 123.99
+        sourceFee:
+          type: number
+          description: >-
+            The fee charged in the source currency. List conversions returns
+            this as `fee` instead.
+          example: 0
+        destinationFee:
+          type: number
+          description: >-
+            The fee charged in the destination currency. Not returned by List
+            conversions.
+          example: 0
+        fee:
+          type: number
+          description: >-
+            The source fee. Returned by List conversions in place of
+            `sourceFee` and `destinationFee`.
+          example: 0
+        settlementStatus:
+          type: string
+          enum: [awaiting_funding, awaiting_trade, pending, settled, cancelled]
+          description: Where settlement has got to, separately from `status`.
+          example: settled
+        settlementDate:
+          type: string
+          format: date-time
+          description: When the conversion is expected to settle.
+          example: "2026-09-20T19:38:41.538Z"
+        settledAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When it actually settled, or `null` if it has not.
+          example: "2026-09-20T19:38:44.102Z"
+        settlementDestination:
+          type: string
+          description: >-
+            Where the converted money lands. Not returned by List conversions.
+          example: fliqpay_wallet
+        fundingType:
+          type: string
+          enum: [pre_funded, post_funded]
+          description: >-
+            Whether the conversion was funded up front or after the fact. Not
+            returned by the reference lookups.
+          example: pre_funded
+        postFundedConversionExpiresAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            When a post funded conversion stops waiting to be funded.
+          example: null
+        description:
+          type: string
+          nullable: true
+          description: The conversion's description. Not returned by List conversions.
+          example: null
+        message:
+          type: string
+          nullable: true
+          description: >-
+            Any message against the conversion, such as why it failed. Not
+            returned by List conversions.
+          example: null
+        isSubAccount:
+          type: integer
+          description: >-
+            `1` when the conversion belongs to a subaccount, `0` when it is
+            yours. Not returned by List conversions.
+          example: 0
+        businessName:
+          type: string
+          description: >-
+            The business the conversion belongs to. Not returned by the
+            reference lookups.
+          example: Bluewater Trading Ltd
+        settlementTime:
+          type: string
+          description: >-
+            The settlement window. Only returned by Retrieve a conversion.
+          example: instant
+        walletNumber:
+          type: string
+          description: >-
+            The wallet the conversion moved money from. Only returned by
+            Retrieve a conversion.
+          example: "100000120250001"
+        balanceBefore:
+          type: number
+          description: >-
+            The source wallet's available balance before. Only returned by
+            Retrieve a conversion.
+          example: 500000
+        balanceAfter:
+          type: number
+          description: >-
+            The source wallet's available balance after. Only returned by
+            Retrieve a conversion.
+          example: 400000
+        initiatedBy:
+          type: string
+          description: >-
+            Who started the conversion. Only returned by Retrieve a conversion.
+          example: api
+        createdAt:
+          type: string
+          format: date-time
+          description: When the conversion was created.
+          example: "2026-09-20T19:38:41.538Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the conversion was last changed.
+          example: "2026-09-20T19:38:44.102Z"
+
+    ConversionResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+          example: true
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Conversion fetched successfully
+        data:
+          $ref: "#/components/schemas/Conversion"
+
+    ListConversionsResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+          example: true
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Conversions fetched successfully
+        data:
+          type: object
+          description: One page of conversions.
+          properties:
+            conversions:
+              type: array
+              items:
+                $ref: "#/components/schemas/Conversion"
+              description: The conversions on this page.
+            count:
+              type: integer
+              description: How many conversions match your filters in total.
+              example: 42
