@@ -1,0 +1,84 @@
+name: Sync OpenAPI to ReadMe
+
+on:
+  push:
+    branches: [main, rebuild]
+    paths:
+      - "openapi.yaml"
+      - ".github/workflows/readme-sync.yml"
+  pull_request:
+    paths:
+      - "openapi.yaml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report what would be uploaded without uploading it"
+        type: boolean
+        default: true
+
+# Never let two uploads race to the same ReadMe version.
+concurrency:
+  group: readme-sync-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate spec
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Structural validation: is this a legal OpenAPI document at all?
+      - name: rdme openapi validate
+        uses: readmeio/rdme@v10
+        with:
+          rdme: openapi validate openapi.yaml
+
+      # Quality gate: catches bad examples, ambiguous paths, missing descriptions.
+      # Warnings do not fail the build; errors do.
+      - name: Redocly lint
+        run: npx --yes @redocly/cli@latest lint openapi.yaml
+
+  upload:
+    name: Upload to ReadMe
+    needs: validate
+    # Pull requests validate only. Nothing reaches ReadMe until it is on a branch.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Maps the git branch to a ReadMe version, so work in progress can never
+      # land on the version that serves the live docs.
+      - name: Resolve target ReadMe version
+        id: target
+        run: |
+          case "${{ github.ref_name }}" in
+            main)    echo "branch=${{ vars.README_VERSION_STABLE || 'stable' }}" >> "$GITHUB_OUTPUT" ;;
+            rebuild) echo "branch=${{ vars.README_VERSION_REBUILD || 'rebuild' }}" >> "$GITHUB_OUTPUT" ;;
+            *)       echo "::error::No ReadMe version mapped for branch '${{ github.ref_name }}'." ; exit 1 ;;
+          esac
+
+      - name: Guard against an unconfigured slug
+        run: |
+          if [ -z "${{ vars.README_SLUG }}" ]; then
+            echo "::error::Repository variable README_SLUG is not set."
+            echo "Set it to the API definition slug this spec owns."
+            echo "Do not point it at a slug whose definition has more endpoints than this file."
+            exit 1
+          fi
+
+      - name: Upload
+        uses: readmeio/rdme@v10
+        with:
+          rdme: >-
+            openapi upload openapi.yaml
+            --key=${{ secrets.README_API_KEY }}
+            --slug=${{ vars.README_SLUG }}
+            --branch=${{ steps.target.outputs.branch }}
+            --confirm-overwrite
+            ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
