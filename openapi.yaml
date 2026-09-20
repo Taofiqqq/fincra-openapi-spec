@@ -25,6 +25,10 @@ tags:
       Confirm who you are paying, before you pay them.
   - name: Payouts
     description: Send money out to bank accounts and mobile money wallets.
+  - name: Quotes
+    description: Lock an exchange rate before a cross-currency payout.
+  - name: Beneficiaries
+    description: Save the people and businesses you pay, so you can reuse them.
 
 paths:
   /wallets:
@@ -1662,6 +1666,229 @@ paths:
               example:
                 message: No API key found in request
                 request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+
+  /disbursements/payouts:
+    post:
+      operationId: createPayout
+      summary: Create a payout
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+    get:
+      operationId: listPayouts
+      summary: List payouts
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/wallets:
+    post:
+      operationId: createWalletPayout
+      summary: Send to a Fincra wallet
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/documents-upload:
+    post:
+      operationId: uploadPayoutDocument
+      summary: Upload a payout document
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/export:
+    post:
+      operationId: exportPayouts
+      summary: Export payouts
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/{id}:
+    get:
+      operationId: getPayout
+      summary: Retrieve a payout
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/reference/{reference}:
+    get:
+      operationId: getPayoutByReference
+      summary: Retrieve a payout by reference
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /disbursements/payouts/customer-reference/{merchantReference}:
+    get:
+      operationId: getPayoutByMerchantReference
+      summary: Retrieve a payout by your reference
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: merchantReference
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /quotes/generate:
+    post:
+      operationId: generateQuote
+      summary: Generate a quote
+      tags:
+        - Quotes
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /profile/beneficiaries/business/{businessID}:
+    post:
+      operationId: createBeneficiary
+      summary: Create a beneficiary
+      tags:
+        - Beneficiaries
+      security:
+        - apiKey: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+    get:
+      operationId: listBeneficiaries
+      summary: List beneficiaries
+      tags:
+        - Beneficiaries
+      security:
+        - apiKey: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+
+  /profile/beneficiaries/business/{businessID}/{beneficiaryID}:
+    get:
+      operationId: getBeneficiary
+      summary: Retrieve a beneficiary
+      tags:
+        - Beneficiaries
+      security:
+        - apiKey: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: beneficiaryID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+    patch:
+      operationId: updateBeneficiary
+      summary: Update a beneficiary
+      tags:
+        - Beneficiaries
+      security:
+        - apiKey: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: beneficiaryID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
+    delete:
+      operationId: deleteBeneficiary
+      summary: Delete a beneficiary
+      tags:
+        - Beneficiaries
+      security:
+        - apiKey: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: beneficiaryID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Not yet documented.
 
 components:
   securitySchemes:
