@@ -1784,10 +1784,15 @@ paths:
       operationId: generateQuote
       summary: Generate a quote
       description: >-
-        Locks a rate and returns a `reference` you pass as `quoteReference` when
-        you create the transaction. A quote is required whenever the currencies
-        differ. A conversion always does. A same currency payout does not need
-        one.
+        Locks a rate and returns a `reference`. Pass that as `quoteReference` on
+        Create a payout or when you initiate a conversion, and the amounts
+        quoted here are the amounts you are charged. The rate holds until
+        `expireAt`, after which the reference stops working and you generate a
+        new quote.
+
+
+        A quote is required whenever the currencies differ. A conversion always
+        does. A same currency payout does not need one.
       tags:
         - Quotes
       security:
@@ -1858,6 +1863,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenerateQuoteResponse"
+              example:
+                success: true
+                message: Quote generated successfully
+                data:
+                  sourceCurrency: XAF
+                  destinationCurrency: NGN
+                  sourceAmount: 10000
+                  destinationAmount: 23323.7167
+                  action: send
+                  transactionType: conversion
+                  fee: 0
+                  initialAmount: 10000
+                  quotedAmount: 23323.7167
+                  rate: 2.3323716694
+                  amountToCharge: 10000
+                  amountToReceive: 23323.72
+                  price: 2.33
+                  reference: 84141587-9caf-45f6-971b-bd654361d086
+                  rounding: null
+                  expireAt: "2026-09-20T19:39:11.856Z"
+                  settlementDate: "2026-09-20T19:38:41.538Z"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "422":
@@ -4212,48 +4238,54 @@ components:
           description: >-
             The quote's reference. Pass it as `quoteReference` when you create
             the payout or conversion.
-          example: QT-8f21c47a9e
+          example: 84141587-9caf-45f6-971b-bd654361d086
         rate:
           type: number
-          description: The rate locked for this quote.
-          example: 0.0058
+          description: The rate locked for this quote, at full precision.
+          example: 2.3323716694
+        price:
+          type: number
+          description: The same rate, rounded for display.
+          example: 2.33
         sourceCurrency:
           type: string
           description: The currency the money leaves in.
-          example: NGN
+          example: XAF
         destinationCurrency:
           type: string
           description: The currency the money arrives in.
-          example: USD
+          example: NGN
         sourceAmount:
           type: number
           description: The amount in the source currency.
-          example: 100
+          example: 10000
         destinationAmount:
           type: number
-          description: The amount in the destination currency.
-          example: 0.58
+          description: The amount in the destination currency, at full precision.
+          example: 23323.7167
         amountToCharge:
           type: number
           description: >-
             What will be taken from your wallet in total, including the fee.
-          example: 100.5
+          example: 10000
         amountToReceive:
           type: number
-          description: What the beneficiary or destination wallet ends up with.
-          example: 0.58
+          description: >-
+            What the beneficiary or destination wallet ends up with, rounded to
+            the destination currency.
+          example: 23323.72
         fee:
           type: number
           description: The fee for this transaction.
-          example: 0.5
+          example: 0
         initialAmount:
           type: number
-          description: The amount you sent in the request, before any adjustment.
-          example: 100
+          description: The amount you sent in the request.
+          example: 10000
         quotedAmount:
           type: number
-          description: The amount the rate was applied to.
-          example: 100
+          description: The amount after the rate was applied, before rounding.
+          example: 23323.7167
         action:
           type: string
           enum: [send, receive]
@@ -4263,23 +4295,39 @@ components:
           type: string
           enum: [disbursement, conversion]
           description: What the quote was generated for.
-          example: disbursement
-        business:
-          type: string
-          description: The business the quote belongs to.
-          example: 64f1c2a4b7d9e30012ab4567
-        feeCurrency:
-          type: string
-          description: The currency the fee is charged in.
-          example: NGN
+          example: conversion
+        rounding:
+          type: object
+          nullable: true
+          description: >-
+            How the amount was rounded, or `null` when no rounding was applied.
+          properties:
+            applied:
+              type: string
+              enum: [floor, ceil, none]
+              description: The rounding that was applied.
+              example: floor
+            reason:
+              type: string
+              description: Why it was applied.
+              example: destination currency has no decimals
+            preRoundedValue:
+              type: number
+              description: The value before rounding.
+              example: 23323.7167
+            difference:
+              type: number
+              description: What rounding changed the value by.
+              example: 0.0033
         expireAt:
           type: string
           format: date-time
           description: >-
             When the rate stops being valid. Create the transaction before this
             or generate a new quote.
-          example: "2026-09-20T09:29:02.881Z"
+          example: "2026-09-20T19:39:11.856Z"
         settlementDate:
           type: string
+          format: date-time
           description: When the money is expected to settle.
-          example: "2026-09-22"
+          example: "2026-09-20T19:38:41.538Z"
