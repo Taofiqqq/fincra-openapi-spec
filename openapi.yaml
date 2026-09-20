@@ -1960,25 +1960,278 @@ paths:
     get:
       operationId: listPayouts
       summary: List payouts
+      description: Returns your payouts, filtered by whatever you pass.
       tags:
         - Payouts
       security:
         - apiKey: []
+      parameters:
+        - name: business
+          in: query
+          required: true
+          description: Your business ID, as returned by Get business profile.
+          schema:
+            type: string
+            minLength: 24
+            maxLength: 24
+          example: 64f1c2a4b7d9e30012ab4567
+        - name: page
+          in: query
+          description: The page to return.
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: perPage
+          in: query
+          description: How many payouts to return per page.
+          schema:
+            type: integer
+            default: 10
+          example: 10
+        - name: status
+          in: query
+          description: Only payouts with these statuses.
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [initiated, processing, successful, failed, change_requested]
+          example: [successful]
+        - name: sourceCurrency
+          in: query
+          description: Only payouts leaving this currency.
+          schema:
+            type: string
+          example: NGN
+        - name: destinationCurrency
+          in: query
+          description: Only payouts arriving in this currency.
+          schema:
+            type: string
+          example: GHS
+        - name: dateFrom
+          in: query
+          description: Only payouts created on or after this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-01"
+        - name: dateTo
+          in: query
+          description: Only payouts created on or before this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-20"
+        - name: valuedDateFrom
+          in: query
+          description: Only payouts valued on or after this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-01"
+        - name: valuedDateTo
+          in: query
+          description: Only payouts valued on or before this date.
+          schema:
+            type: string
+            format: date
+          example: "2026-09-20"
+        - name: merchantReference
+          in: query
+          description: Only the payout carrying this `customerReference`.
+          schema:
+            type: string
+          example: payout-ghs-001
+        - name: searchQuery
+          in: query
+          description: Free text search across your payouts.
+          schema:
+            type: string
+          example: Boateng
+        - name: includeSubAccounts
+          in: query
+          description: Include payouts belonging to your subaccounts.
+          schema:
+            type: boolean
+            default: false
+          example: false
       responses:
         "200":
-          description: Not yet documented.
+          description: Returns a page of payouts.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListPayoutsResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /disbursements/payouts/{id}:
+    get:
+      operationId: getPayout
+      summary: Retrieve a payout
+      description: Returns one payout by Fincra's numeric id.
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Fincra's numeric id for the payout.
+          schema:
+            type: integer
+          example: 91442
+        - name: business
+          in: query
+          required: true
+          description: Your business ID, as returned by Get business profile.
+          schema:
+            type: string
+            minLength: 24
+            maxLength: 24
+          example: 64f1c2a4b7d9e30012ab4567
+      responses:
+        "200":
+          description: Returns a Payout object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "404":
+          $ref: "#/components/responses/PayoutNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /disbursements/payouts/reference/{reference}:
+    get:
+      operationId: getPayoutByReference
+      summary: Retrieve a payout by reference
+      description: >-
+        Returns one payout by the reference Fincra assigned it. This is how you
+        check whether a payout succeeded or failed after it was accepted.
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          description: The reference Fincra returned when the payout was created.
+          schema:
+            type: string
+          example: 9d08a998-b545-4070-a165-985e5129bbe7
+      responses:
+        "200":
+          description: Returns a Payout object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "404":
+          $ref: "#/components/responses/PayoutNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /disbursements/payouts/customer-reference/{merchantReference}:
+    get:
+      operationId: getPayoutByMerchantReference
+      summary: Retrieve a payout by your reference
+      description: >-
+        Returns one payout by the `customerReference` you sent when you created
+        it.
+      tags:
+        - Payouts
+      security:
+        - apiKey: []
+      parameters:
+        - name: merchantReference
+          in: path
+          required: true
+          description: The `customerReference` you sent when you created the payout.
+          schema:
+            type: string
+          example: payout-ghs-001
+      responses:
+        "200":
+          description: Returns a Payout object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "404":
+          $ref: "#/components/responses/PayoutNotFound"
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /disbursements/payouts/wallets:
     post:
       operationId: createWalletPayout
       summary: Send to a Fincra wallet
+      description: >-
+        Moves money from your wallet to another Fincra wallet. Both sides are
+        Fincra accounts, so there is no beneficiary, no bank details and no
+        quote, and the currency is decided by the destination wallet.
       tags:
         - Payouts
       security:
         - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WalletPayoutRequest"
+            example:
+              business: 64f1c2a4b7d9e30012ab4567
+              beneficiaryWalletNumber: "100000120250001"
+              amount: 5000
+              customerReference: w2w-2026-09-20-001
+              description: Settlement to partner wallet
       responses:
         "200":
-          description: Not yet documented.
+          description: The transfer was accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "422":
+          description: The request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: >-
+                  Error occurred during payload validation.
+                  "beneficiaryWalletNumber" is required
+                errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /disbursements/payouts/documents-upload:
     post:
@@ -2045,67 +2298,45 @@ paths:
     post:
       operationId: exportPayouts
       summary: Export payouts
+      description: >-
+        Exports your payouts as a file, filtered the same way as List payouts.
       tags:
         - Payouts
       security:
         - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExportPayoutsRequest"
+            example:
+              business: 64f1c2a4b7d9e30012ab4567
+              format: csv
+              dateFrom: "2026-09-01"
+              dateTo: "2026-09-20"
+              status: [successful]
       responses:
         "200":
-          description: Not yet documented.
-
-  /disbursements/payouts/{id}:
-    get:
-      operationId: getPayout
-      summary: Retrieve a payout
-      tags:
-        - Payouts
-      security:
-        - apiKey: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Not yet documented.
-
-  /disbursements/payouts/reference/{reference}:
-    get:
-      operationId: getPayoutByReference
-      summary: Retrieve a payout by reference
-      tags:
-        - Payouts
-      security:
-        - apiKey: []
-      parameters:
-        - name: reference
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Not yet documented.
-
-  /disbursements/payouts/customer-reference/{merchantReference}:
-    get:
-      operationId: getPayoutByMerchantReference
-      summary: Retrieve a payout by your reference
-      tags:
-        - Payouts
-      security:
-        - apiKey: []
-      parameters:
-        - name: merchantReference
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Not yet documented.
+          description: The exported file.
+          content:
+            application/json: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/PayoutProductRequired"
+        "422":
+          description: The request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              example:
+                success: false
+                error: Error occurred during payload validation. "format" is required
+                errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /quotes/generate:
     post:
@@ -3075,6 +3306,28 @@ components:
           example:
             message: No API key found in request
             request_id: 209eaf17b5281e175d5c4b6ed0c28e09
+
+    PayoutProductRequired:
+      description: Your account does not have the `payout` product enabled.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationError"
+          example:
+            success: false
+            error: Access Denied. You're not authorized to access payout product
+            errorType: ACCESS_DENIED
+
+    PayoutNotFound:
+      description: No payout with that identifier exists.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationError"
+          example:
+            success: false
+            error: Payout not found
+            errorType: RESOURCE_NOT_FOUND
 
     ConversionProductRequired:
       description: Your account does not have the `conversion` product enabled.
@@ -5355,7 +5608,8 @@ components:
     BankAccountPayoutRequest:
       type: object
       title: Bank account
-      description: A payout to a bank account.
+      description: >-
+        A payout to a bank account in NGN, GHS, KES, UGX, TZS, ZMW, XOF or XAF.
       required:
         - paymentDestination
         - sourceCurrency
@@ -5376,6 +5630,7 @@ components:
           example: NGN
         destinationCurrency:
           type: string
+          enum: [NGN, GHS, KES, UGX, TZS, ZMW, XOF, XAF]
           description: The currency the beneficiary is paid in.
           example: GHS
         amount:
@@ -5416,7 +5671,9 @@ components:
     MobileMoneyPayoutRequest:
       type: object
       title: Mobile money wallet
-      description: A payout to a mobile money wallet.
+      description: >-
+        A payout to a mobile money wallet in GHS, KES, UGX, TZS, ZMW, XOF or
+        XAF.
       required:
         - paymentDestination
         - sourceCurrency
@@ -5437,6 +5694,7 @@ components:
           example: NGN
         destinationCurrency:
           type: string
+          enum: [GHS, KES, UGX, TZS, ZMW, XOF, XAF]
           description: The currency the beneficiary is paid in.
           example: GHS
         amount:
@@ -6050,3 +6308,218 @@ components:
               type: string
               description: The two-letter code for the country.
               example: CA
+
+    WalletPayoutRequest:
+      type: object
+      required:
+        - business
+        - beneficiaryWalletNumber
+        - amount
+        - customerReference
+      properties:
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        beneficiaryWalletNumber:
+          type: string
+          description: >-
+            The Fincra wallet number to send to. Get it from the recipient, or
+            from Get wallet by wallet number.
+          example: "100000120250001"
+        amount:
+          type: number
+          description: The amount to send.
+          example: 5000
+        customerReference:
+          type: string
+          description: Your own reference for this transfer.
+          example: w2w-2026-09-20-001
+        description:
+          type: string
+          description: What the transfer is for.
+          example: Settlement to partner wallet
+
+    ExportPayoutsRequest:
+      type: object
+      required:
+        - business
+        - format
+      properties:
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        format:
+          type: string
+          enum: [csv, excel, pdf]
+          description: The file format to export.
+          example: csv
+        status:
+          type: array
+          items:
+            type: string
+            enum: [initiated, processing, successful, failed, change_requested]
+          description: Only payouts with these statuses.
+          example: [successful]
+        sourceCurrency:
+          type: string
+          description: Only payouts leaving this currency.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: Only payouts arriving in this currency.
+          example: GHS
+        dateFrom:
+          type: string
+          format: date
+          description: Only payouts created on or after this date.
+          example: "2026-09-01"
+        dateTo:
+          type: string
+          format: date
+          description: Only payouts created on or before this date.
+          example: "2026-09-20"
+        valuedDateFrom:
+          type: string
+          format: date
+          description: Only payouts valued on or after this date.
+          example: "2026-09-01"
+        valuedDateTo:
+          type: string
+          format: date
+          description: Only payouts valued on or before this date.
+          example: "2026-09-20"
+        merchantReference:
+          type: string
+          description: Only the payout carrying this `customerReference`.
+          example: payout-ghs-001
+        searchQuery:
+          type: string
+          description: Free text search across your payouts.
+          example: Boateng
+        includeSubAccounts:
+          type: boolean
+          default: false
+          description: Include payouts belonging to your subaccounts.
+          example: false
+
+    ListPayoutsResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+          example: true
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Payouts fetched successfully
+        data:
+          type: object
+          description: One page of payouts.
+          properties:
+            payouts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Payout"
+              description: The payouts on this page.
+            count:
+              type: integer
+              description: How many payouts match your filters in total.
+              example: 42
+
+    Payout:
+      type: object
+      description: One payout.
+      properties:
+        id:
+          type: integer
+          description: Fincra's numeric id for the payout.
+          example: 91442
+        reference:
+          type: string
+          description: >-
+            The reference Fincra assigned this payout. Use it with Retrieve a
+            payout by reference.
+          example: 9d08a998-b545-4070-a165-985e5129bbe7
+        customerReference:
+          type: string
+          description: Your own reference, as sent when the payout was created.
+          example: payout-ghs-001
+        status:
+          type: string
+          enum: [initiated, processing, successful, failed, change_requested]
+          description: >-
+            Where the payout has got to. A payout is accepted before it settles,
+            so this is the field to poll.
+          example: successful
+        sourceCurrency:
+          type: string
+          description: The currency the money left.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the beneficiary was paid in.
+          example: GHS
+        amountSent:
+          type: number
+          description: The amount taken from your wallet.
+          example: 100
+        amountReceived:
+          type: number
+          description: The amount the beneficiary received.
+          example: 0.8065
+        fee:
+          type: number
+          description: The fee charged.
+          example: 0
+        description:
+          type: string
+          nullable: true
+          description: What the payout was for, as sent.
+          example: Payout to Airtel Money Ghana
+        paymentDestination:
+          type: string
+          description: Where the money was sent.
+          example: mobile_money_wallet
+        paymentScheme:
+          type: string
+          nullable: true
+          description: The rail the payout travelled on, where one applies.
+          example: null
+        beneficiary:
+          type: object
+          description: The beneficiary that was paid.
+          properties:
+            accountHolderName:
+              type: string
+              description: The name the destination account is held in.
+              example: Ama Boateng
+            accountNumber:
+              type: string
+              description: The account or wallet number paid.
+              example: "233541234567"
+            bankCode:
+              type: string
+              description: The bank code or mobile money operator used.
+              example: AIRTEL
+        createdAt:
+          type: string
+          format: date-time
+          description: When the payout was created.
+          example: "2026-09-20T19:38:41.538Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the payout was last changed.
+          example: "2026-09-20T19:38:44.102Z"
