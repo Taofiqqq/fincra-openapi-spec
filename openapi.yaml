@@ -4743,11 +4743,6 @@ components:
           type: string
           description: An optional reference tying this conversion to another transaction.
           example: txn-91natural
-        transactionType:
-          type: string
-          enum: [conversion, disbursement]
-          description: What the conversion is for. Defaults to a plain conversion.
-          example: conversion
 
     ExportConversionsRequest:
       type: object
