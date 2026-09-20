@@ -1691,7 +1691,7 @@ paths:
         or `bankCode`.
 
 
-        EUR, GBP, USD, CAD, CNY and CNH use the fourth shape and ask for more.
+        USD, EUR and GBP use the fourth shape and ask for more.
         `paymentScheme`, `description` and the beneficiary's `country` and
         `address` all become required, USD also needs `files` and
         `customerName`, and **USD and GBP will only pay a corporate
@@ -1804,6 +1804,65 @@ paths:
                       state: NY
                       zip: "10005"
                       street: 123 Wall Street
+              foreignCurrencyEur:
+                summary: Foreign currency, EUR
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: EUR
+                  amount: 500000
+                  business: 64f1c2a4b7d9e30012ab4567
+                  customerReference: payout-eur-001
+                  paymentDestination: bank_account
+                  description: Consulting fee, September
+                  paymentScheme: sepa
+                  quoteReference: 84141587-9caf-45f6-971b-bd654361d086
+                  purposeOfFund: payment_for_services
+                  relationshipWithBeneficiary: supplier
+                  beneficiary:
+                    type: individual
+                    firstName: Marie
+                    lastName: Dubois
+                    accountHolderName: Marie Dubois
+                    accountNumber: DE89370400440532013000
+                    bankName: Commerzbank
+                    bankSwiftCode: COBADEFF
+                    country: DE
+                    address:
+                      country: DE
+                      city: Frankfurt
+                      state: Hesse
+                      zip: "60311"
+                      street: 456 Kaiserstrasse
+              foreignCurrencyGbp:
+                summary: Foreign currency, GBP
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: GBP
+                  amount: 500000
+                  business: 64f1c2a4b7d9e30012ab4567
+                  customerReference: payout-gbp-001
+                  paymentDestination: bank_account
+                  description: Invoice 2026-118, design retainer
+                  paymentScheme: fps
+                  quoteReference: 84141587-9caf-45f6-971b-bd654361d086
+                  purposeOfFund: payment_for_services
+                  relationshipWithBeneficiary: vendor
+                  beneficiary:
+                    type: corporate
+                    accountHolderName: Northgate Studio Ltd
+                    accountNumber: GB29NWBK60161331926819
+                    bankName: NatWest Bank
+                    bankSwiftCode: NWBKGB2L
+                    sortCode: "601613"
+                    country: GB
+                    registrationNumber: "09183726"
+                    incorporationCountry: GB
+                    address:
+                      country: GB
+                      city: London
+                      state: England
+                      zip: E14 5AB
+                      street: 123 Canary Wharf
       responses:
         "200":
           description: The payout was accepted. Poll or wait for the webhook for the outcome.
@@ -5523,7 +5582,7 @@ components:
       type: object
       title: Foreign currency bank account
       description: >-
-        A payout in EUR, GBP, USD, CAD, CNY or CNH. These carry compliance
+        A payout in USD, EUR or GBP. These carry compliance
         requirements the African corridors do not: `paymentScheme`,
         `description` and the beneficiary's `country` are all required, and USD
         and GBP will only pay a corporate beneficiary.
@@ -5549,7 +5608,7 @@ components:
           example: NGN
         destinationCurrency:
           type: string
-          enum: [USD, EUR, GBP, CAD, CNY, CNH]
+          enum: [USD, EUR, GBP]
           description: The currency the beneficiary is paid in.
           example: USD
         amount:
@@ -5574,12 +5633,11 @@ components:
           example: Invoice 2026-114, software licence
         paymentScheme:
           type: string
-          enum: [swift, ach, fed_wire, sepa, sepa_instant, chaps, fps, eft, cnaps]
+          enum: [swift, ach, fed_wire, sepa, sepa_instant, chaps, fps]
           description: >-
             The rail the payout travels on, and required for these currencies.
             USD uses `ach`, `fed_wire` or `swift`. EUR uses `sepa`,
-            `sepa_instant` or `swift`. GBP uses `fps`, `chaps` or `swift`. CAD
-            uses `eft`. CNY and CNH use `cnaps`.
+            `sepa_instant` or `swift`. GBP uses `fps`, `chaps` or `swift`.
           example: swift
         quoteReference:
           type: string
@@ -5597,8 +5655,7 @@ components:
           type: string
           description: >-
             Why the money is being sent, such as `payment_for_services`,
-            `goods_purchase` or `employee_payroll`. Required for CNY and CNH,
-            which accept a narrower set than the other currencies.
+            `goods_purchase` or `employee_payroll`.
           example: payment_for_services
         relationshipWithBeneficiary:
           type: string
@@ -5695,13 +5752,12 @@ components:
           example: US
         bankName:
           type: string
-          description: The bank's name. Required for CNY and CNH.
+          description: The bank's name.
           example: Chase Bank
         bankSwiftCode:
           type: string
           description: >-
-            The bank's SWIFT/BIC code. Required for CNY and CNH, and used by
-            `swift` on every currency.
+            The bank's SWIFT/BIC code. Used by `swift` on every currency.
           example: CHASUS33
         bankCode:
           type: string
