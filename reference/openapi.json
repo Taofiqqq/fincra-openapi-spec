@@ -1759,6 +1759,15 @@
                     "bankCode": "305"
                   }
                 },
+                "ngnBankAccountNotFound": {
+                  "summary": "NGN bank account, not found",
+                  "value": {
+                    "currency": "NGN",
+                    "type": "nuban",
+                    "accountNumber": "0123456789",
+                    "bankCode": "044"
+                  }
+                },
                 "ghsMobileMoney": {
                   "summary": "GHS mobile money",
                   "value": {
@@ -1766,6 +1775,15 @@
                     "type": "mobile_money",
                     "accountNumber": "233541234567",
                     "mobileMoneyCode": "AIRTEL"
+                  }
+                },
+                "ghsMobileMoneyNotFound": {
+                  "summary": "GHS mobile money, not found",
+                  "value": {
+                    "currency": "GHS",
+                    "type": "mobile_money",
+                    "accountNumber": "233201234567",
+                    "mobileMoneyCode": "MTN"
                   }
                 },
                 "ghsBankAccount": {
@@ -1777,12 +1795,30 @@
                     "bankSwiftCode": "ECOCGHAC"
                   }
                 },
+                "ghsBankAccountNotFound": {
+                  "summary": "GHS bank account, not found",
+                  "value": {
+                    "currency": "GHS",
+                    "type": "bank_account",
+                    "accountNumber": "5006007008",
+                    "bankSwiftCode": "STBGGHAC"
+                  }
+                },
                 "kesMobileMoney": {
                   "summary": "KES mobile money (M-Pesa)",
                   "value": {
                     "currency": "KES",
                     "type": "mobile_money",
                     "accountNumber": "254722345678",
+                    "mobileMoneyCode": "MPESA"
+                  }
+                },
+                "kesMobileMoneyNotFound": {
+                  "summary": "KES mobile money (M-Pesa), not found",
+                  "value": {
+                    "currency": "KES",
+                    "type": "mobile_money",
+                    "accountNumber": "254712345678",
                     "mobileMoneyCode": "MPESA"
                   }
                 },
@@ -1795,6 +1831,15 @@
                     "bankCode": "76"
                   }
                 },
+                "kesBankAccountNotFound": {
+                  "summary": "KES bank account, not found",
+                  "value": {
+                    "currency": "KES",
+                    "type": "bank_account",
+                    "accountNumber": "2000012345",
+                    "bankCode": "03"
+                  }
+                },
                 "cadInterac": {
                   "summary": "CAD Interac e-Transfer",
                   "value": {
@@ -1803,11 +1848,26 @@
                     "interacEmail": "john.barret@example.com"
                   }
                 },
+                "cadInteracNotEnrolled": {
+                  "summary": "CAD Interac e-Transfer, not enrolled",
+                  "value": {
+                    "currency": "CAD",
+                    "type": "interac_etransfer",
+                    "interacEmail": "john.barret+noautodeposit@example.com"
+                  }
+                },
                 "iban": {
                   "summary": "IBAN (EUR/GBP)",
                   "value": {
                     "type": "iban",
                     "iban": "GB29NWBK60161331926819"
+                  }
+                },
+                "ibanNotFound": {
+                  "summary": "IBAN (EUR/GBP), not found",
+                  "value": {
+                    "type": "iban",
+                    "iban": "DE44500105175407324931"
                   }
                 }
               }
@@ -2979,7 +3039,8 @@
               "nuban"
             ],
             "default": "nuban",
-            "description": "The default. A request that omits `type` is read as an NGN bank account."
+            "description": "Identifies the destination as an NGN bank account. This is the default, so a request that omits `type` is read as `nuban`.",
+            "example": "nuban"
           },
           "currency": {
             "type": "string",
@@ -2987,7 +3048,8 @@
               "NGN"
             ],
             "default": "NGN",
-            "description": "Defaults to `NGN`, so it can be left out."
+            "description": "Defaults to `NGN`, so it can be left out.",
+            "example": "NGN"
           },
           "accountNumber": {
             "type": "string",
@@ -3022,7 +3084,9 @@
             "type": "string",
             "enum": [
               "mobile_money"
-            ]
+            ],
+            "description": "Identifies the destination as a mobile money wallet.",
+            "example": "mobile_money"
           },
           "currency": {
             "type": "string",
@@ -3030,7 +3094,8 @@
               "GHS",
               "KES"
             ],
-            "description": "Required. The operator alone does not imply the country."
+            "description": "Required. The operator alone does not imply the country.",
+            "example": "GHS"
           },
           "accountNumber": {
             "type": "string",
@@ -3045,10 +3110,6 @@
             "pattern": "^[a-zA-Z]+$",
             "description": "The network operator, letters only, for example `MTN`, `AIRTEL` or `MPESA`.",
             "example": "AIRTEL"
-          },
-          "bankCode": {
-            "type": "string",
-            "description": "Optional for KES mobile money, and ignored. Send `mobileMoneyCode` instead."
           }
         }
       },
@@ -3066,14 +3127,18 @@
             "type": "string",
             "enum": [
               "bank_account"
-            ]
+            ],
+            "description": "Identifies the destination as a bank account.",
+            "example": "bank_account"
           },
           "currency": {
             "type": "string",
             "enum": [
               "GHS",
               "KES"
-            ]
+            ],
+            "description": "Decides which identifying field to send. GHS is identified by `bankSwiftCode`, KES by `bankCode`.",
+            "example": "GHS"
           },
           "accountNumber": {
             "type": "string",
@@ -3108,7 +3173,9 @@
             "type": "string",
             "enum": [
               "interac_etransfer"
-            ]
+            ],
+            "description": "Identifies the destination as an Interac e-Transfer recipient.",
+            "example": "interac_etransfer"
           },
           "currency": {
             "type": "string",
@@ -3116,7 +3183,8 @@
               "CAD"
             ],
             "default": "CAD",
-            "description": "Defaults to `CAD`, so it can be left out. `interac_etransfer` is CAD-only and no other currency is accepted."
+            "description": "Defaults to `CAD`, so it can be left out. `interac_etransfer` is CAD-only and no other currency is accepted.",
+            "example": "CAD"
           },
           "interacEmail": {
             "type": "string",
@@ -3139,7 +3207,9 @@
             "type": "string",
             "enum": [
               "iban"
-            ]
+            ],
+            "description": "Identifies the destination as an IBAN.",
+            "example": "iban"
           },
           "iban": {
             "type": "string",
@@ -3300,14 +3370,17 @@
           },
           "city": {
             "type": "string",
+            "description": "The branch's city.",
             "example": "London"
           },
           "state": {
             "type": "string",
+            "description": "The branch's state, province or region.",
             "example": "England"
           },
           "zip": {
             "type": "string",
+            "description": "The branch's postal code.",
             "example": "E14 5AB"
           }
         }
