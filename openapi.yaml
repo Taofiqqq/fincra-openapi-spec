@@ -1783,13 +1783,116 @@ paths:
     post:
       operationId: generateQuote
       summary: Generate a quote
+      description: >-
+        Locks a rate and returns a `reference` you pass as `quoteReference` when
+        you create the transaction. A quote is required whenever the currencies
+        differ. A conversion always does. A same currency payout does not need
+        one.
       tags:
         - Quotes
       security:
         - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/DisbursementQuoteRequest"
+                - $ref: "#/components/schemas/ConversionQuoteRequest"
+              discriminator:
+                propertyName: transactionType
+                mapping:
+                  disbursement: "#/components/schemas/DisbursementQuoteRequest"
+                  conversion: "#/components/schemas/ConversionQuoteRequest"
+            examples:
+              mobileMoneyPayout:
+                summary: Disbursement, mobile money
+                value:
+                  sourceCurrency: KES
+                  destinationCurrency: GHS
+                  amount: 100
+                  action: send
+                  transactionType: disbursement
+                  business: 64f1c2a4b7d9e30012ab4567
+                  paymentDestination: mobile_money_wallet
+                  feeBearer: business
+              bankPayout:
+                summary: Disbursement, bank account with a scheme
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: USD
+                  amount: 100
+                  action: send
+                  transactionType: disbursement
+                  business: 64f1c2a4b7d9e30012ab4567
+                  paymentDestination: bank_account
+                  paymentScheme: swift
+                  feeBearer: business
+              fixedReceiveAmount:
+                summary: Disbursement, fixed amount for the beneficiary
+                value:
+                  sourceCurrency: NGN
+                  destinationCurrency: GHS
+                  amount: 500
+                  action: receive
+                  transactionType: disbursement
+                  business: 64f1c2a4b7d9e30012ab4567
+                  paymentDestination: bank_account
+                  feeBearer: business
+              conversion:
+                summary: Conversion
+                value:
+                  sourceCurrency: XAF
+                  destinationCurrency: NGN
+                  amount: 50
+                  action: send
+                  transactionType: conversion
+                  business: 64f1c2a4b7d9e30012ab4567
+                  paymentDestination: fliqpay_wallet
+                  feeBearer: business
       responses:
         "200":
-          description: Not yet documented.
+          description: The rate is locked until `expireAt`.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateQuoteResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "422":
+          description: The request failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationError"
+              examples:
+                schemeRequired:
+                  summary: The destination currency needs a payment scheme
+                  value:
+                    success: false
+                    error: paymentScheme must be specified for USD disbursement
+                    errorType: UNPROCESSABLE_ENTITY
+                schemeNotAllowed:
+                  summary: A conversion cannot carry a payment scheme
+                  value:
+                    success: false
+                    error: paymentScheme is not required for conversion
+                    errorType: UNPROCESSABLE_ENTITY
+                feeBearerNotAllowed:
+                  summary: A conversion cannot charge the customer
+                  value:
+                    success: false
+                    error: feeBearer cannot be customer for a conversion.
+                    errorType: UNPROCESSABLE_ENTITY
+                currencyNotSupported:
+                  summary: The destination currency is not supported
+                  value:
+                    success: false
+                    error: Destination currency 'JPY' not supported
+                    errorType: UNPROCESSABLE_ENTITY
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /profile/beneficiaries/business/{businessID}:
     post:
@@ -3933,3 +4036,250 @@ components:
                 How many beneficiaries your business has in total, not just on
                 this page.
               example: 1
+
+    DisbursementQuoteRequest:
+      type: object
+      title: Disbursement quote
+      description: A quote for money leaving your wallet to a beneficiary.
+      required:
+        - transactionType
+        - sourceCurrency
+        - destinationCurrency
+        - amount
+        - action
+        - business
+      properties:
+        transactionType:
+          type: string
+          enum: [disbursement]
+          description: Quotes a payout.
+          example: disbursement
+        sourceCurrency:
+          type: string
+          description: The wallet the money leaves.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the beneficiary is paid in.
+          example: USD
+        amount:
+          type: number
+          description: >-
+            The amount to quote. `action` decides which currency it is in.
+            Currencies without decimals must be whole numbers.
+          example: 100
+        action:
+          type: string
+          enum: [send, receive]
+          description: >-
+            `send` fixes what leaves your wallet, so `amount` is in
+            `sourceCurrency`. `receive` fixes what the beneficiary gets, so
+            `amount` is in `destinationCurrency`.
+          example: send
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        paymentDestination:
+          type: string
+          enum: [bank_account, mobile_money_wallet, crypto_wallet]
+          description: Where the money lands.
+          example: bank_account
+        paymentScheme:
+          type: string
+          enum:
+            - swift
+            - sepa
+            - sepa_instant
+            - eft
+            - interac
+            - chaps
+            - fps
+            - ach
+            - fed_wire
+            - usdt_trc20
+            - usdt_erc20
+            - usdt_solana
+            - usdt_bep20
+            - usdc_erc20
+            - usdc_solana
+            - usdc_bep20
+            - cngn_bep20
+          description: >-
+            The rail the payout travels on. Required when `destinationCurrency`
+            is EUR, USD, GBP, USDT, USDC or CNGN. Not accepted when
+            `paymentDestination` is `mobile_money_wallet`.
+          example: swift
+        feeBearer:
+          type: string
+          enum: [customer, business]
+          description: Who pays the fee. Defaults to `business`.
+          example: business
+        beneficiaryType:
+          type: string
+          enum: [individual, corporate]
+          description: Whether the beneficiary is a person or a company.
+          example: individual
+
+    ConversionQuoteRequest:
+      type: object
+      title: Conversion quote
+      description: >-
+        A quote for moving money between your own currencies. A conversion is
+        cross currency by definition, so it always needs one.
+      required:
+        - transactionType
+        - sourceCurrency
+        - destinationCurrency
+        - amount
+        - action
+        - business
+      properties:
+        transactionType:
+          type: string
+          enum: [conversion]
+          description: Quotes a conversion between your own wallets.
+          example: conversion
+        sourceCurrency:
+          type: string
+          description: The wallet the money leaves.
+          example: XAF
+        destinationCurrency:
+          type: string
+          description: The wallet the money lands in.
+          example: NGN
+        amount:
+          type: number
+          description: >-
+            The amount to quote. `action` decides which currency it is in.
+            Currencies without decimals must be whole numbers.
+          example: 50
+        action:
+          type: string
+          enum: [send, receive]
+          description: >-
+            `send` fixes what leaves the source wallet. `receive` fixes what
+            lands in the destination wallet.
+          example: send
+        business:
+          type: string
+          minLength: 24
+          maxLength: 24
+          description: Your business ID, as returned by Get business profile.
+          example: 64f1c2a4b7d9e30012ab4567
+        paymentDestination:
+          type: string
+          enum: [fliqpay_wallet]
+          description: >-
+            Your own wallet, which is the only destination a conversion can
+            have. Can be left out.
+          example: fliqpay_wallet
+        feeBearer:
+          type: string
+          enum: [business]
+          description: >-
+            Who pays the fee. A conversion cannot charge the customer, so this
+            can only be `business`.
+          example: business
+
+    GenerateQuoteResponse:
+      type: object
+      required:
+        - success
+        - message
+        - data
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates that the request succeeded.
+          example: true
+        message:
+          type: string
+          description: A human-readable summary of the result.
+          example: Quote generated successfully
+        data:
+          $ref: "#/components/schemas/Quote"
+
+    Quote:
+      type: object
+      description: A locked rate and the amounts it produces.
+      properties:
+        reference:
+          type: string
+          description: >-
+            The quote's reference. Pass it as `quoteReference` when you create
+            the payout or conversion.
+          example: QT-8f21c47a9e
+        rate:
+          type: number
+          description: The rate locked for this quote.
+          example: 0.0058
+        sourceCurrency:
+          type: string
+          description: The currency the money leaves in.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The currency the money arrives in.
+          example: USD
+        sourceAmount:
+          type: number
+          description: The amount in the source currency.
+          example: 100
+        destinationAmount:
+          type: number
+          description: The amount in the destination currency.
+          example: 0.58
+        amountToCharge:
+          type: number
+          description: >-
+            What will be taken from your wallet in total, including the fee.
+          example: 100.5
+        amountToReceive:
+          type: number
+          description: What the beneficiary or destination wallet ends up with.
+          example: 0.58
+        fee:
+          type: number
+          description: The fee for this transaction.
+          example: 0.5
+        initialAmount:
+          type: number
+          description: The amount you sent in the request, before any adjustment.
+          example: 100
+        quotedAmount:
+          type: number
+          description: The amount the rate was applied to.
+          example: 100
+        action:
+          type: string
+          enum: [send, receive]
+          description: The action the quote was generated for.
+          example: send
+        transactionType:
+          type: string
+          enum: [disbursement, conversion]
+          description: What the quote was generated for.
+          example: disbursement
+        business:
+          type: string
+          description: The business the quote belongs to.
+          example: 64f1c2a4b7d9e30012ab4567
+        feeCurrency:
+          type: string
+          description: The currency the fee is charged in.
+          example: NGN
+        expireAt:
+          type: string
+          format: date-time
+          description: >-
+            When the rate stops being valid. Create the transaction before this
+            or generate a new quote.
+          example: "2026-09-20T09:29:02.881Z"
+        settlementDate:
+          type: string
+          description: When the money is expected to settle.
+          example: "2026-09-22"
