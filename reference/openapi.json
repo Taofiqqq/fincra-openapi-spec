@@ -1339,7 +1339,7 @@
             }
           },
           "500": {
-            "description": "Something went wrong on our end. These are rare. Retry the request, and contact support if it keeps happening.",
+            "description": "Something went wrong on our end. Retry the request, and contact support if it keeps happening.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1450,7 +1450,7 @@
             }
           },
           "500": {
-            "description": "Something went wrong on our end. These are rare. Retry the request, and contact support if it keeps happening.",
+            "description": "Something went wrong on our end. Retry the request, and contact support if it keeps happening.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1984,7 +1984,7 @@
             }
           },
           "500": {
-            "description": "Something went wrong on our end. These are rare. Retry the request, and contact support if it keeps happening.",
+            "description": "Something went wrong on our end. Retry the request, and contact support if it keeps happening.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2113,7 +2113,7 @@
             }
           },
           "500": {
-            "description": "Something went wrong on our end. These are rare. Retry the request, and contact support if it keeps happening.",
+            "description": "Something went wrong on our end. Retry the request, and contact support if it keeps happening.",
             "content": {
               "application/json": {
                 "schema": {
