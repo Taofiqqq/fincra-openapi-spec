@@ -1262,90 +1262,50 @@ paths:
                   accountNumber: "0987654321"
                   bankCode: "305"
               ngnBankAccountNotFound:
-                summary: NGN bank account, not found
+                summary: Not found
                 value:
                   currency: NGN
                   type: nuban
                   accountNumber: "0123456789"
                   bankCode: "044"
               ghsMobileMoney:
-                summary: GHS mobile money
+                summary: Mobile money
                 value:
                   currency: GHS
                   type: mobile_money
                   accountNumber: "233541234567"
                   mobileMoneyCode: AIRTEL
-              ghsMobileMoneyNotFound:
-                summary: GHS mobile money, not found
-                value:
-                  currency: GHS
-                  type: mobile_money
-                  accountNumber: "233201234567"
-                  mobileMoneyCode: MTN
               ghsBankAccount:
-                summary: GHS bank account
+                summary: Bank account by SWIFT code
                 value:
                   currency: GHS
                   type: bank_account
                   accountNumber: "4005006007"
                   bankSwiftCode: ECOCGHAC
-              ghsBankAccountNotFound:
-                summary: GHS bank account, not found
-                value:
-                  currency: GHS
-                  type: bank_account
-                  accountNumber: "5006007008"
-                  bankSwiftCode: STBGGHAC
-              kesMobileMoney:
-                summary: KES mobile money (M-Pesa)
-                value:
-                  currency: KES
-                  type: mobile_money
-                  accountNumber: "254722345678"
-                  mobileMoneyCode: MPESA
-              kesMobileMoneyNotFound:
-                summary: KES mobile money (M-Pesa), not found
-                value:
-                  currency: KES
-                  type: mobile_money
-                  accountNumber: "254712345678"
-                  mobileMoneyCode: MPESA
               kesBankAccount:
-                summary: KES bank account
+                summary: Bank account by bank code
                 value:
                   currency: KES
                   type: bank_account
                   accountNumber: "1000012345"
                   bankCode: "76"
-              kesBankAccountNotFound:
-                summary: KES bank account, not found
-                value:
-                  currency: KES
-                  type: bank_account
-                  accountNumber: "2000012345"
-                  bankCode: "03"
               cadInterac:
-                summary: CAD Interac e-Transfer
+                summary: CAD Interac, auto-deposit enrolled
                 value:
                   currency: CAD
                   type: interac_etransfer
                   interacEmail: john.barret@example.com
               cadInteracNotEnrolled:
-                summary: CAD Interac e-Transfer, not enrolled
+                summary: CAD Interac, not enrolled
                 value:
                   currency: CAD
                   type: interac_etransfer
                   interacEmail: john.barret+noautodeposit@example.com
               iban:
-                summary: IBAN (EUR/GBP)
+                summary: IBAN, EUR and GBP
                 value:
                   type: iban
                   iban: GB29NWBK60161331926819
-              ibanNotFound:
-                summary: IBAN (EUR/GBP), not found
-                value:
-                  type: iban
-                  iban: DE44500105175407324931
       responses:
         "200":
           description: The account was resolved.
@@ -1364,7 +1324,7 @@ paths:
                       accountNumber: "0987654321"
                       bankCode: "305"
                 ghsMobileMoney:
-                  summary: GHS mobile money
+                  summary: Mobile money
                   value:
                     success: true
                     message: Account resolve successful
@@ -1373,7 +1333,7 @@ paths:
                       accountNumber: "233541234567"
                       bankCode: AIRTEL
                 ghsBankAccount:
-                  summary: GHS bank account
+                  summary: Bank account by SWIFT code
                   value:
                     success: true
                     message: Account resolve successful
@@ -1381,17 +1341,8 @@ paths:
                       accountName: Ecobank Ghana Test
                       accountNumber: "4005006007"
                       bankCode: ECOCGHAC
-                kesMobileMoney:
-                  summary: KES mobile money (M-Pesa)
-                  value:
-                    success: true
-                    message: Account resolve successful
-                    data:
-                      accountName: James Kariuki
-                      accountNumber: "254722345678"
-                      bankCode: MPESA
                 kesBankAccount:
-                  summary: KES bank account
+                  summary: Bank account by bank code
                   value:
                     success: true
                     message: Account resolve successful
@@ -1400,7 +1351,7 @@ paths:
                       accountNumber: "1000012345"
                       bankCode: "76"
                 cadInteracEnabled:
-                  summary: CAD Interac, auto-deposit enabled
+                  summary: CAD Interac, auto-deposit enrolled
                   value:
                     success: true
                     message: Account resolve successful
@@ -1409,7 +1360,7 @@ paths:
                       accountName: John Barret
                       autoDepositEnabled: true
                 cadInteracNotEnabled:
-                  summary: CAD Interac, auto-deposit not enabled
+                  summary: CAD Interac, not enrolled
                   value:
                     success: true
                     message: Account resolve successful
@@ -1418,7 +1369,7 @@ paths:
                       accountName: null
                       autoDepositEnabled: false
                 iban:
-                  summary: IBAN (EUR/GBP)
+                  summary: IBAN, EUR and GBP
                   value:
                     success: true
                     message: Account resolve successful
