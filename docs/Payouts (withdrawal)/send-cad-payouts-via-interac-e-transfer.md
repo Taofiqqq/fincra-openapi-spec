@@ -21,12 +21,13 @@ This guide explains how to:
 
 ```mermaid
 flowchart TD
-  A["Collect recipient's<br/>Interac email"] --> B["Verify email and<br/>Autodeposit status"]
-  B --> C{"Autodeposit<br/>enabled?"}
-  C -->|Enabled| D["Generate a quote<br/>if currencies differ"]
-  C -->|Disabled| E["Stop and ask the recipient<br/>to enable Autodeposit"]
-  D --> F["Create the payout"]
-  F --> G["Track the payout<br/>using webhooks"]
+      A["Collect recipient's<br/>Interac email"] --> B["Verify email and<br/>Autodeposit status"]
+      B --> C{"Autodeposit<br/>enabled?"}
+      C -->|Enabled| D["Generate a quote<br/>if currencies differ"]
+      C -->|Disabled| G["Collect a security question<br/>and answer"]
+      G --> D
+      D --> F["Create the payout"]
+      F --> H["Track the payout<br/>using webhooks"]
 ```
 
 The number of API calls depends on the source currency:
@@ -108,7 +109,7 @@ The resolution request may succeed while returning `autoDepositEnabled: false`.
 }
 ```
 
-This is not an API error. It means the email is not currently registered for Interac Autodeposit. Ask the recipient to enable Interac Autodeposit for that email and verify it again before continuing.
+This is not an API error. You can still create the payout by including `beneficiary.securityQuestion` and `beneficiary.securityAnswer`. The recipient will use the answer to claim the Interac transfer.
 
 ## Step 2: Generate a quote for a cross-currency payout
 
@@ -176,7 +177,7 @@ The payout amount must equal the quote’s sourceAmount. You must generate anoth
 
 ## Step 3: Create the payout
 
-After confirming that Autodeposit is enabled, create the payout.
+After checking the Autodeposit status, create the payout. If Autodeposit is disabled, include a security question and answer.
 
 `POST /disbursements/payouts`
 
@@ -242,24 +243,56 @@ A cross-currency payout must include the reference returned by the quote endpoin
 }
 ```
 
-Here, amount is KES 10,000 because KES is the source currency. It must match the quote’s sourceAmount.
+Here, amount is KES 10,000 because KES is the source currency. It must match the quote’s `sourceAmount`.
+
+### Send when Autodeposit is disabled
+
+If autoDepositEnabled is false, include a security question and answer in the payout request. The recipient will use the answer to claim the Interac transfer.
+
+```json
+{
+  "business": "{{businessID}}",
+  "sourceCurrency": "CAD",
+  "destinationCurrency": "CAD",
+  "amount": 100,
+  "description": "CAD payout via Interac",
+  "paymentDestination": "bank_account",
+  "paymentScheme": "interac",
+  "customerReference": "cad-interac-002",
+  "beneficiary": {
+    "firstName": "John",
+    "accountHolderName": "John Barret",
+    "interacEmail": "johnbarret@example.com",
+    "securityQuestion": "What city did we meet in?",
+    "securityAnswer": "Calgary",
+    "type": "individual",
+    "country": "CA"
+  }
+}
+```
+
+The security question must not exceed 40 characters. The answer must contain 3 to 25 characters and must not contain spaces. Send both fields together.
 
 ### Important fields
 
-| Field                           | Description                                                       |
-| ------------------------------- | ----------------------------------------------------------------- |
-| `business`                      | Your 24-character Fincra business ID.                             |
-| `sourceCurrency`                | Currency of the wallet funding the payout.                        |
-| `destinationCurrency`           | Must be `CAD`.                                                    |
-| `amount`                        | Amount in the source currency, supplied as a JSON number.         |
-| `quoteReference`                | Required when the source currency is not `CAD`.                   |
-| `description`                   | A non-empty description of the payout.                            |
-| `customerReference`             | Your unique reference for identifying and reconciling the payout. |
-| `paymentDestination`            | Must be `bank_account`.                                           |
-| `paymentScheme`                 | Must be `interac`.                                                |
-| `beneficiary.country`           | Must be `CA`.                                                     |
-| `beneficiary.interacEmail`      | Recipient’s verified Interac email.                               |
-| `beneficiary.accountHolderName` | Name returned or confirmed during account resolution.             |
+| Field                           | Description                                                                            |
+| ------------------------------- | -------------------------------------------------------------------------------------- |
+| `business`                      | Your 24-character Fincra business ID.                                                  |
+| `sourceCurrency`                | Currency of the wallet funding the payout.                                             |
+| `destinationCurrency`           | Must be `CAD`.                                                                         |
+| `amount`                        | Amount in the source currency, supplied as a JSON number.                              |
+| `quoteReference`                | Required when the source currency is not `CAD`.                                        |
+| `description`                   | A non-empty description of the payout.                                                 |
+| `customerReference`             | Your unique reference for identifying and reconciling the payout.                      |
+| `paymentDestination`            | Must be `bank_account`.                                                                |
+| `paymentScheme`                 | Must be `interac`.                                                                     |
+| `beneficiary.country`           | Must be `CA`.                                                                          |
+| `beneficiary.interacEmail`      | Recipient’s verified Interac email.                                                    |
+| `beneficiary.accountHolderName` | Name returned or confirmed during account resolution.                                  |
+| `beneficiary.securityQuestion`  | Required when Autodeposit is disabled. Maximum 40 characters.                          |
+| `beneficiary.securityAnswer`    | Required when Autodeposit is disabled. Must contain 3 to 25 characters with no spaces. |
+
+<br />
 
 ## Step 4: Handle the payout response
 
