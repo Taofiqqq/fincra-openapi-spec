@@ -365,21 +365,32 @@ Example successful webhook excerpt:
 
 ### Autodeposit is disabled
 
-The resolution request succeeds, but autoDepositEnabled is false.
+The resolution request succeeds, but `autoDepositEnabled` is `false`. This is not an API error. Include `beneficiary.securityQuestion` and `beneficiary.securityAnswer` when creating
+the payout.
 
-Stop the flow and ask the recipient to enable Autodeposit before trying again.
+Because `accountName` is `null`, collect the recipient’s legal account name and send it as `beneficiary.accountHolderName`.
+
+### The security question or answer is missing
+
+Both fields are required when Autodeposit is disabled. Do not send only one of them.
+
+### The security question or answer is invalid
+
+The security question must not exceed 40 characters. The answer must contain 3 to 25 characters and must not contain spaces.
+
+Use only standard letters, numbers and punctuation. Do not use accented letters, emoji or line breaks.
+
+### The payout needs to be submitted again
+
+Fincra does not store the security question and answer. Create a new payout request and include both fields again.
 
 ### The quote reference is missing
 
-This happens when you create a cross-currency payout without first generating a quote.
-
-Generate a new quote and include its reference as quoteReference.
+This happens when you create a cross-currency payout without first generating a quote. Generate a new quote and include its reference as `quoteReference`.
 
 ### The quote amount does not match the payout amount
 
-The payout amount must equal the quote’s sourceAmount.
-
-Generate a new quote if the source amount changes.
+The payout amount must equal the quote’s `sourceAmount`. Generate a new quote if the source amount changes.
 
 ### The quote has expired
 
@@ -389,18 +400,10 @@ Generate another quote and use its new reference.
 
 Use:
 
-"country": "CA"
+```json
+ "country": "CA"
+```
 
 ### The Interac email is missing or invalid
 
-Supply the same valid email address that passed the account-resolution check.
-
-## Next steps
-
-For complete request fields, response schemas and error definitions, see:
-
-- Resolve an Interac recipient
-- Generate a quote
-- Create a payout
-- Retrieve a payout
-- Payout webhook events
+Provide the same valid email address used for the account-resolution check.
