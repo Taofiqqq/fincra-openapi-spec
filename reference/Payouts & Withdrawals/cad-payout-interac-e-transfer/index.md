@@ -28,11 +28,11 @@ You need your API credentials, business ID, a funded source wallet, and the reci
 
 ## Related endpoints
 
-- Verify an Interac Recipient
-- Generate a Quote
-- Create a CAD Interac Payout
-- Verify Payout Status
-- Payout Webhooks
+- [Verify an Interac Recipient](https://docs.fincra.com/reference/verify-account-number)
+- [Generate a Quote](https://docs.fincra.com/reference/generate-quote)
+- [Create a CAD Interac Payout](https://docs.fincra.com/reference/create-cad-payout)
+- [Verify Payout Status](https://docs.fincra.com/reference/verify-payout-status-by-reference)
+- [Payout Webhooks](https://docs.fincra.com/docs/payout-webhook)
 
 New to CAD Interac payouts? Follow the [Send CAD payouts via Interac e-Transfer](/docs/send-cad-payouts-via-interac-e-transfer) guide for the complete integration flow.
 
