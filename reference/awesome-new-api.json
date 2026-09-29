@@ -13629,14 +13629,376 @@
     },
     "/disbursements/payouts#cad": {
       "post": {
-        "responses": {
-          "200": {
-            "description": ""
+        "summary": "Create CAD Payout",
+        "operationId": "post_disbursements-payouts-cad",
+        "description": "Send CAD to a recipient's Canadian bank account through Interac e-Transfer, using their Interac email.\n\nSelect **Individual** or **Corporate** in the request body to see the fields for each recipient type.\n\nBefore you call this endpoint, verify the recipient's email with [Verify Account Number](https://docs.fincra.com/reference/verify-account-number). If the source currency is not CAD, generate a quote first with [Generate a Quote](https://docs.fincra.com/reference/generate-quote). Track the final status through [payout webhooks](https://docs.fincra.com/docs/payout-webhook). For the full flow, see [CAD Payouts via Interac e-Transfer](https://docs.fincra.com/docs/send-cad-payouts-via-interac-e-transfer).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "title": "Individual",
+                    "description": "Send a CAD payout to an individual.",
+                    "required": [
+                      "business",
+                      "sourceCurrency",
+                      "destinationCurrency",
+                      "amount",
+                      "description",
+                      "customerReference",
+                      "paymentDestination",
+                      "paymentScheme",
+                      "beneficiary"
+                    ],
+                    "properties": {
+                      "business": {
+                        "type": "string",
+                        "description": "Your 24 character Fincra business ID.",
+                        "example": "{{businessID}}"
+                      },
+                      "sourceCurrency": {
+                        "type": "string",
+                        "description": "Currency of the wallet funding the payout. Use `CAD`, or another supported currency together with `quoteReference`.",
+                        "example": "CAD"
+                      },
+                      "destinationCurrency": {
+                        "type": "string",
+                        "const": "CAD",
+                        "description": "Use `CAD`.",
+                        "example": "CAD"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "description": "Amount in the source currency, as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected. For a cross currency payout, it must equal the quote's `sourceAmount`.",
+                        "example": 100
+                      },
+                      "quoteReference": {
+                        "type": "string",
+                        "description": "Reference returned by Generate a Quote. Required when `sourceCurrency` is not `CAD`."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "A non empty description of the payout. The recipient sees it on the transfer, so include your business name.",
+                        "example": "Acme Stores Ltd, Invoice 4471"
+                      },
+                      "customerReference": {
+                        "type": "string",
+                        "description": "Your unique reference for identifying and reconciling the payout.",
+                        "example": "cad-interac-001"
+                      },
+                      "paymentDestination": {
+                        "type": "string",
+                        "const": "bank_account",
+                        "description": "Use `bank_account`.",
+                        "example": "bank_account"
+                      },
+                      "paymentScheme": {
+                        "type": "string",
+                        "const": "interac",
+                        "description": "Use `interac`.",
+                        "example": "interac"
+                      },
+                      "beneficiary": {
+                        "type": "object",
+                        "description": "The payout recipient.",
+                        "required": [
+                          "type",
+                          "firstName",
+                          "accountHolderName",
+                          "interacEmail",
+                          "country"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "const": "individual",
+                            "description": "Recipient type. Use `individual`.",
+                            "example": "individual"
+                          },
+                          "firstName": {
+                            "type": "string",
+                            "description": "Recipient first name.",
+                            "example": "John"
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "description": "Recipient last name. Optional.",
+                            "example": "Barret"
+                          },
+                          "accountHolderName": {
+                            "type": "string",
+                            "description": "Recipient name returned by account resolution.",
+                            "example": "John Barret"
+                          },
+                          "interacEmail": {
+                            "type": "string",
+                            "description": "Recipient's Interac email, verified with Verify Account Number.",
+                            "format": "email",
+                            "example": "johnbarret@example.com"
+                          },
+                          "country": {
+                            "type": "string",
+                            "const": "CA",
+                            "description": "Beneficiary country. Use `CA`.",
+                            "example": "CA"
+                          },
+                          "securityQuestion": {
+                            "type": "string",
+                            "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                            "maxLength": 40,
+                            "example": "What city did we meet in?"
+                          },
+                          "securityAnswer": {
+                            "type": "string",
+                            "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                            "minLength": 3,
+                            "maxLength": 25,
+                            "pattern": "^\\S+$",
+                            "example": "Calgary"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "title": "Corporate",
+                    "description": "Send a CAD payout to a business.",
+                    "required": [
+                      "business",
+                      "sourceCurrency",
+                      "destinationCurrency",
+                      "amount",
+                      "description",
+                      "customerReference",
+                      "paymentDestination",
+                      "paymentScheme",
+                      "beneficiary"
+                    ],
+                    "properties": {
+                      "business": {
+                        "type": "string",
+                        "description": "Your 24 character Fincra business ID.",
+                        "example": "{{businessID}}"
+                      },
+                      "sourceCurrency": {
+                        "type": "string",
+                        "description": "Currency of the wallet funding the payout. Use `CAD`, or another supported currency together with `quoteReference`.",
+                        "example": "CAD"
+                      },
+                      "destinationCurrency": {
+                        "type": "string",
+                        "const": "CAD",
+                        "description": "Use `CAD`.",
+                        "example": "CAD"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "description": "Amount in the source currency, as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected. For a cross currency payout, it must equal the quote's `sourceAmount`.",
+                        "example": 100
+                      },
+                      "quoteReference": {
+                        "type": "string",
+                        "description": "Reference returned by Generate a Quote. Required when `sourceCurrency` is not `CAD`."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "A non empty description of the payout. The recipient sees it on the transfer, so include your business name.",
+                        "example": "Acme Stores Ltd, Invoice 4471"
+                      },
+                      "customerReference": {
+                        "type": "string",
+                        "description": "Your unique reference for identifying and reconciling the payout.",
+                        "example": "cad-interac-001"
+                      },
+                      "paymentDestination": {
+                        "type": "string",
+                        "const": "bank_account",
+                        "description": "Use `bank_account`.",
+                        "example": "bank_account"
+                      },
+                      "paymentScheme": {
+                        "type": "string",
+                        "const": "interac",
+                        "description": "Use `interac`.",
+                        "example": "interac"
+                      },
+                      "beneficiary": {
+                        "type": "object",
+                        "description": "The payout recipient.",
+                        "required": [
+                          "type",
+                          "accountHolderName",
+                          "interacEmail",
+                          "country"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "const": "corporate",
+                            "description": "Recipient type. Use `corporate`.",
+                            "example": "corporate"
+                          },
+                          "accountHolderName": {
+                            "type": "string",
+                            "description": "Business name of the recipient, as returned by account resolution.",
+                            "example": "Maple Leaf Supplies Inc"
+                          },
+                          "interacEmail": {
+                            "type": "string",
+                            "description": "Recipient's Interac email, verified with Verify Account Number.",
+                            "format": "email",
+                            "example": "ap@mapleleafsupplies.ca"
+                          },
+                          "country": {
+                            "type": "string",
+                            "const": "CA",
+                            "description": "Beneficiary country. Use `CA`.",
+                            "example": "CA"
+                          },
+                          "securityQuestion": {
+                            "type": "string",
+                            "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                            "maxLength": 40,
+                            "example": "What city did we meet in?"
+                          },
+                          "securityAnswer": {
+                            "type": "string",
+                            "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                            "minLength": 3,
+                            "maxLength": 25,
+                            "pattern": "^\\S+$",
+                            "example": "Calgary"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "individual": {
+                  "summary": "Individual",
+                  "value": {
+                    "business": "{{businessID}}",
+                    "sourceCurrency": "CAD",
+                    "destinationCurrency": "CAD",
+                    "amount": 100,
+                    "description": "Acme Stores Ltd, Invoice 4471",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "customerReference": "cad-interac-001",
+                    "beneficiary": {
+                      "type": "individual",
+                      "firstName": "John",
+                      "lastName": "Barret",
+                      "accountHolderName": "John Barret",
+                      "interacEmail": "johnbarret@example.com",
+                      "country": "CA"
+                    }
+                  }
+                },
+                "corporate": {
+                  "summary": "Corporate",
+                  "value": {
+                    "business": "{{businessID}}",
+                    "sourceCurrency": "CAD",
+                    "destinationCurrency": "CAD",
+                    "amount": 250,
+                    "description": "Acme Stores Ltd, Invoice 4471",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "customerReference": "cad-interac-003",
+                    "beneficiary": {
+                      "type": "corporate",
+                      "accountHolderName": "Maple Leaf Supplies Inc",
+                      "interacEmail": "ap@mapleleafsupplies.ca",
+                      "country": "CA"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "parameters": [],
-        "summary": "Create CAD Payout",
-        "operationId": "post_disbursements-payouts-cad"
+        "responses": {
+          "200": {
+            "description": "The payout was accepted for processing. Track the final status through payout webhooks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Payout ID."
+                        },
+                        "reference": {
+                          "type": "string",
+                          "description": "Fincra generated payout reference."
+                        },
+                        "customerReference": {
+                          "type": "string",
+                          "description": "The reference you supplied."
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Payout status. Starts as `processing`."
+                        },
+                        "message": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "isDocumentRequired": {
+                          "type": "boolean",
+                          "description": "Whether supporting documents must be uploaded."
+                        },
+                        "documentsRequired": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "processing": {
+                    "summary": "Payout accepted",
+                    "value": {
+                      "success": true,
+                      "message": "Payout initiated successfully.",
+                      "data": {
+                        "id": 12345,
+                        "reference": "FPY-8E74262E",
+                        "customerReference": "cad-interac-001",
+                        "status": "processing",
+                        "message": null,
+                        "isDocumentRequired": false,
+                        "documentsRequired": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
