@@ -32,7 +32,7 @@ Instead of an account number, you are issued a unique **Interac collection alias
 ## Getting started
 
 1. Create a CAD collection account via the [Create CAD Collection Account](https://docs.fincra.com/reference/create-cad-collection-account) endpoint.
-2. Retrieve your assigned alias via API or view it in your Merchant Portal.
+2. Retrieve your assigned alias [via API](https://docs.fincra.com/reference/retrieve-cad-collection-account) or view it in your Merchant Portal.
 3. Start sharing your alias with Canadian payers.
 
 For endpoint definitions, request and response schemas, and code samples, see the [CAD (Interac e-Transfer) API Reference](https://docs.fincra.com/reference/cad-interac-e-transfer).
