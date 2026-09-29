@@ -13626,6 +13626,18 @@
         "operationId": "get_profile-virtual-accounts",
         "description": "List your CAD collection accounts. Filter by `currency=CAD` to return only CAD (Interac e-Transfer) accounts; each approved account carries its Interac alias in `accountInformation.otherInfo.interacEmail`."
       }
+    },
+    "/disbursements/payouts#cad": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "summary": "Create CAD Payout",
+        "operationId": "post_disbursements-payouts-cad"
+      }
     }
   },
   "x-readme": {
