@@ -57,7 +57,7 @@ Call the account-resolution endpoint before creating the payout.
 
 This checks whether the email is registered for Interac Autodeposit and returns the name attached to the registered bank account.
 
-`POST /accounts/resolve`
+`POST /core/accounts/resolve`
 
 ### Request
 
