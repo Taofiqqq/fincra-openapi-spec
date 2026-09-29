@@ -1,7 +1,7 @@
 ---
 api:
   file: awesome-new-api.json
-  operationId: get_new-endpoint
+  operationId: get_profile-virtual-accounts
 hidden: false
 link:
   new_tab: false
