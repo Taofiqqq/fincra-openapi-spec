@@ -13631,7 +13631,7 @@
       "post": {
         "summary": "Create CAD Payout",
         "operationId": "post_disbursements-payouts-cad",
-        "description": "Send CAD to a recipient's Canadian bank account through Interac e-Transfer, using their Interac email.\n\nSelect **Individual** or **Corporate** in the request body to see the fields for each recipient type.\n\nBefore you call this endpoint, verify the recipient's email with [Verify Account Number](https://docs.fincra.com/reference/verify-account-number). If the source currency is not CAD, generate a quote first with [Generate a Quote](https://docs.fincra.com/reference/generate-quote). Track the final status through [payout webhooks](https://docs.fincra.com/docs/payout-webhook). For the full flow, see [CAD Payouts via Interac e-Transfer](https://docs.fincra.com/docs/send-cad-payouts-via-interac-e-transfer).",
+        "description": "Send CAD to a recipient's Canadian bank account through Interac e-Transfer, using their Interac email.\n\nIn the request body, select **Same currency** or **Cross currency**, then select **Individual** or **Corporate** under `beneficiary` to see the fields for each case.\n\nBefore you call this endpoint, verify the recipient's email with [Verify Account Number](https://docs.fincra.com/reference/verify-account-number). If the source currency is not CAD, generate a quote first with [Generate a Quote](https://docs.fincra.com/reference/generate-quote). Track the final status through [payout webhooks](https://docs.fincra.com/docs/payout-webhook). For the full flow, see [CAD Payouts via Interac e-Transfer](https://docs.fincra.com/docs/send-cad-payouts-via-interac-e-transfer).",
         "requestBody": {
           "required": true,
           "content": {
@@ -13640,8 +13640,8 @@
                 "oneOf": [
                   {
                     "type": "object",
-                    "title": "Individual",
-                    "description": "Send a CAD payout to an individual.",
+                    "title": "Same currency",
+                    "description": "Fund the payout from your CAD wallet. No quote is needed.",
                     "required": [
                       "business",
                       "sourceCurrency",
@@ -13661,7 +13661,8 @@
                       },
                       "sourceCurrency": {
                         "type": "string",
-                        "description": "Currency of the wallet funding the payout. Use `CAD`, or another supported currency together with `quoteReference`.",
+                        "const": "CAD",
+                        "description": "Use `CAD`. The payout is funded from your CAD wallet.",
                         "example": "CAD"
                       },
                       "destinationCurrency": {
@@ -13672,12 +13673,8 @@
                       },
                       "amount": {
                         "type": "number",
-                        "description": "Amount in the source currency, as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected. For a cross currency payout, it must equal the quote's `sourceAmount`.",
+                        "description": "Amount in CAD, as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected.",
                         "example": 100
-                      },
-                      "quoteReference": {
-                        "type": "string",
-                        "description": "Reference returned by Generate a Quote. Required when `sourceCurrency` is not `CAD`."
                       },
                       "description": {
                         "type": "string",
@@ -13702,76 +13699,133 @@
                         "example": "interac"
                       },
                       "beneficiary": {
-                        "type": "object",
-                        "description": "The payout recipient.",
-                        "required": [
-                          "type",
-                          "firstName",
-                          "accountHolderName",
-                          "interacEmail",
-                          "country"
-                        ],
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "individual",
-                            "description": "Recipient type. Use `individual`.",
-                            "example": "individual"
+                        "description": "The payout recipient. Select **Individual** or **Corporate**.",
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "description": "An individual recipient.",
+                            "required": [
+                              "type",
+                              "firstName",
+                              "accountHolderName",
+                              "interacEmail",
+                              "country"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "individual",
+                                "description": "Recipient type. Use `individual`.",
+                                "example": "individual"
+                              },
+                              "firstName": {
+                                "type": "string",
+                                "description": "Recipient first name.",
+                                "example": "John"
+                              },
+                              "lastName": {
+                                "type": "string",
+                                "description": "Recipient last name. Optional.",
+                                "example": "Barret"
+                              },
+                              "accountHolderName": {
+                                "type": "string",
+                                "description": "Recipient name returned by account resolution.",
+                                "example": "John Barret"
+                              },
+                              "interacEmail": {
+                                "type": "string",
+                                "description": "Recipient's Interac email, verified with Verify Account Number.",
+                                "format": "email",
+                                "example": "johnbarret@example.com"
+                              },
+                              "country": {
+                                "type": "string",
+                                "const": "CA",
+                                "description": "Beneficiary country. Use `CA`.",
+                                "example": "CA"
+                              },
+                              "securityQuestion": {
+                                "type": "string",
+                                "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                                "maxLength": 40,
+                                "example": "What city did we meet in?"
+                              },
+                              "securityAnswer": {
+                                "type": "string",
+                                "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                                "minLength": 3,
+                                "maxLength": 25,
+                                "pattern": "^\\S+$",
+                                "example": "Calgary"
+                              }
+                            },
+                            "title": "Individual"
                           },
-                          "firstName": {
-                            "type": "string",
-                            "description": "Recipient first name.",
-                            "example": "John"
-                          },
-                          "lastName": {
-                            "type": "string",
-                            "description": "Recipient last name. Optional.",
-                            "example": "Barret"
-                          },
-                          "accountHolderName": {
-                            "type": "string",
-                            "description": "Recipient name returned by account resolution.",
-                            "example": "John Barret"
-                          },
-                          "interacEmail": {
-                            "type": "string",
-                            "description": "Recipient's Interac email, verified with Verify Account Number.",
-                            "format": "email",
-                            "example": "johnbarret@example.com"
-                          },
-                          "country": {
-                            "type": "string",
-                            "const": "CA",
-                            "description": "Beneficiary country. Use `CA`.",
-                            "example": "CA"
-                          },
-                          "securityQuestion": {
-                            "type": "string",
-                            "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
-                            "maxLength": 40,
-                            "example": "What city did we meet in?"
-                          },
-                          "securityAnswer": {
-                            "type": "string",
-                            "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
-                            "minLength": 3,
-                            "maxLength": 25,
-                            "pattern": "^\\S+$",
-                            "example": "Calgary"
+                          {
+                            "type": "object",
+                            "description": "A business recipient.",
+                            "required": [
+                              "type",
+                              "accountHolderName",
+                              "interacEmail",
+                              "country"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "corporate",
+                                "description": "Recipient type. Use `corporate`.",
+                                "example": "corporate"
+                              },
+                              "accountHolderName": {
+                                "type": "string",
+                                "description": "Business name of the recipient, as returned by account resolution.",
+                                "example": "Maple Leaf Supplies Inc"
+                              },
+                              "interacEmail": {
+                                "type": "string",
+                                "description": "Recipient's Interac email, verified with Verify Account Number.",
+                                "format": "email",
+                                "example": "ap@mapleleafsupplies.ca"
+                              },
+                              "country": {
+                                "type": "string",
+                                "const": "CA",
+                                "description": "Beneficiary country. Use `CA`.",
+                                "example": "CA"
+                              },
+                              "securityQuestion": {
+                                "type": "string",
+                                "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                                "maxLength": 40,
+                                "example": "What city did we meet in?"
+                              },
+                              "securityAnswer": {
+                                "type": "string",
+                                "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                                "minLength": 3,
+                                "maxLength": 25,
+                                "pattern": "^\\S+$",
+                                "example": "Calgary"
+                              }
+                            },
+                            "title": "Corporate"
                           }
-                        }
+                        ]
                       }
                     }
                   },
                   {
                     "type": "object",
-                    "title": "Corporate",
-                    "description": "Send a CAD payout to a business.",
+                    "title": "Cross currency",
+                    "description": "Fund the payout from another currency wallet. Generate a quote first and pass its reference.",
                     "required": [
                       "business",
                       "sourceCurrency",
                       "destinationCurrency",
                       "amount",
+                      "quoteReference",
                       "description",
                       "customerReference",
                       "paymentDestination",
@@ -13786,8 +13840,8 @@
                       },
                       "sourceCurrency": {
                         "type": "string",
-                        "description": "Currency of the wallet funding the payout. Use `CAD`, or another supported currency together with `quoteReference`.",
-                        "example": "CAD"
+                        "description": "Currency of the wallet funding the payout, such as `NGN`, `GHS` or `KES`. Must match the quote.",
+                        "example": "NGN"
                       },
                       "destinationCurrency": {
                         "type": "string",
@@ -13797,12 +13851,13 @@
                       },
                       "amount": {
                         "type": "number",
-                        "description": "Amount in the source currency, as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected. For a cross currency payout, it must equal the quote's `sourceAmount`.",
-                        "example": 100
+                        "description": "Amount in the source currency, as a JSON number with no more than 2 decimal places. Must equal the quote's `sourceAmount`.",
+                        "example": 150000
                       },
                       "quoteReference": {
                         "type": "string",
-                        "description": "Reference returned by Generate a Quote. Required when `sourceCurrency` is not `CAD`."
+                        "description": "The `data.reference` returned by [Generate a Quote](https://docs.fincra.com/reference/generate-quote). The quote must not be expired.",
+                        "example": "b862026b-c15c-46b1-b1d4-f584f80b53ea"
                       },
                       "description": {
                         "type": "string",
@@ -13812,7 +13867,7 @@
                       "customerReference": {
                         "type": "string",
                         "description": "Your unique reference for identifying and reconciling the payout.",
-                        "example": "cad-interac-001"
+                        "example": "ngn-cad-interac-001"
                       },
                       "paymentDestination": {
                         "type": "string",
@@ -13827,61 +13882,128 @@
                         "example": "interac"
                       },
                       "beneficiary": {
-                        "type": "object",
-                        "description": "The payout recipient.",
-                        "required": [
-                          "type",
-                          "accountHolderName",
-                          "interacEmail",
-                          "country"
-                        ],
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "corporate",
-                            "description": "Recipient type. Use `corporate`.",
-                            "example": "corporate"
+                        "description": "The payout recipient. Select **Individual** or **Corporate**.",
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "description": "An individual recipient.",
+                            "required": [
+                              "type",
+                              "firstName",
+                              "accountHolderName",
+                              "interacEmail",
+                              "country"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "individual",
+                                "description": "Recipient type. Use `individual`.",
+                                "example": "individual"
+                              },
+                              "firstName": {
+                                "type": "string",
+                                "description": "Recipient first name.",
+                                "example": "John"
+                              },
+                              "lastName": {
+                                "type": "string",
+                                "description": "Recipient last name. Optional.",
+                                "example": "Barret"
+                              },
+                              "accountHolderName": {
+                                "type": "string",
+                                "description": "Recipient name returned by account resolution.",
+                                "example": "John Barret"
+                              },
+                              "interacEmail": {
+                                "type": "string",
+                                "description": "Recipient's Interac email, verified with Verify Account Number.",
+                                "format": "email",
+                                "example": "johnbarret@example.com"
+                              },
+                              "country": {
+                                "type": "string",
+                                "const": "CA",
+                                "description": "Beneficiary country. Use `CA`.",
+                                "example": "CA"
+                              },
+                              "securityQuestion": {
+                                "type": "string",
+                                "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                                "maxLength": 40,
+                                "example": "What city did we meet in?"
+                              },
+                              "securityAnswer": {
+                                "type": "string",
+                                "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                                "minLength": 3,
+                                "maxLength": 25,
+                                "pattern": "^\\S+$",
+                                "example": "Calgary"
+                              }
+                            },
+                            "title": "Individual"
                           },
-                          "accountHolderName": {
-                            "type": "string",
-                            "description": "Business name of the recipient, as returned by account resolution.",
-                            "example": "Maple Leaf Supplies Inc"
-                          },
-                          "interacEmail": {
-                            "type": "string",
-                            "description": "Recipient's Interac email, verified with Verify Account Number.",
-                            "format": "email",
-                            "example": "ap@mapleleafsupplies.ca"
-                          },
-                          "country": {
-                            "type": "string",
-                            "const": "CA",
-                            "description": "Beneficiary country. Use `CA`.",
-                            "example": "CA"
-                          },
-                          "securityQuestion": {
-                            "type": "string",
-                            "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
-                            "maxLength": 40,
-                            "example": "What city did we meet in?"
-                          },
-                          "securityAnswer": {
-                            "type": "string",
-                            "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
-                            "minLength": 3,
-                            "maxLength": 25,
-                            "pattern": "^\\S+$",
-                            "example": "Calgary"
+                          {
+                            "type": "object",
+                            "description": "A business recipient.",
+                            "required": [
+                              "type",
+                              "accountHolderName",
+                              "interacEmail",
+                              "country"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "corporate",
+                                "description": "Recipient type. Use `corporate`.",
+                                "example": "corporate"
+                              },
+                              "accountHolderName": {
+                                "type": "string",
+                                "description": "Business name of the recipient, as returned by account resolution.",
+                                "example": "Maple Leaf Supplies Inc"
+                              },
+                              "interacEmail": {
+                                "type": "string",
+                                "description": "Recipient's Interac email, verified with Verify Account Number.",
+                                "format": "email",
+                                "example": "ap@mapleleafsupplies.ca"
+                              },
+                              "country": {
+                                "type": "string",
+                                "const": "CA",
+                                "description": "Beneficiary country. Use `CA`.",
+                                "example": "CA"
+                              },
+                              "securityQuestion": {
+                                "type": "string",
+                                "description": "Security question the recipient answers to claim the transfer. Required when the recipient does not have Interac Autodeposit enabled. Send together with `securityAnswer`. Maximum 40 characters.",
+                                "maxLength": 40,
+                                "example": "What city did we meet in?"
+                              },
+                              "securityAnswer": {
+                                "type": "string",
+                                "description": "Answer to the security question. Required when the recipient does not have Interac Autodeposit enabled. 3 to 25 characters, no spaces.",
+                                "minLength": 3,
+                                "maxLength": 25,
+                                "pattern": "^\\S+$",
+                                "example": "Calgary"
+                              }
+                            },
+                            "title": "Corporate"
                           }
-                        }
+                        ]
                       }
                     }
                   }
                 ]
               },
               "examples": {
-                "individual": {
-                  "summary": "Individual",
+                "sameIndividual": {
+                  "summary": "Same currency, individual",
                   "value": {
                     "business": "{{businessID}}",
                     "sourceCurrency": "CAD",
@@ -13901,8 +14023,8 @@
                     }
                   }
                 },
-                "corporate": {
-                  "summary": "Corporate",
+                "sameCorporate": {
+                  "summary": "Same currency, corporate",
                   "value": {
                     "business": "{{businessID}}",
                     "sourceCurrency": "CAD",
@@ -13912,6 +14034,48 @@
                     "paymentDestination": "bank_account",
                     "paymentScheme": "interac",
                     "customerReference": "cad-interac-003",
+                    "beneficiary": {
+                      "type": "corporate",
+                      "accountHolderName": "Maple Leaf Supplies Inc",
+                      "interacEmail": "ap@mapleleafsupplies.ca",
+                      "country": "CA"
+                    }
+                  }
+                },
+                "crossIndividual": {
+                  "summary": "Cross currency (NGN), individual",
+                  "value": {
+                    "business": "{{businessID}}",
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "CAD",
+                    "amount": 150000,
+                    "quoteReference": "b862026b-c15c-46b1-b1d4-f584f80b53ea",
+                    "description": "Acme Stores Ltd, Invoice 4471",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "customerReference": "ngn-cad-interac-001",
+                    "beneficiary": {
+                      "type": "individual",
+                      "firstName": "John",
+                      "lastName": "Barret",
+                      "accountHolderName": "John Barret",
+                      "interacEmail": "johnbarret@example.com",
+                      "country": "CA"
+                    }
+                  }
+                },
+                "crossCorporate": {
+                  "summary": "Cross currency (NGN), corporate",
+                  "value": {
+                    "business": "{{businessID}}",
+                    "sourceCurrency": "NGN",
+                    "destinationCurrency": "CAD",
+                    "amount": 375000,
+                    "quoteReference": "3f1c7a2e-9d4b-4e6a-8c21-5b7e0d9a4f13",
+                    "description": "Acme Stores Ltd, Invoice 4471",
+                    "paymentDestination": "bank_account",
+                    "paymentScheme": "interac",
+                    "customerReference": "ngn-cad-interac-002",
                     "beneficiary": {
                       "type": "corporate",
                       "accountHolderName": "Maple Leaf Supplies Inc",
