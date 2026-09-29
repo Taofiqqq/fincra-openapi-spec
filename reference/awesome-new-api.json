@@ -11990,6 +11990,18 @@
           }
         }
       }
+    },
+    "/new-endpoint": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "summary": "Create CAD Collection Account",
+        "operationId": "post_new-endpoint"
+      }
     }
   },
   "x-readme": {
