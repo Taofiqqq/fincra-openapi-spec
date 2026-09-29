@@ -46,7 +46,6 @@ You need:
 - Access to CAD payouts through Interac.
 - A funded wallet for the source currency.
 - The recipient’s Interac email address.
-- The recipient’s legal account name.
 - A webhook URL configured to receive payout updates.
 
 <br />
