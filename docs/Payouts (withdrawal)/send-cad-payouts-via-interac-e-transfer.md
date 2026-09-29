@@ -70,6 +70,10 @@ This checks whether the email is registered for Interac Autodeposit and returns 
 
 The currency must be CAD, and `interacEmail` must be a valid email address.
 
+Before continuing, show the returned `accountName` to your user and ask them to confirm that it belongs to the intended recipient.
+
+Use the returned name as `beneficiary.accountHolderName` when creating the payout.
+
 ### Autodeposit enabled
 
 A successful response with autoDepositEnabled: true means the recipient can receive the payout automatically.
@@ -88,10 +92,6 @@ A successful response with autoDepositEnabled: true means the recipient can rece
 <br />
 
 For example, if you send CAD 100 to `johnbarret@example.com`, the money will be deposited into the Canadian bank account linked to that email.
-
-Before continuing, show the returned `accountName` to your user and ask them to confirm that it belongs to the intended recipient.
-
-Use the returned name as `beneficiary.accountHolderName` when creating the payout.
 
 ### Autodeposit disabled
 
