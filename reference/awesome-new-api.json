@@ -12001,6 +12001,16 @@
         "parameters": [],
         "summary": "Create CAD Collection Account",
         "operationId": "post_new-endpoint"
+      },
+      "get": {
+        "operationId": "",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "summary": "Retrieve CAD Collection Account"
       }
     }
   },
