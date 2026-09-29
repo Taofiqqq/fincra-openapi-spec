@@ -13606,9 +13606,25 @@
             "description": ""
           }
         },
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "required": true,
+            "description": "Account currency. Use `CAD` to return CAD collection accounts.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CAD"
+              ],
+              "default": "CAD"
+            },
+            "example": "CAD"
+          }
+        ],
         "summary": "List CAD Collection Accounts",
-        "operationId": "get_profile-virtual-accounts"
+        "operationId": "get_profile-virtual-accounts",
+        "description": "List your CAD collection accounts. Filter by `currency=CAD` to return only CAD (Interac e-Transfer) accounts; each approved account carries its Interac alias in `accountInformation.otherInfo.interacEmail`."
       }
     }
   },
