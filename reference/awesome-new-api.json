@@ -11991,18 +11991,6 @@
         }
       }
     },
-    "/new-endpoint": {
-      "get": {
-        "operationId": "",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "parameters": [],
-        "summary": "Retrieve CAD Collection Account"
-      }
-    },
     "/profile/virtual-accounts/requests#cad": {
       "post": {
         "summary": "Create CAD Collection Account",
@@ -13609,6 +13597,18 @@
             }
           }
         }
+      }
+    },
+    "/profile/virtual-accounts/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "parameters": [],
+        "summary": "List CAD Collection Accounts",
+        "operationId": "get_profile-virtual-accounts"
       }
     }
   },
