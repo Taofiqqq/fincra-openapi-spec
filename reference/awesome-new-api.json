@@ -12005,14 +12005,1610 @@
     },
     "/profile/virtual-accounts/requests#cad": {
       "post": {
-        "responses": {
-          "200": {
-            "description": ""
+        "summary": "Create CAD Collection Account",
+        "description": "Create a CAD collection account for an individual or a business. On approval, the account is issued an Interac collection alias, returned in `accountInformation.otherInfo.interacEmail`.\n\nSelect **Individual** or **Corporate** in the request body to see the fields for each account type.",
+        "operationId": "post_profile-virtual-accounts-requests-cad",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "title": "Individual",
+                    "description": "Create a CAD collection account for an individual.",
+                    "required": [
+                      "accountType",
+                      "currency",
+                      "meansOfId",
+                      "utilityBill",
+                      "isTermsAccepted",
+                      "termsAndConditionAcceptance",
+                      "KYCInformation"
+                    ],
+                    "properties": {
+                      "accountType": {
+                        "type": "string",
+                        "const": "individual",
+                        "description": "Account type. Use `individual`.",
+                        "example": "individual"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "const": "CAD",
+                        "description": "Account currency. Use `CAD`.",
+                        "example": "CAD"
+                      },
+                      "meansOfId": {
+                        "type": "string",
+                        "description": "URL of the customer's identity document. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "utilityBill": {
+                        "type": "string",
+                        "description": "URL of a recent utility bill as proof of address. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "isTermsAccepted": {
+                        "type": "boolean",
+                        "description": "Set to `true` to confirm the customer accepted the terms and conditions. If omitted, the request is automatically declined.",
+                        "example": true
+                      },
+                      "termsAndConditionAcceptance": {
+                        "type": "object",
+                        "description": "Record of the customer's terms acceptance. Required together with `isTermsAccepted`; if omitted, the request is automatically declined.",
+                        "required": [
+                          "date",
+                          "ipAddress"
+                        ],
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "description": "ISO 8601 timestamp of when the customer accepted the terms.",
+                            "format": "date-time",
+                            "example": "2026-09-29T10:00:00.000Z"
+                          },
+                          "ipAddress": {
+                            "type": "string",
+                            "description": "IP address the customer accepted the terms from.",
+                            "example": "102.89.1.10"
+                          }
+                        }
+                      },
+                      "KYCInformation": {
+                        "type": "object",
+                        "description": "KYC details of the individual.",
+                        "required": [
+                          "firstName",
+                          "lastName",
+                          "phone",
+                          "birthDate",
+                          "nationality",
+                          "occupation",
+                          "address",
+                          "document",
+                          "taxCountry",
+                          "monthlyTransactionVolume",
+                          "monthlyTransactionCount",
+                          "sourceOfIncome",
+                          "employmentStatus",
+                          "accountDesignation",
+                          "incomeBand"
+                        ],
+                        "properties": {
+                          "firstName": {
+                            "type": "string",
+                            "description": "Customer first name.",
+                            "example": "Jane"
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "description": "Customer last name.",
+                            "example": "Doe"
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "Customer email. This becomes the Interac collection email. If omitted, your business email is used instead.",
+                            "format": "email",
+                            "example": "jane.doe@example.com"
+                          },
+                          "phone": {
+                            "type": "string",
+                            "description": "Customer phone number in E.164 format.",
+                            "example": "+14165551234"
+                          },
+                          "birthDate": {
+                            "type": "string",
+                            "description": "Date of birth, `YYYY-MM-DD`.",
+                            "format": "date",
+                            "example": "1990-05-20"
+                          },
+                          "nationality": {
+                            "type": "string",
+                            "description": "ISO 3166 alpha 2 country code.",
+                            "example": "CA"
+                          },
+                          "occupation": {
+                            "type": "string",
+                            "description": "Customer occupation.",
+                            "example": "Software Engineer"
+                          },
+                          "address": {
+                            "type": "object",
+                            "description": "Residential or registered address.",
+                            "required": [
+                              "countryOfResidence",
+                              "number",
+                              "street",
+                              "city",
+                              "state",
+                              "zip"
+                            ],
+                            "properties": {
+                              "countryOfResidence": {
+                                "type": "string",
+                                "description": "ISO 3166 alpha 2 country code.",
+                                "example": "CA"
+                              },
+                              "number": {
+                                "type": "string",
+                                "description": "Building or house number.",
+                                "example": "100"
+                              },
+                              "street": {
+                                "type": "string",
+                                "description": "Street name.",
+                                "example": "King Street West"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City.",
+                                "example": "Toronto"
+                              },
+                              "state": {
+                                "type": "string",
+                                "description": "Province or state.",
+                                "example": "Ontario"
+                              },
+                              "zip": {
+                                "type": "string",
+                                "description": "Postal code.",
+                                "example": "M5V 3L9"
+                              }
+                            }
+                          },
+                          "document": {
+                            "type": "object",
+                            "description": "Government issued identity document.",
+                            "required": [
+                              "type",
+                              "number",
+                              "issuedCountryCode",
+                              "issuedBy",
+                              "issuedDate",
+                              "expirationDate"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "description": "Identity document type, for example `passport`.",
+                                "example": "passport"
+                              },
+                              "number": {
+                                "type": "string",
+                                "description": "Document number.",
+                                "example": "AB654321"
+                              },
+                              "issuedCountryCode": {
+                                "type": "string",
+                                "description": "ISO 3166 alpha 2 code of the issuing country.",
+                                "example": "CA"
+                              },
+                              "issuedBy": {
+                                "type": "string",
+                                "description": "Issuing authority.",
+                                "example": "Passport Canada"
+                              },
+                              "issuedDate": {
+                                "type": "string",
+                                "description": "Issue date, `YYYY-MM-DD`.",
+                                "format": "date",
+                                "example": "2021-01-15"
+                              },
+                              "expirationDate": {
+                                "type": "string",
+                                "description": "Expiry date, `YYYY-MM-DD`.",
+                                "format": "date",
+                                "example": "2031-01-15"
+                              }
+                            }
+                          },
+                          "taxCountry": {
+                            "type": "string",
+                            "description": "ISO 3166 alpha 2 code of the tax residence country.",
+                            "example": "CA"
+                          },
+                          "monthlyTransactionVolume": {
+                            "type": "string",
+                            "description": "Expected monthly transaction volume in CAD.",
+                            "example": "5000"
+                          },
+                          "monthlyTransactionCount": {
+                            "type": "string",
+                            "description": "Expected number of transactions per month.",
+                            "example": "20"
+                          },
+                          "sourceOfIncome": {
+                            "type": "string",
+                            "description": "Primary source of income, for example `salary`.",
+                            "example": "salary"
+                          },
+                          "employmentStatus": {
+                            "type": "string",
+                            "description": "Employment status, for example `employed`.",
+                            "example": "employed"
+                          },
+                          "accountDesignation": {
+                            "type": "string",
+                            "description": "Account designation, for example `personal`.",
+                            "example": "personal"
+                          },
+                          "incomeBand": {
+                            "type": "object",
+                            "description": "Annual income range.",
+                            "required": [
+                              "lower",
+                              "upper"
+                            ],
+                            "properties": {
+                              "lower": {
+                                "type": "string",
+                                "description": "Lower bound of annual income in CAD.",
+                                "example": "50000"
+                              },
+                              "upper": {
+                                "type": "string",
+                                "description": "Upper bound of annual income in CAD.",
+                                "example": "100000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "title": "Corporate",
+                    "description": "Create a CAD collection account for a business.",
+                    "required": [
+                      "accountType",
+                      "currency",
+                      "purpose",
+                      "entityName",
+                      "paymentFlowDescription",
+                      "incorporationDocuments",
+                      "articleOfIncorporation",
+                      "beneficialOwnershipCertificate",
+                      "sourceOfFunds",
+                      "isTermsAccepted",
+                      "termsAndConditionAcceptance",
+                      "KYCInformation"
+                    ],
+                    "properties": {
+                      "accountType": {
+                        "type": "string",
+                        "const": "corporate",
+                        "description": "Account type. Use `corporate`.",
+                        "example": "corporate"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "const": "CAD",
+                        "description": "Account currency. Use `CAD`.",
+                        "example": "CAD"
+                      },
+                      "purpose": {
+                        "type": "string",
+                        "description": "Who the account is for, for example `self`.",
+                        "example": "self"
+                      },
+                      "entityName": {
+                        "type": "string",
+                        "description": "Legal name of the business.",
+                        "example": "Acme Canada Inc"
+                      },
+                      "paymentFlowDescription": {
+                        "type": "string",
+                        "description": "How the business will use the account.",
+                        "example": "Receive CAD Interac e-Transfer payments from customers"
+                      },
+                      "incorporationDocuments": {
+                        "type": "string",
+                        "description": "URL of the incorporation documents. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "articleOfIncorporation": {
+                        "type": "string",
+                        "description": "URL of the articles of incorporation. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "beneficialOwnershipCertificate": {
+                        "type": "string",
+                        "description": "URL of the beneficial ownership certificate. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "sourceOfFunds": {
+                        "type": "string",
+                        "description": "URL of the source of funds document. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "utilityBill": {
+                        "type": "string",
+                        "description": "URL of a recent utility bill. One of `utilityBill`, `bankStatement` or `leaseAgreement` is required as proof of address. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri",
+                        "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      },
+                      "bankStatement": {
+                        "type": "string",
+                        "description": "URL of a recent bank statement. One of `utilityBill`, `bankStatement` or `leaseAgreement` is required as proof of address. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri"
+                      },
+                      "leaseAgreement": {
+                        "type": "string",
+                        "description": "URL of the lease agreement. One of `utilityBill`, `bankStatement` or `leaseAgreement` is required as proof of address. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                        "format": "uri"
+                      },
+                      "isTermsAccepted": {
+                        "type": "boolean",
+                        "description": "Set to `true` to confirm the customer accepted the terms and conditions. If omitted, the request is automatically declined.",
+                        "example": true
+                      },
+                      "termsAndConditionAcceptance": {
+                        "type": "object",
+                        "description": "Record of the customer's terms acceptance. Required together with `isTermsAccepted`; if omitted, the request is automatically declined.",
+                        "required": [
+                          "date",
+                          "ipAddress"
+                        ],
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "description": "ISO 8601 timestamp of when the customer accepted the terms.",
+                            "format": "date-time",
+                            "example": "2026-09-29T10:00:00.000Z"
+                          },
+                          "ipAddress": {
+                            "type": "string",
+                            "description": "IP address the customer accepted the terms from.",
+                            "example": "102.89.1.10"
+                          }
+                        }
+                      },
+                      "KYCInformation": {
+                        "type": "object",
+                        "description": "KYB details of the business.",
+                        "required": [
+                          "address",
+                          "email",
+                          "phone",
+                          "website",
+                          "tradingName",
+                          "businessRegistrationName",
+                          "businessRegistrationNumber",
+                          "businessRegistrationCountry",
+                          "incorporationCountryCode",
+                          "incorporationDate",
+                          "directorsName",
+                          "taxIdentificationNumber",
+                          "taxCountry",
+                          "estimatedMonthlyTurnover",
+                          "projectedMonthlyInflow",
+                          "projectedMonthlyOutflow",
+                          "projectedTransactionFrequency",
+                          "projectedMonthlyTransactionCount",
+                          "riskRating",
+                          "companyType",
+                          "primarySourceOfFunds",
+                          "businessCategory",
+                          "businessCategoryDescription",
+                          "primaryBusiness",
+                          "primaryBusinessDescription",
+                          "regulationStatus",
+                          "fundsTransferCorridors",
+                          "tradeInternationally",
+                          "businessPartners",
+                          "ultimateBeneficialOwners"
+                        ],
+                        "properties": {
+                          "address": {
+                            "type": "object",
+                            "description": "Residential or registered address.",
+                            "required": [
+                              "countryOfResidence",
+                              "number",
+                              "street",
+                              "city",
+                              "state",
+                              "zip"
+                            ],
+                            "properties": {
+                              "countryOfResidence": {
+                                "type": "string",
+                                "description": "ISO 3166 alpha 2 country code.",
+                                "example": "CA"
+                              },
+                              "number": {
+                                "type": "string",
+                                "description": "Building or house number.",
+                                "example": "100"
+                              },
+                              "street": {
+                                "type": "string",
+                                "description": "Street name.",
+                                "example": "King Street West"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City.",
+                                "example": "Toronto"
+                              },
+                              "state": {
+                                "type": "string",
+                                "description": "Province or state.",
+                                "example": "Ontario"
+                              },
+                              "zip": {
+                                "type": "string",
+                                "description": "Postal code.",
+                                "example": "M5V 3L9"
+                              }
+                            }
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "Business email.",
+                            "format": "email",
+                            "example": "finance@acme.ca"
+                          },
+                          "phone": {
+                            "type": "string",
+                            "description": "Business phone number in E.164 format.",
+                            "example": "+14165551234"
+                          },
+                          "website": {
+                            "type": "string",
+                            "description": "Business website.",
+                            "format": "uri",
+                            "example": "https://acme.ca"
+                          },
+                          "tradingName": {
+                            "type": "string",
+                            "description": "Trading name.",
+                            "example": "Acme Canada"
+                          },
+                          "businessRegistrationName": {
+                            "type": "string",
+                            "description": "Registered business name.",
+                            "example": "Acme Canada Inc"
+                          },
+                          "businessRegistrationNumber": {
+                            "type": "string",
+                            "description": "Business registration number.",
+                            "example": "BN123456789"
+                          },
+                          "businessRegistrationCountry": {
+                            "type": "string",
+                            "description": "ISO 3166 alpha 2 code of the registration country.",
+                            "example": "CA"
+                          },
+                          "incorporationCountryCode": {
+                            "type": "string",
+                            "description": "ISO 3166 alpha 2 code of the incorporation country.",
+                            "example": "CA"
+                          },
+                          "incorporationDate": {
+                            "type": "string",
+                            "description": "Incorporation date, `YYYY-MM-DD`.",
+                            "format": "date",
+                            "example": "2020-01-15"
+                          },
+                          "directorsName": {
+                            "type": "string",
+                            "description": "Name of the director.",
+                            "example": "John Doe"
+                          },
+                          "taxIdentificationNumber": {
+                            "type": "string",
+                            "description": "Tax identification number.",
+                            "example": "123456789RC0001"
+                          },
+                          "taxCountry": {
+                            "type": "string",
+                            "description": "ISO 3166 alpha 2 code of the tax residence country.",
+                            "example": "CA"
+                          },
+                          "estimatedMonthlyTurnover": {
+                            "type": "string",
+                            "description": "Estimated monthly turnover in CAD.",
+                            "example": "50000"
+                          },
+                          "projectedMonthlyInflow": {
+                            "type": "string",
+                            "description": "Projected monthly inflow in CAD.",
+                            "example": "50000"
+                          },
+                          "projectedMonthlyOutflow": {
+                            "type": "string",
+                            "description": "Projected monthly outflow in CAD.",
+                            "example": "40000"
+                          },
+                          "projectedTransactionFrequency": {
+                            "type": "string",
+                            "description": "Projected transaction frequency, for example `monthly`.",
+                            "example": "monthly"
+                          },
+                          "projectedMonthlyTransactionCount": {
+                            "type": "string",
+                            "description": "Projected number of transactions per month.",
+                            "example": "100"
+                          },
+                          "riskRating": {
+                            "type": "string",
+                            "description": "Risk rating, for example `low`.",
+                            "example": "low"
+                          },
+                          "companyType": {
+                            "type": "string",
+                            "description": "Company type, for example `corporation`.",
+                            "example": "corporation"
+                          },
+                          "primarySourceOfFunds": {
+                            "type": "string",
+                            "description": "Primary source of funds, for example `business_income`.",
+                            "example": "business_income"
+                          },
+                          "businessCategory": {
+                            "type": "string",
+                            "description": "Business category, for example `software`.",
+                            "example": "software"
+                          },
+                          "businessCategoryDescription": {
+                            "type": "string",
+                            "description": "Short description of the business category.",
+                            "example": "B2B software"
+                          },
+                          "primaryBusiness": {
+                            "type": "string",
+                            "description": "Primary business activity.",
+                            "example": "software"
+                          },
+                          "primaryBusinessDescription": {
+                            "type": "string",
+                            "description": "Short description of the primary business.",
+                            "example": "SaaS platform"
+                          },
+                          "regulationStatus": {
+                            "type": "string",
+                            "description": "Regulation status, for example `not_required`.",
+                            "example": "not_required"
+                          },
+                          "fundsTransferCorridors": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "ISO 3166 alpha 2 codes of countries funds are transferred to or from.",
+                            "example": [
+                              "CA"
+                            ]
+                          },
+                          "tradeInternationally": {
+                            "type": "boolean",
+                            "description": "Whether the business trades internationally.",
+                            "example": false
+                          },
+                          "businessPartners": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": true
+                            },
+                            "description": "Key business partners. Send an empty array if none.",
+                            "example": []
+                          },
+                          "ultimateBeneficialOwners": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "firstName",
+                                "lastName",
+                                "title",
+                                "emailAddress",
+                                "phoneNumber",
+                                "address",
+                                "dateOfBirth",
+                                "nationality",
+                                "citizenships",
+                                "taxCountry",
+                                "percentageOwnership",
+                                "beneficialOwnerType",
+                                "politicallyExposedPerson",
+                                "usResidencyStatus",
+                                "document",
+                                "meansOfId",
+                                "utilityBill"
+                              ],
+                              "properties": {
+                                "firstName": {
+                                  "type": "string",
+                                  "description": "Owner first name.",
+                                  "example": "John"
+                                },
+                                "lastName": {
+                                  "type": "string",
+                                  "description": "Owner last name.",
+                                  "example": "Doe"
+                                },
+                                "title": {
+                                  "type": "string",
+                                  "description": "Role in the company.",
+                                  "example": "Director"
+                                },
+                                "emailAddress": {
+                                  "type": "string",
+                                  "description": "Owner email.",
+                                  "format": "email",
+                                  "example": "john.doe@acme.ca"
+                                },
+                                "phoneNumber": {
+                                  "type": "string",
+                                  "description": "Owner phone number in E.164 format.",
+                                  "example": "+14165551234"
+                                },
+                                "address": {
+                                  "type": "object",
+                                  "description": "Residential or registered address.",
+                                  "required": [
+                                    "countryOfResidence",
+                                    "number",
+                                    "street",
+                                    "city",
+                                    "state",
+                                    "zip"
+                                  ],
+                                  "properties": {
+                                    "countryOfResidence": {
+                                      "type": "string",
+                                      "description": "ISO 3166 alpha 2 country code.",
+                                      "example": "CA"
+                                    },
+                                    "number": {
+                                      "type": "string",
+                                      "description": "Building or house number.",
+                                      "example": "100"
+                                    },
+                                    "street": {
+                                      "type": "string",
+                                      "description": "Street name.",
+                                      "example": "King Street West"
+                                    },
+                                    "city": {
+                                      "type": "string",
+                                      "description": "City.",
+                                      "example": "Toronto"
+                                    },
+                                    "state": {
+                                      "type": "string",
+                                      "description": "Province or state.",
+                                      "example": "Ontario"
+                                    },
+                                    "zip": {
+                                      "type": "string",
+                                      "description": "Postal code.",
+                                      "example": "M5V 3L9"
+                                    }
+                                  }
+                                },
+                                "dateOfBirth": {
+                                  "type": "string",
+                                  "description": "Date of birth, `YYYY-MM-DD`.",
+                                  "format": "date",
+                                  "example": "1985-06-15"
+                                },
+                                "nationality": {
+                                  "type": "string",
+                                  "description": "ISO 3166 alpha 2 country code.",
+                                  "example": "CA"
+                                },
+                                "citizenships": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "description": "ISO 3166 alpha 2 codes of all citizenships.",
+                                  "example": [
+                                    "CA"
+                                  ]
+                                },
+                                "taxCountry": {
+                                  "type": "string",
+                                  "description": "ISO 3166 alpha 2 code of the tax residence country.",
+                                  "example": "CA"
+                                },
+                                "percentageOwnership": {
+                                  "type": "string",
+                                  "description": "Ownership percentage.",
+                                  "example": "100"
+                                },
+                                "beneficialOwnerType": {
+                                  "type": "string",
+                                  "description": "Owner type, for example `beneficial_owner`.",
+                                  "example": "beneficial_owner"
+                                },
+                                "politicallyExposedPerson": {
+                                  "type": "boolean",
+                                  "description": "Whether the owner is a politically exposed person.",
+                                  "example": false
+                                },
+                                "usResidencyStatus": {
+                                  "type": "string",
+                                  "description": "US residency status, for example `non_resident`.",
+                                  "example": "non_resident"
+                                },
+                                "document": {
+                                  "type": "object",
+                                  "description": "Government issued identity document.",
+                                  "required": [
+                                    "type",
+                                    "number",
+                                    "issuedCountryCode",
+                                    "issuedBy",
+                                    "issuedDate",
+                                    "expirationDate"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "description": "Identity document type, for example `passport`.",
+                                      "example": "passport"
+                                    },
+                                    "number": {
+                                      "type": "string",
+                                      "description": "Document number.",
+                                      "example": "AB123456"
+                                    },
+                                    "issuedCountryCode": {
+                                      "type": "string",
+                                      "description": "ISO 3166 alpha 2 code of the issuing country.",
+                                      "example": "CA"
+                                    },
+                                    "issuedBy": {
+                                      "type": "string",
+                                      "description": "Issuing authority.",
+                                      "example": "Passport Canada"
+                                    },
+                                    "issuedDate": {
+                                      "type": "string",
+                                      "description": "Issue date, `YYYY-MM-DD`.",
+                                      "format": "date",
+                                      "example": "2021-01-15"
+                                    },
+                                    "expirationDate": {
+                                      "type": "string",
+                                      "description": "Expiry date, `YYYY-MM-DD`.",
+                                      "format": "date",
+                                      "example": "2031-01-15"
+                                    }
+                                  }
+                                },
+                                "meansOfId": {
+                                  "type": "string",
+                                  "description": "URL of the owner's identity document. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                                  "format": "uri",
+                                  "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                },
+                                "utilityBill": {
+                                  "type": "string",
+                                  "description": "URL of the owner's utility bill as proof of address. Publicly accessible URL of the document (PDF, PNG or JPG).",
+                                  "format": "uri",
+                                  "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                }
+                              }
+                            },
+                            "description": "Ultimate beneficial owners of the business."
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "individual": {
+                  "summary": "Individual",
+                  "value": {
+                    "accountType": "individual",
+                    "currency": "CAD",
+                    "meansOfId": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "utilityBill": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "isTermsAccepted": true,
+                    "termsAndConditionAcceptance": {
+                      "date": "2026-09-29T10:00:00.000Z",
+                      "ipAddress": "102.89.1.10"
+                    },
+                    "KYCInformation": {
+                      "firstName": "Jane",
+                      "lastName": "Doe",
+                      "email": "jane.doe@example.com",
+                      "phone": "+14165551234",
+                      "birthDate": "1990-05-20",
+                      "nationality": "CA",
+                      "occupation": "Software Engineer",
+                      "address": {
+                        "countryOfResidence": "CA",
+                        "number": "100",
+                        "street": "King Street West",
+                        "city": "Toronto",
+                        "state": "Ontario",
+                        "zip": "M5V 3L9"
+                      },
+                      "document": {
+                        "type": "passport",
+                        "number": "AB654321",
+                        "issuedCountryCode": "CA",
+                        "issuedBy": "Passport Canada",
+                        "issuedDate": "2021-01-15",
+                        "expirationDate": "2031-01-15"
+                      },
+                      "taxCountry": "CA",
+                      "monthlyTransactionVolume": "5000",
+                      "monthlyTransactionCount": "20",
+                      "sourceOfIncome": "salary",
+                      "employmentStatus": "employed",
+                      "accountDesignation": "personal",
+                      "incomeBand": {
+                        "lower": "50000",
+                        "upper": "100000"
+                      }
+                    }
+                  }
+                },
+                "corporate": {
+                  "summary": "Corporate",
+                  "value": {
+                    "accountType": "corporate",
+                    "currency": "CAD",
+                    "purpose": "self",
+                    "entityName": "Acme Canada Inc",
+                    "paymentFlowDescription": "Receive CAD Interac e-Transfer payments from customers",
+                    "incorporationDocuments": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "articleOfIncorporation": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "beneficialOwnershipCertificate": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "sourceOfFunds": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "utilityBill": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "isTermsAccepted": true,
+                    "termsAndConditionAcceptance": {
+                      "date": "2026-09-29T10:00:00.000Z",
+                      "ipAddress": "102.89.1.10"
+                    },
+                    "KYCInformation": {
+                      "address": {
+                        "countryOfResidence": "CA",
+                        "number": "100",
+                        "street": "King Street West",
+                        "city": "Toronto",
+                        "state": "Ontario",
+                        "zip": "M5V 3L9"
+                      },
+                      "email": "finance@acme.ca",
+                      "phone": "+14165551234",
+                      "website": "https://acme.ca",
+                      "tradingName": "Acme Canada",
+                      "businessRegistrationName": "Acme Canada Inc",
+                      "businessRegistrationNumber": "BN123456789",
+                      "businessRegistrationCountry": "CA",
+                      "incorporationCountryCode": "CA",
+                      "incorporationDate": "2020-01-15",
+                      "directorsName": "John Doe",
+                      "taxIdentificationNumber": "123456789RC0001",
+                      "taxCountry": "CA",
+                      "estimatedMonthlyTurnover": "50000",
+                      "projectedMonthlyInflow": "50000",
+                      "projectedMonthlyOutflow": "40000",
+                      "projectedTransactionFrequency": "monthly",
+                      "projectedMonthlyTransactionCount": "100",
+                      "riskRating": "low",
+                      "companyType": "corporation",
+                      "primarySourceOfFunds": "business_income",
+                      "businessCategory": "software",
+                      "businessCategoryDescription": "B2B software",
+                      "primaryBusiness": "software",
+                      "primaryBusinessDescription": "SaaS platform",
+                      "regulationStatus": "not_required",
+                      "fundsTransferCorridors": [
+                        "CA"
+                      ],
+                      "tradeInternationally": false,
+                      "businessPartners": [],
+                      "ultimateBeneficialOwners": [
+                        {
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "title": "Director",
+                          "emailAddress": "john.doe@acme.ca",
+                          "phoneNumber": "+14165551234",
+                          "address": {
+                            "countryOfResidence": "CA",
+                            "number": "100",
+                            "street": "King Street West",
+                            "city": "Toronto",
+                            "state": "Ontario",
+                            "zip": "M5V 3L9"
+                          },
+                          "dateOfBirth": "1985-06-15",
+                          "nationality": "CA",
+                          "citizenships": [
+                            "CA"
+                          ],
+                          "taxCountry": "CA",
+                          "percentageOwnership": "100",
+                          "beneficialOwnerType": "beneficial_owner",
+                          "politicallyExposedPerson": false,
+                          "usResidencyStatus": "non_resident",
+                          "document": {
+                            "type": "passport",
+                            "number": "AB123456",
+                            "issuedCountryCode": "CA",
+                            "issuedBy": "Passport Canada",
+                            "issuedDate": "2021-01-15",
+                            "expirationDate": "2031-01-15"
+                          },
+                          "meansOfId": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                          "utilityBill": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "parameters": [],
-        "summary": "Create CAD Collection Account",
-        "operationId": "post_profile-virtual-accounts-requests-cad"
+        "responses": {
+          "200": {
+            "description": "The account request was accepted and is pending review.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "`true` when the request was accepted."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation message."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "The created account request.",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Account request ID."
+                        },
+                        "business": {
+                          "type": "string",
+                          "description": "Your business ID."
+                        },
+                        "customerId": {
+                          "type": "string",
+                          "description": "ID of the customer the account belongs to."
+                        },
+                        "currency": {
+                          "type": "string",
+                          "description": "Account currency, `CAD`."
+                        },
+                        "currencyType": {
+                          "type": "string",
+                          "description": "`fiat`."
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Request status. Starts as `pending` while KYC/KYB is reviewed."
+                        },
+                        "isActive": {
+                          "type": "boolean",
+                          "description": "`false` until the account is approved."
+                        },
+                        "accountNumber": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "description": "Account number. `null` until approved."
+                        },
+                        "alternateAccountNumbers": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "accountType": {
+                          "type": "string",
+                          "description": "`individual` or `corporate`."
+                        },
+                        "merchantReference": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "entityType": {
+                          "type": "string"
+                        },
+                        "KYCInformation": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "description": "KYC/KYB details as stored."
+                        },
+                        "accountInformation": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": true,
+                          "description": "Account details, including the Interac alias in `otherInfo.interacEmail`. `null` until approved."
+                        },
+                        "note": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "accountOpeningFee": {
+                          "type": "number"
+                        },
+                        "pendingAdditionalInfoCount": {
+                          "type": "number"
+                        },
+                        "isPermanent": {
+                          "type": "boolean"
+                        },
+                        "expiresAt": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "isSuspended": {
+                          "type": "boolean"
+                        },
+                        "reason": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "meansOfId": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "bankStatement": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "utilityBill": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "virtualAccountType": {
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "type": [
+                            "object",
+                            "null"
+                          ]
+                        },
+                        "phoneNumber": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "sourceOfFunds": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "leaseAgreement": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "beneficialOwnershipCertificate": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "articleOfIncorporation": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "incorporationDocuments": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "registerOfDirectors": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          }
+                        },
+                        "accountOpeningDate": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "regulatoryEvidence": {
+                          "type": [
+                            "object",
+                            "array",
+                            "null"
+                          ]
+                        },
+                        "consentId": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "individual": {
+                    "summary": "Individual",
+                    "value": {
+                      "success": true,
+                      "message": "Thank you, {{businessName}}. We are now processing your CAD account request",
+                      "data": {
+                        "_id": "6abc039d598482365c368bbf",
+                        "business": "67d8360649685a0012574974",
+                        "customerId": "6abc039d598482365c368bc0",
+                        "currency": "CAD",
+                        "currencyType": "fiat",
+                        "status": "pending",
+                        "isActive": false,
+                        "accountNumber": null,
+                        "alternateAccountNumbers": [],
+                        "accountType": "individual",
+                        "merchantReference": null,
+                        "entityType": "main_account",
+                        "KYCInformation": {
+                          "firstName": "Jane",
+                          "lastName": "Doe",
+                          "email": "jane.doe@example.com",
+                          "phone": "+14165551234",
+                          "birthDate": "1990-05-20",
+                          "nationality": "CA",
+                          "occupation": "Software Engineer",
+                          "address": {
+                            "countryOfResidence": "CA",
+                            "number": "100",
+                            "street": "King Street West",
+                            "city": "Toronto",
+                            "state": "Ontario",
+                            "zip": "M5V 3L9"
+                          },
+                          "document": {
+                            "type": "passport",
+                            "number": "AB654321",
+                            "issuedCountryCode": "CA",
+                            "issuedBy": "Passport Canada",
+                            "issuedDate": "2021-01-15",
+                            "expirationDate": "2031-01-15"
+                          },
+                          "taxCountry": "CA",
+                          "monthlyTransactionVolume": "5000",
+                          "monthlyTransactionCount": "20",
+                          "sourceOfIncome": "salary",
+                          "employmentStatus": "employed",
+                          "accountDesignation": "personal",
+                          "incomeBand": "50000-100000",
+                          "otherName": ""
+                        },
+                        "accountInformation": null,
+                        "note": null,
+                        "accountOpeningFee": 0,
+                        "pendingAdditionalInfoCount": 0,
+                        "isPermanent": true,
+                        "expiresAt": null,
+                        "isSuspended": false,
+                        "reason": null,
+                        "meansOfId": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_efaae819-b056-4a5f-a7a2-56ce30b4ceb3.pdf"
+                          }
+                        ],
+                        "bankStatement": [],
+                        "utilityBill": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_a42d136b-50b2-438b-9f82-c9ea7db13e8d.pdf"
+                          }
+                        ],
+                        "virtualAccountType": "additional",
+                        "metadata": null,
+                        "phoneNumber": null,
+                        "sourceOfFunds": null,
+                        "leaseAgreement": null,
+                        "beneficialOwnershipCertificate": null,
+                        "articleOfIncorporation": null,
+                        "incorporationDocuments": null,
+                        "registerOfDirectors": null,
+                        "accountOpeningDate": null,
+                        "regulatoryEvidence": null,
+                        "consentId": null,
+                        "createdAt": "2026-09-29T18:29:49.706Z",
+                        "updatedAt": "2026-09-29T18:29:49.706Z"
+                      }
+                    }
+                  },
+                  "corporate": {
+                    "summary": "Corporate",
+                    "value": {
+                      "success": true,
+                      "message": "Thank you, {{businessName}}. We are now processing your CAD account request",
+                      "data": {
+                        "_id": "6abc09abc6d0b2c10f967323",
+                        "business": "67d8360649685a0012574974",
+                        "customerId": "6abc09abc6d0b2c10f967324",
+                        "currency": "CAD",
+                        "currencyType": "fiat",
+                        "status": "pending",
+                        "isActive": false,
+                        "accountNumber": null,
+                        "alternateAccountNumbers": [],
+                        "accountType": "corporate",
+                        "merchantReference": null,
+                        "entityType": "main_account",
+                        "KYCInformation": {
+                          "address": {
+                            "countryOfResidence": "CA",
+                            "number": "100",
+                            "street": "King Street West",
+                            "city": "Toronto",
+                            "state": "Ontario",
+                            "zip": "M5V 3L9"
+                          },
+                          "email": "finance@acme.ca",
+                          "phone": "+14165551234",
+                          "website": "https://acme.ca",
+                          "tradingName": "Acme Canada",
+                          "businessRegistrationName": "Acme Canada Inc",
+                          "businessRegistrationNumber": "BN123456789",
+                          "businessRegistrationCountry": "CA",
+                          "incorporationCountryCode": "CA",
+                          "incorporationDate": "2020-01-15T00:00:00.000Z",
+                          "directorsName": "John Doe",
+                          "taxIdentificationNumber": "123456789RC0001",
+                          "taxCountry": "CA",
+                          "estimatedMonthlyTurnover": "50000",
+                          "projectedMonthlyInflow": "50000",
+                          "projectedMonthlyOutflow": "40000",
+                          "projectedTransactionFrequency": "monthly",
+                          "projectedMonthlyTransactionCount": "100",
+                          "companyType": "corporation",
+                          "primarySourceOfFunds": "business_income",
+                          "businessCategory": "software",
+                          "businessCategoryDescription": "B2B software",
+                          "primaryBusiness": "software",
+                          "primaryBusinessDescription": "SaaS platform",
+                          "regulationStatus": "not_required",
+                          "fundsTransferCorridors": [
+                            "CA"
+                          ],
+                          "tradeInternationally": false,
+                          "businessPartners": [],
+                          "ultimateBeneficialOwners": [
+                            {
+                              "firstName": "John",
+                              "lastName": "Doe",
+                              "title": "Director",
+                              "emailAddress": "john.doe@acme.ca",
+                              "phoneNumber": "+14165551234",
+                              "address": {
+                                "countryOfResidence": "CA",
+                                "number": "100",
+                                "street": "King Street West",
+                                "city": "Toronto",
+                                "state": "Ontario",
+                                "zip": "M5V 3L9"
+                              },
+                              "dateOfBirth": "1985-06-15T00:00:00.000Z",
+                              "nationality": "CA",
+                              "citizenships": [
+                                "CA"
+                              ],
+                              "taxCountry": "CA",
+                              "percentageOwnership": "100",
+                              "beneficialOwnerType": "beneficial_owner",
+                              "politicallyExposedPerson": false,
+                              "usResidencyStatus": "non_resident",
+                              "document": {
+                                "type": "passport",
+                                "number": "AB123456",
+                                "issuedCountryCode": "CA",
+                                "issuedBy": "Passport Canada",
+                                "issuedDate": "2021-01-15T00:00:00.000Z",
+                                "expirationDate": "2031-01-15T00:00:00.000Z"
+                              },
+                              "meansOfId": [
+                                {
+                                  "name": "dummy.pdf",
+                                  "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_24a164ca-254f-4796-9eb5-9a902e2b5175.pdf"
+                                }
+                              ],
+                              "utilityBill": [
+                                {
+                                  "name": "dummy.pdf",
+                                  "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_2ad34799-ab06-4ec6-a8d1-6e6c79c38fa3.pdf"
+                                }
+                              ],
+                              "middleName": "",
+                              "taxNumber": "",
+                              "attachments": [],
+                              "bankStatement": []
+                            }
+                          ],
+                          "regulator": "",
+                          "regulationNumber": ""
+                        },
+                        "accountInformation": null,
+                        "note": null,
+                        "accountOpeningFee": 0,
+                        "pendingAdditionalInfoCount": 0,
+                        "isPermanent": true,
+                        "expiresAt": null,
+                        "isSuspended": false,
+                        "reason": "",
+                        "meansOfId": [],
+                        "bankStatement": [],
+                        "utilityBill": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_89f39b96-64f1-4795-bd3a-b717ef4984eb.pdf"
+                          }
+                        ],
+                        "virtualAccountType": "main",
+                        "metadata": null,
+                        "phoneNumber": null,
+                        "sourceOfFunds": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_1e4ac0aa-3f79-4d5f-99da-6dd549b79560.pdf"
+                          }
+                        ],
+                        "leaseAgreement": [],
+                        "beneficialOwnershipCertificate": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_929b72b5-e5e3-4f11-893b-2c005ff2303f.pdf"
+                          }
+                        ],
+                        "articleOfIncorporation": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_aa2fca3d-c915-4a7f-b873-991a2c1ae458.pdf"
+                          }
+                        ],
+                        "incorporationDocuments": [
+                          {
+                            "name": "dummy.pdf",
+                            "url": "https://fincra-dev-bucket.s3.amazonaws.com/va_documents/dummy_5265ed8c-45fc-4df3-8a5d-c3fcc3a53534.pdf"
+                          }
+                        ],
+                        "registerOfDirectors": null,
+                        "accountOpeningDate": null,
+                        "regulatoryEvidence": null,
+                        "consentId": null,
+                        "createdAt": "2026-09-29T18:55:40.038Z",
+                        "updatedAt": "2026-09-29T18:55:40.038Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The payload failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "`false`."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Summary of the first error."
+                    },
+                    "errorType": {
+                      "type": "string",
+                      "description": "Error category, for example `VALIDATION_FAILED`."
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "All validation errors."
+                    }
+                  }
+                },
+                "examples": {
+                  "validationFailed": {
+                    "summary": "Validation failed",
+                    "value": {
+                      "success": false,
+                      "error": "Error occurred during payload validation. KYCInformation.ultimateBeneficialOwners[0].address.street is required (KYCInformation->ultimateBeneficialOwners->0->address->street)",
+                      "errorType": "VALIDATION_FAILED",
+                      "errors": [
+                        "Error occurred during payload validation. KYCInformation.ultimateBeneficialOwners[0].address.street is required (KYCInformation->ultimateBeneficialOwners->0->address->street)"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
