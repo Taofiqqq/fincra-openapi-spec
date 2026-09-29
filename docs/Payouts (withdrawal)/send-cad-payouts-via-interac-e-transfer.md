@@ -176,7 +176,7 @@ The payout amount must equal the quote’s sourceAmount. You must generate anoth
 
 ## Step 3: Create the payout
 
-After checking the Autodeposit status, [create the payout](https://docs.fincra.com/reference/initiate-payout). If Autodeposit is disabled, include a security question and answer.
+After checking the Autodeposit status, [create the payout](https://docs.fincra.com/reference/cad-payout-interac-e-transfer). If Autodeposit is disabled, include a security question and answer.
 
 `POST /disbursements/payouts`
 
