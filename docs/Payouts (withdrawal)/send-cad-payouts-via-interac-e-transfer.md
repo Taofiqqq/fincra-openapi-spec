@@ -52,7 +52,7 @@ You need:
 
 ## Step 1: Verify the recipient’s Interac email
 
-Call the account-resolution endpoint before creating the payout.
+Call the [account-resolution endpoint](https://docs.fincra.com/reference/verify-account-number) before creating the payout.
 
 This checks whether the email is registered for Interac Autodeposit and returns the name attached to the registered bank account.
 
@@ -114,7 +114,7 @@ This is not an API error. You can still create the payout by including `benefici
 
 Skip this step when both the source and destination currencies are CAD.
 
-When the source currency differs from CAD, generate a quote before creating the payout. The quote calculates the conversion rate, applicable fee, source amount and CAD amount the
+When the source currency differs from CAD, [generate a quote](https://docs.fincra.com/reference/generate-quote) before creating the payout. The quote calculates the conversion rate, applicable fee, source amount and CAD amount the
 recipient will receive.
 
 For example, generate a quote when funding the CAD payout from a KES wallet.
@@ -176,7 +176,7 @@ The payout amount must equal the quote’s sourceAmount. You must generate anoth
 
 ## Step 3: Create the payout
 
-After checking the Autodeposit status, create the payout. If Autodeposit is disabled, include a security question and answer.
+After checking the Autodeposit status, [create the payout](https://docs.fincra.com/reference/initiate-payout). If Autodeposit is disabled, include a security question and answer.
 
 `POST /disbursements/payouts`
 
@@ -207,6 +207,7 @@ A same-currency payout does not require a quote.
   "customerReference": "cad-interac-001",
   "beneficiary": {
     "firstName": "John",
+    "lastName": "Barret",
     "accountHolderName": "John Barret",
     "interacEmail": "johnbarret@example.com",
     "type": "individual",
@@ -234,6 +235,7 @@ A cross-currency payout must include the reference returned by the quote endpoin
   "customerReference": "kes-cad-interac-001",
   "beneficiary": {
     "firstName": "John",
+    "lastName": "Barret",
     "accountHolderName": "John Barret",
     "interacEmail": "johnbarret@example.com",
     "type": "individual",
@@ -243,6 +245,31 @@ A cross-currency payout must include the reference returned by the quote endpoin
 ```
 
 Here, amount is KES 10,000 because KES is the source currency. It must match the quote’s `sourceAmount`.
+
+### Send to a corporate recipient
+
+To pay a business, set `beneficiary.type` to `corporate` and send the business name as `beneficiary.accountHolderName`. `firstName` and `lastName` are not required.
+
+```json
+{
+  "business": "{{businessID}}",
+  "sourceCurrency": "CAD",
+  "destinationCurrency": "CAD",
+  "amount": 250,
+  "description": "Acme Stores Ltd, Invoice 4471",
+  "paymentDestination": "bank_account",
+  "paymentScheme": "interac",
+  "customerReference": "cad-interac-003",
+  "beneficiary": {
+    "type": "corporate",
+    "accountHolderName": "Maple Leaf Supplies Inc",
+    "interacEmail": "ap@mapleleafsupplies.ca",
+    "country": "CA"
+  }
+}
+```
+
+The recipient sees the `description` on the transfer, so include your business name there.
 
 ### Send when Autodeposit is disabled
 
@@ -260,6 +287,7 @@ If autoDepositEnabled is false, include a security question and answer in the pa
   "customerReference": "cad-interac-002",
   "beneficiary": {
     "firstName": "John",
+    "lastName": "Barret",
     "accountHolderName": "John Barret",
     "interacEmail": "johnbarret@example.com",
     "securityQuestion": "What city did we meet in?",
@@ -274,22 +302,25 @@ The security question must not exceed 40 characters. The answer must contain 3 t
 
 ### Important fields
 
-| Field                           | Description                                                                            |
-| ------------------------------- | -------------------------------------------------------------------------------------- |
-| `business`                      | Your 24-character Fincra business ID.                                                  |
-| `sourceCurrency`                | Currency of the wallet funding the payout.                                             |
-| `destinationCurrency`           | Must be `CAD`.                                                                         |
-| `amount`                        | Amount in the source currency, supplied as a JSON number.                              |
-| `quoteReference`                | Required when the source currency is not `CAD`.                                        |
-| `description`                   | A non-empty description of the payout.                                                 |
-| `customerReference`             | Your unique reference for identifying and reconciling the payout.                      |
-| `paymentDestination`            | Must be `bank_account`.                                                                |
-| `paymentScheme`                 | Must be `interac`.                                                                     |
-| `beneficiary.country`           | Must be `CA`.                                                                          |
-| `beneficiary.interacEmail`      | Recipient’s verified Interac email.                                                    |
-| `beneficiary.accountHolderName` | Name returned or confirmed during account resolution.                                  |
-| `beneficiary.securityQuestion`  | Required when Autodeposit is disabled. Maximum 40 characters.                          |
-| `beneficiary.securityAnswer`    | Required when Autodeposit is disabled. Must contain 3 to 25 characters with no spaces. |
+| Field                           | Description                                                                                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `business`                      | Your 24-character Fincra business ID.                                                                                                       |
+| `sourceCurrency`                | Currency of the wallet funding the payout.                                                                                                  |
+| `destinationCurrency`           | Must be `CAD`.                                                                                                                              |
+| `amount`                        | Amount in the source currency, supplied as a JSON number with no more than 2 decimal places. Amounts with more decimal places are rejected. |
+| `quoteReference`                | Required when the source currency is not `CAD`.                                                                                             |
+| `description`                   | A non-empty description of the payout. The recipient sees it on the transfer, so include your business name.                                |
+| `customerReference`             | Your unique reference for identifying and reconciling the payout.                                                                           |
+| `paymentDestination`            | Must be `bank_account`.                                                                                                                     |
+| `paymentScheme`                 | Must be `interac`.                                                                                                                          |
+| `beneficiary.country`           | Must be `CA`.                                                                                                                               |
+| `beneficiary.type`              | `individual` or `corporate`.                                                                                                                |
+| `beneficiary.firstName`         | Required when `beneficiary.type` is `individual`.                                                                                           |
+| `beneficiary.lastName`          | Optional. Used for individual recipients only.                                                                                              |
+| `beneficiary.interacEmail`      | Recipient’s verified Interac email.                                                                                                         |
+| `beneficiary.accountHolderName` | Name returned or confirmed during account resolution. For a corporate recipient, this is the business name.                                 |
+| `beneficiary.securityQuestion`  | Required when Autodeposit is disabled. Maximum 40 characters.                                                                               |
+| `beneficiary.securityAnswer`    | Required when Autodeposit is disabled. Must contain 3 to 25 characters with no spaces.                                                      |
 
 <br />
 
@@ -323,7 +354,7 @@ Use these references when reconciling the payout, investigating an issue or matc
 
 ## Step 5: Track the final payout status
 
-Payout processing is asynchronous. Use payout webhooks to determine whether the transfer eventually succeeds or fails.
+Payout processing is asynchronous. Use [payout webhooks](https://docs.fincra.com/docs/payout-webhook) to determine whether the transfer eventually succeeds or fails.
 
 A successful payout produces:
 
@@ -377,9 +408,9 @@ The security question must not exceed 40 characters. The answer must contain 3 t
 
 Use only standard letters, numbers and punctuation. Do not use accented letters, emoji or line breaks.
 
-### The payout needs to be submitted again
+### The payout failed (`payout.failed`)
 
-Fincra does not store the security question and answer. Create a new payout request and include both fields again.
+If a payout fails, create a new payout request. Fincra does not store the security question and answer, so include both again. This usually happens when the recipient does not have Interac Autodeposit enabled and the request did not include a security question and answer.
 
 ### The quote reference is missing
 
