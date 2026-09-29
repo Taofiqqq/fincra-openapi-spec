@@ -102,7 +102,7 @@ The resolution request may succeed while returning `autoDepositEnabled: false`.
 {
   "data": {
     "email": "johnbarret@example.com",
-    "accountName": null,
+    "accountName": "John Barret",
     "autoDepositEnabled": false
   },
   "message": "Account resolve successful"
@@ -367,8 +367,6 @@ Example successful webhook excerpt:
 
 The resolution request succeeds, but `autoDepositEnabled` is `false`. This is not an API error. Include `beneficiary.securityQuestion` and `beneficiary.securityAnswer` when creating
 the payout.
-
-Because `accountName` is `null`, collect the recipient’s legal account name and send it as `beneficiary.accountHolderName`.
 
 ### The security question or answer is missing
 
