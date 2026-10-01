@@ -14,8 +14,15 @@ next:
   ### Note
 
   - Please note that when validating an IBAN (`iban`) or NUBAN (`nuban`) there should be no spaces between the values, as this would return an error response.
-  - For `ZAR` bank account verification using PayShap, send the full PayShap ID (including everything after the `@`) as the `accountNumber`, and use `PAYSHAP_ID` as the `bankCode`.
 </Callout>
+
+## Verify a PayShap ID
+
+Use `type=bank_account` with `currency=ZAR` to verify a PayShap ID. A PayShap ID is an alias for a South African bank account. For ZAR, PayShap is currently the only supported verification method.
+
+Set `bankCode` to `PAYSHAP_ID` and send the full PayShap ID in `accountNumber`, in the format `number@bank`, for example `0713058274@nedbank`.
+
+If the PayShap ID cannot be validated, the request returns a `422` with `errorType: UNPROCESSABLE_ENTITY`. Handle the failure using the status code and `errorType`, not the `error` text, because the text can change.
 
 ## Verify an Interac recipient
 
