@@ -2885,12 +2885,12 @@
                 "properties": {
                   "accountNumber": {
                     "type": "string",
-                    "description": "The account number. This is required for NUBAN accounts",
+                    "description": "The account number. This is required for NUBAN accounts. For ZAR, send the full PayShap ID in the format number@bank, for example 0713058274@nedbank. There is no digit or length rule for ZAR.",
                     "default": "092929292"
                   },
                   "bankCode": {
                     "type": "string",
-                    "description": "The bank Code. This is required for NUBAN accounts"
+                    "description": "The bank code. This is required for NUBAN accounts and when currency is ZAR. For ZAR the value is PAYSHAP_ID, which is returned by the List banks endpoint."
                   },
                   "bankSwiftCode": {
                     "type": "string",
@@ -2934,6 +2934,15 @@
                     "type": "interac_etransfer",
                     "interacEmail": "aminat@example.com"
                   }
+                },
+                "PayShap ID (ZAR)": {
+                  "summary": "PayShap ID (ZAR)",
+                  "value": {
+                    "accountNumber": "0713058274@nedbank",
+                    "bankCode": "PAYSHAP_ID",
+                    "currency": "ZAR",
+                    "type": "bank_account"
+                  }
                 }
               }
             }
@@ -2968,6 +2977,18 @@
                         "autoDepositEnabled": false
                       },
                       "message": "Account resolve successful"
+                    }
+                  },
+                  "PayShap ID (ZAR)": {
+                    "summary": "PayShap ID (ZAR)",
+                    "value": {
+                      "success": true,
+                      "message": "Account resolve successful",
+                      "data": {
+                        "accountNumber": "0713058274@nedbank",
+                        "accountName": "Khanya Fresh Produce",
+                        "bankCode": "PAYSHAP_ID"
+                      }
                     }
                   }
                 },
@@ -3017,6 +3038,14 @@
                 "examples": {
                   "Result": {
                     "value": "{\n    \"success\": false,\n    \"error\": \"Account could not be resolved. Please check your selection and try again\",\n    \"errorType\": \"UNPROCESSABLE_ENTITY\"\n}"
+                  },
+                  "PayShap ID not validated": {
+                    "summary": "PayShap ID not validated",
+                    "value": {
+                      "success": false,
+                      "error": "unable to validate payshapId: 0713058274",
+                      "errorType": "UNPROCESSABLE_ENTITY"
+                    }
                   }
                 },
                 "schema": {
