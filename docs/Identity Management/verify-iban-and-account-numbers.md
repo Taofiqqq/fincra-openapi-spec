@@ -44,7 +44,6 @@ curl --location 'https://api.fincra.com/core/accounts/resolve' \
   ### Note
 
   - Please note that when validating an IBAN (`iban`) or NUBAN (`nuban`) there should be no spaces between the values, as this would return an error response.
-  - For `ZAR` bank account verification using PayShap, send the full PayShap ID (including everything after the `@`) as the `accountNumber`, and use `PAYSHAP_ID` as the `bankCode`.
 </Callout>
 
 Below are the payload structures for each account type. It denotes the fields to be sent to the [verify account endpoint](/reference/verify-account-number).
@@ -111,6 +110,23 @@ If the API call is successful, Fincra returns the following response:
     }
 }
 ```
+
+#### Verifying a PayShap ID (ZAR)
+
+PayShap is a real time payment scheme in South Africa. A PayShap ID is an alias for a bank account, so you can verify a customer without their account number. For ZAR, PayShap is currently the only supported verification method.
+
+You do not need a separate integration. Send the same bank account request with these values:
+
+| Field           | Value                                                                                                                |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------- |
+| `type`          | `bank_account`                                                                                                       |
+| `currency`      | `ZAR`                                                                                                                |
+| `bankCode`      | `PAYSHAP_ID`. Required. It is returned in the South Africa bank list from the get banks endpoint.                    |
+| `accountNumber` | The full PayShap ID in the format `number@bank`, for example `0713058274@nedbank`. There is no digit or length rule. |
+
+If the part after the `@` is missing, the request fails with a `422` and `errorType: UNPROCESSABLE_ENTITY`.
+
+The same values apply when you pay out to a PayShap ID.
 
 ### Mobile Money Wallet Verification
 
