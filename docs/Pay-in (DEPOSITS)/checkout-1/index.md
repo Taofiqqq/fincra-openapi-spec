@@ -31,5 +31,5 @@ Through our check-out API, you can receive payments by
 
 * Card
 * Bank transfers
-* PayAttitude
+* PaywithOpay
 * Mobile Money
