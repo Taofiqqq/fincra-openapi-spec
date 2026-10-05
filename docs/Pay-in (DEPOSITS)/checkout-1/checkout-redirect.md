@@ -16,17 +16,16 @@ The Checkout API allows you to safely and securely receive payments from your cu
 
 Our checkout solution offers a gateway to various payment methods. Some of the supported methods include:
 
-1. Card 
+1. Card
 2. Bank Transfer
 3. Mobile money
-4. USSD via PayAttitude
 
-| Method        | API variable   |
-| :------------ | :------------- |
-| Card          | card           |
-| Bank Transfer | bank\_transfer |
-| Mobile money  | mobile\_money  |
-| PayAttitude   | PayAttitude    |
+| Method        | API variable  |
+| :------------ | :------------ |
+| Card          | card          |
+| Bank Transfer | bank_transfer |
+| Mobile money  | mobile_money  |
+| PayWithOpay   | opay          |
 
 # Supported currencies for checkout
 
@@ -51,285 +50,22 @@ To initialise the transaction, you'll need to pass information such as email, fi
 
 Please find below the request parameters for the endpoint.
 
-<Table align={["left","left","left","left"]}>
-  <thead>
-    <tr>
-      <th>
-        Field
-      </th>
-
-      <th>
-        Data type
-      </th>
-
-      <th>
-        Required
-      </th>
-
-      <th>
-        Description
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>
-        amount
-      </td>
-
-      <td>
-        integer
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        The amount to charge the customer.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        redirectUrl
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        The URL to redirect your customer when the transaction is complete.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        currency
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        The currency in which the customer should be charged. Options are [NGN, GHS, KES, UGX, ZAR, ZMW, XAF,XOF] 
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        reference
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        Your transaction reference. Must be unique for every transaction.\
-        If you do not provide one, a unique transaction reference would be generated for the transaction.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        feeBearer
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business`
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        metadata
-      </td>
-
-      <td>
-        object
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        Include any information you'd want to send to Fincra in this object.\
-        e.g metadata: \{userId: "my\_user\_id" }
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        customer
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        JSON object containing customer details
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        customer.name
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        The name of the customer
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        customer.email
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Required
-      </td>
-
-      <td>
-        The email of the customer
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        customer.phoneNumber
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        The mobile number of the customer
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        successMessage
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        The message you want customers to see after successful payment.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        settlementDestination
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now\
-        Value for settlementDestination would be **wallet** 
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        paymentMethods
-      </td>
-
-      <td>
-        array
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        The payment method you want to make available to your customers\
-        E.g, Bank (bank\_transfer), Card (card), Mobile Money (mobile\_money), Pay Attitude (payAttitude).
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        defaultPaymentMethod
-      </td>
-
-      <td>
-        string
-      </td>
-
-      <td>
-        Optional
-      </td>
-
-      <td>
-        The Payment method that should be active by default on the checkout page E.g bank\_transfer or card
-      </td>
-    </tr>
-  </tbody>
-</Table>
+| Field                 | Data type | Required | Description                                                                                                                                                                                                            |
+| :-------------------- | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| amount                | integer   | Required | The amount to charge the customer.                                                                                                                                                                                     |
+| redirectUrl           | string    | Optional | The URL to redirect your customer when the transaction is complete.                                                                                                                                                    |
+| currency              | string    | Required | The currency in which the customer should be charged. Options are \[NGN, GHS, KES, UGX, ZAR, ZMW, XAF,XOF]                                                                                                             |
+| reference             | string    | Optional | Your transaction reference. Must be unique for every transaction.<br />If you do not provide one, a unique transaction reference would be generated for the transaction.                                               |
+| feeBearer             | string    | Required | This will set who bears the fees of the transaction. If it is set to `business`, the merchant will bear the fee, while if it is set to `customer`, the customer will bear the fee. By default, it is set to `business` |
+| metadata              | object    | Optional | Include any information you'd want to send to Fincra in this object.<br />e.g metadata: \{userId: "my_user_id" \}                                                                                                      |
+| customer              | string    | Required | JSON object containing customer details                                                                                                                                                                                |
+| customer.name         | string    | Required | The name of the customer                                                                                                                                                                                               |
+| customer.email        | string    | Required | The email of the customer                                                                                                                                                                                              |
+| customer.phoneNumber  | string    | Optional | The mobile number of the customer                                                                                                                                                                                      |
+| successMessage        | string    | Optional | The message you want customers to see after successful payment.                                                                                                                                                        |
+| settlementDestination | string    | Optional | Settlement destination is the location where you want your payments to be settled. Settlements are only to wallets (balances) for now<br />Value for settlementDestination would be **wallet**                         |
+| paymentMethods        | array     | Optional | The payment method you want to make available to your customers<br />E.g, Bank (bank_transfer), Card (card), Mobile Money (mobile_money), Pay Attitude (payAttitude).                                                  |
+| defaultPaymentMethod  | string    | Optional | The Payment method that should be active by default on the checkout page E.g bank_transfer or card                                                                                                                     |
 
 ## 2 - Initiate Payment
 
@@ -358,7 +94,7 @@ Here's a sample payload to initialise a transaction:
         "name":"Customer Name",
         "email":"customer@theiremail.com"
     },
-  	"paymentMethods": ["bank_transfer", "card", "payAttitude"],
+  	"paymentMethods": ["bank_transfer", "card", "opay"],
     "feeBearer":"customer",
     "reference":"your-internal-reference-id",
     "redirectUrl":"https://yoursite.com/redirect-destination"
@@ -508,13 +244,13 @@ If the API call is successful, Fincra returns the following response:
 
 After you get the above response, you should then redirect your customer to the checkout URL provided in the response ("link"), to enable them complete their payment. Once the payment is complete or in the event of a failure, Fincra will redirect your customer to your specified redirectUrl. The transaction reference will be appended as a query parameter to your redirectUrl as well.
 
-e.g [https://website\_redirectUrl/?reference=YOUR\_REFERENCE](https://website_redirectUrl/?reference=YOUR_REFERENCE)
+e.g [https://website_redirectUrl/?reference=YOUR_REFERENCE](https://website_redirectUrl/?reference=YOUR_REFERENCE)
 
 In a situation where no redirectUrl is passed, the customer receives visual confirmation on the completion of the payment and is NOT redirected out of the current webpage.
 
 ## 3 - Verify payment
 
-It is critical that you confirm the transaction using its reference, just because the redirectUrl was visited doesn't prove that transaction was successful. You can confirm payment by using the [verify payment endpoint](verify-checkout-status). 
+It is critical that you confirm the transaction using its reference, just because the redirectUrl was visited doesn't prove that transaction was successful. You can confirm payment by using the [verify payment endpoint](verify-checkout-status).
 
 **Note**: It is advised that you consult the Overpayments and Underpayments [doc](https://docs.fincra.com/docs/handling-underpayments-and-overpayments) to see how to treat such transactions. A sample response for an underpayment has been added. You would note the `varianceType` which marks it as an `underpayment`, and also the `amountReceived` field which tells you the true amount paid by customers in the case where `bank_transfer` is the payment method uses.
 
