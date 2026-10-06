@@ -20,3 +20,27 @@ A merchant can use PayShap to pay a person who has a registered alias. The merch
 - To make a payout, the merchant does the same. The bank code is the same. The full PayShap ID goes in `accountNumber`.
 - The merchant must send the full PayShap ID. This includes the characters after the `@`.
 - We do not restrict the format of the alias. The example below shows the usual shape.
+
+## **Resolve an account**
+
+```text Request
+POST /core/accounts/resolve
+{
+  "currency": "ZAR",
+  "bankCode": "PAYSHAP_ID",
+  "accountNumber": "0713058274@nedbank"
+}
+```
+```text Response
+{
+  "success": true,
+  "message": "Account resolve successful",
+  "data": {
+    "accountNumber": "0713058274@nedbank",
+    "accountName": "Khanya Fresh Produce",
+    "bankCode": "PAYSHAP_ID"
+  }
+}
+```
+
+In addition to the common details needed to process successful payments, the following fields are also required when sending money to a payshap Id in South Africa.
