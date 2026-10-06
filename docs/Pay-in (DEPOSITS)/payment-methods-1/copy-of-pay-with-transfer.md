@@ -20,4 +20,128 @@ An OPay payment takes four steps:
 
 <br />
 
-## Authentication<br />Every request in this guide carries three headers.
+## Authentication
+
+Every request in this guide carries three headers.
+
+| Header         | Value                                                                      |
+| -------------- | -------------------------------------------------------------------------- |
+| `x-pub-key`    | Your public key. Sandbox keys start with `pk_test_`                        |
+| `api-key`      | Your API key. Keep it on your server; never expose it in a browser or app. |
+| `Content-Type` | `application/json`                                                         |
+
+## Step 1: Create the payment
+
+Collect the customer's name, email and phone number, then create the payment.
+POST `/checkout-core/payments`
+
+| Field                   | Type   | Required | Description                                                                      |
+| ----------------------- | ------ | -------- | -------------------------------------------------------------------------------- |
+| `amount`                | number | Yes      | Amount to collect, in naira. `500` = NGN 500.                                    |
+| `currency`              | string | Yes      | Must be `NGN`.                                                                   |
+| `feeBearer`             | string | Yes      | Who pays the fee. `business` = you; `customer` = added to the customer's amount. |
+| `customer.name`         | string | Yes      | Customer's full name.                                                            |
+| `customer.email`        | string | Yes      | Customer's email address.                                                        |
+| `customer.phoneNumber`  | string | Yes      | Customer's phone number, e.g. `08030000000`.                                     |
+| `settlementDestination` | string | Yes      | Where Fincra settles the funds. `wallet` = your Fincra NGN wallet.               |
+
+```shell
+curl -X POST https://api.dev.fincra.com/checkout-core/payments \
+  -H "x-pub-key: $PUBLIC_KEY" \
+  -H "api-key: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 500,
+    "currency": "NGN",
+    "feeBearer": "business",
+    "customer": {
+      "name": "OPay Demo",
+      "email": "opay-demo@fincra.com",
+      "phoneNumber": "08030000000"
+    },
+    "settlementDestination": "wallet"
+  }'
+```
+```json Response
+{
+  "status": true,
+  "message": "Hosted link generated",
+  "data": {
+    "link": "https://checkout.dev.fincra.com/pay/fcr-p-123f5eeeef",
+    "payCode": "fcr-p-123f5eeeef"
+  }
+}
+```
+
+Store `data.payCode. `You use it to create the charge in Step 2 and to match the payment later. The hosted data.link opens Fincra's checkout page. For a direct OPay integration, skip it and go to Step 2.
+
+## Step 2: Create the OPay charge
+
+Create a charge on the payment with `type: "opay"` The `type` field is what selects Pay with OPay.<br />POST `/checkout-core/payments/`{payCode}`/charge`
+
+| Field            | Type   | Required | Description                |
+| ---------------- | ------ | -------- | -------------------------- |
+| `payCode `(path) | string | Yes      | The `payCode` from Step 1. |
+| `type`           | string | Yes      | Must be opay.              |
+
+```shell
+curl -X POST https://api.dev.fincra.com/checkout-core/payments/fcr-p-123f5eeeef/charge \
+  -H "x-pub-key: $PUBLIC_KEY" \
+  -H "api-key: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"type": "opay"}'
+```
+```json Response
+{
+  "status": true,
+  "message": "Charge created",
+  "data": {
+    "id": 67588,
+    "authorization": {
+      "mode": "REDIRECT",
+      "withCallback": true,
+      "redirect": "https://sandboxcashier.opaycheckout.com/apiCashier/redirect/payment/cashier-list?orderToken=TOKEN.852760f84cb2462e973fd7eadc3542b0"
+    },
+    "auth_model": "REDIRECT",
+    "amount": 500,
+    "amountExpected": 500,
+    "amountReceived": 0,
+    "varianceType": null,
+    "currency": "NGN",
+    "fee": 20,
+    "vat": 1.5,
+    "electronicMoneyTransferLevy": 0,
+    "message": "Awaiting payment approval in the OPay app",
+    "actionRequired": null,
+    "status": "pending",
+    "reference": "fcr-p-123f5eeeef",
+    "description": "checkout",
+    "type": "opay",
+    "customer": {
+      "name": "OPay Demo",
+      "email": "opay-demo@fincra.com",
+      "phoneNumber": "08030000000"
+    },
+    "metadata": {}
+  }
+}
+```
+
+A new charge always returns status: "pending" and amountReceived: 0. The customer has not paid yet.
+
+## Step 3: Redirect the customer to OPay
+
+Send the customer to `data.authorization.redirect `from the charge response. `authorization.mode` is `REDIRECT` for every OPay charge.<br /><br />On the OPay page the customer:
+
+1. Logs in to their OPay account.
+2. Picks the OPay balance to pay from.
+3. Approves the debit.<br />`authorization.withCallback: true` means Fincra returns the customer to your site after OPay finishes. Do not treat that return as proof of payment; verify first (Step 4).
+
+## Step 4: Verify the transaction
+
+Confirm the final status before you give value. You can do this two ways:
+
+- Listen for the webhook Fincra sends when the charge reaches a final status.
+- Query the payment status with its `reference` (the payCode).
+
+Whichever you use, check all four before you give value:
