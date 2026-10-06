@@ -45,19 +45,19 @@ If `opay` is missing, requests return `403` with Access Denied. You're not autho
 Collect the customer's name, email and phone number, then create the payment.
 POST `/checkout-core/payments`
 
-| Field                   | Type   | Required | Description                                                                      |
-| ----------------------- | ------ | -------- | -------------------------------------------------------------------------------- |
-| `amount`                | number | Yes      | Amount to collect, in naira. `500` = NGN 500.                                    |
-| `currency`              | string | Yes      | Must be `NGN`.                                                                   |
-| `feeBearer`             | string | Yes      | Who pays the fee. `business` = you; `customer` = added to the customer's amount. |
-| `customer.name`         | string | Yes      | Customer's full name.                                                            |
-| `customer.email`        | string | Yes      | Customer's email address.                                                        |
-| `customer.phoneNumber`  | string | Yes      | Customer's phone number, e.g. `08030000000`.                                     |
-| `redirectUrl`           | string | No       | Where OPay returns the customer after payment. Must be a valid URL.              |
-| `settlementDestination` | string | Yes      | Where Fincra settles the funds. `wallet` = your Fincra NGN wallet.               |
-| `settlementTime`        | string | No       | When Fincra settles: `instant`, `next_day`, `t+3` or `end_of_week`.              |
-| `reference`             | string | No       | Your own reference for the payment.                                              |
-| `metadata`              | object | No       | Any data you want returned with the payment.                                     |
+| Field                   | Type   | Required | Description                                                                                                                                        |
+| ----------------------- | ------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `amount`                | number | Yes      | Amount to collect, in naira. `500` = NGN 500.                                                                                                      |
+| `currency`              | string | Yes      | Must be `NGN`.                                                                                                                                     |
+| `feeBearer`             | string | Yes      | Who pays the fee. `business` = you; `customer` = added to the customer's amount.                                                                   |
+| `customer.name`         | string | Yes      | Customer's full name.                                                                                                                              |
+| `customer.email`        | string | Yes      | Customer's email address.                                                                                                                          |
+| `customer.phoneNumber`  | string | Yes      | Customer's phone number, e.g. `08030000000`.                                                                                                       |
+| `redirectUrl`           | string | No       | Where OPay returns the customer after payment. Must be a valid URL.                                                                                |
+| `settlementDestination` | string | Yes      | Where Fincra settles the funds. `wallet` = your Fincra NGN wallet.                                                                                 |
+| `settlementTime`        | string | No       | When Fincra settles: `instant`, `next_day`, `t+3` or `end_of_week`.                                                                                |
+| `reference`             | string | No       | Your own reference. Recommended: it comes back as reference in the charge response and webhook. If you omit it, reference defaults to the payCode. |
+| `metadata`              | object | No       | Any data you want returned with the payment.                                                                                                       |
 
 ```shell
 curl -X POST https://api.dev.fincra.com/checkout-core/payments \
@@ -67,6 +67,7 @@ curl -X POST https://api.dev.fincra.com/checkout-core/payments \
   -d '{
     "amount": 500,
     "currency": "NGN",
+    "reference": "181fb6a1-2049-4052-893d-16dc2aa8c954",
     "feeBearer": "business",
     "customer": {
       "name": "OPay Demo",
@@ -143,6 +144,8 @@ curl -X POST https://api.dev.fincra.com/checkout-core/payments/fcr-p-123f5eeeef/
 ```
 
 A new charge always returns status: "pending" and amountReceived: 0. The customer has not paid yet.
+
+Store `data.reference` and `data.id.` Both stay the same in the status endpoint and the webhook, so either one ties the outcome back to this payment. This sample and the status-endpoint sample were made without a reference, so they show the payCode instead.
 
 ## Step 3: Redirect the customer to OPay
 
