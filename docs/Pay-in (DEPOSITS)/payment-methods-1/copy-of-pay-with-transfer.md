@@ -145,3 +145,36 @@ Confirm the final status before you give value. You can do this two ways:
 - Query the payment status with its `reference` (the payCode).
 
 Whichever you use, check all four before you give value:
+
+- `status` is `successful`
+- `reference` matches the `payCode` you stored in Step 1
+- `amountReceived` equals `amountExpected`
+- currency is `NGN`
+
+If `amountReceived` and `amountExpected` differ, `varianceType` shows the direction of the difference.
+
+## Charge response fields
+
+| Field                       | Type           | Description                                                               |
+| --------------------------- | -------------- | ------------------------------------------------------------------------- |
+| id                          | number         | Fincra's ID for the charge.                                               |
+| authorization.mode          | string         | How the customer authorises. Always REDIRECT for OPay.                    |
+| authorization.withCallback  | boolean        | true when the customer returns to your site after OPay.                   |
+| authorization.redirect      | string         | OPay link to send the customer to.                                        |
+| auth_model                  | string         | Same as authorization.mode.                                               |
+| amount                      | number         | Payment amount, in naira.                                                 |
+| amountExpected              | number         | Amount Fincra expects to collect, in naira.                               |
+| amountReceived              | number         | Amount collected so far, in naira. 0 until the customer pays.             |
+| varianceType                | string or null | Direction of any gap between expected and received. null when they match. |
+| currency                    | string         | NGN.                                                                      |
+| fee                         | number         | Fincra fee, in naira.                                                     |
+| vat                         | number         | VAT on the fee, in naira.                                                 |
+| electronicMoneyTransferLevy | number         | Electronic Money Transfer Levy, in naira.                                 |
+| message                     | string         | Human-readable status, e.g. Awaiting payment approval in the OPay app.    |
+| actionRequired              | string or null | Any action the customer must still take.                                  |
+| status                      | string         | Charge status. pending on creation.                                       |
+| reference                   | string         | The payCode from Step 1.                                                  |
+| description                 | string         | Payment description.                                                      |
+| type                        | string         | Payment method. opay.                                                     |
+| customer                    | object         | Customer name, email and phone number.                                    |
+| metadata                    | object         | Metadata attached to the payment.                                         |
