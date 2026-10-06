@@ -55,4 +55,27 @@ In addition to the common details needed to process successful payments, the fol
 | beneficiary.type              | Yes       | String | The type of beneficiary, see [beneficiary types](/docs/introduction-10#beneficiary-types) for more details                                                                                                    |
 | beneficiary.country           | No        | String | The country in which the bank of the beneficiary is located. This field should be according to  [ISO 3166-1 alpha-2 codes](https://www.nationsonline.org/oneworld/country_code_list.htm) standards e.g NG, GB |
 | beneficiary.email             | No        | String | The beneficiary's email                                                                                                                                                                                       |
-| beneficiary.bankCode          | Yes       | String | For PayShap the value is PAYSHAP_ID                                                                                                                                                                           |
+| beneficiary.bankCode          | Yes       | String | For PayShap the value is `PAYSHAP_ID`                                                                                                                                                                         |
+
+The payload should look like this:
+
+```json ZAR
+{
+  "sourceCurrency": "ZAR",
+  "destinationCurrency": "ZAR",
+  "amount": 10,
+  "business": "{{Your Business ID}}",
+  "description": "Payment",
+  "customerReference": "54c80ef8928989",
+  "beneficiary": {
+    "firstName": "Customer",
+    "lastName": "Name",
+    "type": "individual",
+    "accountHolderName": "Customer Name",
+    "accountNumber": "0713058274@nedbank",
+    "bankCode": "PAYSHAP_ID",
+    "country": "ZA",
+  },
+  "paymentDestination": "bank_account"
+}
+```
