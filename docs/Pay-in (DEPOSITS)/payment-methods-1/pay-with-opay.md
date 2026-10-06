@@ -193,3 +193,122 @@ If `amountReceived` and `amountExpected` differ, `varianceType` shows the direct
 | type                        | string         | Payment method. opay.                                                     |
 | customer                    | object         | Customer name, email and phone number.                                    |
 | metadata                    | object         | Metadata attached to the payment.                                         |
+
+## Step 4: Verify the transaction
+
+Confirm the final status before you give value. Use the webhook, the status endpoint, or both.
+
+### **Option A: Webhook**
+
+Fincra sends a webhook when the `charge` reaches a final outcome. The event name is `charge`. plus the outcome:
+
+| Event               | Meaning                      |
+| ------------------- | ---------------------------- |
+| `charge.successful` | The customer paid.           |
+| `charge.failed`     | The charge did not complete. |
+
+The envelope is {event, type, data}:&#x20;
+
+```json
+{
+  "event": "charge.successful",
+  "type": "charge",
+  "data": {
+    "chargeReference": "fcr-bt-...",
+    "amountToSettle": 480
+  }
+}
+```
+
+`data` also carries the charge fields listed under Charge response fields. Fincra sends webhooks to the callback URL in your business settings, and only when webhooks are enabled there.
+
+### Option B: Status endpoint
+
+GET `/checkout-core/payments/`{payCode}`/charges`
+
+```json
+{
+  "status": true,
+  "message": "Charges fetched",
+  "data": [{
+    "id": 67588,
+    "type": "opay",
+    "status": "failed",
+    "amount": 500,
+    "amountExpected": 500,
+    "amountReceived": 500,
+    "currency": "NGN",
+    "fee": 20,
+    "vat": 1.5,
+    "message": "Order closed by merchant",
+    "reference": "fcr-p-123f5eeeef",
+    "authorization": {
+      "mode": "REDIRECT",
+      "withCallback": true,
+      "redirect": "https://sandboxcashier.opaycheckout.com/..."
+    },
+    "customer": {},
+    "metadata": {}
+  }]
+}
+```
+
+Use the plural `/charges `route. The singular `GET /checkout-core/payments/`{payCode}`/charge `only returns a charge still in progress. Once a charge fails or expires it returns `No charge found for this payment `with `data: null.` Use the singular route to resume a live charge, never to confirm an outcome.
+`GET /checkout-core/payments/`{payCode} also works and returns the payment-level status and `amountReceived.`
+
+### Status values
+
+| Status                                                | Final? | Meaning                                                 |
+| ----------------------------------------------------- | ------ | ------------------------------------------------------- |
+| `success`                                             | Yes    | Paid. Give value after the checks below.                |
+| `failed`                                              | Yes    | Did not complete.                                       |
+| `expired`                                             | Yes    | The customer did not pay in time.                       |
+| `rejected`                                            | Yes    | Declined.                                               |
+| `initiated`, `pending`, `processing`                  | No     | Still in progress. Wait for the webhook or check again. |
+| `reversal-initiated`,` awaiting-reversal`, `reversed` | —      | Reversal states after a payment.                        |
+| `awaiting-capture`                                    | No     | Authorised, not yet captured.                           |
+
+The charge `status` on success is `success`, but the webhook event is `charge.successful. `Check for the right word in each place.<br /><br />An expired OPay charge shows the charge as `failed` with message `Order closed by merchant,` and the payment as `expired`.
+
+**Checks before you give value**<br />**&#xA;**• `status` is `success`
+• `reference` matches `the payCode `you stored in Step 1
+• `amountReceived `equals `amountExpected`
+• currency is `NGN`<br />
+If `amountReceived` and `amountExpected` differ, `varianceType` shows the direction of the difference.
+
+### Charge response fields
+
+| Field                       | Type           | Description                                                               |
+| --------------------------- | -------------- | ------------------------------------------------------------------------- |
+| id                          | number         | Fincra's ID for the charge.                                               |
+| authorization.mode          | string         | How the customer authorises. Always REDIRECT for OPay.                    |
+| authorization.withCallback  | boolean        | true when the customer returns to your site after OPay.                   |
+| authorization.redirect      | string         | OPay link to send the customer to.                                        |
+| auth_model                  | string         | Same as authorization.mode.                                               |
+| amount                      | number         | Payment amount, in naira.                                                 |
+| amountExpected              | number         | Amount Fincra expects to collect, in naira.                               |
+| amountReceived              | number         | Amount collected so far, in naira. 0 until the customer pays.             |
+| varianceType                | string or null | Direction of any gap between expected and received. null when they match. |
+| currency                    | string         | NGN.                                                                      |
+| fee                         | number         | Fincra fee, in naira.                                                     |
+| vat                         | number         | VAT on the fee, in naira.                                                 |
+| electronicMoneyTransferLevy | number         | Electronic Money Transfer Levy, in naira.                                 |
+| message                     | string         | Human-readable status, e.g. Awaiting payment approval in the OPay app.    |
+| actionRequired              | string or null | Any action the customer must still take.                                  |
+| status                      | string         | Charge status. pending on creation; see Status values in Step 4.          |
+| reference                   | string         | The payCode from Step 1.                                                  |
+| description                 | string         | Payment description.                                                      |
+| type                        | string         | Payment method. opay.                                                     |
+| customer                    | object         | Customer name, email and phone number.                                    |
+| metadata                    | object         | Metadata attached to the payment.                                         |
+
+## Errors
+
+| HTTP | Cause                            | Response                                                                                                                                                    |
+| ---- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 400  | amount missing or below 1        | \["Amount cannot be less than 1", "amount should not be empty"]                                                                                             |
+| 400  | customer.name is a single word   | Customer's full name is required                                                                                                                            |
+| 400  | feeBearer not allowed            | \["feeBearer must be one of the following values: customer, business"]                                                                                      |
+| 400  | Charge type not allowed          | \["type must be one of the following values: card, bank_transfer, payattitude, mobile_money, apple_pay, direct_debit, eft, palmpay, opay, wallet_transfer"] |
+| 403  | OPay not enabled on your account | {"message": "Access Denied. You're not authorized to access <Product> product"}                                                                             |
+| 404  | payCode not found                | {"message": "Payment not found", "error": "Not Found"}                                                                                                      |
