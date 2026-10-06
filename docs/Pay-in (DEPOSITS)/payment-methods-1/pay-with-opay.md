@@ -249,6 +249,15 @@ The envelope is {event, type, data}:&#x20;
 
 `data` also carries the charge fields listed under Charge response fields. Fincra sends webhooks to the callback URL in your business settings, and only when webhooks are enabled there.
 
+| Field             | What to know                                                                                                                  |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `chargeReference` | Identifies the charge. Pay with OPay charges start with fcr-op-.                                                              |
+| `reference`       | A separate identifier. Do not use it in place of chargeReference.                                                             |
+| `status`          | success on a paid charge, while the event name is charge.successful.                                                          |
+| `amountToSettle`  | What Fincra settles to you, in naira: amount minus fee minus vat when feeBearer is business. Here 500 − 20 − 1.5 = NGN 478.5. |
+
+Fincra sends webhooks to the callback URL in your business settings, and only when webhooks are enabled there.
+
 ### Option B: Status endpoint
 
 GET `/checkout-core/payments/`{payCode}`/charges`
