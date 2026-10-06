@@ -1,7 +1,7 @@
 ---
 title: Pay With Opay
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
