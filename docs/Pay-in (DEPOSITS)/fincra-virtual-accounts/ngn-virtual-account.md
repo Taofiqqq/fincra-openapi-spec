@@ -36,7 +36,7 @@ Listed below are the banks that are supported in the creation of NGN permanent v
 | 6       | Sterling Bank         | sterling   | yes         |
 | 7       | Moniepoint MFB        | moniepoint | yes         |
 | 8       | United Bank of Africa | uba        | yes         |
-| 9       | Opay                  | opay       | coming soon |
+| 9       | Opay                  | opay       | yes         |
 
 ## API Guide
 
