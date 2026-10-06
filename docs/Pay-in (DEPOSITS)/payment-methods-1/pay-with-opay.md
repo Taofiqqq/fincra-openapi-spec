@@ -5,7 +5,8 @@ hidden: false
 metadata:
   robots: index
 ---
-Pay with OPay lets your customers pay you straight from their OPay wallet. OPay is a Nigerian digital wallet with a large retail user base.<br /><br />The payment is redirect-based. You create the payment on Fincra, Fincra returns an OPay link, and your customer approves the debit inside OPay. OPay handles the login and security checks.<br /><br />**Availability**: NGN only.<br />**Environments**: Sandbox base URL is [https://api.dev.fincra.com](https://api.dev.fincra.com). <br />Sandbox redirects go to OPay's sandbox cashier at sandboxcashier.opaycheckout.com.
+Pay with OPay lets your customers pay you straight from their OPay wallet. OPay is a Nigerian digital wallet with a large retail user base.<br /><br />The payment is redirect-based. You create the payment on Fincra, Fincra returns an OPay link, and your customer approves the debit inside OPay. OPay handles the login and security checks.<br /><br />**Availability**: NGN only.<br /><br />**Environments**: Sandbox base URL is [https://api.dev.fincra.com](https://api.dev.fincra.com). Sandbox redirects go to OPay's sandbox cashier at sandboxcashier.opaycheckout.com.<br />
+**Hosted checkout pages:** sandbox [https://sandbox-checkout.fincra.com](https://sandbox-checkout.fincra.com), production [https://checkout.fincra.com](https://checkout.fincra.com).
 
 ## How the payment works
 
@@ -143,9 +144,9 @@ curl -X POST https://api.dev.fincra.com/checkout-core/payments/fcr-p-123f5eeeef/
 }
 ```
 
-A new charge always returns status: "pending" and amountReceived: 0. The customer has not paid yet.
+A new charge always returns status: "`pending`" and `amountReceived`: 0. The customer has not paid yet.
 
-Store `data.reference` and `data.id.` Both stay the same in the status endpoint and the webhook, so either one ties the outcome back to this payment. This sample and the status-endpoint sample were made without a reference, so they show the payCode instead.
+Store `data.reference` and `data.id.` Both stay the same in the status endpoint and the webhook, so either one ties the outcome back to this payment. This sample and the status-endpoint sample were made without a `reference`, so they show the payCode instead.
 
 ## Step 3: Redirect the customer to OPay
 
@@ -252,12 +253,13 @@ The envelope is {event, type, data}:&#x20;
 
 `data` also carries the charge fields listed under Charge response fields. Fincra sends webhooks to the callback URL in your business settings, and only when webhooks are enabled there.
 
-| Field             | What to know                                                                                                                  |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `chargeReference` | Identifies the charge. Pay with OPay charges start with fcr-op-.                                                              |
-| `reference`       | A separate identifier. Do not use it in place of chargeReference.                                                             |
-| `status`          | success on a paid charge, while the event name is charge.successful.                                                          |
-| `amountToSettle`  | What Fincra settles to you, in naira: amount minus fee minus vat when feeBearer is business. Here 500 − 20 − 1.5 = NGN 478.5. |
+| Field             | What to know                                                                                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `chargeReference` | Fincra's internal charge reference. Pay with OPay charges start with fcr-op-. Quote it in support tickets; do not match on it, because Step 2 does not return it. |
+| `reference`       | A separate identifier. Do not use it in place of chargeReference.                                                                                                 |
+| `id`              | Fincra's charge ID, the same as `data.id` in Step 2.                                                                                                              |
+| `status`          | success on a paid charge, while the event name is charge.successful.                                                                                              |
+| `amountToSettle`  | What Fincra settles to you, in naira: amount minus fee minus vat when feeBearer is business. Here 500 − 20 − 1.5 = NGN 478.5.                                     |
 
 Fincra sends webhooks to the callback URL in your business settings, and only when webhooks are enabled there.
 
