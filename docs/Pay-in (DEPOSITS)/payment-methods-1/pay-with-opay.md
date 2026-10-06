@@ -214,8 +214,35 @@ The envelope is {event, type, data}:&#x20;
   "event": "charge.successful",
   "type": "charge",
   "data": {
-    "chargeReference": "fcr-bt-...",
-    "amountToSettle": 480
+    "id": 67578,
+    "chargeReference": "fcr-op-567f85d07ec9093853637",
+    "reference": "181fb6a1-2049-4052-893d-16dc2aa8c954",
+    "status": "success",
+    "type": "opay",
+    "message": "Payment confirmed by OPay",
+    "currency": "NGN",
+    "amount": 500,
+    "amountExpected": 500,
+    "amountReceived": 500,
+    "amountToSettle": 478.5,
+    "fee": 20,
+    "vat": 1.5,
+    "electronicMoneyTransferLevy": 0,
+    "varianceType": null,
+    "actionRequired": null,
+    "auth_model": "REDIRECT",
+    "authorization": {
+      "mode": "REDIRECT",
+      "redirect": "https://sandboxcashier.opaycheckout.com/apiCashier/redirect/payment/cashier-list?orderToken=TOKEN.f7b58976d24849ee8e5d5075940bc369",
+      "withCallback": true
+    },
+    "customer": {
+      "name": "QA User",
+      "email": "qa@fincra.com",
+      "phoneNumber": "08012345678"
+    },
+    "description": "",
+    "metadata": {}
   }
 }
 ```
