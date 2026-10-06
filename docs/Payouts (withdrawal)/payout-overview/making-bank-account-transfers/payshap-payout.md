@@ -23,7 +23,7 @@ A merchant can use PayShap to pay a person who has a registered alias. The merch
 
 ## **Resolve an account**
 
-```text Request
+```json Request
 POST /core/accounts/resolve
 {
   "currency": "ZAR",
@@ -31,7 +31,7 @@ POST /core/accounts/resolve
   "accountNumber": "0713058274@nedbank"
 }
 ```
-```text Response
+```json Response
 {
   "success": true,
   "message": "Account resolve successful",
