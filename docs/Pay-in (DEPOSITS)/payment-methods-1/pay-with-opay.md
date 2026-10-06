@@ -30,6 +30,16 @@ Every request in this guide carries three headers.
 | `api-key`      | Your API key. Keep it on your server; never expose it in a browser or app. |
 | `Content-Type` | `application/json`                                                         |
 
+## Check OPay is enabled
+
+OPay must be enabled on your account before you can charge with it. Check before you create a payment:<br />GET `/checkout-core/payments/available-methods?currency=NGN`
+
+```json
+["card", "bank_transfer", "palmpay", "opay"]
+```
+
+If `opay` is missing, requests return `403` with Access Denied. You're not authorized to access <Product> product. Ask your Fincra account manager to enable OPay.
+
 ## Step 1: Create the payment
 
 Collect the customer's name, email and phone number, then create the payment.
@@ -43,7 +53,11 @@ POST `/checkout-core/payments`
 | `customer.name`         | string | Yes      | Customer's full name.                                                            |
 | `customer.email`        | string | Yes      | Customer's email address.                                                        |
 | `customer.phoneNumber`  | string | Yes      | Customer's phone number, e.g. `08030000000`.                                     |
+| `redirectUrl`           | string | No       | Where OPay returns the customer after payment. Must be a valid URL.              |
 | `settlementDestination` | string | Yes      | Where Fincra settles the funds. `wallet` = your Fincra NGN wallet.               |
+| `settlementTime`        | string | No       | When Fincra settles: `instant`, `next_day`, `t+3` or `end_of_week`.              |
+| `reference`             | string | No       | Your own reference for the payment.                                              |
+| `metadata`              | object | No       | Any data you want returned with the payment.                                     |
 
 ```shell
 curl -X POST https://api.dev.fincra.com/checkout-core/payments \
@@ -59,6 +73,7 @@ curl -X POST https://api.dev.fincra.com/checkout-core/payments \
       "email": "opay-demo@fincra.com",
       "phoneNumber": "08030000000"
     },
+    "redirectUrl": "https://merchant.example.com/payment/complete",
     "settlementDestination": "wallet"
   }'
 ```
@@ -135,9 +150,9 @@ Send the customer to `data.authorization.redirect `from the charge response. `au
 
 1. Logs in to their OPay account.
 2. Picks the OPay balance to pay from.
-3. Approves the debit.<br />`authorization.withCallback: true` means Fincra returns the customer to your site after OPay finishes. Do not treat that return as proof of payment; verify first (Step 4).
+3. Approves the debit.
 
-## Step 4: Verify the transaction
+`authorization.withCallback: true` means OPay sends the customer back after they finish on the cashier page, instead of leaving them on OPay. They land on the redirectUrl you set in Step 1; you cannot set it on the charge call. A return to your site is not proof of payment, so verify first (Step 4).Step 4: Verify the transaction
 
 Confirm the final status before you give value. You can do this two ways:
 
