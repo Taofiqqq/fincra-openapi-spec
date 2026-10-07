@@ -10,7 +10,7 @@ This page covers reading transactions, grouping cards under a business program, 
 
 ## Transactions
 
-Every funding, spend and reversal on a card is a transaction. A transaction carries a `type` (`FUNDING`, `JIT_AUTHORIZATION`, `WITHDRAWAL` or `REVERSAL`), a `status` (`SUCCESSFUL`, `PENDING` or `FAILED`), a `direction` (`credit` or `debit`), the `settlementAmount` and `feeAmount`, and, for a spend, the `merchant` with its category and Merchant Category Code.
+Every funding, spend, and reversal on a card is a transaction. A transaction carries a `type` (`FUNDING`, `JIT_AUTHORIZATION`, `WITHDRAWAL` or `REVERSAL`), a `status` (`SUCCESSFUL`, `PENDING` or `FAILED`), a `direction` (`credit` or `debit`), the `settlementAmount` and `feeAmount`, and, for a spend, the `merchant` with its category and Merchant Category Code.
 
 `GET /cards/{id}/transactions` lists one card's transactions. `GET /cards/{id}/transactions/{transactionId}` retrieves one. Filter by `type` and `status`; page with `limit` and `cursor`.
 
@@ -52,14 +52,18 @@ curl "https://sandboxapi.fincra.com/issuing/transactions?limit=10&category=Softw
 
 ## Business programs
 
-A business program groups a set of cards and sets how they are funded and authorised. You need one only for the two models below. A plain card does not need a program. Pass a program's id as `businessProgramId` when you [create a card](doc:card-issuing-cards).
+A business program groups a set of cards and sets how they are funded and authorised. You create one and pass its id as `businessProgramId` when you [create a card](doc:card-issuing-cards).
 
-| Type               | What it is                                                                       |
-| :----------------- | :------------------------------------------------------------------------------- |
-| `business_spend`   | Cards for your own business spend, drawn against one funding source.             |
-| `customer_issuing` | Cards you issue to your own customers, where you decide each spend in real time. |
+| Type               | What it is                             |
+| :----------------- | :------------------------------------- |
+| `business_spend`   | Cards for your own business spend.     |
+| `customer_issuing` | Cards you issue to your own customers. |
 
-For a `customer_issuing` program, Fincra asks your server to approve or decline each spend as it happens. This is just-in-time authorisation. You set an `authorizationUrl` for Fincra to call and an `authorizationTimeoutMs`. If your server does not answer in time, Fincra applies the `fallbackDecision`.
+### Just-in-time authorisation, for debit cards only
+
+A [prepaid card](doc:card-issuing-cards) needs no authorisation step: the cardholder spends the balance you loaded. Skip this section if you issue prepaid cards.
+
+A debit card draws on your pool of funds, so Fincra asks your server to approve each spend as it happens. Set an `authorizationUrl` on the program for Fincra to call, and an `authorizationTimeoutMs`. For each spend, Fincra sends a request to that URL and your server answers approve or decline within the window, about ten seconds. This is your code answering, not a person. If your server does not answer in time, Fincra applies the `fallbackDecision`.
 
 `POST /business_programs` creates one. `GET /business_programs/{id}` retrieves one, `GET /business_programs` lists them (filter by `status` and `type`), and `PATCH /business_programs/{id}` updates the name, the authorisation URL, the timeout, the funding source or the status.
 
@@ -106,7 +110,7 @@ The API uses standard HTTP status codes. A `2xx` code means the request worked. 
 | `409`        | The `reference` is already used.                                              | Retry with the same reference to stay idempotent, or use a new one. |
 | `422`        | The request failed a rule, such as a Know Your Customer or eligibility check. | Read the message and correct the data.                              |
 | `429`        | Too many requests.                                                            | Slow down and retry.                                                |
-| `500`        | Something went wrong on Fincra's side.                                        | Retry later. If it holds, contact support.                          |
+| `500`        | Something went wrong on Fincra's side.                                        | Retry later. If it persists, contact support.                       |
 
 The error body carries a message and a code.
 
@@ -118,6 +122,4 @@ The error body carries a message and a code.
 }
 ```
 
-When a cardholder is `rejected`, read its `verificationFailures` to see the exact field at fault, then call `resubmit_verification`. See [Cardholders](doc:card-issuing-cardholders).
-
-Next: [Card issuing overview](doc:card-issuing).
+When a cardholder is`rejected`, read its `verificationFailures` to see the exact field at fault, then call `resubmit_verification`. See [Cardholders](doc:card-issuing-cardholders).
