@@ -45,9 +45,10 @@ These Virtual Accounts can receive TZS payments from customers, which are automa
 
 ## 🏦 Supported Bank
 
-| Bank Name | Bank Code | Notes                       |
-| --------- | --------- | --------------------------- |
-| Ecobank   | ECOCTZTZ  | Default issuing institution |
+| Bank Name     | Bank Code | Notes |
+| ------------- | --------- | ----- |
+| Ecobank       | ECOCTZTZ  |       |
+| Mwanga Hakika | MWCBTZTZ  |       |
 
 Note: The account will automatically be issued. As additional bank options become available, the API specification will be updated.
 
