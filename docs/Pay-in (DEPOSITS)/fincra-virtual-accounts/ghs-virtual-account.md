@@ -163,36 +163,49 @@ You’ll receive a webhook event for every collection received.
 {
   "event": "collection.successful",
   "data": {
-    "business": "6***********3",
-    "virtualAccount": "6******8*****4",
+    "business": "64493f61864cdb7aab9bb457",
+    "virtualAccount": "6865acbe26869a007121d7f5",
     "virtualAccountType": "main",
-    "sessionId": "I34500",
+    "sessionId": "000004261102094006000000123456",
     "senderAccountName": "Sender Name",
-    "senderAccountNumber": "110*******63",
+    "senderAccountNumber": "1100000000063",
+    "senderBankName": null,
     "senderBankDetails": {
-      "bankName": "CAL BANK",
+      "bankName": null,
       "bankCode": null,
       "swiftCode": null,
       "bic": null
     },
+    "recipientAccountName": "Oma's Empire",
+    "recipientAccountNumber": "9980000000",
+    "recipientBankName": "UBA",
     "sourceCurrency": "GHS",
     "destinationCurrency": "GHS",
     "sourceAmount": 3000,
     "destinationAmount": 3000,
     "description": "Hello World",
-    "amountReceived": 2730,
+    "amountReceived": 2970,
     "fee": 30,
-    "customerName": "Customer Name",
+    "customerName": "Sender Name",
     "settlementDestination": "wallet",
     "status": "successful",
-    "initiatedAt": "2025-07-02T21:56:02.945Z",
-    "createdAt": "2025-07-02T21:56:02.999Z",
-    "updatedAt": "2025-07-02T21:56:02.999Z",
-    "reference": "48173-2ff9-4ref-85b4-2e5ed4429e3",
+    "initiatedAt": "2025-07-02T21:56:02.000Z",
+    "createdAt": "2025-07-02T21:56:02.000Z",
+    "updatedAt": "2025-07-02T21:56:02.000Z",
+    "reference": "48173e2f-2ff9-4a3f-85b4-2e5ed4429e3a",
     "merchantReference": "2456552"
   }
 }
 ```
+
+**Notes:**
+
+- `virtualAccount`: The ID of the receiving virtual account (the `_id` returned when you created it), not the account number.
+- `recipientAccountNumber`: The receiving virtual account number.
+- `recipientAccountName`: The receiving virtual account name.
+- `recipientBankName`: The bank that issued the receiving virtual account, for example `UBA`.
+- `senderAccountNumber`, `senderBankDetails`: Passed through as the issuing bank sends them. Values the bank does not provide are `null`.
+- `amountReceived`: `sourceAmount` minus `fee`.
 
 📖 **[How to validate webhooks →](https://docs.fincra.com/docs/validating-webhook)**
 
