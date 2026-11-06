@@ -21,6 +21,10 @@ Instead of an account number, you are issued a unique **Interac collection alias
 5. Funds are deposited automatically. No security question, no manual acceptance.
 6. Your Fincra CAD wallet is credited, a collection webhook is sent to you, and the transaction appears in your Merchant Portal and via API.
 
+### **Note:&#x20;**`The minimum supported collection amount is CAD 2.00. Transactions below this threshold may not be successfully credited.`
+
+###
+
 ## Key things to know
 
 - **Payers send CAD only.** Interac e-Transfer is a Canadian domestic rail.
